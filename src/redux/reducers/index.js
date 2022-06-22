@@ -13,6 +13,7 @@ const rootReducer = (state = initialState, action) => {
 
         case GET_PETS: {
             return {
+
                 ...state,
                 pets: action.payload
             }
@@ -25,6 +26,8 @@ const rootReducer = (state = initialState, action) => {
 
     }
 }
+
+
 
 
 
