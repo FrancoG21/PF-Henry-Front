@@ -1,10 +1,11 @@
 import React from "react";
+import { Background } from './StyledHome';
 
 export default function Home () {
 
     return(
-        <div>
+        <Background>
             SOY HOME
-        </div>
+        </Background>
     )
 }
