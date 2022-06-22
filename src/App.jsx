@@ -14,7 +14,8 @@ function App() {
   const themeMode = theme === 'light' ? 'light' : 'dark';
 
   return (
-    <div>
+    <div className='App'>
+      <h1>PF Henry</h1>
       <BrowserRouter>
         <ThemeProvider theme={themes[themeMode]}>
           <NavBar theme={theme} setTheme={setTheme}/>
