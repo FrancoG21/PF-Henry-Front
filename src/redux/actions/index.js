@@ -12,6 +12,7 @@ export function getPets(){
     }
 }
 
+
 export function searchByName(name){
 return async(dispatch) =>{
     const res = await axios.get(`url?name=${name}`)
