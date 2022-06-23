@@ -3,6 +3,8 @@ import Home from './pages/Home/Home';
 import ToAdopt from './pages/To Adopt/ToAdopt';
 import NavBar from './components/Users/NavBar/NavBar';
 import About from './pages/About/About'
+import PetDetail from './components/Users/PetDetail/PetDetail'
+import PetCreate from './components/Users/PetCreate/PetCreate';
 
 //  MODO OSCURO //
 import { ThemeProvider } from 'styled-components';
@@ -23,6 +25,8 @@ function App() {
             <Route path='/' element={ <Home/> }></Route>
             <Route path='/adopt' element={ <ToAdopt/> }></Route>
             <Route path='/about' element={ <About/> }></Route>
+            <Route path='/petdetail/:id' element={ <PetDetail/> }></Route>
+            <Route path='/petcreate' element={ <PetCreate/> }></Route>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
