@@ -15,7 +15,6 @@ function App() {
 
   return (
     <div className='App'>
-      <h1>PF Henry</h1>
       <BrowserRouter>
         <ThemeProvider theme={themes[themeMode]}>
           <NavBar theme={theme} setTheme={setTheme}/>

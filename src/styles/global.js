@@ -10,6 +10,7 @@ export default createGlobalStyle `
     body {
         background-color: ${props => props.theme.background};
         color: ${props => props.theme.font};
+        font-family: 'Poppins', sans-serif;
         scroll-behavior: smooth;
     }
 
