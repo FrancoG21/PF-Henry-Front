@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // import '../About/About.css';
 
 
-export const Aboutus = () => {
+export default function About() {
     return (
         <>
 
@@ -23,3 +23,4 @@ export const Aboutus = () => {
         </>
     )
 }
+
