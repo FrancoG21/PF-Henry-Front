@@ -104,7 +104,7 @@ export const MinText = styled.p`
 `
 
 export const NavAcces = styled(Link)`
-    color: #fff;
+    color: ${(props) => props.theme.font};
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -146,7 +146,7 @@ export const NavButtonLink = styled(Link)`
 
 export const Button = styled.button`
     border-radius: 4px;
-    background: ${(primary) => (primary ? '#023a64' : '#023a64')};
+    background: ${(props) => props.theme.secondary};
     white-space: nowrap;
     padding: 5px;
     font-size: ${(fontBig) => (fontBig ? '20px' : '16px')};
@@ -158,8 +158,7 @@ export const Button = styled.button`
 
     &:hover {
         transition: all 0.3s ease-out;
-        background: #fff;
-        background: ${({primary}) => (primary ? '#041d2f' : '#041d2f')};
+        background: ${(props) => props.theme.primary};
     }
     
     @media screen and (max-width: 600px) {

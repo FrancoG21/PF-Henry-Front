@@ -3,15 +3,17 @@ const ligthTheme = {
     secondary: '#094067',
     background: '#fff',
     background_alt: '',
-    font: '',
+    font: '#fff',
+    font_alt: '#011d32',
 }
 
 const darkTheme = {
-    primary: '#023a64',
+    primary: '#011d32',
     secondary: '#3da9fc',
     background: '#041d2f',
     background_alt: '',
     font: '#3da9fc',
+    font_alt: '#fff',
 }
 
 export const themes = {
