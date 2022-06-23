@@ -58,7 +58,7 @@ export default function NavBar({theme, setTheme}) {
                             <NavAcces to='/'>Donation</NavAcces>
                         </NavItem>
                         <NavItem>
-                            <NavAcces to='/'>About Us</NavAcces>
+                            <NavAcces to='/about'>About Us</NavAcces>
                         </NavItem>
                         <NavButton>
                             {

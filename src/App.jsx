@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import ToAdopt from './pages/To Adopt/ToAdopt';
 import NavBar from './components/Users/NavBar/NavBar';
+import About from './pages/About/About'
 
 //  MODO OSCURO //
 import { ThemeProvider } from 'styled-components';
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path='/' element={ <Home/> }></Route>
             <Route path='/adopt' element={ <ToAdopt/> }></Route>
+            <Route path='/about' element={ <About/> }></Route>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
