@@ -16,9 +16,11 @@ export function getPets(){
 
 
 export function searchByName(name){
-return async(dispatch) =>{
-    const res = await axios.get(`${url}?name=${name}`)
-    dispatch({type: GET_PET_NAME, payload:res.data})
+    return async(dispatch) =>{
+        const res = await axios.get(`${url}?name=${name}`)
+        dispatch({type: GET_PET_NAME, payload:res.data})
+    }
 }
-}
+
+
 
