@@ -18,7 +18,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_PETS: {
             return {
                 ...state,
-                pets: action.payload
+                pets: action.payload.pets
             }
         }
         case GET_PET_NAME:{
