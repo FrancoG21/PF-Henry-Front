@@ -7,8 +7,7 @@ import {
 const initialState = {
     // aqui mis estados
     pets: [],
-    petsAmount: {},
-    errors: []
+    petsAmount: {}
 }
 
 const rootReducer = (state = initialState, action) => {

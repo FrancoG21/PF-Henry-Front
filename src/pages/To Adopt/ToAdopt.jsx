@@ -36,7 +36,7 @@ export default function ToAdopt() {
             <Container>
                 <Grid>
 
-                    { errors[0] === 'mensaje' ? <p>no existe el pet</p> : 
+                    { pets[0] === 'pet not found' ? <p>no existe el pet</p> : 
                     
                     !pets ? <p>Loading</p> : pets?.map(p =>{
                         return <Card
