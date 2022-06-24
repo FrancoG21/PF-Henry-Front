@@ -28,6 +28,7 @@ const rootReducer = (state = initialState, action) => {
             }
         }
         case GET_TO_DETAILS:{
+            
             return{
                 ...state,
                 petDetail: action.payload
