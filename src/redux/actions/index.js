@@ -2,6 +2,7 @@ import axios from 'axios';
 import { 
     GET_PETS,
     GET_PET_NAME,
+    GET_TO_DETAILS,
     POST_PET
 } from './nameAction'
 
@@ -28,6 +29,16 @@ export const createPet = (payload)=>{
         return axios.post(`${url}/post`, payload)
         .then(res => dispatch({type: CREATE_POKE, payload:res}))
         .catch(err => console.log(err))
+    }
+}
+
+export function getById(id){
+    return async(dispatch)=>{
+        // const res = await axios.get(`${url}/pet/${id}`)
+        const res = await axios.get(`${url}/pet/${id}`)
+    //    const info = [res.data]
+    //  console.log(res.data)
+        dispatch({type:GET_TO_DETAILS, payload:res.data})
     }
 }
 
