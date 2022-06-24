@@ -8,9 +8,9 @@ import {
 //usar este url para las rutas hacia el back
 const url = 'http://localhost:3001'
 
-export function getPets(){
+export function getPets(page){
     return async(dispatch) =>{
-        const res = await axios.get(`${url}/pet`)
+        const res = await axios.get(`${url}/pet?page=${page? page : 0}`)
         dispatch({type: GET_PETS, payload:res.data})
     }
 }
@@ -18,7 +18,7 @@ export function getPets(){
 
 export function searchByName(name){
     return async(dispatch) =>{
-        const res = await axios.get(`${url}?name=${name}`)
+        const res = await axios.get(`${url}/pet?name=${name.toLowerCase()}`)
         dispatch({type: GET_PET_NAME, payload:res.data})
     }
 }
