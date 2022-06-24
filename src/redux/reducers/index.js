@@ -15,7 +15,7 @@ const rootReducer = (state = initialState, action) => {
             return {
 
                 ...state,
-                pets: action.payload
+                pets: action.payload.pets
             }
         }
 
