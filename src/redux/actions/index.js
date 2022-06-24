@@ -10,7 +10,7 @@ const url = 'http://localhost:3001'
 
 export function getPets(){
     return async(dispatch) =>{
-        const res = await axios.get(`${url}/pets`)
+        const res = await axios.get(`${url}/pet`)
         dispatch({type: GET_PETS, payload:res.data})
     }
 }
