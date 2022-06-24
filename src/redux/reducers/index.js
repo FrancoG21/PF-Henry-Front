@@ -9,7 +9,8 @@ const initialState = {
     // aqui mis estados
     pets: [],
     petDetail:[],
-    byName:[]
+   petsAmount: {},
+    errors: []
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -18,7 +19,15 @@ const rootReducer = (state = initialState, action) => {
         case GET_PETS: {
             return {
                 ...state,
-                pets: action.payload.pets
+                pets: action.payload.pets,
+                petsAmount: action.payload.total
+            }
+        }
+
+        case GET_PET_NAME: {
+            return {
+                ...state,
+                pets: [action.payload]
             }
         }
         case GET_PET_NAME:{

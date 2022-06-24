@@ -5,19 +5,26 @@ import {searchByName} from '../../../redux/actions/index';
 
 export default function Searchbar() {
 
-    const [pet, setPet] = useState('')
+  const [pet, setPet] = useState('')
 
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   function handleChange(e){
-     e.preventDefault();
-     setPet(e.target.value);
+    e.preventDefault();
+    setPet(e.target.value);
   }
 
   function handleSubmit(e){
     e.preventDefault();
-    dispatch(searchByName(pet))
-    setPet('')
+
+    if(pet.toLowerCase().replace(/ /g, "").length > 0){
+      dispatch(searchByName(pet))
+      setPet('')
+    }
+    if(pet.toLowerCase().replace(/ /g, "").length === 0 ){
+      alert('Please type something!')
+      setPet('')        
+    }
   }
 
   return (
@@ -30,4 +37,4 @@ export default function Searchbar() {
     </div>
   )
 }
-// estoy probando actualizacion
+

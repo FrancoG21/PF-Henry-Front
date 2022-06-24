@@ -10,7 +10,27 @@ export default function PetCreate (){
 
     return(
         <>  
-        <h1>Componente Pet create</h1>
+            <Formik
+                /* initialValues={s}  */
+                onSubmit={()=>{
+                    console.log('formulario enviado')
+            }}>
+                    {({handleSubmit})=>(
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <label>Name</label>
+                                <input type='text' id='name' name='name' placeholder='pet name' />
+                            </div>
+                            <div>
+                                <label>image</label>
+                                <input type='text' id='image' name='image' placeholder='pet image' />
+                            </div>
+                            
+                            <button type='submit'>submit</button>
+                        </form>        
+                    )}
+                    
+            </Formik>
         </>
     )
 }
@@ -28,26 +48,6 @@ export default function PetCreate (){
     "vaccinate": true / false
   }, */
 
-  <Formik
-            /* initialValues={s}  */
-            onSubmit={()=>{
-                console.log('formulario enviado')
-            }}>
-                {({handleSubmit})=>(
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <label>Name</label>
-                            <input type='text' id='name' name='name' placeholder='pet name' />
-                        </div>
-                        <div>
-                            <label>image</label>
-                            <input type='text' id='image' name='image' placeholder='pet image' />
-                        </div>
-                        
-                        <button type='submit'>submit</button>
-                    </form>        
-                )}
-                
-            </Formik>
+        
             
      
