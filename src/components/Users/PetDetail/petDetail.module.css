@@ -1,0 +1,42 @@
+/* .margin{
+    font-style: italic;
+    height: 750px;
+    display: grid;
+    justify-content: center;
+    margin:auto;
+    width: 900px;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgb(8, 8, 8), 0 0 20px rgb(7, 7, 7), 0 0 30px #737474, 0 0 10px #9a9e9e,
+    0 0 10px #939797, 0 0 10px #337ec9, 0 0 10px #757373;
+    color: rgb(14, 13, 13);
+    background-color: #faf8f8a2;
+ 
+    /* background-image: url('../esta.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
+
+   
+
+.margin:hover {
+    transform: scale(1.02);
+  } 
+  .container {
+    font-style: italic;
+    text-shadow: 0 0 10px rgb(228, 210, 210), 0 0 20px rgb(247, 236, 236), 0 0 30px #131212, 0 0 10px #1a1819,
+    0 0 10px #0f29bd, 0 0 10px #3a8fa8, 0 0 10px #f5ebf5;;
+    margin-bottom: 0;
+    padding: 20px;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    text-transform: capitalize
+}
+/* .title:hover {
+    transform: scale(1.2);
+} */
+
+.img{
+    border-radius: 5px;
+}
