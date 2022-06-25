@@ -14,7 +14,6 @@ export default function PetDetail(){
       
 
     useEffect(() =>{
-        // dispatch(getPets())
       dispatch(getById(id))
     }, [dispatch, id])
 
@@ -24,8 +23,8 @@ export default function PetDetail(){
  <div>
 
         {/* <h1>Pet Detail component</h1> */}
-         
-        {/* { detail[0]?
+{/*          
+         { detail[0]?
 
          detail.map(e =>(
                 <div key={e.id}>
@@ -34,22 +33,23 @@ export default function PetDetail(){
                 </div>
             )):
             <h1>hola papi</h1>
-        } */}
-
+        
+         } */}
        
 
-
+           { detail? <div>
 
            <h1>Name: {detail.name}</h1>
            <img src={detail.image} alt='pets' width='300' height='250' />
-           <h2>Weight:  {detail.weight ? detail.weight : 'has not been defined yet'}</h2>
+           <h2>Breed: {detail.breed}</h2>
+           <h3>Weight:  {detail.weight ? detail.weight : 'has not been defined yet'}</h3>
            <h3>Size: {detail.size}</h3>
            <h4>Fur: {detail.fur}</h4>
-           <h4>Breed: {detail.breed}</h4>
            <h4>gender: {detail.gender}</h4>
            <h4>castration: {detail.castration}</h4>
-
-
+             </div>
+             : <h1>siga intentando mijo</h1>
+           }
  </div>
     )
 }
