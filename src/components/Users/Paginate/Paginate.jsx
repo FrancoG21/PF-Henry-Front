@@ -1,4 +1,5 @@
 import React from "react";
+import { ButtonPage, Page, LinkButton } from "./StyledPaginate";
 
 export default function Paginate({ total, petsPerPage, paginateFunction}){
     let pageNumbers = [];
@@ -7,16 +8,15 @@ export default function Paginate({ total, petsPerPage, paginateFunction}){
     }
 
     return(
-        <div >
-            <ul>
+        <Page>
                 {pageNumbers.length && pageNumbers.map(page =>{
                     return (
-                    <li key={page} onClick={()=>paginateFunction(page)} id={page}>
-                        <a  href='#'>{page}</a>
-                    </li>)
+                        <ButtonPage key={page} onClick={()=>paginateFunction(page)} id={page}>
+                            <LinkButton  href='#'>{page}</LinkButton>
+                        </ButtonPage>
+                    )
                 })}
-            </ul>
-        </div> 
+        </Page> 
     )
 }
 
