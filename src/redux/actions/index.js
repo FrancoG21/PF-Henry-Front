@@ -31,22 +31,24 @@ export function searchByName(payload) {
 
 export const createPet = (payload) => {
   console.log("createPet -->", payload);
-
   return async function (dispatch) {
-    return axios
-      .post(`${url}/pet`, payload)
-      .then((res) => dispatch({ type: POST_PET, payload: res }))
-      .catch((err) => console.log(err));
+    try {
+      const res = await axios.post(`${url}/pet`, payload);
+      dispatch({ type: POST_PET, payload: res.data });
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 export function getById(id) {
   return async (dispatch) => {
-    // const res = await axios.get(`${url}/pet/${id}`)
-    const res = await axios.get(`${url}/pet/${id}`);
-    //    const info = [res.data]
-    //  console.log(res.data)
-    dispatch({ type: GET_TO_DETAILS, payload: res.data });
+    try {
+      const res = await axios.get(`${url}/pet/${id}`);
+      dispatch({ type: GET_TO_DETAILS, payload: res.data });
+    } catch (e) {
+      dispatch({ type: GET_TO_DETAILS, payload: e.response.data });
+    }
   };
 }
 
