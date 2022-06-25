@@ -58,6 +58,7 @@ export const Input = styled(Field)`
     border: none;
     border-radius: .5rem;
     margin-left: 5px;
+    outline: none;
 `
 
 export const Select = styled(Field)`
@@ -75,6 +76,7 @@ export const Select = styled(Field)`
     outline: none;
     text-align: left;
     font-size: 15px;
+    outline: none;
 `
 
 export const ContainerButton = styled.div`
@@ -93,7 +95,6 @@ export const ButtonSubmit = styled.button`
     border: none;
     border-radius: 3px;
     margin-top: 10px;
-    margin-left: 5%;
     display: flex;
     align-items: center;
     

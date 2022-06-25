@@ -18,19 +18,6 @@ export const TitleAdopt = styled.h1`
     }
 `
 
-export const ButtonLink = styled(Link)`
-    align-items: center;
-    text-decoration: none;
-    height: 100%;
-    border: none;
-    outline: none;
-    margin-left: 15px;
-
-    @media screen and (max-width: 600px) {
-        justify-content: center;
-    }
-`
-
 export const ButtonCreate = styled.button`
     border-radius: 4px;
     background: ${(props) => props.theme.secondary};

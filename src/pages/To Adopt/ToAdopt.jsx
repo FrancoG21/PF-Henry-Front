@@ -12,12 +12,8 @@ import {
   Grid,
   Container,
   TitleAdopt,
-  ButtonCreate,
-  ButtonLink,
   ImageSpace,
   ContainerTop,
-  Filters,
-  ButtonReset,
   ContainerFilters
 } from "./StyledToAdopt";
 
@@ -42,11 +38,13 @@ export default function ToAdopt() {
     <BackgroundPets>
       <TitleAdopt>Pets</TitleAdopt>
 
-        <Searchbar />
-        <PetFilters />
-        <ButtonLink to={"/petcreate"}>
-          <ButtonCreate>Load Pet</ButtonCreate>
-        </ButtonLink>
+        <ContainerTop>
+          <Searchbar />
+        </ContainerTop>
+
+        <ContainerFilters>
+          <PetFilters />
+        </ContainerFilters>
 
 
       <Container>
