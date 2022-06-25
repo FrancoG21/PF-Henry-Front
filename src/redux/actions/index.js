@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { 
-    CLEAN_DETAILS,
     GET_PETS,
     GET_PET_NAME,
     GET_TO_DETAILS,
     POST_PET,
-    FILTER_PET
+    FILTER_PET,
+    CLEAN_DETAILS,
 } from './nameAction'
 
 //usar este url para las rutas hacia el back
@@ -58,3 +58,8 @@ export function filterPet(payload){
     } */
 }
 
+export function cleanDetail() {
+    return async(dispatch) => {
+        dispatch({type: CLEAN_DETAILS, payload: []})
+    }
+}

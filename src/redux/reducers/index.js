@@ -38,8 +38,6 @@ const rootReducer = (state = initialState, action) => {
                 petDetail: action.payload
                 
             }
-            
-
         }
 
         case CLEAN_DETAILS: {
@@ -48,6 +46,9 @@ const rootReducer = (state = initialState, action) => {
                 petDetail: action.payload,
             }
         }
+
+
+
 
         default: {
             return state

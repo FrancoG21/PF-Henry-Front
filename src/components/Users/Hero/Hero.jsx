@@ -11,12 +11,12 @@ export default function Hero() {
                     <ContainerText>
                         <Info>
                             <TitleHero>
-                                <Title>Ellos son tu mejor compañia</Title>
+                                <Title>They are your best company</Title>
                                 <Subtitle>  
-                                        Muchos creen que son solo perros. Nosotros no.
-                                        Ayudamos a los que abandonaron y a los que nunca conocieron un hogar. Y como ellos sueñan y no pueden pedir, pedimos nosotros:
-                                        ¿Qué pedimos? que adoptes, ellos hace mucho que esperan.
-                                        Son muchísimos los que esperan.
+                                        Many believe they are just dogs. We do not.
+                                        We help those who abandoned and those who never knew a home. And since they dream and cannot ask, we ask:
+                                        What do we ask? that you adopt, they have been waiting for a long time.
+                                        There are many who wait.
                                     </Subtitle>
                                     <ButtonHero>Sign Up</ButtonHero>
                             </TitleHero>

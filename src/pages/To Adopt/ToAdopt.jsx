@@ -17,6 +17,9 @@ import {
   ButtonLink,
   ImageSpace,
   ContainerTop,
+  Filters,
+  ButtonReset,
+  ContainerFilters
 } from "./StyledToAdopt";
 
 export default function ToAdopt() {
@@ -46,41 +49,46 @@ export default function ToAdopt() {
 
       <ContainerTop>
         <Searchbar />
-        <select
-          defaultValue={"default"}
-          onChange={(e) => handleFilterPetType(e)}
-        >
-          <option value="default" hidden>
-            Type
-          </option>
-          <option value="dog">dog</option>
-          <option value="cat">cat</option>
-        </select>
-        <select
-          defaultValue={"default"}
-          onChange={(e) => handleFilterPetGender(e)}
-        >
-          <option value="default" hidden>
-            Gender
-          </option>
-          <option value="male">male</option>
-          <option value="female">female</option>
-        </select>
-        <select
-          defaultValue={"default"}
-          onChange={(e) => handleFilterPetSize(e)}
-        >
-          <option value="default" hidden>
-            Size
-          </option>
-          <option value="small">small</option>
-          <option value="medium">medium</option>
-          <option value="big">big</option>
-        </select>
-        <select
-          defaultValue={"default"}
-          onChange={(e) => handleFilterPetState(e)}
-        >
+      </ContainerTop>
+
+
+      <ContainerFilters>
+          <ButtonReset onClick={(e) => handleResetButton(e)}>Reset</ButtonReset>
+          <Filters
+            defaultValue={"default"}
+            onChange={(e) => handleFilterPetType(e)}
+          >
+            <option value="default" hidden>
+              Type
+            </option>
+            <option value="dog">dog</option>
+            <option value="cat">cat</option>
+          </Filters>
+          <Filters
+            defaultValue={"default"}
+            onChange={(e) => handleFilterPetGender(e)}
+          >
+            <option value="default" hidden>
+              Gender
+            </option>
+            <option value="male">male</option>
+            <option value="female">female</option>
+          </Filters>
+          <Filters
+            defaultValue={"default"}
+            onChange={(e) => handleFilterPetSize(e)}
+          >
+            <option value="default" hidden>
+              Size
+            </option>
+            <option value="small">small</option>
+            <option value="medium">medium</option>
+            <option value="big">big</option>
+          </Filters>
+          <Filters
+            defaultValue={"default"}
+            onChange={(e) => handleFilterPetState(e)}
+          >
           <option value="default" hidden>
             State
           </option>
@@ -88,8 +96,8 @@ export default function ToAdopt() {
           <option value="adopted">adopted</option>
           <option value="lost">lost</option>
           <option value="transit">transit</option>
-        </select>
-        <select
+        </Filters>
+        <Filters
           defaultValue={"default"}
           onChange={(e) => handleFilterPetOrder(e)}
         >
@@ -98,24 +106,23 @@ export default function ToAdopt() {
           </option>
           <option value="a-z">a-z</option>
           <option value="z-a">z-a</option>
-        </select>
-        <button onClick={(e) => handleResetButton(e)}>reset</button>
-
+        </Filters>
         <ButtonLink to={"/petcreate"}>
-          <ButtonCreate>Cargar un pet</ButtonCreate>
+          <ButtonCreate>Load Pet</ButtonCreate>
         </ButtonLink>
-      </ContainerTop>
+    </ContainerFilters>
 
-      <Container>
-        <ImageSpace>
-          <Grid>
-            {pets[0] === "pet not found" ? (
-              <p>no existe el pet</p>
-            ) : !pets ? (
-              <p>Loading</p>
-            ) : (
-              pets?.map((p) => {
-                return (
+
+    <Container>
+      <ImageSpace>
+        <Grid>
+          {pets[0] === "pet not found" ? (
+            <p>no existe el pet</p>
+              ) : !pets ? (
+                <p>Loading</p>
+              ) : (
+                pets?.map((p) => {
+                  return (
                   <Card key={p.id} id={p.id} name={p.name} image={p.image} />
                 );
               })
