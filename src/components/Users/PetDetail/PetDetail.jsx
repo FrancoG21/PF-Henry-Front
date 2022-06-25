@@ -2,7 +2,7 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useEffect} from 'react'
 import {useParams} from 'react-router'
-import {getById, getPets, cleanDetail} from '../../../redux/actions/index'
+import {getById, getPets} from '../../../redux/actions/index'
 import style from './petDetail.module.css'
 
 export default function PetDetail(){
@@ -15,7 +15,6 @@ export default function PetDetail(){
 
     useEffect(() =>{
       dispatch(getById(id))
-      dispatch(cleanDetail(dispatch))
     }, [dispatch, id])
 
 

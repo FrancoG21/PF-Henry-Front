@@ -23,8 +23,8 @@ export default function PetCreate() {
           fur: "", // short or long
           breed: "crossbreed", // crossbreed
           gender: "", // female or male
-          castration: "", // true or false
-          vaccinate: "", // true or false
+          castration: false, // true or false
+          vaccinate: false, // true or false
           /* pais: "country",
           gender: "",
           mensaje: "" */
@@ -120,8 +120,8 @@ export default function PetCreate() {
             <div>
               <label>Castration</label>
               <label>
-                <Field type="radio" name="castration" value="true" /> Yes
-                <Field type="radio" name="castration" value="false" /> No
+                <Field type="radio" name="castration"  /> Yes
+                <Field type="radio" name="castration"  /> No
               </label>
             </div>  
             <div>

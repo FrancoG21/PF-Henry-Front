@@ -4,7 +4,8 @@ import {
     GET_PETS,
     GET_PET_NAME,
     GET_TO_DETAILS,
-    POST_PET
+    POST_PET,
+    FILTER_PET
 } from './nameAction'
 
 //usar este url para las rutas hacia el back
@@ -49,10 +50,11 @@ export function getById(id){
     }
 }
 
-export const cleanDetail = () => {
-    return async(dispatch) => {
-        dispatch({type: CLEAN_DETAILS, payload: []})
-    }
+export function filterPet(payload){
+    console.log(`ejecuto: filterPetType(${payload})`)
+    /* return async(dispatch) =>{
+        const res = await axios.get(`${url}/pet?page=${page? page : ''}`)
+        dispatch({type: GET_PETS, payload:res.data})
+    } */
 }
-
 
