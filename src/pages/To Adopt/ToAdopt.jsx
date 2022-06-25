@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import { getPets } from "../../redux/actions/index";
 import Card from "../../components/Users/Card/Card";
 import {
+    BackgroundPets,
   Grid,
   Container,
   TitleAdopt,
   ButtonCreate,
   ButtonLink,
+  ImageSpace,
+  ContainerTop
 } from "./StyledToAdopt";
 import Paginate from "../../components/Users/Paginate/Paginate";
 import Searchbar from "../../components/Users/Searchbar/Searchbar";
@@ -28,34 +31,39 @@ export default function ToAdopt() {
   };
 
   return (
-    <div>
-      <TitleAdopt>To Adopt</TitleAdopt>
-      <Searchbar />
+    <BackgroundPets>
+      <TitleAdopt>Pets</TitleAdopt>
 
-      <ButtonLink to={"/petcreate"}>
-        <ButtonCreate>Cargar un pet</ButtonCreate>
-      </ButtonLink>
+      <ContainerTop>
+        <Searchbar />
+
+        <ButtonLink to={"/petcreate"}>
+            <ButtonCreate>Cargar un pet</ButtonCreate>
+        </ButtonLink>
+      </ContainerTop>
 
       <Container>
-        <Grid>
-          {pets[0] === 'pet not found'? (
-            <p>no existe el pet</p>
-          ) : !pets ? (
-            <p>Loading</p>
-          ) : (
-            pets?.map((p) => {
-              return (
-                <Card key={p.id} id={p.id} name={p.name} image={p.image} />
-              );
-            })
-          )}
-        </Grid>
-      </Container>
+        <ImageSpace>
+            <Grid>
+            {pets[0] === 'pet not found'? (
+                <p>no existe el pet</p>
+            ) : !pets ? (
+                <p>Loading</p>
+            ) : (
+                pets?.map((p) => {
+                return (
+                    <Card key={p.id} id={p.id} name={p.name} image={p.image} />
+                );
+                })
+            )}
+            </Grid>
+        </ImageSpace>
+        </Container>
       <Paginate
         total={petsAmount}
         petsPerPage={6}
         paginateFunction={paginateFunction}
       />
-    </div>
+    </BackgroundPets>
   );
 }
