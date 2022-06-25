@@ -51,10 +51,15 @@ export function getById(id){
 
 
 export function filterPet(payload){
-    console.log(`ejecuto: filterPetType(${payload})`)
-    /* return async(dispatch) =>{
-        const res = await axios.get(`${url}/pet?page=${page? page : ''}`)
-        dispatch({type: GET_PETS, payload:res.data})
-    } */
+    console.log(`ejecuto: filterPet(${payload})`)
+    console.log(payload)
+    return async function (dispatch){
+        try{
+            const res = await axios.get(`${url}/pet?page=0`, payload)
+            dispatch({type: FILTER_PET, payload:res.data})
+        }catch(e){
+            dispatch({type: FILTER_PET, payload:e.response.data})
+        }
+    } 
 }
 
