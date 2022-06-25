@@ -40,6 +40,8 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case FILTER_PET: {
+      console.log("respuesta del back --> abajo");
+      console.log(action.payload);
       return {
         ...state,
         pets: action.payload.pets,

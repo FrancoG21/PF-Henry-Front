@@ -25,9 +25,6 @@ export default function PetCreate() {
           gender: "", // female or male
           castration: false, // true or false
           vaccinate: false, // true or false
-          /* pais: "country",
-          gender: "",
-          mensaje: "" */
         }}
         validate={(values) => {
           let errors = {};
@@ -118,17 +115,15 @@ export default function PetCreate() {
               </label>
             </div>
             <div>
-              <label>Castration</label>
               <label>
-                <Field type="radio" name="castration"  /> Yes
-                <Field type="radio" name="castration"  /> No
+                Castration <Field type="checkbox" name="castration" />
+                {`${props.values.castration}`}
               </label>
             </div>  
             <div>
-              <label>Vaccinate</label>
               <label>
-                <Field type="radio" name="vaccinate" value="true" /> Yes
-                <Field type="radio" name="vaccinate" value="false" /> No
+              Vaccinate <Field type="checkbox" name="vaccinate" />
+              {`${props.values.vaccinate}`}
               </label>
             </div>                      
             {/* <div>
