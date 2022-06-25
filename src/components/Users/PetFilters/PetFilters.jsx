@@ -5,36 +5,34 @@ import { filterPet } from "../../../redux/actions/index";
 
 export default function PetFilters() {
   const dispatch = useDispatch();
+  const [flag, setFlag] = useState(false);
 
-  const handleOnClick=(values)=>{
-      console.log('Valores con contenido')
-      console.log(values)
-     dispatch(filterPet(values)) 
-}
+  const handleOnClick = (values) => {
+    console.log("handleOnClick");
+   
+  };
 
   return (
     <>
       <Formik
         initialValues={{
-            pet: "",
-            gender: "",
-            size: "",
-            state: "",
+          pet: "",
+          gender: "",
+          size: "",
+          state: "",
         }}
+
         onSubmit={(values, { resetForm }) => {
-            resetForm();
-            console.log('elementos borrados')
-            console.log(values)
-           /*  dispatch(createPet(values)); */
+          console.log('onSubmit -->',values);
+          dispatch(filterPet(values));
+          /* resetForm(); */
         }}
-        
       >
         {(props) => (
-          <Form onClick={() => handleOnClick(props.values)}>
-            {/* {console.log(props.values)} */}
+          <Form>
             <div>
               <label>Type</label>
-              <Field name="pet" as="select" onClick={props.onClick}>
+              <Field name="pet" as="select">
                 <option value="dog">dog</option>
                 <option value="cat">cat</option>
               </Field>
@@ -62,11 +60,12 @@ export default function PetFilters() {
                 <option value="lost">lost</option>
                 <option value="transit">transit</option>
               </Field>
-            </div>            
-            <button type="submit">reset</button>
+            </div>
+            <button type="submit">filter</button>
           </Form>
-        )}
+        )} 
       </Formik>
+      
     </>
   );
 }
