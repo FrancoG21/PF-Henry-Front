@@ -15,7 +15,6 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-
     case GET_PETS: {
       return {
         ...state,
@@ -25,9 +24,11 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case GET_PET_NAME: {
+      console.log("respuesta del back --> abajo");
+      console.log(action.payload);
       return {
         ...state,
-        pets: [action.payload],
+        pets: action.payload.pets,
       };
     }
 
@@ -39,10 +40,12 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case FILTER_PET: {
-        return {
-            ...state,
-            pets: action.payload.pets,
-        }
+      console.log("respuesta del back --> abajo");
+      console.log(action.payload);
+      return {
+        ...state,
+        pets: action.payload.pets,
+      };
     }
 
     default: {

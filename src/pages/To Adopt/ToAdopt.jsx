@@ -22,12 +22,8 @@ export default function ToAdopt() {
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets);
   const petsAmount = useSelector((state) => state.petsAmount);
-  const [filtro, setFiltro] = useState({
-    pet: "",
-    gender: "",
-    size: "",
-    state: "",
-  });
+  
+
 
   useEffect(() => {
     dispatch(getPets());
