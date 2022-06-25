@@ -2,7 +2,8 @@ import {
     // aqui nombre de action
     GET_PETS,
     GET_PET_NAME,
-    GET_TO_DETAILS
+    GET_TO_DETAILS,
+    CLEAN_DETAILS,
 } from '../actions/nameAction'
 
 const initialState = {
@@ -41,6 +42,12 @@ const rootReducer = (state = initialState, action) => {
 
         }
 
+        case CLEAN_DETAILS: {
+            return {
+                ...state,
+                petDetail: action.payload,
+            }
+        }
 
         default: {
             return state

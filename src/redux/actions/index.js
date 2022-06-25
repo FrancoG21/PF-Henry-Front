@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { 
+    CLEAN_DETAILS,
     GET_PETS,
     GET_PET_NAME,
     GET_TO_DETAILS,
@@ -45,6 +46,12 @@ export function getById(id){
     //    const info = [res.data]
     //  console.log(res.data)
         dispatch({type:GET_TO_DETAILS, payload:res.data})
+    }
+}
+
+export const cleanDetail = () => {
+    return async(dispatch) => {
+        dispatch({type: CLEAN_DETAILS, payload: []})
     }
 }
 
