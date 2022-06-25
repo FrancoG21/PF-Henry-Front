@@ -29,12 +29,7 @@ const rootReducer = (state = initialState, action) => {
                 pets: [action.payload]
             }
         }
-        case GET_PET_NAME:{
-            return{
-             ...state,
-             byName: action.payload
-            }
-        }
+        
         case GET_TO_DETAILS:{
             
             return{

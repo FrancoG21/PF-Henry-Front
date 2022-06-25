@@ -19,15 +19,21 @@ export function getPets(page){
 
 export function searchByName(name){
     return async(dispatch) =>{
-        const res = await axios.get(`${url}/pet?name=${name.toLowerCase()}`)
-        dispatch({type: GET_PET_NAME, payload:res.data})
+        try{
+            const res = await axios.get(`${url}/pet?name=${name.toLowerCase()}`)
+            dispatch({type: GET_PET_NAME, payload:res.data})
+        }catch(e){
+            dispatch({type: GET_PET_NAME, payload:e.response.data})
+        }
     }
 }
 
 export const createPet = (payload)=>{
+    console.log('ENTRE A ACTION CREATE PET')
+    console.log(payload)
     return async function (dispatch){
-        return axios.post(`${url}/post`, payload)
-        .then(res => dispatch({type: CREATE_POKE, payload:res}))
+        return axios.post(`${url}/pet`, payload)
+        .then(res => dispatch({type: POST_PET, payload:res}))
         .catch(err => console.log(err))
     }
 }
