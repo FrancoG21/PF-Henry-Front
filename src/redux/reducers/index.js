@@ -4,6 +4,7 @@ import {
   GET_PET_NAME,
   GET_TO_DETAILS,
   FILTER_PET,
+  CLEAN_DETAILS,
 } from "../actions/nameAction";
 
 const initialState = {
@@ -48,6 +49,13 @@ const rootReducer = (state = initialState, action) => {
         pets: action.payload.pets,
         petsAmount: action.payload.total,
       };
+    }
+
+    case CLEAN_DETAILS: {
+        return {
+            ...state,
+            petDetail: action.payload,
+        }
     }
 
     default: {

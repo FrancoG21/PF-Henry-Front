@@ -1,3 +1,13 @@
+// import React, { useEffect, useState } from 'react'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { Link } from "react-router-dom";
+// import { getPets } from '../../redux/actions/index'
+// import Card from '../../components/Users/Card/Card'
+// import { Grid, Container, TitleAdopt, ButtonCreate, ButtonLink } from './StyledToAdopt';
+// import Paginate from '../../components/Users/Paginate/Paginate';
+// import Searchbar from '../../components/Users/Searchbar/Searchbar'
+
+// import Slideshow from '../../components/Users/Lost/Slideshow/Slideshow'
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -12,10 +22,9 @@ import {
   Grid,
   Container,
   TitleAdopt,
-  ButtonCreate,
-  ButtonLink,
   ImageSpace,
   ContainerTop,
+  ContainerFilters
 } from "./StyledToAdopt";
 
 export default function ToAdopt() {
@@ -39,13 +48,14 @@ export default function ToAdopt() {
     <BackgroundPets>
       <TitleAdopt>Pets</TitleAdopt>
 
-      <ContainerTop>
-        <Searchbar />
-        <PetFilters />
-        <ButtonLink to={"/petcreate"}>
-          <ButtonCreate>Cargar un pet</ButtonCreate>
-        </ButtonLink>
-      </ContainerTop>
+        <ContainerTop>
+          <Searchbar />
+        </ContainerTop>
+
+        <ContainerFilters>
+          <PetFilters />
+        </ContainerFilters>
+
 
       <Container>
         <ImageSpace>
