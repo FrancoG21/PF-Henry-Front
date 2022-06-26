@@ -7,7 +7,7 @@ import { ContainerSearch, ButttonSearch, Search } from './StyledSearchBar';
 
 export default function Searchbar() {
 
-  const [pet, setPet] = useState('')
+  const [name, setPet] = useState('')
 
   const dispatch = useDispatch();
 
@@ -19,11 +19,12 @@ export default function Searchbar() {
   function handleSubmit(e){
     e.preventDefault();
 
-    if(pet.toLowerCase().replace(/ /g, "").length > 0){
-      dispatch(searchByName(pet))
+    if(name.toLowerCase().replace(/ /g, "").length > 0){
+      console.log('searchbar -->',name)
+      dispatch(searchByName({name:name}))
       setPet('')
-     }
-    if(pet.toLowerCase().replace(/ /g, "").length === 0 ){
+    }
+    if(name.toLowerCase().replace(/ /g, "").length === 0 ){
       alert('Please type something!')
       setPet('')        
     }
@@ -31,7 +32,7 @@ export default function Searchbar() {
 
   return (
         <ContainerSearch>
-            <Search type="search" value={pet} onChange={e => {handleChange(e)}} placeholder='Search Pets...'/>
+            <Search type="search" value={name} onChange={e => {handleChange(e)}} placeholder='Search Pets...'/>
             <ButttonSearch type="submit" onClick={e => {handleSubmit(e)}}><BiSearch/></ButttonSearch>
         </ContainerSearch>
   )

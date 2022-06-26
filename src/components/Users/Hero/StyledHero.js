@@ -72,7 +72,7 @@ export const TitleHero = styled.h1`
     }
 `
 
-export const Title = styled.h1`
+export const Title = styled.h2`
     font-size: 48px;
     margin-bottom: 24px;
     line-height: 1.1;
@@ -82,7 +82,7 @@ export const Title = styled.h1`
     }
 `
 
-export const Subtitle = styled.h3`
+export const Subtitle = styled.h2`
     max-width: 440px;
     margin-bottom: 25px;
     font-size: 18px;
