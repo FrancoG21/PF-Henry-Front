@@ -22,7 +22,7 @@ export default function Searchbar() {
     if(pet.toLowerCase().replace(/ /g, "").length > 0){
       dispatch(searchByName(pet))
       setPet('')
-    }
+     }
     if(pet.toLowerCase().replace(/ /g, "").length === 0 ){
       alert('Please type something!')
       setPet('')        
