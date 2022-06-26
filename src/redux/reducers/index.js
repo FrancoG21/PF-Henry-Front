@@ -29,6 +29,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pets: action.payload.pets,
+        petsAmount: action.payload.total,
       };
     }
 
@@ -45,6 +46,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pets: action.payload.pets,
+        petsAmount: action.payload.total,
       };
     }
 

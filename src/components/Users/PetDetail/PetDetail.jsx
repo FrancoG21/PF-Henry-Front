@@ -43,7 +43,7 @@ export default function PetDetail(){
    <div className={style.container}>
            { detail? <div>
 
-           <h1>{detail.name}</h1>
+           <h1>{`${detail.name[0]}${detail.name.slice(1).toLowerCase()}`}</h1>
            <img  className={style.img} src={detail.image} alt='pets' width='600' height='400' />
     <div>
            <h2>Breed: {detail.breed}</h2>

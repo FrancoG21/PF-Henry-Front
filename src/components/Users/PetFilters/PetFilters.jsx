@@ -5,25 +5,22 @@ import { filterPet } from "../../../redux/actions/index";
 
 export default function PetFilters() {
   const dispatch = useDispatch();
-  const [flag, setFlag] = useState(false);
 
   const handleOnClick = (values) => {
     console.log("handleOnClick");
-   
   };
 
   return (
     <>
       <Formik
-        initialValues={{
-          pet: "",
-          gender: "",
-          size: "",
-          state: "",
-        }}
-
+        initialValues={{}}
         onSubmit={(values, { resetForm }) => {
-          console.log('onSubmit -->',values);
+          console.log("onSubmit -->", values.pet);
+          for (let prop in values) {
+            if (values[prop] === "all") {
+              delete values[prop];
+            }
+          }
           dispatch(filterPet(values));
           /* resetForm(); */
         }}
@@ -33,6 +30,7 @@ export default function PetFilters() {
             <div>
               <label>Type</label>
               <Field name="pet" as="select">
+                <option value="all">all</option>
                 <option value="dog">dog</option>
                 <option value="cat">cat</option>
               </Field>
@@ -40,6 +38,7 @@ export default function PetFilters() {
             <div>
               <label>Gender</label>
               <Field name="gender" as="select">
+                <option value="all">all</option>
                 <option value="male">male</option>
                 <option value="female">female</option>
               </Field>
@@ -47,6 +46,7 @@ export default function PetFilters() {
             <div>
               <label>Size</label>
               <Field name="size" as="select">
+                <option value="all">all</option>
                 <option value="small">small</option>
                 <option value="medium">medium</option>
                 <option value="big">big</option>
@@ -55,6 +55,7 @@ export default function PetFilters() {
             <div>
               <label>State</label>
               <Field name="state" as="select">
+                <option value="all">all</option>
                 <option value="adopt">adopt</option>
                 <option value="adopted">adopted</option>
                 <option value="lost">lost</option>
@@ -63,9 +64,8 @@ export default function PetFilters() {
             </div>
             <button type="submit">filter</button>
           </Form>
-        )} 
+        )}
       </Formik>
-      
     </>
   );
 }

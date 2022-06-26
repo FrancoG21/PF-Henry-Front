@@ -17,6 +17,7 @@ export default function PetCreate() {
       <Formik
         initialValues={{
           name: "", //string 255 caracteres
+          pet:"",
           image: "", //string 255 caracteres
           size: "", // small, medium, big
           weight: "", //
@@ -99,6 +100,13 @@ export default function PetCreate() {
               <Field name="breed" as="select">
                 <option value="crossbreed">crossbreed</option>
               </Field>
+            </div>
+            <div>
+              <label>Type</label>
+              <label>
+                <Field type="radio" name="pet" value="dog" /> Dog
+                <Field type="radio" name="pet" value="cat" /> Cat
+              </label>
             </div>
             <div>
               <label>Fur</label>
