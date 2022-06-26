@@ -29,7 +29,7 @@ export default function PetCreate() {
       <Formik
         initialValues={{
           name: "", //string 255 caracteres
-          pet: "",
+          pet: "", // cat or dog
           image: "", //string 255 caracteres
           size: "", // small, medium, big
           weight: "", //
@@ -41,14 +41,35 @@ export default function PetCreate() {
         }}
         validate={(values) => {
           let errors = {};
-          if (!values.name) {
-            errors.name = "Name is required";
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
+          if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
             errors.name = "Name only alows letters and blank space";
           }
-
+          if (!values.name) {
+            errors.name = "Name is required";
+          }
           if (values.weight < 0) {
-            errors.weight = "must be number > 0";
+            errors.weight = "Must be number > 0";
+          }
+          if (!values.fur) {
+            errors.fur = "Fur is required";
+          }
+          if (!values.breed) {
+            errors.breed = "Breed is required";
+          }
+          if (!values.gender) {
+            errors.gender = "Gender is required";
+          }
+          if (!values.pet) {
+            errors.pet = "Type is required";
+          }
+          if (!values.size) {
+            errors.size = "Size is required";
+          }
+          if (!values.weight) {
+            errors.weight = "Weight is required";
+          }
+          if (values.weight < 0) {
+            errors.weight = "Must be number > 0";
           }
 
           return errors;
@@ -57,14 +78,14 @@ export default function PetCreate() {
           dispatch(createPet(values));
           resetForm();
           setFlag(true);
-          setTimeout(() => setFlag(false), 3000);
           console.log("formulario enviado");
+          setTimeout(() => setFlag(false), 3000);
         }}
       >
         {(props) => (
           <FormContainer>
             <TitleForm>Load your Pets</TitleForm>
-            {console.log(props.values)}
+            {console.log(props.errors)}
             <Forms>
               <ContainerCamp>
                 <Camp>
@@ -87,11 +108,7 @@ export default function PetCreate() {
                     id="image"
                     name="image"
                     placeholder="Pet Image"
-                  />
-                  <ErrorMessage
-                    name="image"
-                    component={() => <div>{props.errors.image}</div>}
-                  />
+                  />                  
                 </Camp>
                 <Camp>
                   <Label>Weight</Label>
@@ -113,12 +130,20 @@ export default function PetCreate() {
                     <option value="medium">Medium</option>
                     <option value="big">Big</option>
                   </Field>
+                  <ErrorMessage
+                    name="size"
+                    component={() => <div>{props.errors.size}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Breed</Label>
                   <Field name="breed" as="select">
                     <option value="crossbreed">Crossbreed</option>
                   </Field>
+                  <ErrorMessage
+                    name="breed"
+                    component={() => <div>{props.errors.breed}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Fur</Label>
@@ -126,6 +151,10 @@ export default function PetCreate() {
                     <Field type="radio" name="fur" value="short" /> Short
                     <Field type="radio" name="fur" value="long" /> Long
                   </Label>
+                  <ErrorMessage
+                    name="fur"
+                    component={() => <div>{props.errors.fur}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Type</Label>
@@ -133,6 +162,10 @@ export default function PetCreate() {
                     <Field type="radio" name="pet" value="dog" /> Dog
                     <Field type="radio" name="pet" value="cat" /> Cat
                   </Label>
+                  <ErrorMessage
+                    name="pet"
+                    component={() => <div>{props.errors.pet}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Gender</Label>
@@ -140,18 +173,30 @@ export default function PetCreate() {
                     <Field type="radio" name="gender" value="male" /> Male
                     <Field type="radio" name="gender" value="female" /> Female
                   </Label>
+                  <ErrorMessage
+                    name="gender"
+                    component={() => <div>{props.errors.gender}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
                     Castration <Field type="checkbox" name="castration" />
-                    {`${props.values.castration}`}
+                    {` ${props.values.castration}`}
                   </Label>
+                  <ErrorMessage
+                    name="castration"
+                    component={() => <div>{props.errors.castration}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
                     Vaccinate <Field type="checkbox" name="vaccinate" />
-                    {`${props.values.vaccinate}`}
+                    {` ${props.values.vaccinate}`}
                   </Label>
+                  <ErrorMessage
+                    name="vaccinate"
+                    component={() => <div>{props.errors.vaccinate}</div>}
+                  />
                 </Camp>
               </ContainerCamp>
               <ContainerButton>

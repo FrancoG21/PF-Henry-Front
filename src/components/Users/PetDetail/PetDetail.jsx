@@ -41,10 +41,10 @@ export default function PetDetail() {
               />
             </ContainerImage>
             <ContainerContent>
-              <SubTitle>
+              <SubTitle2>
                 <Span>Breed: </Span>
                 {detail.breed}
-              </SubTitle>
+              </SubTitle2>
               <SubTitle2>
                 <Span>Weight: </Span>
                 {detail.weight ? detail.weight : "unknown"}
@@ -71,7 +71,7 @@ export default function PetDetail() {
               </SubTitle3>
               <SubTitle3>
                 <Span>State: </Span>
-                {detail.state}
+                {detail.state === 'adopt'? 'for adopt' : detail.state}
               </SubTitle3>
             </ContainerContent>
           </DetailContainer>

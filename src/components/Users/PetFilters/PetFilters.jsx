@@ -49,7 +49,7 @@ export default function PetFilters() {
               <label>State</label>
               <Field name="state" as="select">
               <option value="all">All</option>
-                <option value="adopt">Adopt</option>
+                <option value="adopt">For adopt</option>
                 <option value="adopted">Adopted</option>
                 <option value="lost">Lost</option>
                 <option value="transit">Transit</option>

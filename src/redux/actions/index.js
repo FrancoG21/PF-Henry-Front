@@ -53,7 +53,7 @@ export function getById(id) {
   };
 }
 
-export function filterPet({payload}) {
+export function filterPet(payload) {
   console.log("filterPet -->", payload);
   console.log(payload)
   return async function (dispatch) {

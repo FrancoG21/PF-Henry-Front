@@ -54,7 +54,7 @@ export default function ToAdopt() {
         <ImageSpace>
           <Grid>
             {!pets ? (
-              <p>Loading</p>
+              <p>Please choose other option</p>
             ) : pets[0] === "the search returned no results" ? (
               <p>the search returned no results</p>
             ) : (
