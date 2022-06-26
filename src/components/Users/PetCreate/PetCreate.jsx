@@ -36,9 +36,9 @@ export default function PetCreate() {
             errors.name = "Name only alows letters and blank space";
           }
 
-          /* if (!values.image) {
-            errors.image = "Image is required";
-          } */
+          if (values.weight < 0) {
+            errors.weight = "must be number > 0";
+          } 
 
           return errors;
         }}
@@ -90,26 +90,37 @@ export default function PetCreate() {
                     name="weight"
                     placeholder="Pet Weight"
                   />
+                  <ErrorMessage
+                    name="weight"
+                    component={() => <div>{props.errors.weight}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Size</Label>
-                  <Input name="size" as="select">
+                  <Field name="size" as="select">
                     <option value="small">Small</option>
                     <option value="medium">Medium</option>
                     <option value="big">Big</option>
-                  </Input>
+                  </Field>
                 </Camp>
                 <Camp>
                   <Label>Breed</Label>
-                  <Input name="breed" as="select">
+                  <Field name="breed" as="select">
                     <option value="crossbreed">Crossbreed</option>
-                  </Input>
+                  </Field>
                 </Camp>
                 <Camp>
                   <Label>Fur</Label>
                   <Label>
                     <Field type="radio" name="fur" value="short" /> Short
                     <Field type="radio" name="fur" value="long" /> Long
+                  </Label>
+                </Camp>
+                <Camp>
+                  <Label>Type</Label>
+                  <Label>
+                  <Field type="radio" name="pet" value="dog" /> Dog
+                  <Field type="radio" name="pet" value="cat" /> Cat
                   </Label>
                 </Camp>
                 <Camp>
@@ -131,9 +142,6 @@ export default function PetCreate() {
                   {`${props.values.vaccinate}`}
                   </Label>
                 </Camp>                      
-                {/* <div>
-                  <Field name="mensaje" as="textarea" placeholder="Message" />
-                </div> */}
               </ContainerCamp>
               <ContainerButton>
                 <ButtonSubmit type="submit">submit</ButtonSubmit>

@@ -7,10 +7,6 @@ import { ButtonFilter, ContainerFil, Select, ButtonCreate, ButtonLink } from "./
 export default function PetFilters() {
   const dispatch = useDispatch();
 
-  const handleOnClick = (values) => {
-    console.log("handleOnClick");
-  };
-
   return (
     <>
       <Formik
@@ -23,7 +19,6 @@ export default function PetFilters() {
             }
           }
           dispatch(filterPet(values));
-          /* resetForm(); */
         }}
       >
         {(props) => (
@@ -31,29 +26,29 @@ export default function PetFilters() {
             <ButtonLink to={"/petcreate"}>
               <ButtonCreate>Load Pet</ButtonCreate>
             </ButtonLink>
-              <Select name="pet" as="select">
+              <Field name="pet" as="select">
               <option value="all">all</option>
                 <option value="dog">Dog</option>
                 <option value="cat">Cat</option>
-              </Select>
-              <Select name="gender" as="select">
+              </Field>
+              <Field name="gender" as="select">
               <option value="all">all</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-              </Select>
-              <Select name="size" as="select">
+              </Field>
+              <Field name="size" as="select">
               <option value="all">all</option>
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="big">Big</option>
-              </Select>
-              <Select name="state" as="select">
+              </Field>
+              <Field name="state" as="select">
               <option value="all">all</option>
                 <option value="adopt">Adopt</option>
                 <option value="adopted">Adopted</option>
                 <option value="lost">Lost</option>
                 <option value="transit">Transit</option>
-              </Select>
+              </Field>
             <ButtonFilter type="submit">Filter</ButtonFilter>
           </ContainerFil>
         )} 
