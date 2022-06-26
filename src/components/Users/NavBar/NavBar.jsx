@@ -52,7 +52,7 @@ export default function NavBar({theme, setTheme}) {
                             <NavAcces to='/'>Home</NavAcces>
                         </NavItem>
                         <NavItem>
-                            <NavAcces to='/adopt'>To Adopt</NavAcces>
+                            <NavAcces to='/adopt'>Pets</NavAcces>
                         </NavItem>
                         <NavItem>
                             <NavAcces to='/'>Donation</NavAcces>
@@ -60,7 +60,7 @@ export default function NavBar({theme, setTheme}) {
                         <NavItem>
                             <NavAcces to='/about'>About Us</NavAcces>
                         </NavItem>
-                        <NavButton>
+                        {/* <NavButton>
                             {
                                 button ? (
                                     <NavButtonLink to='/'>
@@ -72,17 +72,17 @@ export default function NavBar({theme, setTheme}) {
                                 </NavButtonLink>
                                 )
                             }
-                        </NavButton>
-                    </NavMenu>
-                    {/* <NavMenu>
+                        </NavButton> */}
+                    {/* </NavMenu>
+                    <NavMenu> */}
                         <NavItem>
                             <NavAcces to='/'>Login</NavAcces>
                         </NavItem>
-                        <MinText>|</MinText>
+                        {/* <MinText>|</MinText> */}
                         <NavItem>
                             <NavAcces to='/'>Register</NavAcces>
                         </NavItem>
-                    </NavMenu> */}
+                    </NavMenu>
                 </NavContainer>
             </Nav>
         </IconContext.Provider>
