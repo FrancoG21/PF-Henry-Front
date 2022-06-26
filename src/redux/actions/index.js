@@ -13,7 +13,7 @@ const url = "http://localhost:3001";
 
 export function getPets(page) {
   return async (dispatch) => {
-    const res = await axios.post(`${url}/pet?page=${page ? page : 0}`);
+    const res = await axios.put(`${url}/pet?page=${page ? page : 0}`);
     dispatch({ type: GET_PETS, payload: res.data });
   };
 }
