@@ -24,15 +24,13 @@ import {
   TitleAdopt,
   ImageSpace,
   ContainerTop,
-  ContainerFilters
+  ContainerFilters,
 } from "./StyledToAdopt";
 
 export default function ToAdopt() {
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets);
   const petsAmount = useSelector((state) => state.petsAmount);
-  
-
 
   useEffect(() => {
     dispatch(getPets());
@@ -42,30 +40,23 @@ export default function ToAdopt() {
     dispatch(getPets(page));
   };
 
- 
-
   return (
     <BackgroundPets>
-        <ContainerTop>
-          <Searchbar />
-        </ContainerTop>
+      <ContainerTop>
+        <Searchbar />
+      </ContainerTop>
 
-        <ContainerFilters>
-          <PetFilters />
-        </ContainerFilters>
-
+      <ContainerFilters>
+        <PetFilters />
+      </ContainerFilters>
 
       <Container>
         <ImageSpace>
           <Grid>
-            {pets[0] === "pet not found" ? (
-              <p>no existe el pet</p>
-            ) : 
-            pets[0] === "the search returned no results" ? (
-              <p>the search returned no results</p>
-            ) :
-            !pets ? (
+            {!pets ? (
               <p>Loading</p>
+            ) : pets[0] === "the search returned no results" ? (
+              <p>the search returned no results</p>
             ) : (
               pets?.map((p) => {
                 return (
