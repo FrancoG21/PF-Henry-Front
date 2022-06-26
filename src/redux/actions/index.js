@@ -13,7 +13,7 @@ const url = "http://localhost:3001";
 
 export function getPets(page) {
   return async (dispatch) => {
-    const res = await axios.get(`${url}/pet?page=${page ? page : 0}`);
+    const res = await axios.post(`${url}/pet?page=${page ? page : 0}`);
     dispatch({ type: GET_PETS, payload: res.data });
   };
 }
@@ -22,7 +22,7 @@ export function searchByName(payload) {
   return async (dispatch) => {
     try {
       console.log("searchByName -->", payload);
-      const res = await axios.get(`${url}/pet`, payload);
+      const res = await axios.post(`${url}/pet`, payload); 
       dispatch({ type: GET_PET_NAME, payload: res.data });
     } catch (e) {
       dispatch({ type: GET_PET_NAME, payload: e.response.data });
@@ -54,16 +54,18 @@ export function getById(id) {
 }
 
 export function filterPet(payload) {
-        console.log("filterPet -->", payload);
-        return async function (dispatch) {
-            try {
-                const res = await axios.get(`${url}/pet`, payload);
-        dispatch({ type: FILTER_PET, payload: res.data });
-        } catch (e) {
-            dispatch({ type: FILTER_PET, payload: e.response.data });
-        }
-    };
+  console.log("filterPet -->", payload);
+  console.log(payload)
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`${url}/pet`, payload);
+      dispatch({ type: FILTER_PET, payload: res.data });
+    } catch (e) {
+      dispatch({ type: FILTER_PET, payload: e.response.data });
+    }
+  };
 }
+
 
 export function cleanDetail() {
     return async(dispatch) => {

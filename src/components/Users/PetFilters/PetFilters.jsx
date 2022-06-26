@@ -6,62 +6,58 @@ import { ButtonFilter, ContainerFil, Select, ButtonCreate, ButtonLink } from "./
 
 export default function PetFilters() {
   const dispatch = useDispatch();
-  const [flag, setFlag] = useState(false);
-
-  const handleOnClick = (values) => {
-    console.log("handleOnClick");
-   
-  };
 
   return (
     <>
       <Formik
-        initialValues={{
-          pet: "",
-          gender: "",
-          size: "",
-          state: "",
-        }}
-
+        initialValues={{}}
         onSubmit={(values, { resetForm }) => {
-          console.log('onSubmit -->',values);
+          console.log("onSubmit -->", values);
+          for (let prop in values) {
+            if (values[prop] === "all") {
+              delete values[prop];
+            }
+          }
+          console.log(values)
           dispatch(filterPet(values));
-          /* resetForm(); */
-        }}
+        }}        
       >
         {(props) => (
-          <ContainerFil>
+          <Form>
             <ButtonLink to={"/petcreate"}>
               <ButtonCreate>Load Pet</ButtonCreate>
             </ButtonLink>
             <label>Type</label>
-              <Select name="pet" as="select">
+              <Field name="pet" as="select">
+              <option value="all">All</option>
                 <option value="dog">Dog</option>
                 <option value="cat">Cat</option>
-              </Select>
+              </Field>
               <label>Genre</label>
-              <Select name="gender" as="select">
+              <Field name="gender" as="select">
+              <option value="all">All</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-              </Select>
+              </Field>
               <label>Height</label>
-              <Select name="size" as="select">
+              <Field name="size" as="select">
+              <option value="all">All</option>
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="big">Big</option>
-              </Select>
+              </Field>
               <label>State</label>
-              <Select name="state" as="select">
-                <option value="adopt">Adopt</option>
+              <Field name="state" as="select">
+              <option value="all">All</option>
+                <option value="adopt">For adopt</option>
                 <option value="adopted">Adopted</option>
                 <option value="lost">Lost</option>
                 <option value="transit">Transit</option>
-              </Select>
+              </Field>
             <ButtonFilter type="submit">Filter</ButtonFilter>
-          </ContainerFil>
+          </Form>
         )} 
       </Formik>
-      
     </>
   );
 }
