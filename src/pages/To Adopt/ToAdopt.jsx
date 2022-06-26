@@ -46,8 +46,6 @@ export default function ToAdopt() {
 
   return (
     <BackgroundPets>
-      <TitleAdopt>Pets</TitleAdopt>
-
         <ContainerTop>
           <Searchbar />
         </ContainerTop>
