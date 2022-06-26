@@ -54,16 +54,17 @@ export function getById(id) {
 }
 
 export function filterPet(payload) {
-        console.log("filterPet -->", payload);
-        return async function (dispatch) {
-            try {
-                const res = await axios.get(`${url}/pet`, payload);
-        dispatch({ type: FILTER_PET, payload: res.data });
-        } catch (e) {
-            dispatch({ type: FILTER_PET, payload: e.response.data });
-        }
-    };
+  console.log("filterPet -->", payload);
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`${url}/pet`, payload);
+      dispatch({ type: FILTER_PET, payload: res.data });
+    } catch (e) {
+      dispatch({ type: FILTER_PET, payload: e.response.data });
+    }
+  };
 }
+
 
 export function cleanDetail() {
     return async(dispatch) => {
