@@ -27,22 +27,18 @@ export const Select = styled(Field)`
 
 export const ButtonFilter = styled.button`
     border-radius: 4px;
-    background: ${(props) => props.theme.secondary};
+    background: ${(props) => props.theme.primary};
     white-space: nowrap;
     padding: 5px;
     font-size: 1rem;
-    color: #fff;
+    color: ${(props) => props.theme.secondary};
     outline: none;
     border: none;
     cursor: pointer;
     margin-top: 15px;
     margin-bottom: 15px;
     margin-right: 15px;
-
-    &:hover {
-        transition: all 0.3s ease-out;
-        background: ${(props) => props.theme.primary};
-    }
+    margin-left: 10px;
     
     @media screen and (max-width: 600px) {
         width: 35%;
@@ -81,21 +77,23 @@ export const ButtonLink = styled(Link)`
 
 export const ButtonCreate = styled.button`
     border-radius: 4px;
-    background: ${(props) => props.theme.secondary};
+    background: ${(props) => props.theme.primary};
     padding: 5px;
     font-size: 1rem;
-    color: #fff;
+    color: ${(props) => props.theme.secondary};
     outline: none;
     border: none;
     cursor: pointer;
-
-    &:hover {
-        transition: all 0.3s ease-out;
-        background: ${(props) => props.theme.primary};
-    }
     
     @media screen and (max-width: 600px) {
         width: 100%;
         margin-top: 0;
     }
+`
+
+export const Label = styled.label`
+    color: ${(props) => props.theme.secondary};
+    margin-bottom: .5rem;
+    margin-left: 5px;
+    margin-right: 5px;
 `

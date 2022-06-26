@@ -6,7 +6,7 @@ export const ContainerSearch = styled.div`
 `
 
 export const Search = styled.input`
-    background-color: #caf0f8;
+    background-color: ${(props) => props.theme.card};
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border: none;
