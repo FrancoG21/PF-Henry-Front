@@ -26,29 +26,29 @@ export default function PetFilters() {
             <ButtonLink to={"/petcreate"}>
               <ButtonCreate>Load Pet</ButtonCreate>
             </ButtonLink>
-              <Field name="pet" as="select">
-              <option value="all">all</option>
+            <label>Type</label>
+              <Select name="pet" as="select">
                 <option value="dog">Dog</option>
                 <option value="cat">Cat</option>
-              </Field>
-              <Field name="gender" as="select">
-              <option value="all">all</option>
+              </Select>
+              <label>Genre</label>
+              <Select name="gender" as="select">
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-              </Field>
-              <Field name="size" as="select">
-              <option value="all">all</option>
+              </Select>
+              <label>Height</label>
+              <Select name="size" as="select">
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="big">Big</option>
-              </Field>
-              <Field name="state" as="select">
-              <option value="all">all</option>
+              </Select>
+              <label>State</label>
+              <Select name="state" as="select">
                 <option value="adopt">Adopt</option>
                 <option value="adopted">Adopted</option>
                 <option value="lost">Lost</option>
                 <option value="transit">Transit</option>
-              </Field>
+              </Select>
             <ButtonFilter type="submit">Filter</ButtonFilter>
           </ContainerFil>
         )} 
