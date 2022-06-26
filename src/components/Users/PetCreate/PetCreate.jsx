@@ -61,7 +61,7 @@ export default function PetCreate() {
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="pet name"
+                    placeholder="Pet Name"
                   />
                   <ErrorMessage
                     name="name"
@@ -74,7 +74,7 @@ export default function PetCreate() {
                     type="text"
                     id="image"
                     name="image"
-                    placeholder="pet image"
+                    placeholder="Pet Image"
                   />
                   <ErrorMessage
                     name="image"
@@ -87,21 +87,21 @@ export default function PetCreate() {
                     type="number"
                     id="image"
                     name="weight"
-                    placeholder="pet weight"
+                    placeholder="Pet Weight"
                   />
                 </Camp>
                 <Camp>
                   <Label>Size</Label>
                   <Input name="size" as="select">
-                    <option value="small">small</option>
-                    <option value="medium">medium</option>
-                    <option value="big">big</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="big">Big</option>
                   </Input>
                 </Camp>
                 <Camp>
                   <Label>Breed</Label>
                   <Input name="breed" as="select">
-                    <option value="crossbreed">crossbreed</option>
+                    <option value="crossbreed">Crossbreed</option>
                   </Input>
                 </Camp>
                 <Camp>
