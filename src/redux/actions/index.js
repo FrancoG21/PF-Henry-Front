@@ -55,6 +55,7 @@ export function getById(id) {
 
 export function filterPet({payload}) {
   console.log("filterPet -->", payload);
+  console.log(payload)
   return async function (dispatch) {
     try {
       const res = await axios.post(`${url}/pet`, payload);

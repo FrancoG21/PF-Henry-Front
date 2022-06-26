@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {useDispatch} from 'react-redux'; 
+import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import {createPet} from '../../../redux/actions/index'
-import { ContainerCamp, FormContainer, Camp, TitleForm, Label, Input, Forms, Select, ButtonSubmit, ContainerButton } from "./StyledPetCreate";
+import { createPet } from "../../../redux/actions/index";
+import {
+  ContainerCamp,
+  FormContainer,
+  Camp,
+  TitleForm,
+  Label,
+  Input,
+  Forms,
+  Select,
+  ButtonSubmit,
+  ContainerButton,
+} from "./StyledPetCreate";
 /* import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom' */
 
@@ -10,7 +21,7 @@ export default function PetCreate() {
   //minuto 42:40 video usa form, field, etc
   // 47:28 con que otros tags se puede trabajar ??
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
 
   return (
@@ -18,7 +29,7 @@ export default function PetCreate() {
       <Formik
         initialValues={{
           name: "", //string 255 caracteres
-          pet:"",
+          pet: "",
           image: "", //string 255 caracteres
           size: "", // small, medium, big
           weight: "", //
@@ -38,12 +49,12 @@ export default function PetCreate() {
 
           if (values.weight < 0) {
             errors.weight = "must be number > 0";
-          } 
+          }
 
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
-          dispatch(createPet(values))
+          dispatch(createPet(values));
           resetForm();
           setFlag(true);
           setTimeout(() => setFlag(false), 3000);
@@ -119,8 +130,8 @@ export default function PetCreate() {
                 <Camp>
                   <Label>Type</Label>
                   <Label>
-                  <Field type="radio" name="pet" value="dog" /> Dog
-                  <Field type="radio" name="pet" value="cat" /> Cat
+                    <Field type="radio" name="pet" value="dog" /> Dog
+                    <Field type="radio" name="pet" value="cat" /> Cat
                   </Label>
                 </Camp>
                 <Camp>
@@ -138,10 +149,10 @@ export default function PetCreate() {
                 </Camp>
                 <Camp>
                   <Label>
-                  Vaccinate <Field type="checkbox" name="vaccinate" />
-                  {`${props.values.vaccinate}`}
+                    Vaccinate <Field type="checkbox" name="vaccinate" />
+                    {`${props.values.vaccinate}`}
                   </Label>
-                </Camp>                      
+                </Camp>
               </ContainerCamp>
               <ContainerButton>
                 <ButtonSubmit type="submit">submit</ButtonSubmit>
