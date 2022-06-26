@@ -42,6 +42,10 @@ export const DarkMode = styled.div`
     align-items: center;
     padding: 0.5rem 1rem;
     cursor: pointer;
+
+    @media screen and (max-width: 600px) {
+        margin-right: 90px;
+    }
 ` 
 
 export const MobileIcon = styled.div`

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Cards = styled.div`
     height: 19rem;
-    background-color: #caf0f8;
+    background-color: ${(props) => props.theme.card};
     padding: 1rem;
     border: 2px;
     margin-left: 20px;
@@ -34,7 +34,7 @@ export const CardImage = styled.img`
 
 export const TitleCard = styled.h3`
     text-decoration: none;
-    color: ${(props) => props.theme.primary};
+    color: ${(props) => props.theme.font_card};
     font-size: 1.5rem;
     margin-bottom: 5px;
 `
