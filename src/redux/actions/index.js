@@ -22,7 +22,7 @@ export function searchByName(payload) {
   return async (dispatch) => {
     try {
       console.log("searchByName -->", payload);
-      const res = await axios.post(`${url}/pet`, payload); 
+      const res = await axios.put(`${url}/pet`, payload); 
       dispatch({ type: GET_PET_NAME, payload: res.data });
     } catch (e) {
       dispatch({ type: GET_PET_NAME, payload: e.response.data });
@@ -34,7 +34,7 @@ export const createPet = (payload) => {
   console.log("createPet -->", payload);
   return async function (dispatch) {
     try {
-      const res = await axios.post(`${url}/pet`, payload);
+      const res = await axios.put(`${url}/pet`, payload);
       dispatch({ type: POST_PET, payload: res.data });
     } catch (e) {
       console.log(e);
@@ -58,7 +58,7 @@ export function filterPet(payload) {
   console.log(payload)
   return async function (dispatch) {
     try {
-      const res = await axios.post(`${url}/pet`, payload);
+      const res = await axios.put(`${url}/pet`, payload);
       dispatch({ type: FILTER_PET, payload: res.data });
     } catch (e) {
       dispatch({ type: FILTER_PET, payload: e.response.data });
