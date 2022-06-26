@@ -55,7 +55,7 @@ export default function PetDetail() {
               </SubTitle2>
               <SubTitle3>
                 <Span>Fur: </Span>
-                {detail.fur}
+                {detail.fur? detail.fur : 'unknown'}
               </SubTitle3>
               <SubTitle3>
                 <Span>Gender: </Span>
