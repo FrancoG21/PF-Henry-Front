@@ -29,10 +29,11 @@ export default function PetCreate() {
   const [breeds, setBreeds] = useState([]);
 
   useEffect(()=>{
-    axios.get(`${url}/breed`).then(r=>console.log(r))  //setBreeds(r.data))
+    axios.get(`${url}/breed`).then(r=>setBreeds(r.data))  //setBreeds(r.data))
   },[])
 
   let isUrl = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
+  function capitalize(str) {return str.replace(/^\w/, (c) => c.toUpperCase())}
 
   return (
     <>
@@ -55,7 +56,10 @@ export default function PetCreate() {
           if (!/^[a-z]+$/g.test(values.name)) errors.name = "Name only allows lower case letters";
           if (!isUrl.test(values.image)) errors.image = "Image must be a valid URL"
           if (values.weight < 0) errors.weight = "Must be number > 0";
-          for(let prop in values) if(!values[prop]) errors[prop] = `${prop.replace(/^\w/, (c) => c.toUpperCase())} is required`
+          for(let prop in values) {
+            if(prop === 'castration' || prop === 'vaccinate') delete errors[prop]
+            if(!values[prop]) errors[prop] = `${capitalize(prop)} is required`
+          }
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
