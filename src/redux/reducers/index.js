@@ -3,7 +3,7 @@ import {
   GET_PETS,
   GET_PET_NAME,
   GET_TO_DETAILS,
-  FILTER_PET,
+  /* FILTER_PET */
   CLEAN_DETAILS,
 } from "../actions/nameAction";
 
@@ -41,7 +41,7 @@ const rootReducer = (state = initialState, action) => {
       };
     }
 
-    case FILTER_PET: {
+    /* case FILTER_PET: {
       console.log("respuesta del back --> abajo");
       console.log(action.payload);
       return {
@@ -49,7 +49,7 @@ const rootReducer = (state = initialState, action) => {
         pets: action.payload.pets,
         petsAmount: action.payload.total,
       };
-    }
+    } */
 
     case CLEAN_DETAILS: {
         return {

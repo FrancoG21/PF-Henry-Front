@@ -21,14 +21,24 @@ export default function Pets() {
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets);
   const petsAmount = useSelector((state) => state.petsAmount);
+  const [page, setPage] = useState(0)
+  const [filter, setFilter] = useState({})
 
   useEffect(() => {
-    dispatch(getPets());
+    dispatch(getPets(page, filter))
   }, [dispatch]);
 
-  const paginateFunction = (page) => {
-    dispatch(getPets(page));
+  const paginateFunction = (pagee) => {
+    pagee -= 1
+    setPage(pagee)
+    dispatch(getPets(pagee, filter));
   };
+
+  const petsToFilter = (obj)=>{
+    setFilter(obj)
+    dispatch(getPets(page, obj));
+    setPage(0)
+  }
 
   return (
     <BackgroundPets>
@@ -37,7 +47,7 @@ export default function Pets() {
       </ContainerTop>
 
       <ContainerFilters>
-        <PetFilters />
+        <PetFilters petsToFilter={petsToFilter}/>
       </ContainerFilters>
 
       <Container>
