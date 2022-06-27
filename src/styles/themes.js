@@ -7,6 +7,7 @@ const ligthTheme = {
     font_alt: '#011d32',
     font_card: '#041e2f',
     card: '#caf0f8',
+    search: '#000',
 }
 
 const darkTheme = {
@@ -18,6 +19,7 @@ const darkTheme = {
     font_alt: '#fff',
     font_card: '#3da9fc',
     card: '#041e2f',
+    search: '#fff',
 }
 
 export const themes = {

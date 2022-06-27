@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 export const Carrousel = styled(SplideSlide)`
-    width: 150%;
+    width: 100%;
 `
 
 export const ImageCarrusel = styled.img`
