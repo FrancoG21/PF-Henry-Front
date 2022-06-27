@@ -77,7 +77,7 @@ export default function PetCreate() {
         {(props) => (
           <FormContainer>
             <TitleForm>Load your Pets</TitleForm>
-            {console.log(props.errors)}
+            {console.log(props.values)}
             <Forms>
               <ContainerCamp>
                 <Camp>
