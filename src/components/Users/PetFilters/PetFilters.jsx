@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Formik, Form, Field } from "formik";
-import { filterPet } from "../../../redux/actions/index";
+import { Formik, Form, Field, setNestedObjectValues } from "formik";
+/* import { filterPet } from "../../../redux/actions/index"; */
 import { ButtonFilter, ContainerFil, Select, ButtonCreate, ButtonLink, Label } from "./StyledPetFilters";
 
-export default function PetFilters() {
+export default function PetFilters({petsToFilter}) {
   const dispatch = useDispatch();
 
   return (
@@ -19,7 +19,7 @@ export default function PetFilters() {
             }
           }
           console.log(values)
-          dispatch(filterPet(values));
+          petsToFilter(values)
         }}        
       >
         {(props) => (
