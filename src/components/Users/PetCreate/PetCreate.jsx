@@ -42,7 +42,7 @@ export default function PetCreate() {
           name: "", //string 255 caracteres
           pet: "", // cat or dog
           image: "", //string 255 caracteres
-          size: "", // small, medium, big
+          size: "small", // small, medium, big
           weight: "", //
           fur: "", // short or long
           breed: "crossbreed", // crossbreed
@@ -54,10 +54,14 @@ export default function PetCreate() {
           let errors = {};
           // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
           if (!/^[a-z]+$/g.test(values.name)) errors.name = "Name only allows lower case letters";
-          if (!isUrl.test(values.image)) errors.image = "Image must be a valid URL"
+          if (!isUrl.test(values.image)) errors.image = "Image must be a valid URL";
           if (values.weight < 0) errors.weight = "Must be number > 0";
+          if (values.weight > 100) errors.weight = "Must be number < 100";
           for(let prop in values) {
-            if(prop === 'castration' || prop === 'vaccinate') delete errors[prop]
+            if((prop === 'castration' || prop === 'vaccinate') && values[prop] === false) {
+              delete errors[prop];
+              continue;
+            }
             if(!values[prop]) errors[prop] = `${capitalize(prop)} is required`
           }
           return errors;
@@ -121,10 +125,6 @@ export default function PetCreate() {
                     <option value="medium">Medium</option>
                     <option value="big">Big</option>
                   </Field>
-                  <ErrorMessage
-                    name="size"
-                    component={() => <div>{props.errors.size}</div>}
-                  />
                 </Camp>
                 <Camp>
                   <Label>Breed</Label>
@@ -132,7 +132,7 @@ export default function PetCreate() {
                     {
                       breeds.length === 0
                         ? <option value='crossbreed'>Crossbreed</option>
-                        : breeds.map(breed=> <option value={breed}>{breed.replace(/^\w/, (c) => c.toUpperCase())}</option>)
+                        : breeds.map(breed=> <option value={breed} key={breed}>{breed.replace(/^\w/, (c) => c.toUpperCase())}</option>)
                     }
                   </Field>
                   <ErrorMessage
