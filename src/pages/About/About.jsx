@@ -5,12 +5,11 @@ import { Link } from "react-router-dom";
 export default function About() {
   return (
     <>
-      <h1>Bienvenidos!</h1>
+      <h1>Welcome!</h1>
       <h3>
-        Somos un equipo de 8 desarrolladores full stack con la idea de realizar
-        una App para beneficio social y en pro de ayudar a las mascotas a
-        encontrar un hogar! Para este proyecto utilizamos los siguientes
-        tecnologias:
+        We are a team of 8 full stack developers with the idea of ​​making an
+        App for social benefit and for help pets find a home! For this project we
+        use the following technologies:
         <ul>- Javascript</ul>
         <ul>- React</ul>
         <ul>- Redux</ul>
