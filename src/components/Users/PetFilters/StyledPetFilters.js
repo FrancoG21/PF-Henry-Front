@@ -41,8 +41,9 @@ export const ButtonFilter = styled.button`
     margin-left: 10px;
     
     @media screen and (max-width: 600px) {
-        width: 35%;
+        width: 90%;
         margin: 0;
+        margin-top: 10px;
     }
 `
 
@@ -86,8 +87,10 @@ export const ButtonCreate = styled.button`
     cursor: pointer;
     
     @media screen and (max-width: 600px) {
-        width: 100%;
+        width: 90%;
         margin-top: 0;
+        margin-right: 15px;
+        margin-bottom: 10px;
     }
 `
 
