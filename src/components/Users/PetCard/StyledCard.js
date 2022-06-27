@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Cards = styled.div`
-    height: 19rem;
+    height: 20rem;
     background-color: #caf0f8;
     padding: 1rem;
     border: 2px;

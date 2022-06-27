@@ -26,6 +26,7 @@ export default function Searchbar() {
     }
     if(name.toLowerCase().replace(/ /g, "").length === 0 ){
       alert('Please type something!')
+    
       setPet('')        
     }
   }
@@ -35,6 +36,7 @@ export default function Searchbar() {
             <Search type="search" value={name} onChange={e => {handleChange(e)}} placeholder='Search Pets...'/>
             <ButttonSearch type="submit" onClick={e => {handleSubmit(e)}}><BiSearch/></ButttonSearch>
         </ContainerSearch>
+        
   )
 }
 
