@@ -41,7 +41,7 @@ export default function NavBar({theme, setTheme}) {
                 <NavContainer>
                     <NavLogo to='/'>
                         <NavIcon/>
-                        TITLE
+                        AdoptA
                     </NavLogo>
                     <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
                     <MobileIcon onClick={handleClick}>
