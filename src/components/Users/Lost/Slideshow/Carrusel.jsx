@@ -1,7 +1,8 @@
 import React from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
-import { Carrousel, ImageCarrusel, NameCard, TitleCarrusel } from "./StyledCarrusel";
+import { Carrousel, ImageCarrusel, NameCard, TitleCarrusel, ContainerLost, ButtonLost, LostLink, ContainerLink } from "./StyledCarrusel";
+import { Link } from "react-router-dom";
 
 const Carrusel = () => {
   const data = [
@@ -74,7 +75,14 @@ const Carrusel = () => {
 
   return (
     <div>
-      <TitleCarrusel>Lost Animals</TitleCarrusel>
+      <ContainerLost>
+        <TitleCarrusel>Lost Animals</TitleCarrusel>
+        <ContainerLink>
+          <LostLink to='/lostform'>
+            <ButtonLost>View Lost Pets</ButtonLost>
+          </LostLink>
+        </ContainerLink>
+      </ContainerLost>
       <Splide
         options={{
           rewind: false,
