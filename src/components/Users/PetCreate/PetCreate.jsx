@@ -58,7 +58,7 @@ export default function PetCreate() {
           // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
           if (!/^[a-z]+$/g.test(values.name))
             errors.name = "Name only allows lower case letters";
-          if (!isUrl.test(values.image))
+          if (!/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/.test(values.image))
             errors.image = "Image must be a valid URL";
           if (values.weight < 0) errors.weight = "Must be number > 0";
           if (values.weight > 100) errors.weight = "Must be number < 100";
