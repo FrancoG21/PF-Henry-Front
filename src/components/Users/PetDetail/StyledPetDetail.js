@@ -1,8 +1,27 @@
 import styled from "styled-components";
+import { VscArrowLeft } from 'react-icons/vsc';
+import { Link } from "react-router-dom";
+
+
+export const BackgroundDetail = styled.div`
+    background-color: ${(props) => props.theme.background};
+`
+
+export const IconLink = styled(Link)`
+    margin-left: 20px;
+    height: 30px;
+`
+
+export const BackIcon = styled(VscArrowLeft)`
+    color: ${(props) => props.theme.secondary};
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 2em;
+    height: 2em;
+`
 
 export const DetailContainer = styled.div`
     display: grid;
-    background-color: ${(props) => props.theme.background};
     grid-template-columns: repeat(2, 1fr);
     max-width: 120rem;
     margin: 0 auto;
