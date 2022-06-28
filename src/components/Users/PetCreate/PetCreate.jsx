@@ -28,12 +28,15 @@ export default function PetCreate() {
   const [flag, setFlag] = useState(false);
   const [breeds, setBreeds] = useState([]);
 
-  useEffect(()=>{
-    axios.get(`${url}/breed`).then(r=>setBreeds(r.data))  //setBreeds(r.data))
-  },[])
+  useEffect(() => {
+    axios.get(`${url}/breed`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
+  }, []);
 
-  let isUrl = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
-  function capitalize(str) {return str.replace(/^\w/, (c) => c.toUpperCase())}
+  let isUrl =
+    /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
+  function capitalize(str) {
+    return str.replace(/^\w/, (c) => c.toUpperCase());
+  }
 
   return (
     <>
@@ -53,16 +56,21 @@ export default function PetCreate() {
         validate={(values) => {
           let errors = {};
           // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-          if (!/^[a-z]+$/g.test(values.name)) errors.name = "Name only allows lower case letters";
-          if (!isUrl.test(values.image)) errors.image = "Image must be a valid URL";
+          if (!/^[a-z]+$/g.test(values.name))
+            errors.name = "Name only allows lower case letters";
+          if (!isUrl.test(values.image))
+            errors.image = "Image must be a valid URL";
           if (values.weight < 0) errors.weight = "Must be number > 0";
           if (values.weight > 100) errors.weight = "Must be number < 100";
-          for(let prop in values) {
-            if((prop === 'castration' || prop === 'vaccinate') && values[prop] === false) {
+          for (let prop in values) {
+            if (
+              (prop === "castration" || prop === "vaccinate") &&
+              values[prop] === false
+            ) {
               delete errors[prop];
               continue;
             }
-            if(!values[prop]) errors[prop] = `${capitalize(prop)} is required`
+            if (!values[prop]) errors[prop] = `${capitalize(prop)} is required`;
           }
           return errors;
         }}
@@ -100,10 +108,11 @@ export default function PetCreate() {
                     id="image"
                     name="image"
                     placeholder="Pet Image"
-                  /><ErrorMessage
-                  name="image"
-                  component={() => <div>{props.errors.image}</div>}
-                />               
+                  />
+                  <ErrorMessage
+                    name="image"
+                    component={() => <div>{props.errors.image}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Weight</Label>
@@ -120,20 +129,24 @@ export default function PetCreate() {
                 </Camp>
                 <Camp>
                   <Label>Size</Label>
-                  <Field name="size" as="select">
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="big">Big</option>
-                  </Field>
+                  <Label>
+                    <Field type="radio" name="size" value="small" /> Small
+                    <Field type="radio" name="size" value="medium" /> Medium
+                    <Field type="radio" name="size" value="big" /> Big
+                  </Label>
                 </Camp>
                 <Camp>
                   <Label>Breed</Label>
                   <Field name="breed" as="select">
-                    {
-                      breeds.length === 0
-                        ? <option value='crossbreed'>Crossbreed</option>
-                        : breeds.map(breed=> <option value={breed} key={breed}>{breed.replace(/^\w/, (c) => c.toUpperCase())}</option>)
-                    }
+                    {breeds.length === 0 ? (
+                      <option value="crossbreed">Crossbreed</option>
+                    ) : (
+                      breeds.map((breed) => (
+                        <option value={breed} key={breed}>
+                          {breed.replace(/^\w/, (c) => c.toUpperCase())}
+                        </option>
+                      ))
+                    )}
                   </Field>
                   <ErrorMessage
                     name="breed"
@@ -167,6 +180,7 @@ export default function PetCreate() {
                   <Label>
                     <Field type="radio" name="gender" value="male" /> Male
                     <Field type="radio" name="gender" value="female" /> Female
+                    <Field type="radio" name="gender" value="female" /> Unknown
                   </Label>
                   <ErrorMessage
                     name="gender"
@@ -174,9 +188,12 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
+                  <Label>Castration</Label>
                   <Label>
-                    Castration <Field type="checkbox" name="castration" />
-                    {` ${props.values.castration}`}
+                    <Field type="radio" name="castration" value="true" /> Yes
+                    <Field type="radio" name="castration" value="false" /> No
+                    <Field type="radio" name="castration" value="true" />{" "}
+                    Unknown
                   </Label>
                   <ErrorMessage
                     name="castration"
@@ -184,9 +201,11 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
+                  <Label>Vaccinate</Label>
                   <Label>
-                    Vaccinate <Field type="checkbox" name="vaccinate" />
-                    {` ${props.values.vaccinate}`}
+                    <Field type="radio" name="vaccinate" value="true" /> Yes
+                    <Field type="radio" name="vaccinate" value="false" /> No
+                    <Field type="radio" name="vaccinate" value="true" /> Unknown
                   </Label>
                   <ErrorMessage
                     name="vaccinate"
