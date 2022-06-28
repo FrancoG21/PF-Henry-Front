@@ -12,7 +12,7 @@ import {
 } from "./StyledPetFilters";
 
 export default function PetFilters({ petsToFilter }) {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   return (
     <>
