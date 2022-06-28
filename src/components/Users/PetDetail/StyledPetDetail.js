@@ -2,15 +2,10 @@ import styled from "styled-components";
 
 export const DetailContainer = styled.div`
     display: grid;
-    background-color: ${(props) => props.theme.primary};
+    background-color: ${(props) => props.theme.background};
     grid-template-columns: repeat(2, 1fr);
-    border-radius: 3px;
     max-width: 120rem;
     margin: 0 auto;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-top: 30px;
-    margin-bottom: 30px;
 
     @media (max-width: 600px) {
         display: grid;
@@ -27,12 +22,16 @@ export const ContainerImage = styled.div`
 
 export const ImageDetail = styled.img`
     grid-row: 1 / 2;
-    padding: .7rem;
+    padding: 0.9rem;
+    background-color: darkturquoise;
     border-radius: 5px;
     width: 35rem;
+    margin-left: 30px;
+    margin-bottom: 20px;
     
     @media (max-width: 600px){
-        width: 20rem;
+        width: 22rem;
+        margin: 0;
     }
 `
 
@@ -42,6 +41,8 @@ export const DetailTitle = styled.h1`
     text-align: center;
     margin-top: 5px;
     color: ${(props) => props.theme.secondary};
+    margin-left: 40px;
+    margin-top: 30px;
 
     @media screen and (max-width: 600px) {
         justify-content: center;
@@ -49,15 +50,18 @@ export const DetailTitle = styled.h1`
 `
 
 export const ContainerContent = styled.div`
-    margin-top: 50px;
+    margin-top: 40px;
+    margin-bottom: 0;
 
     @media screen and (max-width: 600px) {
-        margin-left: 10px;
+        margin: 0;
+        text-align: center;
+        margin-bottom: 10px;
     }
 `
 
 export const Span = styled.span`
-    color: #fff;
+    color: ${(props) => props.theme.font_alt};
     font-size: 2rem;
 ` 
 

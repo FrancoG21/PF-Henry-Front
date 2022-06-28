@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Pets from "./pages/Pets/Pets";
 import NavBar from "./components/Users/NavBar/NavBar";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import Footer from "./components/Users/Footer/Footer";
 import About from "./pages/About/About";

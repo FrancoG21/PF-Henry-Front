@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Field, ErrorMessage } from "formik";
 import { createPet } from "../../../redux/actions/index";
 
 import {
@@ -15,15 +15,25 @@ import {
   ButtonSubmit,
   ContainerButton,
 } from "./StyledPetCreate";
+import axios from "axios";
 /* import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom' */
 
 export default function PetCreate() {
+  const url = "http://localhost:3001";
   //minuto 42:40 video usa form, field, etc
   // 47:28 con que otros tags se puede trabajar ??
 
   const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
+  const [breeds, setBreeds] = useState([]);
+
+  useEffect(()=>{
+    axios.get(`${url}/breed`).then(r=>setBreeds(r.data))  //setBreeds(r.data))
+  },[])
+
+  let isUrl = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
+  function capitalize(str) {return str.replace(/^\w/, (c) => c.toUpperCase())}
 
   return (
     <>
@@ -32,7 +42,7 @@ export default function PetCreate() {
           name: "", //string 255 caracteres
           pet: "", // cat or dog
           image: "", //string 255 caracteres
-          size: "", // small, medium, big
+          size: "small", // small, medium, big
           weight: "", //
           fur: "", // short or long
           breed: "crossbreed", // crossbreed
@@ -42,37 +52,18 @@ export default function PetCreate() {
         }}
         validate={(values) => {
           let errors = {};
-          if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-            errors.name = "Name only alows letters and blank space";
+          // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
+          if (!/^[a-z]+$/g.test(values.name)) errors.name = "Name only allows lower case letters";
+          if (!isUrl.test(values.image)) errors.image = "Image must be a valid URL";
+          if (values.weight < 0) errors.weight = "Must be number > 0";
+          if (values.weight > 100) errors.weight = "Must be number < 100";
+          for(let prop in values) {
+            if((prop === 'castration' || prop === 'vaccinate') && values[prop] === false) {
+              delete errors[prop];
+              continue;
+            }
+            if(!values[prop]) errors[prop] = `${capitalize(prop)} is required`
           }
-          if (!values.name) {
-            errors.name = "Name is required";
-          }
-          if (values.weight < 0) {
-            errors.weight = "Must be number > 0";
-          }
-          if (!values.fur) {
-            errors.fur = "Fur is required";
-          }
-          if (!values.breed) {
-            errors.breed = "Breed is required";
-          }
-          if (!values.gender) {
-            errors.gender = "Gender is required";
-          }
-          if (!values.pet) {
-            errors.pet = "Type is required";
-          }
-          if (!values.size) {
-            errors.size = "Size is required";
-          }
-          if (!values.weight) {
-            errors.weight = "Weight is required";
-          }
-          if (values.weight < 0) {
-            errors.weight = "Must be number > 0";
-          }
-
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
@@ -86,7 +77,7 @@ export default function PetCreate() {
         {(props) => (
           <FormContainer>
             <TitleForm>Load your Pets</TitleForm>
-            {console.log(props.errors)}
+            {console.log(props.values)}
             <Forms>
               <ContainerCamp>
                 <Camp>
@@ -109,7 +100,10 @@ export default function PetCreate() {
                     id="image"
                     name="image"
                     placeholder="Pet Image"
-                  />                  
+                  /><ErrorMessage
+                  name="image"
+                  component={() => <div>{props.errors.image}</div>}
+                />               
                 </Camp>
                 <Camp>
                   <Label>Weight</Label>
@@ -131,15 +125,15 @@ export default function PetCreate() {
                     <option value="medium">Medium</option>
                     <option value="big">Big</option>
                   </Field>
-                  <ErrorMessage
-                    name="size"
-                    component={() => <div>{props.errors.size}</div>}
-                  />
                 </Camp>
                 <Camp>
                   <Label>Breed</Label>
                   <Field name="breed" as="select">
-                    <option value="crossbreed">Crossbreed</option>
+                    {
+                      breeds.length === 0
+                        ? <option value='crossbreed'>Crossbreed</option>
+                        : breeds.map(breed=> <option value={breed} key={breed}>{breed.replace(/^\w/, (c) => c.toUpperCase())}</option>)
+                    }
                   </Field>
                   <ErrorMessage
                     name="breed"

@@ -42,8 +42,8 @@ export default function NavBar({theme, setTheme}) {
                     <NavLogo to='/'>
                         <NavIcon/>
                         TITLE
-                    <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
                     </NavLogo>
+                    <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
                     <MobileIcon onClick={handleClick}>
                         {click ? <FaTimes/> : <FaBars/>}
                     </MobileIcon>

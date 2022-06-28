@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Formik, Form, Field } from "formik";
-import { filterPet } from "../../../redux/actions/index";
-import { ButtonFilter, ContainerFil, Select, ButtonCreate, ButtonLink } from "./StyledPetFilters";
+import { Formik, Form, Field, setNestedObjectValues } from "formik";
+/* import { filterPet } from "../../../redux/actions/index"; */
+import { ButtonFilter, ContainerFil, Select, ButtonCreate, ButtonLink, Label } from "./StyledPetFilters";
 
-export default function PetFilters() {
+export default function PetFilters({petsToFilter}) {
   const dispatch = useDispatch();
 
   return (
@@ -19,7 +19,7 @@ export default function PetFilters() {
             }
           }
           console.log(values)
-          dispatch(filterPet(values));
+          petsToFilter(values)
         }}        
       >
         {(props) => (
@@ -27,26 +27,26 @@ export default function PetFilters() {
             <ButtonLink to={"/petcreate"}>
               <ButtonCreate>Load Pet</ButtonCreate>
             </ButtonLink>
-            <label>Type</label>
+            <Label>Type</Label>
               <Field name="pet" as="select">
               <option value="all">All</option>
                 <option value="dog">Dog</option>
                 <option value="cat">Cat</option>
               </Field>
-              <label>Genre</label>
+              <Label>Genre</Label>
               <Field name="gender" as="select">
               <option value="all">All</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </Field>
-              <label>Height</label>
+              <Label>Height</Label>
               <Field name="size" as="select">
               <option value="all">All</option>
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="big">Big</option>
               </Field>
-              <label>State</label>
+              <Label>State</Label>
               <Field name="state" as="select">
               <option value="all">All</option>
                 <option value="adopt">For adopt</option>

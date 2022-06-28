@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
-import PetCard from "../../components/Users/PetCard/PetCard";
+import Card from "../../components/Users/Card/Card";
 import Paginate from "../../components/Users/Paginate/Paginate";
 import Searchbar from "../../components/Users/Searchbar/Searchbar";
 import PetFilters from "../../components/Users/PetFilters/PetFilters";
@@ -14,53 +14,54 @@ import {
   TitleAdopt,
   ImageSpace,
   ContainerTop,
-  ContainerFilters,
+  ContainerFilters
 } from "./StyledToAdopt";
 
-export default function Pets() {
+export default function ToAdopt() {
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets);
   const petsAmount = useSelector((state) => state.petsAmount);
-  const [page, setPage] = useState(0)
-  const [filter, setFilter] = useState({})
+  
+
 
   useEffect(() => {
-    dispatch(getPets(page, filter))
+    dispatch(getPets());
   }, [dispatch]);
 
-  const paginateFunction = (pagee) => {
-    pagee -= 1
-    setPage(pagee)
-    dispatch(getPets(pagee, filter));
+  const paginateFunction = (page) => {
+    dispatch(getPets(page));
   };
 
-  const petsToFilter = (obj)=>{
-    setFilter(obj)
-    dispatch(getPets(page, obj));
-    setPage(0)
-  }
+ 
 
   return (
     <BackgroundPets>
-      <ContainerTop>
-        <Searchbar />
-      </ContainerTop>
+      <TitleAdopt>Pets</TitleAdopt>
 
-      <ContainerFilters>
-        <PetFilters petsToFilter={petsToFilter}/>
-      </ContainerFilters>
+        <ContainerTop>
+          <Searchbar />
+        </ContainerTop>
+
+        <ContainerFilters>
+          <PetFilters />
+        </ContainerFilters>
+
 
       <Container>
         <ImageSpace>
           <Grid>
-            {!pets ? (
-              <p>Please choose other option</p>
-            ) : pets[0] === "the search returned no results" ? (
+            {pets[0] === "pet not found" ? (
+              <p>no existe el pet</p>
+            ) : 
+            pets[0] === "the search returned no results" ? (
               <p>the search returned no results</p>
+            ) :
+            !pets ? (
+              <p>Loading</p>
             ) : (
               pets?.map((p) => {
                 return (
-                  <PetCard key={p.id} id={p.id} name={p.name} image={p.image} />
+                  <Card key={p.id} id={p.id} name={p.name} image={p.image} />
                 );
               })
             )}
