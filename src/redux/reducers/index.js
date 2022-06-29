@@ -5,6 +5,7 @@ import {
   GET_TO_DETAILS,
   /* FILTER_PET */
   CLEAN_DETAILS,
+  GET_LOST_PETS,
 } from "../actions/nameAction";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   pets: [],
   petsAmount: {},
   petDetail: [],
+  lostpets: [],
 };
 
 const rootReducer = (state = initialState, action) => {

@@ -7,7 +7,7 @@ import Footer from "./components/Users/Footer/Footer";
 import About from "./pages/About/About";
 import PetDetail from "./components/Users/PetDetail/PetDetail";
 import PetCreate from "./components/Users/PetCreate/PetCreate";
-import LostForm from "./components/Users/LostForm/LostForm";
+import LostPets from "./components/Users/LostPets/LostPets";
 import Donation from "./pages/Donation/Donation";
 
 //  MODO OSCURO //
@@ -30,7 +30,7 @@ function App() {
             <Route path="/about" element={<About />}></Route>
             <Route path="/petdetail/:id" element={<PetDetail />}></Route>
             <Route path="/petcreate" element={<PetCreate />}></Route>
-            <Route path="/lostform" element={<LostForm />}></Route>
+            <Route path="/lostform" element={<LostPets />}></Route>
             <Route path="/donation" element={<Donation />}></Route>
           </Routes>
           <Footer />
