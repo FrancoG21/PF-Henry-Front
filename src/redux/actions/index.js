@@ -4,16 +4,21 @@ import {
   GET_PET_NAME,
   GET_TO_DETAILS,
   POST_PET,
-  FILTER_PET,
+  /* FILTER_PET, */
+  CLEAN_DETAILS,
 } from "./nameAction";
 
 //usar este url para las rutas hacia el back
 const url = "http://localhost:3001";
 
-export function getPets(page) {
+export function getPets(page, filter) {
   return async (dispatch) => {
-    const res = await axios.get(`${url}/pet?page=${page ? page : 0}`);
-    dispatch({ type: GET_PETS, payload: res.data });
+    try {
+      const res = await axios.put(`${url}/pet?page=${page}`, filter);
+      dispatch({ type: GET_PETS, payload: res.data });
+    } catch (e) {
+      dispatch({ type: GET_PETS, payload: e.response.data });
+    }
   };
 }
 
@@ -21,7 +26,7 @@ export function searchByName(payload) {
   return async (dispatch) => {
     try {
       console.log("searchByName -->", payload);
-      const res = await axios.get(`${url}/pet`, payload);
+      const res = await axios.put(`${url}/pet`, payload);
       dispatch({ type: GET_PET_NAME, payload: res.data });
     } catch (e) {
       dispatch({ type: GET_PET_NAME, payload: e.response.data });
@@ -52,14 +57,21 @@ export function getById(id) {
   };
 }
 
-export function filterPet(payload) {
+/* export function filterPet(payload) {
   console.log("filterPet -->", payload);
+  console.log(payload);
   return async function (dispatch) {
     try {
-      const res = await axios.get(`${url}/pet`, payload);
+      const res = await axios.put(`${url}/pet`, payload);
       dispatch({ type: FILTER_PET, payload: res.data });
     } catch (e) {
       dispatch({ type: FILTER_PET, payload: e.response.data });
     }
+  };
+} */
+
+export function cleanDetail() {
+  return async (dispatch) => {
+    dispatch({ type: CLEAN_DETAILS, payload: [] });
   };
 }

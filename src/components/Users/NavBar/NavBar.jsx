@@ -41,9 +41,9 @@ export default function NavBar({theme, setTheme}) {
                 <NavContainer>
                     <NavLogo to='/'>
                         <NavIcon/>
-                        TITLE
-                    <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
+                        AdoptA
                     </NavLogo>
+                    <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
                     <MobileIcon onClick={handleClick}>
                         {click ? <FaTimes/> : <FaBars/>}
                     </MobileIcon>
@@ -52,15 +52,15 @@ export default function NavBar({theme, setTheme}) {
                             <NavAcces to='/'>Home</NavAcces>
                         </NavItem>
                         <NavItem>
-                            <NavAcces to='/adopt'>To Adopt</NavAcces>
+                            <NavAcces to='/adopt'>Pets</NavAcces>
                         </NavItem>
                         <NavItem>
                             <NavAcces to='/'>Donation</NavAcces>
                         </NavItem>
                         <NavItem>
                             <NavAcces to='/about'>About Us</NavAcces>
-                        </NavItem>
-                        <NavButton>
+                        </NavItem>                       
+                        {/* <NavButton>
                             {
                                 button ? (
                                     <NavButtonLink to='/'>
@@ -72,17 +72,20 @@ export default function NavBar({theme, setTheme}) {
                                 </NavButtonLink>
                                 )
                             }
-                        </NavButton>
-                    </NavMenu>
-                    {/* <NavMenu>
+                        </NavButton> */}
+                    {/* </NavMenu>
+                    <NavMenu> */}
                         <NavItem>
                             <NavAcces to='/'>Login</NavAcces>
                         </NavItem>
-                        <MinText>|</MinText>
+                        {/* <MinText>|</MinText> */}
                         <NavItem>
                             <NavAcces to='/'>Register</NavAcces>
                         </NavItem>
-                    </NavMenu> */}
+                        <NavItem>
+                            <NavAcces to='/userprofile'>Profile</NavAcces>
+                        </NavItem>
+                    </NavMenu>
                 </NavContainer>
             </Nav>
         </IconContext.Provider>

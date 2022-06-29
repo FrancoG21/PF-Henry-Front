@@ -15,7 +15,13 @@ export const FooterContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 10px 40px;
+    width: 100%;
+    margin: 10px 1px;
+    
+    @media screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+    }
 `
 
 export const FooterLinks = styled.div`
@@ -26,6 +32,8 @@ export const FooterLinks = styled.div`
 
     @media screen and(max-width: 600px){
         padding-top: 80px;
+        display: flex;
+        flex-direction: column;
     }
 `
 

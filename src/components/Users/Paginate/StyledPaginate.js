@@ -7,7 +7,7 @@ export const Page = styled.div`
 `
 
 export const ButtonPage = styled.div`
-    background-color: #caf0f8;
+    background-color: ${(props) => props.theme.card};
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: 20px;
@@ -15,12 +15,12 @@ export const ButtonPage = styled.div`
     padding: .5rem;
 
     &:hover {
-        background-color: #011d32;
+        background-color: ${(props) => props.theme.font_card};
     }
 `
 
 export const LinkButton = styled.a`
-    color: #011d32;
+    color: ${(props) => props.theme.font_card};
     text-decoration: none;
     list-style: none;
 

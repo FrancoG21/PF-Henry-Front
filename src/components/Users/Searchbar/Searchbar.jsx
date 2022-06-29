@@ -21,7 +21,7 @@ export default function Searchbar() {
 
     if(name.toLowerCase().replace(/ /g, "").length > 0){
       console.log('searchbar -->',name)
-      dispatch(searchByName({name:name}))
+      dispatch(searchByName({name:name.toLocaleLowerCase()}))
       setPet('')
     }
     if(name.toLowerCase().replace(/ /g, "").length === 0 ){
