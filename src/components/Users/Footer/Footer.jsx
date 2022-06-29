@@ -66,11 +66,11 @@ export default function Footer () {
                             </DivIcon>
                             <DivIcon>
                                 <Icon/>
-                                <ContactText href='#' target='blank'>Lucas Giorgi</ContactText>
+                                <ContactText href='https://www.linkedin.com/in/lucas-giorgi-b8985416a/' target='blank'>Lucas Giorgi</ContactText>
                             </DivIcon>
                             <DivIcon>
                                 <Icon/>
-                                <ContactText href='#' target='blank'>Agustín Di Giancito</ContactText>
+                                <ContactText href='https://www.linkedin.com/in/agustin-di-giacinto-5a0357218/' target='blank'>Agustín Di Giacinto</ContactText>
                             </DivIcon>
                         </FooterLinksItems>
                     </FooterLinksContainer>

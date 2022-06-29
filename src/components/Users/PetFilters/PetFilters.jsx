@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import { Formik, Form, Field, setNestedObjectValues } from "formik";
 /* import { filterPet } from "../../../redux/actions/index"; */
-import { ButtonFilter, ContainerFil, Select, ButtonCreate, ButtonLink, Label } from "./StyledPetFilters";
+import {
+  ButtonFilter,
+  ContainerFil,
+  Select,
+  ButtonCreate,
+  ButtonLink,
+  Label,
+} from "./StyledPetFilters";
 
-export default function PetFilters({petsToFilter}) {
-  const dispatch = useDispatch();
+export default function PetFilters({ petsToFilter }) {
+  //const dispatch = useDispatch();
+  const url = "http://localhost:3001";
+  const [petType, setPetType] = useState("");
+
+  const [breeds, setBreeds] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${url}/breed?pet=${petType}`)
+      .then((r) => setBreeds(["all"].concat(r.data))); //setBreeds(r.data))
+    console.log(breeds);
+  }, [petType]);
+
+  const handleClickPetTypeBreeds = (type) => {
+    setPetType(type);
+  };
 
   return (
     <>
@@ -18,9 +41,9 @@ export default function PetFilters({petsToFilter}) {
               delete values[prop];
             }
           }
-          console.log(values)
-          petsToFilter(values)
-        }}        
+          console.log(values);
+          petsToFilter(values);
+        }}
       >
         {(props) => (
           <Form>
@@ -28,35 +51,59 @@ export default function PetFilters({petsToFilter}) {
               <ButtonCreate>Load Pet</ButtonCreate>
             </ButtonLink>
             <Label>Type</Label>
-              <Field name="pet" as="select">
-              <option value="all">All</option>
-                <option value="dog">Dog</option>
-                <option value="cat">Cat</option>
-              </Field>
-              <Label>Genre</Label>
-              <Field name="gender" as="select">
-              <option value="all">All</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </Field>
-              <Label>Height</Label>
-              <Field name="size" as="select">
-              <option value="all">All</option>
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="big">Big</option>
-              </Field>
-              <Label>State</Label>
-              <Field name="state" as="select">
-              <option value="all">All</option>
-                <option value="adopt">For adopt</option>
-                <option value="adopted">Adopted</option>
-                <option value="lost">Lost</option>
-                <option value="transit">Transit</option>
-              </Field>
+            <Label>
+              <Field type="radio" name="pet" value="all" /> All
+              <Field
+                type="radio"
+                name="pet"
+                value="dog"
+                onClick={() => handleClickPetTypeBreeds("dog")}
+              />{" "}
+              Dog
+              <Field
+                type="radio"
+                name="pet"
+                value="cat"
+                onClick={() => handleClickPetTypeBreeds("cat")}
+              />{" "}
+              Cat
+            </Label>
+            <Label>Breed</Label>
+            <Field name="breed" as="select">
+              {breeds.length === 0 ? (
+                <option value="crossbreed">Crossbreed</option>
+              ) : (
+                breeds.map((breed) => (
+                  <option value={breed} key={breed}>
+                    {breed.replace(/^\w/, (c) => c.toUpperCase())}
+                  </option>
+                ))
+              )}
+            </Field>
+            <Label>Gender</Label>
+            <Label>
+              <Field type="radio" name="gender" value="all" /> All
+              <Field type="radio" name="gender" value="male" /> Male
+              <Field type="radio" name="gender" value="female" /> Female
+            </Label>
+            <Label>Size</Label>
+            <Label>
+              <Field type="radio" name="size" value="all" /> All
+              <Field type="radio" name="size" value="small" /> Small
+              <Field type="radio" name="size" value="medium" /> Medium
+              <Field type="radio" name="size" value="big" /> Big
+            </Label>
+            {/* <Label>State</Label>
+            <Label>
+              <Field type="radio" name="state" value="all" /> All
+              <Field type="radio" name="state" value="adopt" /> Adopt
+              <Field type="radio" name="state" value="adopted" /> adopted
+              <Field type="radio" name="state" value="lost" /> Lost
+              <Field type="radio" name="state" value="transit" /> Transit
+            </Label> */}
             <ButtonFilter type="submit">Filter</ButtonFilter>
           </Form>
-        )} 
+        )}
       </Formik>
     </>
   );
