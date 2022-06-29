@@ -30,8 +30,6 @@ export default function PetCreate() {
   const [petType, setPetType] = useState("");
 
   useEffect(() => {
-    axios.get(`/breed`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
-  }, []);
     axios
       .get(`/breed?pet=${petType}`)
       .then((r) => setBreeds(["other"].concat(r.data))); //setBreeds(r.data))
