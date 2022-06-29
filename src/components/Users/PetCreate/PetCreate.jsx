@@ -20,7 +20,6 @@ import axios from "axios";
 import { Link } from 'react-router-dom' */
 
 export default function PetCreate() {
-  const url = "http://localhost:3001";
   const todayDate = new Date().toISOString().slice(0, 10);
   //minuto 42:40 video usa form, field, etc
   // 47:28 con que otros tags se puede trabajar ??
@@ -33,7 +32,7 @@ export default function PetCreate() {
 
   useEffect(() => {
     axios
-      .get(`${url}/breed?pet=${petType}`)
+      .get(`/breed?pet=${petType}`)
       .then((r) => setBreeds(["other"].concat(r.data))); //setBreeds(r.data))
   }, [petType]);
 
