@@ -30,8 +30,9 @@ export const FormContainer = styled.div`
 `
 
 export const ContainerCamp = styled.div`
+    /* display: grid; */
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
 
     @media screen and (max-width:600px) {
         display: flex;
