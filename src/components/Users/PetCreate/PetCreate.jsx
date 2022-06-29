@@ -21,16 +21,20 @@ import { Link } from 'react-router-dom' */
 
 export default function PetCreate() {
   const url = "http://localhost:3001";
+  const todayDate = new Date().toISOString().slice(0, 10);
   //minuto 42:40 video usa form, field, etc
   // 47:28 con que otros tags se puede trabajar ??
 
   const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
   const [breeds, setBreeds] = useState([]);
+  const [petType, setPetType] = useState("");
 
   useEffect(() => {
-    axios.get(`${url}/breed`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
-  }, []);
+    axios
+      .get(`${url}/breed?pet=${petType}`)
+      .then((r) => setBreeds(["other"].concat(r.data))); //setBreeds(r.data))
+  }, [petType]);
 
   let isUrl =
     /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
@@ -38,27 +42,38 @@ export default function PetCreate() {
     return str.replace(/^\w/, (c) => c.toUpperCase());
   }
 
+  const handleClickPetTypeBreeds = (type) => {
+    setPetType(type);
+  };
+
   return (
     <>
       <Formik
         initialValues={{
           name: "", //string 255 caracteres
-          pet: "", // cat or dog
+          pet: "dog", // cat or dog
           image: "", //string 255 caracteres
-          size: "small", // small, medium, big
+          size: "", // small, medium, big
           weight: "", //
           fur: "", // short or long
-          breed: "crossbreed", // crossbreed
+          breed: "", // crossbreed
           gender: "", // female or male
-          castration: false, // true or false
-          vaccinate: false, // true or false
+          castration: "", // true or false
+          vaccinate: "", // true or false
+          state: "", //adopt or lost
+          date: "",
+          place: "",
         }}
         validate={(values) => {
           let errors = {};
           // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
           if (!/^[a-z]+$/g.test(values.name))
             errors.name = "Name only allows lower case letters";
-          if (!isUrl.test(values.image))
+          if (
+            !/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/.test(
+              values.image
+            )
+          )
             errors.image = "Image must be a valid URL";
           if (values.weight < 0) errors.weight = "Must be number > 0";
           if (values.weight > 100) errors.weight = "Must be number < 100";
@@ -70,12 +85,29 @@ export default function PetCreate() {
               delete errors[prop];
               continue;
             }
-            if (!values[prop]) errors[prop] = `${capitalize(prop)} is required`;
+
+            if (values.state === "adopt" && !values[prop]) {
+              errors[prop] = `${capitalize(prop)} is required`;
+              for (let prop in errors) {
+                if (prop === "place" || prop === "date") {
+                  delete errors[prop];
+                }
+              }             
+            }
+
+            if (values.state === "lost" && !values[prop]){
+              errors[prop] = `${capitalize(prop)} is required`;
+            }
+              
           }
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
-          dispatch(createPet(values));
+          console.log(
+            "SE ENVIAN ESTOS VALORES -> Esperando a team back para los cambios"
+          );
+          console.log(values);
+          /* dispatch(createPet(values)); */
           resetForm();
           setFlag(true);
           console.log("formulario enviado");
@@ -88,6 +120,19 @@ export default function PetCreate() {
             {console.log(props.values)}
             <Forms>
               <ContainerCamp>
+                <Camp>
+                  <Label>Do you want to:</Label>
+                  <Label>
+                    <Field type="radio" name="state" value="adopt" /> Give your
+                    pet for adoption
+                    <Field type="radio" name="state" value="lost" /> Load a lost
+                    pet
+                  </Label>
+                  <ErrorMessage
+                    name="state"
+                    component={() => <div>{props.errors.state}</div>}
+                  />
+                </Camp>
                 <Camp>
                   <Label>Name</Label>
                   <Input //maneja todo solo con el name=
@@ -115,10 +160,57 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
+                  <Label>Type</Label>
+                  <Label>
+                    <Field
+                      type="radio"
+                      name="pet"
+                      value="dog"
+                      onClick={() => handleClickPetTypeBreeds("dog")}
+                    />{" "}
+                    Dog
+                    <Field
+                      type="radio"
+                      name="pet"
+                      value="cat"
+                      onClick={() => handleClickPetTypeBreeds("cat")}
+                    />{" "}
+                    Cat
+                  </Label>
+                  <ErrorMessage
+                    name="pet"
+                    component={() => <div>{props.errors.pet}</div>}
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Breed</Label>
+                  <Field name="breed" as="select">
+                    {breeds.length === 0 ? (
+                      <option value="crossbreed">Crossbreed</option>
+                    ) : (
+                      breeds.map((breed) => (
+                        <option value={breed} key={breed}>
+                          {breed.replace(/^\w/, (c) => c.toUpperCase())}
+                        </option>
+                      ))
+                    )}
+                  </Field>
+                  {/*   {props.values.breed === 'other'  &&  <Input
+                    type="text"
+                    id="breed"
+                    name="breed"
+                    placeholder="Write another breed"
+                  />} */}
+                  <ErrorMessage
+                    name="breed"
+                    component={() => <div>{props.errors.breed}</div>}
+                  />
+                </Camp>
+                <Camp>
                   <Label>Weight</Label>
                   <Input
                     type="number"
-                    id="image"
+                    id="weight"
                     name="weight"
                     placeholder="Pet Weight"
                   />
@@ -136,24 +228,6 @@ export default function PetCreate() {
                   </Label>
                 </Camp>
                 <Camp>
-                  <Label>Breed</Label>
-                  <Field name="breed" as="select">
-                    {breeds.length === 0 ? (
-                      <option value="crossbreed">Crossbreed</option>
-                    ) : (
-                      breeds.map((breed) => (
-                        <option value={breed} key={breed}>
-                          {breed.replace(/^\w/, (c) => c.toUpperCase())}
-                        </option>
-                      ))
-                    )}
-                  </Field>
-                  <ErrorMessage
-                    name="breed"
-                    component={() => <div>{props.errors.breed}</div>}
-                  />
-                </Camp>
-                <Camp>
                   <Label>Fur</Label>
                   <Label>
                     <Field type="radio" name="fur" value="short" /> Short
@@ -162,17 +236,6 @@ export default function PetCreate() {
                   <ErrorMessage
                     name="fur"
                     component={() => <div>{props.errors.fur}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>Type</Label>
-                  <Label>
-                    <Field type="radio" name="pet" value="dog" /> Dog
-                    <Field type="radio" name="pet" value="cat" /> Cat
-                  </Label>
-                  <ErrorMessage
-                    name="pet"
-                    component={() => <div>{props.errors.pet}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -192,7 +255,11 @@ export default function PetCreate() {
                   <Label>
                     <Field type="radio" name="castration" value="true" /> Yes
                     <Field type="radio" name="castration" value="false" /> No
-                    <Field type="radio" name="castration" value="true" />{" "}
+                    <Field
+                      type="radio"
+                      name="castration"
+                      value="unknown"
+                    />{" "}
                     Unknown
                   </Label>
                   <ErrorMessage
@@ -205,13 +272,38 @@ export default function PetCreate() {
                   <Label>
                     <Field type="radio" name="vaccinate" value="true" /> Yes
                     <Field type="radio" name="vaccinate" value="false" /> No
-                    <Field type="radio" name="vaccinate" value="true" /> Unknown
+                    <Field type="radio" name="vaccinate" value="unknown" />{" "}
+                    Unknown
                   </Label>
                   <ErrorMessage
                     name="vaccinate"
                     component={() => <div>{props.errors.vaccinate}</div>}
                   />
                 </Camp>
+                {props.values.state === "lost" && (
+                  <div>
+                    <Camp>
+                      <Label>When did you found it ?</Label>
+                      <input
+                        type="date"
+                        name="date"
+                        /* max={todayDate} */
+                        min="2022-01-01"
+                      />
+                    </Camp>
+                    <Camp>
+                      <Label>Where did you found it ?</Label>
+                      <Input
+                        type="text"
+                        id="place"
+                        name="place"
+                        placeholder="Pet place"
+                      />
+                    </Camp>
+
+                    <h1>Fecha de hoy: {todayDate}</h1>
+                  </div>
+                )}
               </ContainerCamp>
               <ContainerButton>
                 <ButtonSubmit type="submit">submit</ButtonSubmit>
