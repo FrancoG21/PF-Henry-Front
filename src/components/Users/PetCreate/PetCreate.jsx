@@ -20,7 +20,6 @@ import axios from "axios";
 import { Link } from 'react-router-dom' */
 
 export default function PetCreate() {
-  const url = "http://localhost:3001";
   //minuto 42:40 video usa form, field, etc
   // 47:28 con que otros tags se puede trabajar ??
 
@@ -29,7 +28,7 @@ export default function PetCreate() {
   const [breeds, setBreeds] = useState([]);
 
   useEffect(() => {
-    axios.get(`${url}/breed`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
+    axios.get(`/breed`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
   }, []);
 
   let isUrl =
