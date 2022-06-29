@@ -29,6 +29,7 @@ export default function PetCreate() {
   const [flag, setFlag] = useState(false);
   const [breeds, setBreeds] = useState([]);
   const [petType, setPetType] = useState("");
+  const [otherBreed, setOtherBreed] = useState('') //este estado era para que escuche si breed esta en other
 
   useEffect(() => {
     axios
@@ -45,6 +46,8 @@ export default function PetCreate() {
   const handleClickPetTypeBreeds = (type) => {
     setPetType(type);
   };
+
+
 
   return (
     <>
@@ -92,13 +95,16 @@ export default function PetCreate() {
                 if (prop === "place" || prop === "date") {
                   delete errors[prop];
                 }
-              }             
+              }
             }
 
-            if (values.state === "lost" && !values[prop]){
+            if (values.state === "lost" && !values[prop]) {
               errors[prop] = `${capitalize(prop)} is required`;
             }
-              
+
+            /* if(values.breed === 'other'){
+              values.breed = otherBreed
+            } */
           }
           return errors;
         }}
@@ -106,6 +112,7 @@ export default function PetCreate() {
           console.log(
             "SE ENVIAN ESTOS VALORES -> Esperando a team back para los cambios"
           );
+
           console.log(values);
           /* dispatch(createPet(values)); */
           resetForm();
@@ -117,16 +124,18 @@ export default function PetCreate() {
         {(props) => (
           <FormContainer>
             <TitleForm>Load your Pets</TitleForm>
-            {console.log(props.values)}
             <Forms>
+              <div>{JSON.stringify(props.values)}</div>
+              <br />
+              <div>{JSON.stringify(props.errors)}</div>
+              <br />
               <ContainerCamp>
                 <Camp>
                   <Label>Do you want to:</Label>
                   <Label>
                     <Field type="radio" name="state" value="adopt" /> Give your
                     pet for adoption
-                    <Field type="radio" name="state" value="lost" /> Load a lost
-                    pet
+                    <Field type="radio" name="state" value="lost" /> I found a pet
                   </Label>
                   <ErrorMessage
                     name="state"
@@ -139,7 +148,7 @@ export default function PetCreate() {
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Pet Name"
+                    placeholder="Localidad, Barrio"
                   />
                   <ErrorMessage
                     name="name"
@@ -195,12 +204,15 @@ export default function PetCreate() {
                       ))
                     )}
                   </Field>
-                  {/*   {props.values.breed === 'other'  &&  <Input
-                    type="text"
-                    id="breed"
-                    name="breed"
-                    placeholder="Write another breed"
-                  />} */}
+                  {props.values.breed === "other" && (
+                    <Input
+                      type="text"
+                      id="breed"
+                      name="breed"                     
+                      placeholder="Write another breed"                                                         
+                    />                    
+                  )}
+                  <div>breeds: {JSON.stringify(props.values.other)}</div>
                   <ErrorMessage
                     name="breed"
                     component={() => <div>{props.errors.breed}</div>}
@@ -212,7 +224,7 @@ export default function PetCreate() {
                     type="number"
                     id="weight"
                     name="weight"
-                    placeholder="Pet Weight"
+                    placeholder="Pet Weight"                    
                   />
                   <ErrorMessage
                     name="weight"
@@ -287,7 +299,7 @@ export default function PetCreate() {
                       <input
                         type="date"
                         name="date"
-                        /* max={todayDate} */
+                        max={todayDate} 
                         min="2022-01-01"
                       />
                     </Camp>
