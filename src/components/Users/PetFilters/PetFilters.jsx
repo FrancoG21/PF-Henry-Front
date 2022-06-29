@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import { Formik, Form, Field, setNestedObjectValues } from "formik";
 /* import { filterPet } from "../../../redux/actions/index"; */
 import {
@@ -13,6 +14,21 @@ import {
 
 export default function PetFilters({ petsToFilter }) {
   //const dispatch = useDispatch();
+  const url = "http://localhost:3001";
+  const [petType, setPetType] = useState("");
+
+  const [breeds, setBreeds] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${url}/breed?pet=${petType}`)
+      .then((r) => setBreeds(["all"].concat(r.data))); //setBreeds(r.data))
+    console.log(breeds);
+  }, [petType]);
+
+  const handleClickPetTypeBreeds = (type) => {
+    setPetType(type);
+  };
 
   return (
     <>
@@ -37,9 +53,33 @@ export default function PetFilters({ petsToFilter }) {
             <Label>Type</Label>
             <Label>
               <Field type="radio" name="pet" value="all" /> All
-              <Field type="radio" name="pet" value="dog" /> Dog
-              <Field type="radio" name="pet" value="cat" /> Cat
+              <Field
+                type="radio"
+                name="pet"
+                value="dog"
+                onClick={() => handleClickPetTypeBreeds("dog")}
+              />{" "}
+              Dog
+              <Field
+                type="radio"
+                name="pet"
+                value="cat"
+                onClick={() => handleClickPetTypeBreeds("cat")}
+              />{" "}
+              Cat
             </Label>
+            <Label>Breed</Label>
+            <Field name="breed" as="select">
+              {breeds.length === 0 ? (
+                <option value="crossbreed">Crossbreed</option>
+              ) : (
+                breeds.map((breed) => (
+                  <option value={breed} key={breed}>
+                    {breed.replace(/^\w/, (c) => c.toUpperCase())}
+                  </option>
+                ))
+              )}
+            </Field>
             <Label>Gender</Label>
             <Label>
               <Field type="radio" name="gender" value="all" /> All
@@ -53,14 +93,14 @@ export default function PetFilters({ petsToFilter }) {
               <Field type="radio" name="size" value="medium" /> Medium
               <Field type="radio" name="size" value="big" /> Big
             </Label>
-            <Label>State</Label>
+            {/* <Label>State</Label>
             <Label>
               <Field type="radio" name="state" value="all" /> All
               <Field type="radio" name="state" value="adopt" /> Adopt
               <Field type="radio" name="state" value="adopted" /> adopted
               <Field type="radio" name="state" value="lost" /> Lost
               <Field type="radio" name="state" value="transit" /> Transit
-            </Label>
+            </Label> */}
             <ButtonFilter type="submit">Filter</ButtonFilter>
           </Form>
         )}
