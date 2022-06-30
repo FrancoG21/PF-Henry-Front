@@ -95,8 +95,9 @@ export const ButtonCreate = styled.button`
 `
 
 export const Label = styled.label`
-    color: ${(props) => props.theme.secondary};
+     color: ${(props) => props.theme.secondary};
     margin-bottom: .5rem;
     margin-left: 5px;
     margin-right: 5px;
+  
 `

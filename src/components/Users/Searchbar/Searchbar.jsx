@@ -4,6 +4,7 @@ import {useState} from 'react'
 import {searchByName} from '../../../redux/actions/index';
 import { BiSearch } from 'react-icons/bi';
 import { ContainerSearch, ButttonSearch, Search } from './StyledSearchBar';
+import Swal from 'sweetalert2'
 
 export default function Searchbar() {
 
@@ -25,7 +26,7 @@ export default function Searchbar() {
       setPet('')
     }
     if(name.toLowerCase().replace(/ /g, "").length === 0 ){
-      alert('Please type something!')
+     Swal.fire('has algo bien hijo')
     
       setPet('')        
     }

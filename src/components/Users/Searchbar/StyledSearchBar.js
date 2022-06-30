@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
+
 export const ContainerSearch = styled.div`
-    display: flex;
+   
     margin: 10px 20px 10px 20px;
 `
 

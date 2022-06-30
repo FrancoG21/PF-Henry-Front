@@ -43,21 +43,6 @@ export default function About() {
 
 
   return (
-<<<<<<< HEAD
-    <>
-      <h1>Welcome!</h1>
-      <h3>
-        We are a team of 8 full stack developers with the idea of ​​making an
-        App for social benefit and for help pets find a home! For this project we
-        use the following technologies:
-        <ul>- Javascript</ul>
-        <ul>- React</ul>
-        <ul>- Redux</ul>
-        <ul>- CSS</ul>
-      </h3>
-      {/* <h4>Quieres saber mas de nosotros?<button className="btn-contact"><Link className="link" to='/contact'>Contactanos!</Link></button></h4> */}
-    </>
-=======
     <BackgroundAbout>
       <TitleAbout>About Us!</TitleAbout>
       <Text>
@@ -129,6 +114,5 @@ export default function About() {
 
       </ContainerAbout>
     </BackgroundAbout>
->>>>>>> fb5e8044abc5c4b346cee88f96fbaee3c5af4a97
   );
 }
