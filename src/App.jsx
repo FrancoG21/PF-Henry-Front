@@ -12,6 +12,8 @@ import Donation from "./pages/Donation/Donation";
 import UserAdoptPetForm from "./components/Users/UserAdoptPetForm/UserAdoptPetForm"
 import UserTransitPetForm from "./components/Users/UserTransitPetForm/UserTransitPetForm"
 import UserProfile from "./pages/UserProfile/UserProfile";
+import Success from "./pages/Donation/results/Success";
+import Failure from "./pages/Donation/results/Failure";
 
 //  MODO OSCURO //
 import { ThemeProvider } from "styled-components";
@@ -35,6 +37,8 @@ function App() {
             <Route path="/petcreate" element={<PetCreate />}></Route>
             <Route path="/lostform" element={<LostForm />}></Route>
             <Route path="/donation" element={<Donation />}></Route>
+            <Route path="/donation/success" element={<Success />}></Route>
+            <Route path="/donation/failure" element={<Failure />}></Route>
             <Route path="/useradoptpet" element={<UserAdoptPetForm />}></Route>
             <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route>
             <Route path="/userprofile" element={<UserProfile />}></Route>
