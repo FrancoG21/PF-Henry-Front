@@ -23,6 +23,8 @@ export default function UserAdoptPetForm() {
   const pet = useSelector((state) => state.petDetail);
   const { id } = useParams();
 
+// Pagina de ejemplo --> https://docs.google.com/forms/d/e/1FAIpQLSdh3Te8u3anAH182My7fORBlKlAyBzSuiHfp6YjkqcoQq5F8Q/viewform
+
   const dispatch = useDispatch();
 
   const options1 = [
