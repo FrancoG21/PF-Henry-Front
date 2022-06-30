@@ -61,7 +61,7 @@ export default function PetDetail() {
               </SubTitle2>
               <SubTitle3>
                 <Span>Fur: </Span>
-                {detail.fur ? detail.fur : "unknown"}
+                {detail.fur}
               </SubTitle3>
               <SubTitle3>
                 <Span>Gender: </Span>
@@ -69,11 +69,11 @@ export default function PetDetail() {
               </SubTitle3>
               <SubTitle3>
                 <Span>Castration: </Span>{" "}
-                {detail.castration === true ? "yes" : "no"}
+                {detail.castration}
               </SubTitle3>
               <SubTitle3>
                 <Span>Vaccinate: </Span>
-                {detail.vaccinate === true ? "yes" : "no"}
+                {detail.vaccinate}
               </SubTitle3>
               <SubTitle3>
                 <Span>State: </Span>

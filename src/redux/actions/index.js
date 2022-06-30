@@ -12,6 +12,7 @@ export function getPets(page, filter) {
     try {
       const res = await axios.put(`/pet?page=${page}`, filter);
       dispatch({ type: GET_PETS, payload: res.data });
+      console.log(res.data)
     } catch (e) {
       dispatch({ type: GET_PETS, payload: e.response.data });
     }
