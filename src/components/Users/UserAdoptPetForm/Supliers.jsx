@@ -1,25 +1,31 @@
 import React, { useState } from "react";
-
 import Creatable from "react-select/creatable";
+import {
+  Formik,
+  Field,
+  ErrorMessage,
+  useFormikContext,
+  useField,
+} from "formik";
 
-export default function Supliers({ options }) {
-  const [selectedSupplier, setSelectedSupplier] = useState();
+export default function Supliers({ options, ...props }) {
 
-  const handleSelectChange = ({ value }) => {
-    console.log(value);
-    setSelectedSupplier(value);
-    callbackBreeds(value);
-  };
+  const { setFieldValue } = useFormikContext();
+  const [field] = useField(props);
+
+ 
 
   return (
     <div>
       <Creatable
+        {...field}
         isClearable
         defaultValue={{ label: "Selecciona tu respuesta" }}
         options={options.map((br) => ({ label: br, value: br }))}
-        onChange={handleSelectChange}
-        onInputChange={console.log("onInputChange")}
+        onChange={(val)=>{setFieldValue(field.name, val)}}
       />
     </div>
   );
 }
+
+

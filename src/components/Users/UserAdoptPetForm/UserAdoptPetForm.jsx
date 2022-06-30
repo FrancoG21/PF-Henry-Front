@@ -191,29 +191,29 @@ export default function UserAdoptPetForm() {
                       value="false"
                     />{" "}
                     No
-                  </Label>
+                  </Label>: 
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Por que se interesan en este animal en particular?</p>
                     <p>
-                      (Cómo conocemos el carácter de nuestros perros la pregunta
+                      (Cómo conocemos el carácter de nuestras mascotas la pregunta
                       nos permite evaluar si es el indicado para lo que buscan)
                     </p>
                   </Label>
-                  <Supliers options={options1} />
+                  <Supliers options={options1} name='adoptionReason'/>
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Dónde vivira la mascota adoptada?</p>
                   </Label>
-                  <Supliers options={options2} />
+                  <Supliers options={options2} name='adoptedPetPlace'/>
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Posee espacio al aire libre?</p>
                   </Label>
-                  <Supliers options={options3} />
+                  <Supliers options={options3} name='openSpace'/>
                 </Camp>
                 <Camp>
                   <Label>¿Son propietarios o alquilan?</Label>
