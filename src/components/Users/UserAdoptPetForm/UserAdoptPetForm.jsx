@@ -2,46 +2,76 @@ import React, { useEffect, useState } from "react";
 import { Formik, Field, ErrorMessage } from "formik";
 import { getById } from "../../../redux/actions/index";
 import { useParams } from "react-router";
- import {useDispatch, useSelector} from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Supliers from "./Supliers";
 import {
-    ContainerCamp,
-    FormContainer,
-    Camp,
-    TitleForm,
-    Label,
-    Input,
-    Forms,
-    Select,
-    ButtonSubmit,
-    ContainerButton,
-  } from "./StyledUserAdoptPetForm";
+  ContainerCamp,
+  FormContainer,
+  Camp,
+  TitleForm,
+  Label,
+  Input,
+  Forms,
+  Select,
+  ButtonSubmit,
+  ContainerButton,
+} from "./StyledUserAdoptPetForm";
 
 export default function UserAdoptPetForm() {
+  const [flag, setFlag] = useState(false);
+  const pet = useSelector((state) => state.petDetail);
+  const { id } = useParams();
 
-    const [flag, setFlag] = useState(false);
-    const pet = useSelector((state) => state.petDetail);
-    const { id } = useParams();
+  const dispatch = useDispatch();
 
-        const dispatch = useDispatch()
+  const options1 = [
+    "Deporte- Hacer actividades al aire libre",
+    "Caza",
+    "Compañia",
+    "Defensa",
+    "Guardia",
+  ];
+  const options2 = [
+    "Departamento",
+    "PH",
+    "Casa",
+    "Casa en Barrio Cerrado",
+    "Quinta",
+    "Campo",
+    "Otro",
+  ];
+  const options3 = ["Balcón", "Patio", "Terraza", "Parque", "Otro"];
 
-    useEffect(()=>{
-       /*  dispatch(getById(id)) */
-    },[])
+  useEffect(() => {
+    /*  dispatch(getById(id)) */
+  }, []);
 
   return (
     <>
       <Formik
         initialValues={{
-        
+          userAge: "",
+          userLocation: "",
+          tel: "",
+          familySize: "",
+          familyRelation: "",
+          otherPets: "false",
+          otherPetsInfo: "",
+          otherPetsCastration: "false",
+          otherPetsVacunation: "false",
+          adoptionReason: "",
+          adoptedPetPlace: "",
+          openSpace: "",
+          owner: "false",
+          adoptedPetSleepingSpace: "",
+          adoptedPetAloneMoments: "",
+          adoptedPetWalkingInfo: "",
+          userMoveingIdea: "",
+          adaptationTime: "",
         }}
-        validate={(values) => {
-          
-        }}
-
+        validate={(values) => {}}
         onSubmit={(values, { resetForm }) => {
-          
-        
           setFlag(true);
           console.log("formulario enviado");
           setTimeout(() => setFlag(false), 3000);
@@ -49,200 +79,203 @@ export default function UserAdoptPetForm() {
       >
         {(props) => (
           <FormContainer>
-            <TitleForm>Load your Pets</TitleForm>
+            <TitleForm>Formulario de adopción</TitleForm>
             <Forms>
-             {/*  <div>{JSON.stringify(props.values)}</div>
-              <br />
-              <div>{JSON.stringify(props.errors)}</div>
-              <br /> */}
+              {console.log(props.values)}
               <ContainerCamp>
                 <Camp>
-                  <Label>Do you want to:</Label>
-                  <Label>
-                    <Field type="radio" name="state" value="adopt" /> Give your
-                    pet for adoption
-                    <Field type="radio" name="state" value="lost" /> Load a lost
-                    pet
-                  </Label>
-                  <ErrorMessage
-                    name="state"
-                    component={() => <div>{props.errors.state}</div>}
-                  />
+                  <Label>imagen de la mascota</Label>
+                  <Label>nombre de la mascota</Label>
                 </Camp>
                 <Camp>
-                  <Label>Name</Label>
-                  <Input //maneja todo solo con el name=
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Pet Name"
-                  />
-                  <ErrorMessage
-                    name="name"
-                    component={() => <div>{props.errors.name}</div>}
-                  />
+                  <Label>Nombre Usuario</Label>
+                  <Label>Apellido del Usuario</Label>
                 </Camp>
                 <Camp>
-                  <Label>Image</Label>
-                  <Input
-                    type="text"
-                    id="image"
-                    name="image"
-                    placeholder="Pet Image"
-                  />
-                  <ErrorMessage
-                    name="image"
-                    component={() => <div>{props.errors.image}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>Type</Label>
-                  <Label>
-                    <Field
-                      type="radio"
-                      name="pet"
-                      value="dog"
-                      onClick={() => handleClickPetTypeBreeds("dog")}
-                    />{" "}
-                    Dog
-                    <Field
-                      type="radio"
-                      name="pet"
-                      value="cat"
-                      onClick={() => handleClickPetTypeBreeds("cat")}
-                    />{" "}
-                    Cat
-                  </Label>
-                  <ErrorMessage
-                    name="pet"
-                    component={() => <div>{props.errors.pet}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>Breed</Label>
-                  <Field name="breed" as="select">
-                    {/* {breeds.length === 0 ? (
-                      <option value="crossbreed">Crossbreed</option>
-                    ) : (
-                      breeds.map((breed) => (
-                        <option value={breed} key={breed}>
-                          {breed.replace(/^\w/, (c) => c.toUpperCase())}
-                        </option>
-                      ))
-                    )} */}
-                  </Field>
-                  {props.values.breed === "other" && (
-                    <Input
-                      type="text"
-                      id="breed"
-                      name="breed"                     
-                      placeholder="Write another breed"                                                         
-                    />                    
-                  )}
-                  <div>breeds: {JSON.stringify(props.values.other)}</div>
-                  <ErrorMessage
-                    name="breed"
-                    component={() => <div>{props.errors.breed}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>Weight</Label>
+                  <Label>Edad</Label>
                   <Input
                     type="number"
-                    id="weight"
-                    name="weight"
-                    placeholder="Pet Weight"                    
-                  />
-                  <ErrorMessage
-                    name="weight"
-                    component={() => <div>{props.errors.weight}</div>}
+                    id="userAge"
+                    name="userAge"
+                    placeholder="Edad del adoptante"
                   />
                 </Camp>
                 <Camp>
-                  <Label>Size</Label>
+                  <Label>Domicilio</Label>
+                  <Input
+                    type="text"
+                    id="userLocation"
+                    name="userLocation"
+                    placeholder="Domicilio del adoptante"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Teléfono</Label>
+                  <Input
+                    type="number"
+                    id="tel"
+                    name="tel"
+                    placeholder="Teléfono del adoptante"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>¿Cuantas Personas viven en la casa?</Label>
+                  <Input
+                    type="number"
+                    id="familySize"
+                    name="familySize"
+                    placeholder="Tu espuesta"
+                  />
+                </Camp>
+                <Camp>
                   <Label>
-                    <Field type="radio" name="size" value="small" /> Small
-                    <Field type="radio" name="size" value="medium" /> Medium
-                    <Field type="radio" name="size" value="big" /> Big
+                    Composición del núcleo familiar (Relación y edades de las
+                    Personas que viven en la casa) Nos permite saber si la
+                    mascota es apto para tu hogar.
+                  </Label>
+                  <Input
+                    type="text"
+                    id="familyRelation"
+                    name="familyRelation"
+                    placeholder="Tu espuesta"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>
+                    ¿Tenes otros animales? (Nos permite saber si la mascota es
+                    apta para tu hogar)
+                  </Label>
+                  <Label>
+                    <Field type="radio" name="otherPets" value="true" /> Si
+                    <Field type="radio" name="otherPets" value="false" /> No
                   </Label>
                 </Camp>
                 <Camp>
-                  <Label>Fur</Label>
-                  <Label>
-                    <Field type="radio" name="fur" value="short" /> Short
-                    <Field type="radio" name="fur" value="long" /> Long
-                  </Label>
-                  <ErrorMessage
-                    name="fur"
-                    component={() => <div>{props.errors.fur}</div>}
+                  <Label>¿Cuántos ? ¿Nos cuentan un poco sobre ellos?</Label>
+                  <Input
+                    type="text"
+                    id="otherPetsInfo"
+                    name="otherPetsInfo"
+                    placeholder="Tu espuesta"
                   />
                 </Camp>
                 <Camp>
-                  <Label>Gender</Label>
+                  <Label>¿Estan castrados?</Label>
                   <Label>
-                    <Field type="radio" name="gender" value="male" /> Male
-                    <Field type="radio" name="gender" value="female" /> Female
-                    <Field type="radio" name="gender" value="female" /> Unknown
-                  </Label>
-                  <ErrorMessage
-                    name="gender"
-                    component={() => <div>{props.errors.gender}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>Castration</Label>
-                  <Label>
-                    <Field type="radio" name="castration" value="true" /> Yes
-                    <Field type="radio" name="castration" value="false" /> No
                     <Field
                       type="radio"
-                      name="castration"
-                      value="unknown"
+                      name="otherPetsCastration"
+                      value="true"
                     />{" "}
-                    Unknown
+                    Si
+                    <Field
+                      type="radio"
+                      name="otherPetsCastration"
+                      value="false"
+                    />{" "}
+                    No
                   </Label>
-                  <ErrorMessage
-                    name="castration"
-                    component={() => <div>{props.errors.castration}</div>}
+                </Camp>
+                <Camp>
+                  <Label>¿Estan vacunados?</Label>
+                  <Label>
+                    <Field
+                      type="radio"
+                      name="otherPetsVacunation"
+                      value="true"
+                    />{" "}
+                    Si
+                    <Field
+                      type="radio"
+                      name="otherPetsVacunation"
+                      value="false"
+                    />{" "}
+                    No
+                  </Label>
+                </Camp>
+                <Camp>
+                  <Label>
+                    <p>¿Por que se interesan en este animal en particular?</p>
+                    <p>
+                      (Cómo conocemos el carácter de nuestros perros la pregunta
+                      nos permite evaluar si es el indicado para lo que buscan)
+                    </p>
+                  </Label>
+                  <Supliers options={options1} />
+                </Camp>
+                <Camp>
+                  <Label>
+                    <p>¿Dónde vivira la mascota adoptada?</p>
+                  </Label>
+                  <Supliers options={options2} />
+                </Camp>
+                <Camp>
+                  <Label>
+                    <p>¿Posee espacio al aire libre?</p>
+                  </Label>
+                  <Supliers options={options3} />
+                </Camp>
+                <Camp>
+                  <Label>¿Son propietarios o alquilan?</Label>
+                  <Label>
+                    <Field type="radio" name="owner" value="owner" />{" "}
+                    Propietario
+                    <Field type="radio" name="owner" value="tenant" /> Alquilo
+                  </Label>
+                </Camp>
+                <Camp>
+                  <Label>¿Dónde dormirá el adoptado?</Label>
+                  <Input
+                    type="text"
+                    id="adoptedPetSleepingSpace"
+                    name="adoptedPetSleepingSpace"
+                    placeholder="Tu espuesta"
                   />
                 </Camp>
                 <Camp>
-                  <Label>Vaccinate</Label>
-                  <Label>
-                    <Field type="radio" name="vaccinate" value="true" /> Yes
-                    <Field type="radio" name="vaccinate" value="false" /> No
-                    <Field type="radio" name="vaccinate" value="unknown" />{" "}
-                    Unknown
-                  </Label>
-                  <ErrorMessage
-                    name="vaccinate"
-                    component={() => <div>{props.errors.vaccinate}</div>}
+                  <Label>¿Estará solo? ¿Cuánto tiempo?</Label>
+                  <Input
+                    type="text"
+                    id="adoptedPetAloneMoments"
+                    name="adoptedPetAloneMoments"
+                    placeholder="Tu espuesta"
                   />
                 </Camp>
-                {props.values.state === "lost" && (
-                  <div>
-                    <Camp>
-                      <Label>When did you found it ?</Label>
-                      <input
-                        type="date"
-                        name="date"
-                        max={todayDate} 
-                        min="2022-01-01"
-                      />
-                    </Camp>
-                    <Camp>
-                      <Label>Where did you found it ?</Label>
-                      <Input
-                        type="text"
-                        id="place"
-                        name="place"
-                        placeholder="Pet place"
-                      />
-                    </Camp>
-
-                    <h1>Fecha de hoy: {todayDate}</h1>
-                  </div>
-                )}
+                <Camp>
+                  <Label>¿Quién lo paseará? ¿Cuántas veces al día?</Label>
+                  <Input
+                    type="text"
+                    id="adoptedPetWalkingInfo"
+                    name="adoptedPetWalkingInfo"
+                    placeholder="Tu espuesta"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>
+                    En caso de mudarse, ha pensado que hará con el perro?
+                  </Label>
+                  <Input
+                    type="text"
+                    id="userMoveingIdea"
+                    name="userMoveingIdea"
+                    placeholder="Tu espuesta"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>
+                    ¿Están de acuerdo en tener un tiempo de adaptación?
+                  </Label>
+                  <Label>
+                    <Field type="radio" name="adaptationTime" value="yes" /> Si
+                    <Field type="radio" name="adaptationTime" value="no" /> No
+                    <Field
+                      type="radio"
+                      name="adaptationTime"
+                      value="maybe"
+                    />{" "}
+                    Tal vez
+                  </Label>
+                </Camp>
               </ContainerCamp>
               <ContainerButton>
                 <ButtonSubmit type="submit">submit</ButtonSubmit>

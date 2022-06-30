@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import Uploadcare from "./UploadCare";
+import { createPet } from "../../../redux/actions/index";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import uploadcare from "uploadcare-widget";
+import Supliers from "./Supliers";
+import moment from 'moment'
 import {
   Formik,
   Field,
@@ -7,10 +14,6 @@ import {
   useFormikContext,
   useField,
 } from "formik";
-import { createPet } from "../../../redux/actions/index";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
 import {
   ContainerCamp,
   FormContainer,
@@ -26,6 +29,15 @@ import {
 import axios from "axios";
 /* import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom' */
+
+//const REACT_APP_UPLOADCARE_API_PUBLIC_KEY = "68e94b1b1f48a7211e1f";
+/* var widgets = uploadcare.initialize('#my-form');
+widgets; // [widget1, widget2, multipleWidget1, ...]
+var widgets = uploadcare.initialize();
+var widget = uploadcare.Widget('[role=uploadcare-uploader]');
+var file = widget.value(); */
+
+//const widget = uploadcare.Widget("#uploader", { publicKey: '68e94b1b1f48a7211e1f' });
 
 const DatePickerField = ({ ...props }) => {
   const { setFieldValue } = useFormikContext();
@@ -45,6 +57,24 @@ const DatePickerField = ({ ...props }) => {
   );
 };
 
+/* const OtherBreedSelect = ({ ...props }) => {
+  const { setFieldValue } = useFormikContext();
+  const [otherBreed, setOtherBreed] = useState(""); //este estado era para que escuche si breed esta en other
+  const [field] = useField(props);
+  return (
+    <>
+      <Field
+        name={props.name}
+        type="text"
+        onChange={(val) => {
+          setOtherBreed(val);
+        }}
+      />
+      <button type="submit">add breed</button>
+    </>
+  );
+}; */
+
 export default function PetCreate() {
   const todayDate = new Date().toISOString(); /* .slice(0, 10) */
   //minuto 42:40 video usa form, field, etc
@@ -54,12 +84,10 @@ export default function PetCreate() {
   const [flag, setFlag] = useState(false);
   const [breeds, setBreeds] = useState([]);
   const [petType, setPetType] = useState("dog");
-  const [otherBreed, setOtherBreed] = useState(""); //este estado era para que escuche si breed esta en other
+  const [urlImage, setUrlImage] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`/breed?pet=${petType}`)
-      .then((r) => setBreeds(r.data.concat(["other"]))); //setBreeds(r.data))
+    axios.get(`/breed?pet=${petType}`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
   }, [petType]);
 
   let isUrl =
@@ -72,13 +100,25 @@ export default function PetCreate() {
     setPetType(type);
   };
 
+  const callBackImage = (arrUrls) => {
+    console.log("entre a callBackImage");
+    setUrlImage(arrUrls);
+    console.log(urlImage);
+  };
+
+  const [finalBreed, setFinalBreed] = useState("");
+  const callbackBreeds = (value) => {
+    setFinalBreed(value);
+    console.log(`callbackBreeds -> ${finalBreed}`);
+  };
+
   return (
     <>
       <Formik
         initialValues={{
           name: "", //string 255 caracteres
           pet: "", // cat or dog
-          image: "", //string 255 caracteres
+          image: [], //string 255 caracteres
           size: "", // small, medium, big
           weight: "", //
           fur: "", // short or long
@@ -96,12 +136,12 @@ export default function PetCreate() {
           // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
           if (!/^[a-z]+$/g.test(values.name))
             errors.name = "Name only allows lower case letters";
-          if (
+          /* if (
             !/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/.test(
               values.image
             )
           )
-            errors.image = "Image must be a valid URL";
+            errors.image = "Image must be a valid URL"; */
           if (values.weight < 0) errors.weight = "Must be number > 0";
           if (values.weight > 100) errors.weight = "Must be number < 100";
           for (let prop in values) {
@@ -129,16 +169,18 @@ export default function PetCreate() {
             if (values.state === "lost" && !values[prop]) {
               errors[prop] = `${capitalize(prop)} is required`;
             }
-
-            /* if(values.breed === 'other'){
-              values.breed = otherBreed
-            } */
           }
           return errors;
         }}
-        onSubmit={(values, { resetForm }) => {        
-
+        onSubmit={(values, { resetForm }) => {
           console.log(values);
+
+          if (values.state === "adopt") {
+            (values.actualPlace = ""),
+              (values.foundDate = ""),
+              (values.foundPlace = "");
+          }
+
           dispatch(createPet(values));
           resetForm();
           setFlag(true);
@@ -150,10 +192,10 @@ export default function PetCreate() {
           <FormContainer>
             <TitleForm>Load your Pets</TitleForm>
             <Forms>
-              {/* <div>{JSON.stringify(props.values)}</div>
+              <div>{JSON.stringify(props.values)}</div>
               <br />
               <div>{JSON.stringify(props.errors)}</div>
-              <br /> */}
+              <br />
               <ContainerCamp>
                 <Camp>
                   <Label>Do you want to:</Label>
@@ -183,19 +225,28 @@ export default function PetCreate() {
                 </Camp>
                 <Camp>
                   <Label>Image</Label>
-                  <Input
+                  {/*  <Input
                     type="text"
                     id="image"
                     name="image"
                     placeholder="Pet Image"
                   />
                   {props.values.image && (
-                    <img src={props.values.image} alt={props.values.name} />
+                    <img src={props.values.image} alt={`imagen de: ${props.values.name}`} />
                   )}
                   <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
-                  />
+                  /> */}
+                </Camp>
+                <Camp>
+                  {/* <Uploadcare callBackImage={callBackImage}/>  */}
+                  {/* <input
+                    type="hidden"
+                    role="uploadcare-uploader"
+                    data-public-key="demopublickey"
+                    data-images-only
+                  />  */}
                 </Camp>
                 <Camp>
                   <Label>Type</Label>
@@ -222,8 +273,8 @@ export default function PetCreate() {
                 </Camp>
                 <Camp>
                   <Label>Breed</Label>
-                  <Field name="breed" as="select">
-                    {breeds.length === 0 ? (
+                  {/* <Field name="breed" as="select">
+                    { breeds.length === 0 ? (
                       <option value="crossbreed">Crossbreed</option>
                     ) : (
                       breeds.map((breed) => (
@@ -232,19 +283,26 @@ export default function PetCreate() {
                         </option>
                       ))
                     )}
-                  </Field>
-                  {props.values.breed === "other" && (
-                    <Input
-                      type="text"
-                      id="breed"
-                      name="breed"
-                      placeholder="Write another breed"
-                    />
+                  </Field> */}
+
+                  {props.values /* .breed */ === "other" && (
+                    <>
+                      {/* <OtherBreedSelect name="foundDate" /> */}
+                      <Input
+                        type="text"
+                        id="breed"
+                        name="breed"
+                        placeholder="Write another breed"
+                      />
+                    </>
                   )}
-                  <ErrorMessage
+
+                  {/* <ErrorMessage
                     name="breed"
                     component={() => <div>{props.errors.breed}</div>}
-                  />
+                  /> */}
+
+                  <Supliers breeds={breeds} callbackBreeds={callbackBreeds} />
                 </Camp>
                 <Camp>
                   <Label>Weight</Label>
