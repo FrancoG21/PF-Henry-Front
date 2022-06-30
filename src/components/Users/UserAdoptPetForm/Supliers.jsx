@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import Creatable from "react-select/creatable";
 import {
-  Formik,
-  Field,
-  ErrorMessage,
   useFormikContext,
   useField,
 } from "formik";
@@ -19,6 +16,7 @@ export default function Supliers({ options, ...props }) {
     <div>
       <Creatable
         {...field}
+        {...props}
         isClearable
         defaultValue={{ label: "Selecciona tu respuesta" }}
         options={options.map((br) => ({ label: br, value: br }))}

@@ -1,26 +1,25 @@
 import React, { useState } from "react";
+import Creatable from "react-select/creatable";
+import {
+  useFormikContext,
+  useField,
+} from "formik";
 
-import Creatable from 'react-select/creatable';
+export default function Supliers({ breeds, ...props }) {
 
+  const { setFieldValue } = useFormikContext();
+  const [field] = useField(props);
 
-export default function Supliers({ breeds, callbackBreeds }) {
-  const [selectedSupplier, setSelectedSupplier] = useState();
-
-  const handleSelectChange = ({ value }) => {
-    console.log(value);
-    setSelectedSupplier(value);
-    callbackBreeds(value);
-  };
 
   return (
     <div>
-      <p>breed: {selectedSupplier}</p>
       <Creatable
-      isClearable
-        defaultValue={{ label: "Choose one breed or add new one" }}
-        options={breeds.map(br => ({label:br, value:br}))}
-        onChange={handleSelectChange}
-        onInputChange={console.log('onInputChange')}
+        {...field}
+        {...props}
+        isClearable
+        defaultValue={{ label: "Busca una o agrega una nueva" }}
+        options={breeds.map((br) => ({ label: br, value: br }))}
+        onChange={(val)=>{setFieldValue(field.name, val)}}
       />
     </div>
   );

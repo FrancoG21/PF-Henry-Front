@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import uploadcare from "uploadcare-widget";
 import Supliers from "./Supliers";
-import moment from 'moment'
+import moment from "moment";
 import {
   Formik,
   Field,
@@ -273,36 +273,7 @@ export default function PetCreate() {
                 </Camp>
                 <Camp>
                   <Label>Breed</Label>
-                  {/* <Field name="breed" as="select">
-                    { breeds.length === 0 ? (
-                      <option value="crossbreed">Crossbreed</option>
-                    ) : (
-                      breeds.map((breed) => (
-                        <option value={breed} key={breed}>
-                          {breed.replace(/^\w/, (c) => c.toUpperCase())}
-                        </option>
-                      ))
-                    )}
-                  </Field> */}
-
-                  {props.values /* .breed */ === "other" && (
-                    <>
-                      {/* <OtherBreedSelect name="foundDate" /> */}
-                      <Input
-                        type="text"
-                        id="breed"
-                        name="breed"
-                        placeholder="Write another breed"
-                      />
-                    </>
-                  )}
-
-                  {/* <ErrorMessage
-                    name="breed"
-                    component={() => <div>{props.errors.breed}</div>}
-                  /> */}
-
-                  <Supliers breeds={breeds} callbackBreeds={callbackBreeds} />
+                  <Supliers breeds={breeds} name="breed" />
                 </Camp>
                 <Camp>
                   <Label>Weight</Label>
