@@ -80,10 +80,10 @@ export default function PetDetail() {
                 {detail.state === "adopt" ? "for adopt" : detail.state}
               </SubTitle3>
             </ContainerContent>
-            <Link to="/useradoptpet">
+            <Link to={`/useradoptpet/${id}`} >
               <button>Quiero adoptar</button>
             </Link>
-            <Link to="/usertransitpet">
+            <Link to={`/usertransitpet/${id}`}>
               <button>Hogar Transito</button>
             </Link>
           </DetailContainer>
