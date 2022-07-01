@@ -161,12 +161,6 @@ export default function PetCreate() {
               continue;
             }
 
-            if (prop === "breed") {
-              setSkere(values.breed.label);
-              console.log("skereeee", skere);
-              console.log("breeeeed", values.breed);
-            }
-
             if (values.state === "adopt" && !values[prop]) {
               errors[prop] = `${capitalize(prop)} is required`;
               for (let prop in errors) {
@@ -185,11 +179,9 @@ export default function PetCreate() {
               }
             }
 
-            
-
-            if (values.state === "lost" && !values[prop]) {              
+            if (values.state === "lost" && !values[prop]) {
               errors[prop] = `${capitalize(prop)} is required`;
-              delete errors.actualPlace
+              delete errors.actualPlace;
             }
           }
           return errors;
@@ -225,12 +217,12 @@ export default function PetCreate() {
               (values.foundPlace = "");
           }
 
-          if(values.breed){
-            values.breed = values.breed.label
+          if (values.breed) {
+            values.breed = values.breed.label;
           }
 
-          if(values.foundDate){
-            values.foundDate = values.foundDate.toISOString().slice(0, 10)
+          if (values.foundDate) {
+            values.foundDate = values.foundDate.toISOString().slice(0, 10);
           }
 
           console.log(values);
@@ -246,9 +238,9 @@ export default function PetCreate() {
             <TitleForm>Carga tu mascota</TitleForm>
             <Forms>
               {console.log(props.values)}
-               <br />
+              <br />
               <div>{JSON.stringify(props.errors)}</div>
-              <br /> 
+              <br />
               <ContainerCamp>
                 <Camp>
                   <Label>¿Qué quieres hacer?</Label>

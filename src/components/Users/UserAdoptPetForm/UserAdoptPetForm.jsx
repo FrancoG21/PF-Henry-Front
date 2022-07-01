@@ -28,6 +28,10 @@ export default function UserAdoptPetForm() {
 
   const dispatch = useDispatch();
 
+  function capitalize(str) {
+    return str.replace(/^\w/, (c) => c.toUpperCase());
+  }
+
   const options1 = [
     "Deporte- Hacer actividades al aire libre",
     "Caza",
@@ -60,17 +64,18 @@ export default function UserAdoptPetForm() {
           actualPlaceCity: "",
           actualPlaceProvince: "",
           actualPlacePostalCode: "",
+          actualPlace:'',
           tel: "",
           familySize: "",
           familyRelation: "",
-          otherPets: "false",
+          otherPets: "",
           otherPetsInfo: "",
-          otherPetsCastration: "false",
-          otherPetsVacunation: "false",
+          otherPetsCastration: "",
+          otherPetsVacunation: "",
           adoptionReason: "",
           adoptedPetPlace: "",
           openSpace: "",
-          owner: "false",
+          owner: "",
           adoptedPetSleepingSpace: "",
           adoptedPetAloneMoments: "",
           adoptedPetWalkingInfo: "",
@@ -85,14 +90,48 @@ export default function UserAdoptPetForm() {
           for (let prop in values) {
             if (!values[prop]) {
               errors[prop] = `${capitalize(prop)} is required`;
+              delete errors.actualPlace;
             }
           }
 
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
+          for (let prop in values) {
+            if (
+              prop === "adoptionReason" ||
+              prop === "adoptedPetPlace" ||
+              prop === "openSpace"
+            ) {
+              values[prop] = values[prop].label;
+            }
+
+            if (
+              values.actualPlaceDirection ||
+              values.actualPlaceHood ||
+              values.actualPlaceCity ||
+              values.actualPlaceProvince ||
+              values.actualPlacePostalCode
+            ) {
+              values.actualPlace = `${values.actualPlaceDirection}, ${values.actualPlaceHood}, ${values.actualPlaceCity}, ${values.actualPlaceProvince}, ${values.actualPlacePostalCode}`;
+
+              for (let prop in values) {
+                if (
+                  prop === "actualPlaceDirection" ||
+                  prop === "actualPlaceHood" ||
+                  prop === "actualPlaceCity" ||
+                  prop === "actualPlaceProvince" ||
+                  prop === "actualPlacePostalCode"
+                ) {
+                  delete values[prop];
+                }
+              }
+            }
+          }
+
           setFlag(true);
           console.log("formulario enviado");
+          console.log(values);
           setTimeout(() => setFlag(false), 3000);
         }}
       >
@@ -100,9 +139,9 @@ export default function UserAdoptPetForm() {
           <FormContainer>
             <TitleForm>Formulario de adopción</TitleForm>
             <Forms>
-            {console.log('abajo values')}
+              {console.log("abajo values")}
               {console.log(props.values)}
-              {console.log('abajo errors')}
+              {console.log("abajo errors")}
               {console.log(props.errors)}
               <ContainerCamp>
                 <Camp>
@@ -144,6 +183,12 @@ export default function UserAdoptPetForm() {
                     name="actualPlaceDirection"
                     placeholder="Calle altura"
                   />
+                  <ErrorMessage
+                    name="actualPlaceDirection"
+                    component={() => (
+                      <div>{props.errors.actualPlaceDirection}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Barrio: </Label>
@@ -152,6 +197,10 @@ export default function UserAdoptPetForm() {
                     id="actualPlaceHood"
                     name="actualPlaceHood"
                     placeholder="Barrio"
+                  />
+                  <ErrorMessage
+                    name="actualPlaceHood"
+                    component={() => <div>{props.errors.actualPlaceHood}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -162,6 +211,10 @@ export default function UserAdoptPetForm() {
                     name="actualPlaceCity"
                     placeholder="Ciudad"
                   />
+                  <ErrorMessage
+                    name="actualPlaceCity"
+                    component={() => <div>{props.errors.actualPlaceCity}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Provincia:</Label>
@@ -170,6 +223,12 @@ export default function UserAdoptPetForm() {
                     id="actualPlaceProvince"
                     name="actualPlaceProvince"
                     placeholder="Provincia"
+                  />
+                  <ErrorMessage
+                    name="actualPlaceProvince"
+                    component={() => (
+                      <div>{props.errors.actualPlaceProvince}</div>
+                    )}
                   />
                 </Camp>
                 <Camp>
@@ -180,6 +239,12 @@ export default function UserAdoptPetForm() {
                     name="actualPlacePostalCode"
                     placeholder="Codigo Postal"
                   />
+                  <ErrorMessage
+                    name="actualPlacePostalCode"
+                    component={() => (
+                      <div>{props.errors.actualPlacePostalCode}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Teléfono</Label>
@@ -189,6 +254,10 @@ export default function UserAdoptPetForm() {
                     name="tel"
                     placeholder="Teléfono del adoptante"
                   />
+                  <ErrorMessage
+                    name="tel"
+                    component={() => <div>{props.errors.tel}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Cuántas personas viven en la casa?</Label>
@@ -197,6 +266,10 @@ export default function UserAdoptPetForm() {
                     id="familySize"
                     name="familySize"
                     placeholder="Tu espuesta"
+                  />
+                  <ErrorMessage
+                    name="familySize"
+                    component={() => <div>{props.errors.familySize}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -211,6 +284,10 @@ export default function UserAdoptPetForm() {
                     name="familyRelation"
                     placeholder="Tu espuesta"
                   />
+                  <ErrorMessage
+                    name="familyRelation"
+                    component={() => <div>{props.errors.familyRelation}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
@@ -221,6 +298,10 @@ export default function UserAdoptPetForm() {
                     <Field type="radio" name="otherPets" value="true" /> Si
                     <Field type="radio" name="otherPets" value="false" /> No
                   </Label>
+                  <ErrorMessage
+                    name="otherPets"
+                    component={() => <div>{props.errors.otherPets}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Cuántos ? ¿Nos cuenta un poco sobre ellos?</Label>
@@ -229,6 +310,10 @@ export default function UserAdoptPetForm() {
                     id="otherPetsInfo"
                     name="otherPetsInfo"
                     placeholder="Tu espuesta"
+                  />
+                  <ErrorMessage
+                    name="otherPetsInfo"
+                    component={() => <div>{props.errors.otherPetsInfo}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -247,6 +332,12 @@ export default function UserAdoptPetForm() {
                     />{" "}
                     No
                   </Label>
+                  <ErrorMessage
+                    name="otherPetsCastration"
+                    component={() => (
+                      <div>{props.errors.otherPetsCastration}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Estan vacunados?</Label>
@@ -264,6 +355,12 @@ export default function UserAdoptPetForm() {
                     />{" "}
                     No
                   </Label>
+                  <ErrorMessage
+                    name="otherPetsVacunation"
+                    component={() => (
+                      <div>{props.errors.otherPetsVacunation}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
@@ -275,18 +372,30 @@ export default function UserAdoptPetForm() {
                     </p>
                   </Label>
                   <Supliers options={options1} name="adoptionReason" />
+                  <ErrorMessage
+                    name="adoptionReason"
+                    component={() => <div>{props.errors.adoptionReason}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Dónde vivira la mascota adoptada?</p>
                   </Label>
                   <Supliers options={options2} name="adoptedPetPlace" />
+                  <ErrorMessage
+                    name="adoptedPetPlace"
+                    component={() => <div>{props.errors.adoptedPetPlace}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Posee espacio al aire libre?</p>
                   </Label>
                   <Supliers options={options3} name="openSpace" />
+                  <ErrorMessage
+                    name="openSpace"
+                    component={() => <div>{props.errors.openSpace}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Son propietarios o alquilan?</Label>
@@ -295,6 +404,10 @@ export default function UserAdoptPetForm() {
                     Propietario
                     <Field type="radio" name="owner" value="tenant" /> Alquilo
                   </Label>
+                  <ErrorMessage
+                    name="owner"
+                    component={() => <div>{props.errors.owner}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Dónde dormirá el adoptado?</Label>
@@ -303,6 +416,12 @@ export default function UserAdoptPetForm() {
                     id="adoptedPetSleepingSpace"
                     name="adoptedPetSleepingSpace"
                     placeholder="Tu espuesta"
+                  />
+                  <ErrorMessage
+                    name="adoptedPetSleepingSpace"
+                    component={() => (
+                      <div>{props.errors.adoptedPetSleepingSpace}</div>
+                    )}
                   />
                 </Camp>
                 <Camp>
@@ -313,6 +432,12 @@ export default function UserAdoptPetForm() {
                     name="adoptedPetAloneMoments"
                     placeholder="Tu espuesta"
                   />
+                  <ErrorMessage
+                    name="adoptedPetAloneMoments"
+                    component={() => (
+                      <div>{props.errors.adoptedPetAloneMoments}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Quién lo paseará? ¿Cuántas veces al día?</Label>
@@ -321,6 +446,12 @@ export default function UserAdoptPetForm() {
                     id="adoptedPetWalkingInfo"
                     name="adoptedPetWalkingInfo"
                     placeholder="Tu espuesta"
+                  />
+                  <ErrorMessage
+                    name="adoptedPetWalkingInfo"
+                    component={() => (
+                      <div>{props.errors.adoptedPetWalkingInfo}</div>
+                    )}
                   />
                 </Camp>
                 <Camp>
@@ -332,6 +463,10 @@ export default function UserAdoptPetForm() {
                     id="userMoveingIdea"
                     name="userMoveingIdea"
                     placeholder="Tu espuesta"
+                  />
+                  <ErrorMessage
+                    name="userMoveingIdea"
+                    component={() => <div>{props.errors.userMoveingIdea}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -348,6 +483,10 @@ export default function UserAdoptPetForm() {
                     />{" "}
                     Tal vez
                   </Label>
+                  <ErrorMessage
+                    name="adaptationTime"
+                    component={() => <div>{props.errors.adaptationTime}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Tiene movilidad para buscar a la mascota?</Label>
@@ -361,6 +500,10 @@ export default function UserAdoptPetForm() {
                     />{" "}
                     Posiblemente
                   </Label>
+                  <ErrorMessage
+                    name="userMovility"
+                    component={() => <div>{props.errors.userMovility}</div>}
+                  />
                 </Camp>
               </ContainerCamp>
               <ContainerButton>
