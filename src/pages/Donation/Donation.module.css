@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 15;
+    src: url(https://images5.alphacoders.com/477/thumb-1920-477929.jpg);
+}
+
 .container {
     margin-top: 100px;
     margin-left: 100px;
@@ -16,6 +21,8 @@
 label {
     padding: 40px;
     margin-left: 20px;
+    font-weight: 100px;
+
 }
 
 input {
@@ -27,6 +34,6 @@ input {
 
 button {
     width: 70px;
-    margin-left: 90px;
+    margin-left: 100px;
     margin-top: 60px;
 }

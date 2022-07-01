@@ -25,7 +25,7 @@ export default function Donation() {
             <label htmlFor="dona">AQUI PUEDES DONAR!</label>
             <label htmlFor="cantidad">Valor a donar</label>
             <Field name="amount" type="text" />
-            <button type="submit">Submit</button>
+            <button type="submit">Donar</button>
           </div>
         </Form>
       </Formik>
