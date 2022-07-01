@@ -193,7 +193,7 @@ export default function UserAdoptPetForm() {
                       value="false"
                     />{" "}
                     No
-                  </Label>: 
+                  </Label> 
                 </Camp>
                 <Camp>
                   <Label>

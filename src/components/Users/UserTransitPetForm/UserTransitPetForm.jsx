@@ -195,7 +195,7 @@ export default function UserTransitPetForm() {
                       value="false"
                     />{" "}
                     No
-                  </Label>: 
+                  </Label>
                 </Camp>
                 <Camp>
                   <Label>

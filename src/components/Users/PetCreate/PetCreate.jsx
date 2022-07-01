@@ -49,7 +49,7 @@ const DatePickerField = ({ ...props }) => {
       selected={(field.value && new Date(field.value)) || null}
       onChange={(val) => {
         console.log("antes de valString", val);
-        const valString = val ? val.toISOString().slice(0, 10) : null;
+        const valString = val ? val/* .toISOString().slice(0, 10) */ : null;
         setFieldValue(field.name, valString);
         console.log("sali de DatePickerField", valString);
       }}
