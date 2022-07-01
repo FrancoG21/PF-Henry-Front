@@ -153,7 +153,7 @@ export default function UserTransitPetForm() {
             </h4>
 
             <Forms>
-              {console.log(props.values)}
+              {/* {console.log(props.values)} */}
               <ContainerCamp>
                 <Camp>
                   <img
@@ -172,7 +172,7 @@ export default function UserTransitPetForm() {
                   <Label>Nombre Usuario</Label>
                   <Label>Apellido Usuario</Label>
                 </Camp>
-                <div>{JSON.stringify(props.errors)}</div>
+                {/* <div>{JSON.stringify(props.errors)}</div> */}
                 <Camp>
                   <Label>Edad</Label>
                   <Input

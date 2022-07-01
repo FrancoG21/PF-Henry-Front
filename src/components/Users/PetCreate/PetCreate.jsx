@@ -237,10 +237,10 @@ export default function PetCreate() {
           <FormContainer>
             <TitleForm>Carga tu mascota</TitleForm>
             <Forms>
-              {console.log(props.values)}
+              {/* {console.log(props.values)}
               <br />
               <div>{JSON.stringify(props.errors)}</div>
-              <br />
+              <br /> */}
               <ContainerCamp>
                 <Camp>
                   <Label>¿Qué quieres hacer?</Label>

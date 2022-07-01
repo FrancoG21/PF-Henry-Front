@@ -140,10 +140,10 @@ export default function UserAdoptPetForm() {
           <FormContainer>
             <TitleForm>Formulario de adopción</TitleForm>
             <Forms>
-              {console.log("abajo values")}
+              {/* {console.log("abajo values")}
               {console.log(props.values)}
               {console.log("abajo errors")}
-              {console.log(props.errors)}
+              {console.log(props.errors)} */}
               <ContainerCamp>
                 <Camp>
                   <img
@@ -162,7 +162,7 @@ export default function UserAdoptPetForm() {
                   <Label>Nombre Usuario</Label>
                   <Label>Apellido Usuario</Label>
                 </Camp>
-                <div>{JSON.stringify(props.errors)}</div>
+                {/* <div>{JSON.stringify(props.errors)}</div> */}
                 <Camp>
                   <Label>Edad</Label>
                   <Input
