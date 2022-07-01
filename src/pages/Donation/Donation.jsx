@@ -1,36 +1,52 @@
-import { Form, Formik, Field } from "formik";
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import Classes from './Donation.module.css';
 
 
 export default function Donation() {
   const [url, setUrl] = useState("");
+  const [estado, setEstado] = useState("individual")
+  const precios = ["100","200","500","1000","2500","5000"]
 
+    function cambiarEstado(){
+      estado === "individual" ? setEstado("subscripcion") : setEstado("individual")
+    }
+
+    function realizarPagoUnico(e){
+      axios.post('/payment', {
+        unit_price: Number(e.target.value),
+        failure: 'http://localhost:3000/donation/failure',
+        success: 'http://localhost:3000/donation/success'
+      }).then(r => setUrl(r.data.url))
+    }
+
+    function realizarPagoSub(e){
+      axios.post('/payment/subscription', {
+        transaction_amount: Number(e.target.value),
+        back_url: 'http://localhost:3000/donation/success',
+        payer_email: 'test_user_20466117@testuser.com'
+      }).then(r => setUrl(r.data.url))
+    }
+    
   return (
     <>
-      <Formik
-        initialValues={{ amount: 200 }}
-        onSubmit={(values) => {
-          axios.post('/payment', {
-            unit_price: Number(values.amount),
-            failure: 'http://localhost:3000/donation/failure',
-            success: 'http://localhost:3000/donation/success'
-          }).then(r => setUrl(r.data.url))
-        }}
-      >
-        <Form>
-          <div className={Classes.container}>
-            <label htmlFor="dona">AQUI PUEDES DONAR!</label>
-            <label htmlFor="cantidad">Valor a donar</label>
-            <Field name="amount" type="text" />
-            <button type="submit">Donar</button>
+      <button onClick={cambiarEstado}>Cambiar estado</button>
+      {
+        estado === "individual" ? <>
+          <p>Pagos individuales:</p>
+          <div>
+          {
+            precios.map(value=>{return <button onClick={(e) => realizarPagoUnico(e)} value={value}>{value}</button>})
+          }
           </div>
-        </Form>
-      </Formik>
+          </>
+      :<>
+      <p>Pago por suscripción</p>
+        <button onClick={(e) => realizarPagoSub(e)} value={200}>{200}</button>
       {
         url && window.location.replace(url)
+      }
+      </>
       }
     </>
   );
