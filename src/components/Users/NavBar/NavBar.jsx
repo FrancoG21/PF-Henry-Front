@@ -59,7 +59,7 @@ export default function NavBar({theme, setTheme}) {
                         </NavItem>
                         <NavItem>
                             <NavAcces to='/about'>About Us</NavAcces>
-                        </NavItem>
+                        </NavItem>                       
                         {/* <NavButton>
                             {
                                 button ? (
@@ -76,11 +76,14 @@ export default function NavBar({theme, setTheme}) {
                     {/* </NavMenu>
                     <NavMenu> */}
                         <NavItem>
-                            <NavAcces to='/'>Login</NavAcces>
+                            <NavAcces to='/login'>Login</NavAcces>
                         </NavItem>
                         {/* <MinText>|</MinText> */}
                         <NavItem>
                             <NavAcces to='/'>Register</NavAcces>
+                        </NavItem>
+                        <NavItem>
+                            <NavAcces to='/userprofile'>Profile</NavAcces>
                         </NavItem>
                     </NavMenu>
                 </NavContainer>

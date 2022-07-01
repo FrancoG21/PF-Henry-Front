@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { getById, getPets, cleanDetail } from "../../../redux/actions/index";
+import { Link } from "react-router-dom";
 import {
   DetailContainer,
   DetailTitle,
@@ -13,6 +14,8 @@ import {
   SubTitle3,
   Span,
   ContainerImage,
+  BackgroundDetail,
+  BackIcon,
 } from "./StyledPetDetail";
 
 export default function PetDetail() {
@@ -27,7 +30,10 @@ export default function PetDetail() {
   }, [dispatch, id]);
 
   return (
-    <div>
+    <BackgroundDetail>
+      <Link to="/adopt">
+        <BackIcon />
+      </Link>
       <div>
         {detail ? (
           <DetailContainer>
@@ -55,7 +61,7 @@ export default function PetDetail() {
               </SubTitle2>
               <SubTitle3>
                 <Span>Fur: </Span>
-                {detail.fur? detail.fur : 'unknown'}
+                {detail.fur ? detail.fur : "unknown"}
               </SubTitle3>
               <SubTitle3>
                 <Span>Gender: </Span>
@@ -71,14 +77,20 @@ export default function PetDetail() {
               </SubTitle3>
               <SubTitle3>
                 <Span>State: </Span>
-                {detail.state === 'adopt'? 'for adopt' : detail.state}
+                {detail.state === "adopt" ? "for adopt" : detail.state}
               </SubTitle3>
             </ContainerContent>
+            <Link to="/useradoptpet">
+              <button>Quiero adoptar</button>
+            </Link>
+            <Link to="/usertransitpet">
+              <button>Hogar Transito</button>
+            </Link>
           </DetailContainer>
         ) : (
           <h1>siga intentando mijo</h1>
         )}
       </div>
-    </div>
+    </BackgroundDetail>
   );
 }

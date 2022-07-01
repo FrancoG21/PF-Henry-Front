@@ -3,8 +3,8 @@ import {
   GET_PETS,
   GET_PET_NAME,
   GET_TO_DETAILS,
-  /* FILTER_PET */
   CLEAN_DETAILS,
+  LOGIN
 } from "../actions/nameAction";
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
   pets: [],
   petsAmount: {},
   petDetail: [],
+  usuario:[]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -41,23 +42,20 @@ const rootReducer = (state = initialState, action) => {
       };
     }
 
-    /* case FILTER_PET: {
-      console.log("respuesta del back --> abajo");
-      console.log(action.payload);
-      return {
-        ...state,
-        pets: action.payload.pets,
-        petsAmount: action.payload.total,
-      };
-    } */
-
     case CLEAN_DETAILS: {
         return {
             ...state,
             petDetail: action.payload,
         }
     }
-
+      
+     case LOGIN:{
+      return{
+        ...state,
+        usuario: action.payload
+      }
+     }
+     
     default: {
       return state;
     }
