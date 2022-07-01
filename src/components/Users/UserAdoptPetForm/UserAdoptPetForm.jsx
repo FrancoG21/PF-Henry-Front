@@ -17,13 +17,14 @@ import {
   ButtonSubmit,
   ContainerButton,
 } from "./StyledUserAdoptPetForm";
+import moment from "moment";
 
 export default function UserAdoptPetForm() {
   const [flag, setFlag] = useState(false);
   const pet = useSelector((state) => state.petDetail);
   const { id } = useParams();
 
-// Pagina de ejemplo --> https://docs.google.com/forms/d/e/1FAIpQLSdh3Te8u3anAH182My7fORBlKlAyBzSuiHfp6YjkqcoQq5F8Q/viewform
+  // Pagina de ejemplo --> https://docs.google.com/forms/d/e/1FAIpQLSdh3Te8u3anAH182My7fORBlKlAyBzSuiHfp6YjkqcoQq5F8Q/viewform
 
   const dispatch = useDispatch();
 
@@ -46,15 +47,19 @@ export default function UserAdoptPetForm() {
   const options3 = ["Balcón", "Patio", "Terraza", "Parque", "Otro"];
 
   useEffect(() => {
-    /*  dispatch(getById(id)) */
-  }, []);
+    dispatch(getById(id));
+  }, [dispatch]);
 
   return (
     <>
       <Formik
         initialValues={{
           userAge: "",
-          userLocation: "",
+          actualPlaceDirection: "",
+          actualPlaceHood: "",
+          actualPlaceCity: "",
+          actualPlaceProvince: "",
+          actualPlacePostalCode: "",
           tel: "",
           familySize: "",
           familyRelation: "",
@@ -71,8 +76,20 @@ export default function UserAdoptPetForm() {
           adoptedPetWalkingInfo: "",
           userMoveingIdea: "",
           adaptationTime: "",
+          formDate: moment().format("L"),
+          userMovility: "",
         }}
-        validate={(values) => {}}
+        validate={(values) => {
+          let errors = {};
+
+          for (let prop in values) {
+            if (!values[prop]) {
+              errors[prop] = `${capitalize(prop)} is required`;
+            }
+          }
+
+          return errors;
+        }}
         onSubmit={(values, { resetForm }) => {
           setFlag(true);
           console.log("formulario enviado");
@@ -83,16 +100,29 @@ export default function UserAdoptPetForm() {
           <FormContainer>
             <TitleForm>Formulario de adopción</TitleForm>
             <Forms>
+            {console.log('abajo values')}
               {console.log(props.values)}
+              {console.log('abajo errors')}
+              {console.log(props.errors)}
               <ContainerCamp>
                 <Camp>
-                  <Label>imagen de la mascota</Label>
-                  <Label>nombre de la mascota</Label>
+                  <img
+                    src={pet?.image}
+                    alt={pet.name}
+                    width="600"
+                    height="400"
+                  />
+                  <Label>
+                    Macota elegida:{" "}
+                    {pet?.name[0].toUpperCase() +
+                      pet?.name.slice(1).toLowerCase()}
+                  </Label>
                 </Camp>
                 <Camp>
                   <Label>Nombre Usuario</Label>
-                  <Label>Apellido del Usuario</Label>
+                  <Label>Apellido Usuario</Label>
                 </Camp>
+                <div>{JSON.stringify(props.errors)}</div>
                 <Camp>
                   <Label>Edad</Label>
                   <Input
@@ -101,14 +131,54 @@ export default function UserAdoptPetForm() {
                     name="userAge"
                     placeholder="Edad del adoptante"
                   />
+                  <ErrorMessage
+                    name="userAge"
+                    component={() => <div>{props.errors.userAge}</div>}
+                  />
                 </Camp>
                 <Camp>
-                  <Label>Domicilio</Label>
+                  <Label>Dirección:</Label>
                   <Input
                     type="text"
-                    id="userLocation"
-                    name="userLocation"
-                    placeholder="Domicilio del adoptante"
+                    id="actualPlaceDirection"
+                    name="actualPlaceDirection"
+                    placeholder="Calle altura"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Barrio: </Label>
+                  <Input
+                    type="text"
+                    id="actualPlaceHood"
+                    name="actualPlaceHood"
+                    placeholder="Barrio"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Ciudad: </Label>
+                  <Input
+                    type="text"
+                    id="actualPlaceCity"
+                    name="actualPlaceCity"
+                    placeholder="Ciudad"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Provincia:</Label>
+                  <Input
+                    type="text"
+                    id="actualPlaceProvince"
+                    name="actualPlaceProvince"
+                    placeholder="Provincia"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Codigo Postal: </Label>
+                  <Input
+                    type="number"
+                    id="actualPlacePostalCode"
+                    name="actualPlacePostalCode"
+                    placeholder="Codigo Postal"
                   />
                 </Camp>
                 <Camp>
@@ -121,7 +191,7 @@ export default function UserAdoptPetForm() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>¿Cuantas Personas viven en la casa?</Label>
+                  <Label>¿Cuántas personas viven en la casa?</Label>
                   <Input
                     type="number"
                     id="familySize"
@@ -144,7 +214,7 @@ export default function UserAdoptPetForm() {
                 </Camp>
                 <Camp>
                   <Label>
-                    ¿Tenes otros animales? (Nos permite saber si la mascota es
+                    ¿Tiene otros animales? (Nos permite saber si la mascota es
                     apta para tu hogar)
                   </Label>
                   <Label>
@@ -153,7 +223,7 @@ export default function UserAdoptPetForm() {
                   </Label>
                 </Camp>
                 <Camp>
-                  <Label>¿Cuántos ? ¿Nos cuentan un poco sobre ellos?</Label>
+                  <Label>¿Cuántos ? ¿Nos cuenta un poco sobre ellos?</Label>
                   <Input
                     type="text"
                     id="otherPetsInfo"
@@ -193,29 +263,30 @@ export default function UserAdoptPetForm() {
                       value="false"
                     />{" "}
                     No
-                  </Label> 
+                  </Label>
                 </Camp>
                 <Camp>
                   <Label>
-                    <p>¿Por que se interesan en este animal en particular?</p>
+                    <p>¿Por que se interesa en este animal en particular?</p>
                     <p>
-                      (Cómo conocemos el carácter de nuestras mascotas la pregunta
-                      nos permite evaluar si es el indicado para lo que buscan)
+                      (Cómo conocemos el carácter de nuestras mascotas la
+                      pregunta nos permite evaluar si es el indicado para lo que
+                      buscan)
                     </p>
                   </Label>
-                  <Supliers options={options1} name='adoptionReason'/>
+                  <Supliers options={options1} name="adoptionReason" />
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Dónde vivira la mascota adoptada?</p>
                   </Label>
-                  <Supliers options={options2} name='adoptedPetPlace'/>
+                  <Supliers options={options2} name="adoptedPetPlace" />
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Posee espacio al aire libre?</p>
                   </Label>
-                  <Supliers options={options3} name='openSpace'/>
+                  <Supliers options={options3} name="openSpace" />
                 </Camp>
                 <Camp>
                   <Label>¿Son propietarios o alquilan?</Label>
@@ -235,7 +306,7 @@ export default function UserAdoptPetForm() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>¿Estará solo? ¿Cuánto tiempo?</Label>
+                  <Label>¿Estará sola? ¿Cuánto tiempo?</Label>
                   <Input
                     type="text"
                     id="adoptedPetAloneMoments"
@@ -254,7 +325,7 @@ export default function UserAdoptPetForm() {
                 </Camp>
                 <Camp>
                   <Label>
-                    En caso de mudarse, ha pensado que hará con el perro?
+                    En caso de mudarse, ha pensado que hará con la mascota?
                   </Label>
                   <Input
                     type="text"
@@ -265,7 +336,7 @@ export default function UserAdoptPetForm() {
                 </Camp>
                 <Camp>
                   <Label>
-                    ¿Están de acuerdo en tener un tiempo de adaptación?
+                    ¿Está de acuerdo en tener un tiempo de adaptación?
                   </Label>
                   <Label>
                     <Field type="radio" name="adaptationTime" value="yes" /> Si
@@ -276,6 +347,19 @@ export default function UserAdoptPetForm() {
                       value="maybe"
                     />{" "}
                     Tal vez
+                  </Label>
+                </Camp>
+                <Camp>
+                  <Label>¿Tiene movilidad para buscar a la mascota?</Label>
+                  <Label>
+                    <Field type="radio" name="userMovility" value="yes" /> Si
+                    <Field type="radio" name="userMovility" value="no" /> No
+                    <Field
+                      type="radio"
+                      name="userMovility"
+                      value="maybe"
+                    />{" "}
+                    Posiblemente
                   </Label>
                 </Camp>
               </ContainerCamp>

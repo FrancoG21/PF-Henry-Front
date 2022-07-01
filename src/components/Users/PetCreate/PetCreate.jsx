@@ -49,7 +49,7 @@ const DatePickerField = ({ ...props }) => {
       selected={(field.value && new Date(field.value)) || null}
       onChange={(val) => {
         console.log("antes de valString", val);
-        const valString = val ? val/* .toISOString().slice(0, 10) */ : null;
+        const valString = val ? val /* .toISOString().slice(0, 10) */ : null;
         setFieldValue(field.name, valString);
         console.log("sali de DatePickerField", valString);
       }}
@@ -85,6 +85,7 @@ export default function PetCreate() {
   const [breeds, setBreeds] = useState([]);
   const [petType, setPetType] = useState("dog");
   const [urlImage, setUrlImage] = useState([]);
+  const [skere, setSkere] = useState("");
 
   useEffect(() => {
     axios.get(`/breed?pet=${petType}`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
@@ -118,7 +119,7 @@ export default function PetCreate() {
         initialValues={{
           name: "", //string 255 caracteres
           pet: "", // cat or dog
-          image: [], //string 255 caracteres
+          image: "imagen harcodeada", //string 255 caracteres
           size: "", // small, medium, big
           weight: "", //
           fur: "", // short or long
@@ -130,6 +131,12 @@ export default function PetCreate() {
           foundDate: null,
           foundPlace: "",
           actualPlace: "",
+          formDate: moment().format("L"),
+          actualPlaceDirection: "",
+          actualPlaceHood: "",
+          actualPlaceCity: "",
+          actualPlaceProvince: "Cordoba",
+          actualPlacePostalCode: "",
         }}
         validate={(values) => {
           let errors = {};
@@ -142,6 +149,7 @@ export default function PetCreate() {
             )
           )
             errors.image = "Image must be a valid URL"; */
+
           if (values.weight < 0) errors.weight = "Must be number > 0";
           if (values.weight > 100) errors.weight = "Must be number < 100";
           for (let prop in values) {
@@ -153,21 +161,35 @@ export default function PetCreate() {
               continue;
             }
 
+            if (prop === "breed") {
+              setSkere(values.breed.label);
+              console.log("skereeee", skere);
+              console.log("breeeeed", values.breed);
+            }
+
             if (values.state === "adopt" && !values[prop]) {
               errors[prop] = `${capitalize(prop)} is required`;
               for (let prop in errors) {
                 if (
                   prop === "foundPlace" ||
-                  prop === "actualPlace" ||
-                  prop === "foundDate"
+                  prop === "actualPlaceDirection" ||
+                  prop === "actualPlaceHood" ||
+                  prop === "actualPlaceCity" ||
+                  prop === "actualPlaceProvince" ||
+                  prop === "actualPlacePostalCode" ||
+                  prop === "foundDate" ||
+                  prop === "actualPlace"
                 ) {
                   delete errors[prop];
                 }
               }
             }
 
-            if (values.state === "lost" && !values[prop]) {
+            
+
+            if (values.state === "lost" && !values[prop]) {              
               errors[prop] = `${capitalize(prop)} is required`;
+              delete errors.actualPlace
             }
           }
           return errors;
@@ -175,12 +197,43 @@ export default function PetCreate() {
         onSubmit={(values, { resetForm }) => {
           console.log(values);
 
+          if (
+            values.actualPlaceDirection ||
+            values.actualPlaceHood ||
+            values.actualPlaceCity ||
+            values.actualPlaceProvince ||
+            values.actualPlacePostalCode
+          ) {
+            values.actualPlace = `${values.actualPlaceDirection}, ${values.actualPlaceHood}, ${values.actualPlaceCity}, ${values.actualPlaceProvince}, ${values.actualPlacePostalCode}`;
+
+            for (let prop in values) {
+              if (
+                prop === "actualPlaceDirection" ||
+                prop === "actualPlaceHood" ||
+                prop === "actualPlaceCity" ||
+                prop === "actualPlaceProvince" ||
+                prop === "actualPlacePostalCode"
+              ) {
+                delete values[prop];
+              }
+            }
+          }
+
           if (values.state === "adopt") {
             (values.actualPlace = ""),
               (values.foundDate = ""),
               (values.foundPlace = "");
           }
 
+          if(values.breed){
+            values.breed = values.breed.label
+          }
+
+          if(values.foundDate){
+            values.foundDate = values.foundDate.toISOString().slice(0, 10)
+          }
+
+          console.log(values);
           dispatch(createPet(values));
           resetForm();
           setFlag(true);
@@ -190,20 +243,20 @@ export default function PetCreate() {
       >
         {(props) => (
           <FormContainer>
-            <TitleForm>Load your Pets</TitleForm>
+            <TitleForm>Carga tu mascota</TitleForm>
             <Forms>
-              <div>{JSON.stringify(props.values)}</div>
-              <br />
+              {console.log(props.values)}
+               <br />
               <div>{JSON.stringify(props.errors)}</div>
-              <br />
+              <br /> 
               <ContainerCamp>
                 <Camp>
-                  <Label>Do you want to:</Label>
+                  <Label>¿Qué quieres hacer?</Label>
                   <Label>
-                    <Field type="radio" name="state" value="adopt" /> Give your
-                    pet for adoption
-                    <Field type="radio" name="state" value="lost" /> I found a
-                    pet
+                    <Field type="radio" name="state" value="adopt" /> Dar una
+                    mascota en adopción
+                    <Field type="radio" name="state" value="lost" /> Cargar una
+                    mascota que encontraste
                   </Label>
                   <ErrorMessage
                     name="state"
@@ -211,12 +264,12 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Name</Label>
+                  <Label>Nombre</Label>
                   <Input //maneja todo solo con el name=
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Pet name"
+                    placeholder="Nombre de la mascota"
                   />
                   <ErrorMessage
                     name="name"
@@ -224,7 +277,7 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Image</Label>
+                  <Label>Imagen de la mascota</Label>
                   {/*  <Input
                     type="text"
                     id="image"
@@ -248,8 +301,12 @@ export default function PetCreate() {
                     data-images-only
                   />  */}
                 </Camp>
+                <ErrorMessage
+                  name="image"
+                  component={() => <div>{props.errors.image}</div>}
+                />
                 <Camp>
-                  <Label>Type</Label>
+                  <Label>Que tipo de animal es ?</Label>
                   <Label>
                     <Field
                       type="radio"
@@ -257,14 +314,14 @@ export default function PetCreate() {
                       value="dog"
                       onClick={() => handleClickPetTypeBreeds("dog")}
                     />{" "}
-                    Dog
+                    Perro
                     <Field
                       type="radio"
                       name="pet"
                       value="cat"
                       onClick={() => handleClickPetTypeBreeds("cat")}
                     />{" "}
-                    Cat
+                    Gato
                   </Label>
                   <ErrorMessage
                     name="pet"
@@ -272,16 +329,20 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Breed</Label>
+                  <Label>Raza</Label>
                   <Supliers breeds={breeds} name="breed" />
+                  <ErrorMessage
+                    name="breed"
+                    component={() => <div>{props.errors.breed}</div>}
+                  />
                 </Camp>
                 <Camp>
-                  <Label>Weight</Label>
+                  <Label>Peso</Label>
                   <Input
                     type="number"
                     id="weight"
                     name="weight"
-                    placeholder="Pet Weight"
+                    placeholder="Peso de la mascota"
                   />
                   <ErrorMessage
                     name="weight"
@@ -289,18 +350,22 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Size</Label>
+                  <Label>Tamaño</Label>
                   <Label>
-                    <Field type="radio" name="size" value="small" /> Small
-                    <Field type="radio" name="size" value="medium" /> Medium
-                    <Field type="radio" name="size" value="big" /> Big
+                    <Field type="radio" name="size" value="small" /> Chico
+                    <Field type="radio" name="size" value="medium" /> Mediano
+                    <Field type="radio" name="size" value="big" /> Grande
                   </Label>
+                  <ErrorMessage
+                    name="size"
+                    component={() => <div>{props.errors.size}</div>}
+                  />
                 </Camp>
                 <Camp>
-                  <Label>Fur</Label>
+                  <Label>Pelaje</Label>
                   <Label>
-                    <Field type="radio" name="fur" value="short" /> Short
-                    <Field type="radio" name="fur" value="long" /> Long
+                    <Field type="radio" name="fur" value="short" /> Corto
+                    <Field type="radio" name="fur" value="long" /> Largo
                   </Label>
                   <ErrorMessage
                     name="fur"
@@ -308,11 +373,12 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Gender</Label>
+                  <Label>Genero</Label>
                   <Label>
-                    <Field type="radio" name="gender" value="male" /> Male
-                    <Field type="radio" name="gender" value="female" /> Female
-                    <Field type="radio" name="gender" value="unknown" /> Unknown
+                    <Field type="radio" name="gender" value="male" /> Macho
+                    <Field type="radio" name="gender" value="female" /> Hembra
+                    <Field type="radio" name="gender" value="unknown" />{" "}
+                    Desconozco
                   </Label>
                   <ErrorMessage
                     name="gender"
@@ -320,12 +386,12 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Castration</Label>
+                  <Label>Esta castrada ?</Label>
                   <Label>
-                    <Field type="radio" name="castration" value="true" /> Yes
+                    <Field type="radio" name="castration" value="true" /> Si
                     <Field type="radio" name="castration" value="false" /> No
                     <Field type="radio" name="castration" value="unknown" />
-                    Unknown
+                    Desconozco
                   </Label>
                   <ErrorMessage
                     name="castration"
@@ -333,12 +399,12 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Vaccinate</Label>
+                  <Label>Esta vacunada ?</Label>
                   <Label>
                     <Field type="radio" name="vaccinate" value="true" /> Yes
                     <Field type="radio" name="vaccinate" value="false" /> No
                     <Field type="radio" name="vaccinate" value="unknown" />
-                    Unknown
+                    Desconozco
                   </Label>
                   <ErrorMessage
                     name="vaccinate"
@@ -348,18 +414,22 @@ export default function PetCreate() {
                 {props.values.state === "lost" && (
                   <div>
                     <Camp>
-                      <Label>When did you found it ?</Label>
+                      <Label>Cuándo lo encontraste ?</Label>
                       <DatePickerField
                         name="foundDate"
                         isClearable
                         showYearDropdown
                         scrollableMonthYearDropdown
                         maxDate={new Date()}
-                        dateFormat="yyyy/MM/dd"
+                        dateFormat="dd/MM/yyyy"
+                      />
+                      <ErrorMessage
+                        name="foundDate"
+                        component={() => <div>{props.errors.foundDate}</div>}
                       />
                     </Camp>
                     <Camp>
-                      <Label>Where did you found it ?</Label>
+                      <Label>Dónde la encontraste ?</Label>
                       <Input
                         type="text"
                         id="place"
@@ -371,17 +441,84 @@ export default function PetCreate() {
                         component={() => <div>{props.errors.foundPlace}</div>}
                       />
                     </Camp>
+                    <Label>Dónde se encuentra actualmente la mascota ?</Label>
                     <Camp>
-                      <Label>Where is the pet now ?</Label>
+                      <Label>Dirección:</Label>
                       <Input
                         type="text"
-                        id="place"
-                        name="actualPlace"
-                        placeholder="Barrio, Calle, Altura"
+                        id="actualPlaceDirection"
+                        name="actualPlaceDirection"
+                        placeholder="Calle altura"
                       />
                       <ErrorMessage
-                        name="actualPlace"
-                        component={() => <div>{props.errors.actualPlace}</div>}
+                        name="actualPlaceDirection"
+                        component={() => (
+                          <div>{props.errors.actualPlaceDirection}</div>
+                        )}
+                      />
+                    </Camp>
+                    <Camp>
+                      <Label>Barrio: </Label>
+                      <Input
+                        type="text"
+                        id="actualPlaceHood"
+                        name="actualPlaceHood"
+                        placeholder="Barrio"
+                      />
+                      <ErrorMessage
+                        name="actualPlaceHood"
+                        component={() => (
+                          <div>{props.errors.actualPlaceHood}</div>
+                        )}
+                      />
+                    </Camp>
+                    <Camp>
+                      <Label>Ciudad: </Label>
+                      <Input
+                        type="text"
+                        id="actualPlaceCity"
+                        name="actualPlaceCity"
+                        placeholder="Ciudad"
+                      />
+                      <ErrorMessage
+                        name="actualPlaceCity"
+                        component={() => (
+                          <div>{props.errors.actualPlaceCity}</div>
+                        )}
+                      />
+                    </Camp>
+                    <Camp>
+                      <Label>
+                        Provincia: *Por el momento solo es para la provincia de
+                        Cordoba
+                      </Label>
+                      <Input
+                        type="text"
+                        id="actualPlaceProvince"
+                        name="actualPlaceProvince"
+                        placeholder="Provincia"
+                        value="Cordoba"
+                      />
+                      <ErrorMessage
+                        name="actualPlaceProvince"
+                        component={() => (
+                          <div>{props.errors.actualPlaceProvince}</div>
+                        )}
+                      />
+                    </Camp>
+                    <Camp>
+                      <Label>Codigo Postal: </Label>
+                      <Input
+                        type="number"
+                        id="actualPlacePostalCode"
+                        name="actualPlacePostalCode"
+                        placeholder="Codigo Postal"
+                      />
+                      <ErrorMessage
+                        name="actualPlacePostalCode"
+                        component={() => (
+                          <div>{props.errors.actualPlacePostalCode}</div>
+                        )}
                       />
                     </Camp>
                   </div>

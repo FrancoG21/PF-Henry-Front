@@ -35,8 +35,8 @@ function App() {
             <Route path="/petcreate" element={<PetCreate />}></Route>
             <Route path="/lostform" element={<LostForm />}></Route>
             <Route path="/donation" element={<Donation />}></Route>
-            <Route path="/useradoptpet" element={<UserAdoptPetForm />}></Route>
-            <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route>
+            <Route path="/useradoptpet/:id" element={<UserAdoptPetForm />}></Route>
+            <Route path="/usertransitpet/:id" element={<UserTransitPetForm />}></Route>
             <Route path="/userprofile" element={<UserProfile />}></Route>
           </Routes>
           <Footer />

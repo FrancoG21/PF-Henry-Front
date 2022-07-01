@@ -24,7 +24,7 @@ export default function UserTransitPetForm() {
   const { id } = useParams();
 
   const dispatch = useDispatch();
- // Pagina de ejemplo --> https://www.vidanimal.org.ar/como-ayudar/ofrece-hogar-de-transito/
+  // Pagina de ejemplo --> https://www.vidanimal.org.ar/como-ayudar/ofrece-hogar-de-transito/
 
   const options1 = [
     "Deporte- Hacer actividades al aire libre",
@@ -45,7 +45,7 @@ export default function UserTransitPetForm() {
   const options3 = ["Balcón", "Patio", "Terraza", "Parque", "Otro"];
 
   useEffect(() => {
-    /*  dispatch(getById(id)) */
+    dispatch(getById(id));
   }, []);
 
   return (
@@ -81,19 +81,46 @@ export default function UserTransitPetForm() {
         {(props) => (
           <FormContainer>
             <TitleForm>Formulario Hogar transitorio</TitleForm>
-            <Camp><h2>¿Qué es un hogar transitorio?</h2></Camp>
-            <h4>Los hogares transitorios son casas de personas que cuidan animales por un período de tiempo determinado, hasta que el animal encuentre la persona indicada que lo adopte definitivamente.</h4>
+            <Camp>
+              <h2>¿Qué es un hogar transitorio?</h2>
+            </Camp>
+            <h4>
+              Los hogares transitorios son casas de personas que cuidan animales
+              por un período de tiempo determinado, hasta que el animal
+              encuentre la persona indicada que lo adopte definitivamente.
+            </h4>
+            <h4>
+              Los hogares de tránsito ayudan mucho a los animales a sobrellevar
+              una situación difícil en un momento dado, por ejemplo; cuando se
+              le ofrece tránsito a un animal maltratado hasta que éste se
+              recupera por completo, o cuando se crían cachorros que hayan
+              perdido a su madre.
+            </h4>
+            <h4>
+              Podés ofrecerte como hogar transitorio si contás con las ganas, el
+              tiempo y el lugar para ayudar a un animal en ese momento donde
+              está más vulnerable, aunque no estés en condiciones de adoptar
+              definitivamente al animal. ¡Ofrecer tránsito también ayuda!
+            </h4>
 
             <Forms>
               {console.log(props.values)}
               <ContainerCamp>
                 <Camp>
-                  <Label>imagen de la mascota</Label>
-                  <Label>nombre de la mascota</Label>
+                  <img
+                    src={pet?.image}
+                    alt={pet.name}
+                    width="600"
+                    height="400"
+                  />
+                  <Label>
+                   Macota elegida: {pet?.name[0].toUpperCase() +
+                    pet?.name.slice(1).toLowerCase()}
+                  </Label>
                 </Camp>
                 <Camp>
                   <Label>Nombre Usuario</Label>
-                  <Label>Apellido del Usuario</Label>
+                  <Label>Apellido Usuario</Label>
                 </Camp>
                 <Camp>
                   <Label>Edad</Label>
@@ -105,12 +132,48 @@ export default function UserTransitPetForm() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Domicilio</Label>
+                  <Label>Dirección:</Label>
                   <Input
                     type="text"
-                    id="userLocation"
-                    name="userLocation"
-                    placeholder="Domicilio del postulante"
+                    id="actualPlaceDirection"
+                    name="actualPlaceDirection"
+                    placeholder="Calle altura"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Barrio: </Label>
+                  <Input
+                    type="text"
+                    id="actualPlaceHood"
+                    name="actualPlaceHood"
+                    placeholder="Barrio"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Ciudad: </Label>
+                  <Input
+                    type="text"
+                    id="actualPlaceCity"
+                    name="actualPlaceCity"
+                    placeholder="Ciudad"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Provincia:</Label>
+                  <Input
+                    type="text"
+                    id="actualPlaceProvince"
+                    name="actualPlaceProvince"
+                    placeholder="Provincia"
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Codigo Postal: </Label>
+                  <Input
+                    type="number"
+                    id="actualPlacePostalCode"
+                    name="actualPlacePostalCode"
+                    placeholder="Codigo Postal"
                   />
                 </Camp>
                 <Camp>
@@ -120,28 +183,6 @@ export default function UserTransitPetForm() {
                     id="tel"
                     name="tel"
                     placeholder="Teléfono del postulante"
-                  />
-                </Camp>
-                <Camp>
-                  <Label>¿Cuantas Personas viven en la casa?</Label>
-                  <Input
-                    type="number"
-                    id="familySize"
-                    name="familySize"
-                    placeholder="Tu espuesta"
-                  />
-                </Camp>
-                <Camp>
-                  <Label>
-                    Composición del núcleo familiar (Relación y edades de las
-                    Personas que viven en la casa) Nos permite saber si la
-                    mascota es apto para tu hogar.
-                  </Label>
-                  <Input
-                    type="text"
-                    id="familyRelation"
-                    name="familyRelation"
-                    placeholder="Tu espuesta"
                   />
                 </Camp>
                 <Camp>
@@ -199,25 +240,15 @@ export default function UserTransitPetForm() {
                 </Camp>
                 <Camp>
                   <Label>
-                    <p>¿Por que se interesan en este animal en particular?</p>
-                    <p>
-                      (Cómo conocemos el carácter de nuestras mascotas la pregunta
-                      nos permite evaluar si es el indicado para lo que buscan)
-                    </p>
+                    <p>¿Dónde vivira la mascota en transito?</p>
                   </Label>
-                  <Supliers options={options1} name='adoptionReason'/>
-                </Camp>
-                <Camp>
-                  <Label>
-                    <p>¿Dónde vivira la mascota adoptada?</p>
-                  </Label>
-                  <Supliers options={options2} name='adoptedPetPlace'/>
+                  <Supliers options={options2} name="adoptedPetPlace" />
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Posee espacio al aire libre?</p>
                   </Label>
-                  <Supliers options={options3} name='openSpace'/>
+                  <Supliers options={options3} name="openSpace" />
                 </Camp>
                 <Camp>
                   <Label>¿Son propietarios o alquilan?</Label>
@@ -228,7 +259,7 @@ export default function UserTransitPetForm() {
                   </Label>
                 </Camp>
                 <Camp>
-                  <Label>¿Dónde dormirá el adoptado?</Label>
+                  <Label>¿Dónde dormirá la mascota en transito?</Label>
                   <Input
                     type="text"
                     id="adoptedPetSleepingSpace"
@@ -237,7 +268,9 @@ export default function UserTransitPetForm() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>¿Estará solo? ¿Cuánto tiempo?</Label>
+                  <Label>
+                    ¿Cuánto tiempo podés tener en tránsito al animal?
+                  </Label>
                   <Input
                     type="text"
                     id="adoptedPetAloneMoments"
@@ -246,38 +279,46 @@ export default function UserTransitPetForm() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>¿Quién lo paseará? ¿Cuántas veces al día?</Label>
+                  <Label>¿Por qué deseas dar tránsito a un animal?</Label>
                   <Input
                     type="text"
-                    id="adoptedPetWalkingInfo"
-                    name="adoptedPetWalkingInfo"
+                    id="adoptedPetAloneMoments"
+                    name="adoptedPetAloneMoments"
                     placeholder="Tu espuesta"
                   />
                 </Camp>
                 <Camp>
+                  <Label>¿Tiene movilidad para buscar a la mascota?</Label>
                   <Label>
-                    En caso de mudarse, ha pensado que hará con el perro?
-                  </Label>
-                  <Input
-                    type="text"
-                    id="userMoveingIdea"
-                    name="userMoveingIdea"
-                    placeholder="Tu espuesta"
-                  />
-                </Camp>
-                <Camp>
-                  <Label>
-                    ¿Están de acuerdo en tener un tiempo de adaptación?
-                  </Label>
-                  <Label>
-                    <Field type="radio" name="adaptationTime" value="yes" /> Si
-                    <Field type="radio" name="adaptationTime" value="no" /> No
+                    <Field type="radio" name="userMovility" value="yes" /> Si
+                    <Field type="radio" name="userMovility" value="no" /> No
                     <Field
                       type="radio"
-                      name="adaptationTime"
+                      name="userMovility"
                       value="maybe"
                     />{" "}
-                    Tal vez
+                    Posiblemente
+                  </Label>
+                </Camp>
+                <Camp>
+                  <Label>
+                    ¿Sos consciente que la responsabilidad de ser un hogar
+                    transitorio implica hacerse cargo de la alimentación y
+                    cuidados veterinarios del animal?
+                  </Label>
+                  <Label>
+                    <Field
+                      type="radio"
+                      name="otherPetsCastration"
+                      value="true"
+                    />{" "}
+                    Si
+                    <Field
+                      type="radio"
+                      name="otherPetsCastration"
+                      value="false"
+                    />{" "}
+                    No
                   </Label>
                 </Camp>
               </ContainerCamp>

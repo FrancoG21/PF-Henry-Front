@@ -17,7 +17,7 @@ export default function Supliers({ breeds, ...props }) {
         {...field}
         {...props}
         isClearable
-        defaultValue={{ label: "Busca una o agrega una nueva" }}
+        defaultValue={{ label: "Raza de la mascota" }}
         options={breeds.map((br) => ({ label: br, value: br }))}
         onChange={(val)=>{setFieldValue(field.name, val)}}
       />
