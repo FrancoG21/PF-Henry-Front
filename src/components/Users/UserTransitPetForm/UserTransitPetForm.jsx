@@ -70,7 +70,7 @@ export default function UserTransitPetForm() {
           transitPetPeriod: "",
           actualPlace: "",
           userAgreement: "",
-          formDate: moment().format("L"),
+          formDate: moment().format('DD/MM/YYYY'),
           transitPetReason: "",
           actualPlaceDirection: "",
           actualPlaceHood: "",

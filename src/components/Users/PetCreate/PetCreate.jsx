@@ -47,11 +47,9 @@ const DatePickerField = ({ ...props }) => {
       {...field}
       {...props}
       selected={(field.value && new Date(field.value)) || null}
-      onChange={(val) => {
-        console.log("antes de valString", val);
+      onChange={(val) => {        
         const valString = val ? val /* .toISOString().slice(0, 10) */ : null;
-        setFieldValue(field.name, valString);
-        console.log("sali de DatePickerField", valString);
+        setFieldValue(field.name, valString);        
       }}
     />
   );
@@ -131,7 +129,7 @@ export default function PetCreate() {
           foundDate: null,
           foundPlace: "",
           actualPlace: "",
-          formDate: moment().format("L"),
+          formDate: moment().format('DD/MM/YYYY'),
           actualPlaceDirection: "",
           actualPlaceHood: "",
           actualPlaceCity: "",
@@ -222,8 +220,10 @@ export default function PetCreate() {
           }
 
           if (values.foundDate) {
-            values.foundDate = values.foundDate.toISOString().slice(0, 10);
-          }
+            values.foundDate = values.foundDate.toISOString().slice(0, 10).split('-').reverse().join('/')
+          }       
+          
+ 
 
           console.log(values);
           dispatch(createPet(values));
@@ -237,10 +237,10 @@ export default function PetCreate() {
           <FormContainer>
             <TitleForm>Carga tu mascota</TitleForm>
             <Forms>
-              {/* {console.log(props.values)}
+              {/*  {console.log(props.values)}
               <br />
               <div>{JSON.stringify(props.errors)}</div>
-              <br /> */}
+              <br />  */}
               <ContainerCamp>
                 <Camp>
                   <Label>¿Qué quieres hacer?</Label>

@@ -12,6 +12,7 @@ import Donation from "./pages/Donation/Donation";
 import UserAdoptPetForm from "./components/Users/UserAdoptPetForm/UserAdoptPetForm"
 import UserTransitPetForm from "./components/Users/UserTransitPetForm/UserTransitPetForm"
 import UserProfile from "./pages/UserProfile/UserProfile";
+import UserItsMyPetForm from "./components/Users/UserItsMyPetForm/UserItsMyPetForm";
 
 //  MODO OSCURO //
 import { ThemeProvider } from "styled-components";
@@ -38,6 +39,7 @@ function App() {
             <Route path="/useradoptpet/:id" element={<UserAdoptPetForm />}></Route>
             <Route path="/usertransitpet/:id" element={<UserTransitPetForm />}></Route>
             <Route path="/userprofile" element={<UserProfile />}></Route>
+            <Route path="/useritsmypet" element={<UserItsMyPetForm />}></Route>            
           </Routes>
           <Footer />
         </ThemeProvider>

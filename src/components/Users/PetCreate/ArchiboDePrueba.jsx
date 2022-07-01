@@ -1,9 +1,10 @@
 import moment from 'moment'
 
 
-const hoy = moment().format('L')
+const hoy = moment().format('DD/MM/YYYY');
 
 console.log(hoy)
 
 
-// 2022-06-26T03:00:00.000Z
+
+
