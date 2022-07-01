@@ -14,14 +14,13 @@ import {
 
 export default function PetFilters({ petsToFilter }) {
   //const dispatch = useDispatch();
-  const url = "http://localhost:3001";
   const [petType, setPetType] = useState("");
 
   const [breeds, setBreeds] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`${url}/breed?pet=${petType}`)
+      .get(`/breed?pet=${petType}`)
       .then((r) => setBreeds(["all"].concat(r.data))); //setBreeds(r.data))
     console.log(breeds);
   }, [petType]);
@@ -33,7 +32,7 @@ export default function PetFilters({ petsToFilter }) {
   return (
     <>
       <Formik
-        initialValues={{}}
+        initialValues={{state:['adopt','transit', 'lost']}}
         onSubmit={(values, { resetForm }) => {
           console.log("onSubmit -->", values);
           for (let prop in values) {

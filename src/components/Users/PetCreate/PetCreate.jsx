@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Formik, Field, ErrorMessage } from "formik";
+import {
+  Formik,
+  Field,
+  ErrorMessage,
+  useFormikContext,
+  useField,
+} from "formik";
 import { createPet } from "../../../redux/actions/index";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import {
   ContainerCamp,
@@ -19,20 +27,39 @@ import axios from "axios";
 /* import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom' */
 
+const DatePickerField = ({ ...props }) => {
+  const { setFieldValue } = useFormikContext();
+  const [field] = useField(props);
+  return (
+    <DatePicker
+      {...field}
+      {...props}
+      selected={(field.value && new Date(field.value)) || null}
+      onChange={(val) => {
+        console.log("antes de valString", val);
+        const valString = val ? val.toISOString().slice(0, 10) : null;
+        setFieldValue(field.name, valString);
+        console.log("sali de DatePickerField", valString);
+      }}
+    />
+  );
+};
+
 export default function PetCreate() {
-  const todayDate = new Date().toISOString().slice(0, 10);
+  const todayDate = new Date().toISOString(); /* .slice(0, 10) */
   //minuto 42:40 video usa form, field, etc
   // 47:28 con que otros tags se puede trabajar ??
 
   const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
   const [breeds, setBreeds] = useState([]);
-  const [petType, setPetType] = useState("");
+  const [petType, setPetType] = useState("dog");
+  const [otherBreed, setOtherBreed] = useState(""); //este estado era para que escuche si breed esta en other
 
   useEffect(() => {
     axios
       .get(`/breed?pet=${petType}`)
-      .then((r) => setBreeds(["other"].concat(r.data))); //setBreeds(r.data))
+      .then((r) => setBreeds(r.data.concat(["other"]))); //setBreeds(r.data))
   }, [petType]);
 
   let isUrl =
@@ -50,7 +77,7 @@ export default function PetCreate() {
       <Formik
         initialValues={{
           name: "", //string 255 caracteres
-          pet: "dog", // cat or dog
+          pet: "", // cat or dog
           image: "", //string 255 caracteres
           size: "", // small, medium, big
           weight: "", //
@@ -60,8 +87,9 @@ export default function PetCreate() {
           castration: "", // true or false
           vaccinate: "", // true or false
           state: "", //adopt or lost
-          date: "",
-          place: "",
+          foundDate: null,
+          foundPlace: "",
+          actualPlace: "",
         }}
         validate={(values) => {
           let errors = {};
@@ -88,25 +116,30 @@ export default function PetCreate() {
             if (values.state === "adopt" && !values[prop]) {
               errors[prop] = `${capitalize(prop)} is required`;
               for (let prop in errors) {
-                if (prop === "place" || prop === "date") {
+                if (
+                  prop === "foundPlace" ||
+                  prop === "actualPlace" ||
+                  prop === "foundDate"
+                ) {
                   delete errors[prop];
                 }
-              }             
+              }
             }
 
-            if (values.state === "lost" && !values[prop]){
+            if (values.state === "lost" && !values[prop]) {
               errors[prop] = `${capitalize(prop)} is required`;
             }
-              
+
+            /* if(values.breed === 'other'){
+              values.breed = otherBreed
+            } */
           }
           return errors;
         }}
-        onSubmit={(values, { resetForm }) => {
-          console.log(
-            "SE ENVIAN ESTOS VALORES -> Esperando a team back para los cambios"
-          );
+        onSubmit={(values, { resetForm }) => {        
+
           console.log(values);
-          /* dispatch(createPet(values)); */
+          dispatch(createPet(values));
           resetForm();
           setFlag(true);
           console.log("formulario enviado");
@@ -116,15 +149,18 @@ export default function PetCreate() {
         {(props) => (
           <FormContainer>
             <TitleForm>Load your Pets</TitleForm>
-            {console.log(props.values)}
             <Forms>
+              {/* <div>{JSON.stringify(props.values)}</div>
+              <br />
+              <div>{JSON.stringify(props.errors)}</div>
+              <br /> */}
               <ContainerCamp>
                 <Camp>
                   <Label>Do you want to:</Label>
                   <Label>
                     <Field type="radio" name="state" value="adopt" /> Give your
                     pet for adoption
-                    <Field type="radio" name="state" value="lost" /> Load a lost
+                    <Field type="radio" name="state" value="lost" /> I found a
                     pet
                   </Label>
                   <ErrorMessage
@@ -138,7 +174,7 @@ export default function PetCreate() {
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Pet Name"
+                    placeholder="Pet name"
                   />
                   <ErrorMessage
                     name="name"
@@ -153,6 +189,9 @@ export default function PetCreate() {
                     name="image"
                     placeholder="Pet Image"
                   />
+                  {props.values.image && (
+                    <img src={props.values.image} alt={props.values.name} />
+                  )}
                   <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
@@ -194,12 +233,14 @@ export default function PetCreate() {
                       ))
                     )}
                   </Field>
-                  {/*   {props.values.breed === 'other'  &&  <Input
-                    type="text"
-                    id="breed"
-                    name="breed"
-                    placeholder="Write another breed"
-                  />} */}
+                  {props.values.breed === "other" && (
+                    <Input
+                      type="text"
+                      id="breed"
+                      name="breed"
+                      placeholder="Write another breed"
+                    />
+                  )}
                   <ErrorMessage
                     name="breed"
                     component={() => <div>{props.errors.breed}</div>}
@@ -242,7 +283,7 @@ export default function PetCreate() {
                   <Label>
                     <Field type="radio" name="gender" value="male" /> Male
                     <Field type="radio" name="gender" value="female" /> Female
-                    <Field type="radio" name="gender" value="female" /> Unknown
+                    <Field type="radio" name="gender" value="unknown" /> Unknown
                   </Label>
                   <ErrorMessage
                     name="gender"
@@ -254,11 +295,7 @@ export default function PetCreate() {
                   <Label>
                     <Field type="radio" name="castration" value="true" /> Yes
                     <Field type="radio" name="castration" value="false" /> No
-                    <Field
-                      type="radio"
-                      name="castration"
-                      value="unknown"
-                    />{" "}
+                    <Field type="radio" name="castration" value="unknown" />
                     Unknown
                   </Label>
                   <ErrorMessage
@@ -271,7 +308,7 @@ export default function PetCreate() {
                   <Label>
                     <Field type="radio" name="vaccinate" value="true" /> Yes
                     <Field type="radio" name="vaccinate" value="false" /> No
-                    <Field type="radio" name="vaccinate" value="unknown" />{" "}
+                    <Field type="radio" name="vaccinate" value="unknown" />
                     Unknown
                   </Label>
                   <ErrorMessage
@@ -283,11 +320,13 @@ export default function PetCreate() {
                   <div>
                     <Camp>
                       <Label>When did you found it ?</Label>
-                      <input
-                        type="date"
-                        name="date"
-                        /* max={todayDate} */
-                        min="2022-01-01"
+                      <DatePickerField
+                        name="foundDate"
+                        isClearable
+                        showYearDropdown
+                        scrollableMonthYearDropdown
+                        maxDate={new Date()}
+                        dateFormat="yyyy/MM/dd"
                       />
                     </Camp>
                     <Camp>
@@ -295,12 +334,27 @@ export default function PetCreate() {
                       <Input
                         type="text"
                         id="place"
-                        name="place"
-                        placeholder="Pet place"
+                        name="foundPlace"
+                        placeholder="Barrio, Calle, Altura"
+                      />
+                      <ErrorMessage
+                        name="foundPlace"
+                        component={() => <div>{props.errors.foundPlace}</div>}
                       />
                     </Camp>
-
-                    <h1>Fecha de hoy: {todayDate}</h1>
+                    <Camp>
+                      <Label>Where is the pet now ?</Label>
+                      <Input
+                        type="text"
+                        id="place"
+                        name="actualPlace"
+                        placeholder="Barrio, Calle, Altura"
+                      />
+                      <ErrorMessage
+                        name="actualPlace"
+                        component={() => <div>{props.errors.actualPlace}</div>}
+                      />
+                    </Camp>
                   </div>
                 )}
               </ContainerCamp>
