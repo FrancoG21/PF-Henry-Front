@@ -71,6 +71,7 @@ export default function Login() {
             </div>
             <div className={s.center}>
               <div className={s.line} />
+              
               <div className={s.or}>OR</div>
             </div>
             <div className={s.right}>
