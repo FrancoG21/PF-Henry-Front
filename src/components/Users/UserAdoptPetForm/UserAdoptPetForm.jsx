@@ -132,6 +132,7 @@ export default function UserAdoptPetForm() {
           setFlag(true);
           console.log("formulario enviado");
           console.log(values);
+          resetForm();
           setTimeout(() => setFlag(false), 3000);
         }}
       >

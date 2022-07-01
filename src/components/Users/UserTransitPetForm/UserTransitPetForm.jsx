@@ -17,6 +17,7 @@ import {
   ButtonSubmit,
   ContainerButton,
 } from "./StyledUserTransitPetForm";
+import moment from "moment";
 
 export default function UserTransitPetForm() {
   const [flag, setFlag] = useState(false);
@@ -48,33 +49,81 @@ export default function UserTransitPetForm() {
     dispatch(getById(id));
   }, []);
 
+  function capitalize(str) {
+    return str.replace(/^\w/, (c) => c.toUpperCase());
+  }
+
   return (
     <>
       <Formik
         initialValues={{
           userAge: "",
-          userLocation: "",
           tel: "",
-          familySize: "",
-          familyRelation: "",
-          otherPets: "false",
+          otherPets: "",
           otherPetsInfo: "",
-          otherPetsCastration: "false",
-          otherPetsVacunation: "false",
-          adoptionReason: "",
+          otherPetsCastration: "",
+          otherPetsVacunation: "",
           adoptedPetPlace: "",
           openSpace: "",
-          owner: "false",
+          owner: "",
           adoptedPetSleepingSpace: "",
-          adoptedPetAloneMoments: "",
-          adoptedPetWalkingInfo: "",
-          userMoveingIdea: "",
-          adaptationTime: "",
+          transitPetPeriod: "",
+          actualPlace: "",
+          userAgreement: "",
+          formDate: moment().format("L"),
+          transitPetReason: "",
+          actualPlaceDirection: "",
+          actualPlaceHood: "",
+          actualPlaceCity: "",
+          actualPlaceProvince: "",
+          actualPlacePostalCode: "",
+          userMovility: "",
         }}
-        validate={(values) => {}}
+        validate={(values) => {
+          let errors = {};
+
+          for (let prop in values) {
+            if (!values[prop]) {
+              errors[prop] = `${capitalize(prop)} is required`;
+              delete errors.actualPlace;
+            }
+          }
+
+          return errors;
+        }}
         onSubmit={(values, { resetForm }) => {
+          for (let prop in values) {
+            if (prop === "adoptedPetPlace" || prop === "openSpace") {
+              values[prop] = values[prop].label;
+            }
+
+            if (
+              values.actualPlaceDirection ||
+              values.actualPlaceHood ||
+              values.actualPlaceCity ||
+              values.actualPlaceProvince ||
+              values.actualPlacePostalCode
+            ) {
+              values.actualPlace = `${values.actualPlaceDirection}, ${values.actualPlaceHood}, ${values.actualPlaceCity}, ${values.actualPlaceProvince}, ${values.actualPlacePostalCode}`;
+
+              for (let prop in values) {
+                if (
+                  prop === "actualPlaceDirection" ||
+                  prop === "actualPlaceHood" ||
+                  prop === "actualPlaceCity" ||
+                  prop === "actualPlaceProvince" ||
+                  prop === "actualPlacePostalCode"
+                ) {
+                  delete values[prop];
+                }
+              }
+            }
+          }
+
           setFlag(true);
           console.log("formulario enviado");
+          console.log(values);
+          resetForm();
           setTimeout(() => setFlag(false), 3000);
         }}
       >
@@ -114,14 +163,16 @@ export default function UserTransitPetForm() {
                     height="400"
                   />
                   <Label>
-                   Macota elegida: {pet?.name[0].toUpperCase() +
-                    pet?.name.slice(1).toLowerCase()}
+                    Macota elegida:{" "}
+                    {pet?.name[0].toUpperCase() +
+                      pet?.name.slice(1).toLowerCase()}
                   </Label>
                 </Camp>
                 <Camp>
                   <Label>Nombre Usuario</Label>
                   <Label>Apellido Usuario</Label>
                 </Camp>
+                <div>{JSON.stringify(props.errors)}</div>
                 <Camp>
                   <Label>Edad</Label>
                   <Input
@@ -129,6 +180,10 @@ export default function UserTransitPetForm() {
                     id="userAge"
                     name="userAge"
                     placeholder="Edad del postulante"
+                  />
+                  <ErrorMessage
+                    name="userAge"
+                    component={() => <div>{props.errors.userAge}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -139,6 +194,12 @@ export default function UserTransitPetForm() {
                     name="actualPlaceDirection"
                     placeholder="Calle altura"
                   />
+                  <ErrorMessage
+                    name="actualPlaceDirection"
+                    component={() => (
+                      <div>{props.errors.actualPlaceDirection}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Barrio: </Label>
@@ -147,6 +208,10 @@ export default function UserTransitPetForm() {
                     id="actualPlaceHood"
                     name="actualPlaceHood"
                     placeholder="Barrio"
+                  />
+                  <ErrorMessage
+                    name="actualPlaceHood"
+                    component={() => <div>{props.errors.actualPlaceHood}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -157,6 +222,10 @@ export default function UserTransitPetForm() {
                     name="actualPlaceCity"
                     placeholder="Ciudad"
                   />
+                  <ErrorMessage
+                    name="actualPlaceCity"
+                    component={() => <div>{props.errors.actualPlaceCity}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Provincia:</Label>
@@ -165,6 +234,12 @@ export default function UserTransitPetForm() {
                     id="actualPlaceProvince"
                     name="actualPlaceProvince"
                     placeholder="Provincia"
+                  />
+                  <ErrorMessage
+                    name="actualPlaceProvince"
+                    component={() => (
+                      <div>{props.errors.actualPlaceProvince}</div>
+                    )}
                   />
                 </Camp>
                 <Camp>
@@ -175,6 +250,12 @@ export default function UserTransitPetForm() {
                     name="actualPlacePostalCode"
                     placeholder="Codigo Postal"
                   />
+                  <ErrorMessage
+                    name="actualPlacePostalCode"
+                    component={() => (
+                      <div>{props.errors.actualPlacePostalCode}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>Teléfono</Label>
@@ -183,6 +264,10 @@ export default function UserTransitPetForm() {
                     id="tel"
                     name="tel"
                     placeholder="Teléfono del postulante"
+                  />
+                  <ErrorMessage
+                    name="tel"
+                    component={() => <div>{props.errors.tel}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -194,6 +279,10 @@ export default function UserTransitPetForm() {
                     <Field type="radio" name="otherPets" value="true" /> Si
                     <Field type="radio" name="otherPets" value="false" /> No
                   </Label>
+                  <ErrorMessage
+                    name="otherPets"
+                    component={() => <div>{props.errors.otherPets}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Cuántos ? ¿Nos cuentan un poco sobre ellos?</Label>
@@ -202,6 +291,10 @@ export default function UserTransitPetForm() {
                     id="otherPetsInfo"
                     name="otherPetsInfo"
                     placeholder="Tu espuesta"
+                  />
+                  <ErrorMessage
+                    name="otherPetsInfo"
+                    component={() => <div>{props.errors.otherPetsInfo}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -220,6 +313,12 @@ export default function UserTransitPetForm() {
                     />{" "}
                     No
                   </Label>
+                  <ErrorMessage
+                    name="otherPetsCastration"
+                    component={() => (
+                      <div>{props.errors.otherPetsCastration}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Estan vacunados?</Label>
@@ -237,18 +336,32 @@ export default function UserTransitPetForm() {
                     />{" "}
                     No
                   </Label>
+                  <ErrorMessage
+                    name="otherPetsVacunation"
+                    component={() => (
+                      <div>{props.errors.otherPetsVacunation}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Dónde vivira la mascota en transito?</p>
                   </Label>
                   <Supliers options={options2} name="adoptedPetPlace" />
+                  <ErrorMessage
+                    name="adoptedPetPlace"
+                    component={() => <div>{props.errors.adoptedPetPlace}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
                     <p>¿Posee espacio al aire libre?</p>
                   </Label>
                   <Supliers options={options3} name="openSpace" />
+                  <ErrorMessage
+                    name="openSpace"
+                    component={() => <div>{props.errors.openSpace}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Son propietarios o alquilan?</Label>
@@ -257,6 +370,10 @@ export default function UserTransitPetForm() {
                     Propietario
                     <Field type="radio" name="owner" value="tenant" /> Alquilo
                   </Label>
+                  <ErrorMessage
+                    name="owner"
+                    component={() => <div>{props.errors.owner}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>¿Dónde dormirá la mascota en transito?</Label>
@@ -266,6 +383,12 @@ export default function UserTransitPetForm() {
                     name="adoptedPetSleepingSpace"
                     placeholder="Tu espuesta"
                   />
+                  <ErrorMessage
+                    name="adoptedPetSleepingSpace"
+                    component={() => (
+                      <div>{props.errors.adoptedPetSleepingSpace}</div>
+                    )}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
@@ -273,18 +396,28 @@ export default function UserTransitPetForm() {
                   </Label>
                   <Input
                     type="text"
-                    id="adoptedPetAloneMoments"
-                    name="adoptedPetAloneMoments"
+                    id="transitPetPeriod"
+                    name="transitPetPeriod"
                     placeholder="Tu espuesta"
+                  />
+                  <ErrorMessage
+                    name="transitPetPeriod"
+                    component={() => (
+                      <div>{props.errors.transitPetPeriod}</div>
+                    )}
                   />
                 </Camp>
                 <Camp>
                   <Label>¿Por qué deseas dar tránsito a un animal?</Label>
                   <Input
                     type="text"
-                    id="adoptedPetAloneMoments"
-                    name="adoptedPetAloneMoments"
+                    id="transitPetReason"
+                    name="transitPetReason"
                     placeholder="Tu espuesta"
+                  />
+                  <ErrorMessage
+                    name="transitPetReason"
+                    component={() => <div>{props.errors.transitPetReason}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -299,6 +432,10 @@ export default function UserTransitPetForm() {
                     />{" "}
                     Posiblemente
                   </Label>
+                  <ErrorMessage
+                    name="userMovility"
+                    component={() => <div>{props.errors.userMovility}</div>}
+                  />
                 </Camp>
                 <Camp>
                   <Label>
@@ -307,19 +444,13 @@ export default function UserTransitPetForm() {
                     cuidados veterinarios del animal?
                   </Label>
                   <Label>
-                    <Field
-                      type="radio"
-                      name="otherPetsCastration"
-                      value="true"
-                    />{" "}
-                    Si
-                    <Field
-                      type="radio"
-                      name="otherPetsCastration"
-                      value="false"
-                    />{" "}
-                    No
+                    <Field type="radio" name="userAgreement" value="true" /> Si
+                    <Field type="radio" name="userAgreement" value="false" /> No
                   </Label>
+                  <ErrorMessage
+                    name="userAgreement"
+                    component={() => <div>{props.errors.userAgreement}</div>}
+                  />
                 </Camp>
               </ContainerCamp>
               <ContainerButton>
