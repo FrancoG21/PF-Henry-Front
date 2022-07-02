@@ -21,6 +21,10 @@ export const LostLink = styled(Link)`
     text-decoration: none;
 `
 
+export const CardLink = styled(Link)`
+text-decoration: none;
+`
+
 export const ButtonLost = styled.button`
     background-color: ${(props) => props.theme.secondary};
     color: #fff;
@@ -38,6 +42,7 @@ export const ButtonLost = styled.button`
 
 export const ImageCarrusel = styled.img`
     width: 24rem;
+    height: 24rem
 
     @media screen and (max-width: 600px) {
         width: 10rem;

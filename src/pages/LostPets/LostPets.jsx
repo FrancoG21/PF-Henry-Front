@@ -43,7 +43,7 @@ export default function LostPets() {
   return (
     <BackgroundPets>
       <ContainerTop>
-        <Searchbar />
+        <Searchbar stateValue={['lost']}/>
       </ContainerTop>
 
       <ContainerFilters>

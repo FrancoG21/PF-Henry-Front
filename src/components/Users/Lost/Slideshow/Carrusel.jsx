@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
-import { Carrousel, ImageCarrusel, NameCard, TitleCarrusel, ContainerLost, ButtonLost, LostLink, ContainerLink } from "./StyledCarrusel";
+import {
+  Carrousel,
+  ImageCarrusel,
+  NameCard,
+  TitleCarrusel,
+  ContainerLost,
+  ButtonLost,
+  LostLink,
+  ContainerLink,
+  CardLink,
+} from "./StyledCarrusel";
 import { Link } from "react-router-dom";
+import { getPets } from "../../../../redux/actions/index";
+import { useDispatch, useSelector } from "react-redux";
 
 const Carrusel = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPets(0, { state: "lost" }));
+  }, [dispatch]);
+
+  const pets = useSelector((state) => state.pets);
+
   const data = [
     {
       name: "bethoven",
@@ -78,7 +98,7 @@ const Carrusel = () => {
       <ContainerLost>
         <TitleCarrusel>Lost Animals</TitleCarrusel>
         <ContainerLink>
-          <LostLink to='/lostpets'>
+          <LostLink to="/lostpets">
             <ButtonLost>View Lost Pets</ButtonLost>
           </LostLink>
         </ContainerLink>
@@ -94,17 +114,17 @@ const Carrusel = () => {
           breakpoints: {
             623: {
               perPage: 2,
-              perMove: 2
+              perMove: 2,
             },
             935: {
               perPage: 32,
-              perMove: 2
+              perMove: 2,
             },
             1247: {
               perPage: 2,
-              perMove: 2
-            }
-          }
+              perMove: 2,
+            },
+          },
         }}
         onMounted={() => {
           console.log("mounted");
@@ -119,24 +139,28 @@ const Carrusel = () => {
           console.log("visible", slide.index);
         }}
       >
-        {data.map(item => {
+        {pets?.map((item) => {
           return (
             <Carrousel key={item}>
-              <ImageCarrusel
-                className="image-carrusel"
-                src={item.image}
-                alt={'img not found'}
-              />
-              <NameCard>
-                {item.name[0].toUpperCase() + item.name.slice(1).toLowerCase()}
-              </NameCard>
+              <CardLink to={`/petdetail/${item.id}`}>
+                <ImageCarrusel
+                  className="image-carrusel"
+                  src={item.image}
+                  alt={"img not found"}
+                  height="30%"
+                  width="20%"
+                />
+                <NameCard>
+                  {item.name[0].toUpperCase() +
+                    item.name.slice(1).toLowerCase()}
+                </NameCard>
+              </CardLink>
             </Carrousel>
           );
         })}
       </Splide>
-
     </div>
-    
+
     // <div>
     //   <main>
     //     <h2>Lost Pets</h2>
@@ -157,9 +181,9 @@ const Carrusel = () => {
     //           />
 
     //           <Carousel.Caption>
-                // <h1>
-                //   {e.name[0].toUpperCase() + e.name.slice(1).toLowerCase()}
-                // </h1>
+    // <h1>
+    //   {e.name[0].toUpperCase() + e.name.slice(1).toLowerCase()}
+    // </h1>
     //           </Carousel.Caption>
     //         </Carousel.Item>
     //       );

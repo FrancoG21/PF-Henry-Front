@@ -39,8 +39,7 @@ export default function PetFilters({ petsToFilter, stateValue }) {
             if (values[prop] === "all") {
               delete values[prop];
             }
-          }
-          values.state = stateValue
+          }          
 
           console.log(values);
           petsToFilter(values);

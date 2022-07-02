@@ -43,7 +43,7 @@ export default function Pets() {
   return (
     <BackgroundPets>
       <ContainerTop>
-        <Searchbar />
+        <Searchbar  stateValue={['adopt','transit']} />
       </ContainerTop>
 
       <ContainerFilters>
