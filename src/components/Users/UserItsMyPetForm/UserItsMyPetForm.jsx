@@ -18,11 +18,14 @@ import {
   ContainerButton,
 } from "./StyledUserItsMyPetForm";
 import moment from "moment";
+import ImageUploader from "../PetCreate/imagenes/ImagesUploader";
 
 export default function UserItsMyPetForm() {
   const [flag, setFlag] = useState(false);
   const pet = useSelector((state) => state.petDetail);
   const { id } = useParams();
+
+  const [json, setJson] = useState({images:[]})
 
   const dispatch = useDispatch();
   // Pagina de ejemplo --> https://www.vidanimal.org.ar/como-ayudar/ofrece-hogar-de-transito/
@@ -41,7 +44,6 @@ export default function UserItsMyPetForm() {
     "Casa en Barrio Cerrado",
     "Quinta",
     "Campo",
-    "Otro",
   ];
   const options3 = ["Balcón", "Patio", "Terraza", "Parque", "Otro"];
 
@@ -56,28 +58,16 @@ export default function UserItsMyPetForm() {
   return (
     <>
       <Formik
-        initialValues={{
-          userAge: "",
-          tel: "",
-          otherPets: "",
-          otherPetsInfo: "",
-          otherPetsCastration: "",
-          otherPetsVacunation: "",
-          adoptedPetPlace: "",
-          openSpace: "",
-          owner: "",
-          adoptedPetSleepingSpace: "",
-          transitPetPeriod: "",
-          actualPlace: "",
-          userAgreement: "",
-          formDate: moment().format('DD/MM/YYYY'),
-          transitPetReason: "",
-          actualPlaceDirection: "",
-          actualPlaceHood: "",
-          actualPlaceCity: "",
-          actualPlaceProvince: "",
-          actualPlacePostalCode: "",
+        initialValues={{        
+          tel: "",       
+          image: "",
+          getReason: "",
+          lostZone: "",
+          originalName: "",
           userMovility: "",
+          petId: id,
+          userId:'userId', //--> despues ver lo de login              
+          formDate: moment().format('DD/MM/YYYY')          
         }}
         validate={(values) => {
           let errors = {};
@@ -104,7 +94,7 @@ export default function UserItsMyPetForm() {
               values.actualPlaceProvince ||
               values.actualPlacePostalCode
             ) {
-              values.actualPlace = `${values.actualPlaceDirection}, ${values.actualPlaceHood}, ${values.actualPlaceCity}, ${values.actualPlaceProvince}, ${values.actualPlacePostalCode}`;
+              values.actualPlace = [`${values.actualPlaceDirection}`,`${values.actualPlaceHood}`,`${values.actualPlaceCity}`,`${values.actualPlaceProvince}`,`${values.actualPlacePostalCode}`];
 
               for (let prop in values) {
                 if (
@@ -130,19 +120,19 @@ export default function UserItsMyPetForm() {
         {(props) => (
           <FormContainer>
             <TitleForm>Formulario esta es mi mascota</TitleForm>
-            <Camp>
+            {/* <Camp>
               <h3>Llena los siguientes campos</h3>
-            </Camp>           
+            </Camp> */}           
 
             <Forms>
-              {/* {console.log(props.values)} */}
+               {console.log(props.errors)}
               <ContainerCamp>
                  <Camp>
                   <img
                     src={pet?.image}
                     alt={pet.name}
                     width="600"
-                    height="400"
+                    height="400"                    
                   />
                   <Label>
                     Macota elegida:{" "}
@@ -159,54 +149,49 @@ export default function UserItsMyPetForm() {
                   <Label>Porque cree que es su mascota ?</Label>
                   <Input
                     type="text"
-                    id="userAge"
-                    name="userAge"
-                    placeholder="Edad del postulante"
+                    id="getReason"
+                    name="getReason"
+                    placeholder="Su respuesta"
                   />
                   <ErrorMessage
-                    name="userAge"
-                    component={() => <div>{props.errors.userAge}</div>}
+                    name="getReason"
+                    component={() => <div>{props.errors.getReason}</div>}
                   />
                 </Camp>
                 <Camp>
                   <Label>En que zona cree que se le pudo haber perdido ?</Label>
                   <Input
                     type="text"
-                    id="actualPlaceDirection"
-                    name="actualPlaceDirection"
-                    placeholder="Calle altura"
+                    id="lostZone"
+                    name="lostZone"
+                    placeholder="Su respuesta"
                   />
                   <ErrorMessage
-                    name="actualPlaceDirection"
+                    name="lostZone"
                     component={() => (
-                      <div>{props.errors.actualPlaceDirection}</div>
+                      <div>{props.errors.lostZone}</div>
                     )}
                   />
                 </Camp>
                 <Camp>
-                  <Label>Cual era el nombre original de la mascota ?</Label>
+                  <Label>A que nombre responde la mascota ?</Label> {/* Cual era el nombre original de la mascota */}
                   <Input
                     type="text"
-                    id="actualPlaceHood"
-                    name="actualPlaceHood"
-                    placeholder="Barrio"
+                    id="originalName"
+                    name="originalName"
+                    placeholder="Su respuesta"
                   />
                   <ErrorMessage
-                    name="actualPlaceHood"
-                    component={() => <div>{props.errors.actualPlaceHood}</div>}
+                    name="originalName"
+                    component={() => <div>{props.errors.originalName}</div>}
                   />
                 </Camp>
                 <Camp>
                   <Label>Cargue aqui fotos de la mascota, si esta acompañada de usted mejor</Label>
-                  <Input
-                    type="text"
-                    id="actualPlaceCity"
-                    name="actualPlaceCity"
-                    placeholder=""
-                  />
+                  <ImageUploader json={json} setJson={setJson} />
                   <ErrorMessage
-                    name="actualPlaceCity"
-                    component={() => <div>{props.errors.actualPlaceCity}</div>}
+                    name="image"
+                    component={() => <div>{props.errors.image}</div>}
                   />
                 </Camp>
               
@@ -216,7 +201,7 @@ export default function UserItsMyPetForm() {
                     type="number"
                     id="tel"
                     name="tel"
-                    placeholder="Teléfono del postulante"
+                    placeholder="Su telefono"
                   />
                   <ErrorMessage
                     name="tel"
@@ -224,17 +209,20 @@ export default function UserItsMyPetForm() {
                   />
                 </Camp>
                 <Camp>
+                  <Label>¿Tiene movilidad para buscar la mascota?</Label>
                   <Label>
-                    ¿Tenes otros animales? (Nos permite saber si la mascota es
-                    apta para tu hogar)
-                  </Label>
-                  <Label>
-                    <Field type="radio" name="otherPets" value="true" /> Si
-                    <Field type="radio" name="otherPets" value="false" /> No
+                    <Field type="radio" name="userMovility" value="yes" /> Si
+                    <Field type="radio" name="userMovility" value="no" /> No
+                    {/* <Field
+                      type="radio"
+                      name="userMovility"
+                      value="maybe"
+                    />{" "}
+                    Posiblemente */}
                   </Label>
                   <ErrorMessage
-                    name="otherPets"
-                    component={() => <div>{props.errors.otherPets}</div>}
+                    name="userMovility"
+                    component={() => <div>{props.errors.userMovility}</div>}
                   />
                 </Camp>
         

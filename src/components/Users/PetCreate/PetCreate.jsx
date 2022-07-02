@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import Uploadcare from "./UploadCare";
 import { createPet } from "../../../redux/actions/index";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -27,6 +26,7 @@ import {
   ContainerButton,
 } from "./StyledPetCreate";
 import axios from "axios";
+import ImageUploader from "./imagenes/ImagesUploader";
 /* import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom' */
 
@@ -47,9 +47,9 @@ const DatePickerField = ({ ...props }) => {
       {...field}
       {...props}
       selected={(field.value && new Date(field.value)) || null}
-      onChange={(val) => {        
+      onChange={(val) => {
         const valString = val ? val /* .toISOString().slice(0, 10) */ : null;
-        setFieldValue(field.name, valString);        
+        setFieldValue(field.name, valString);
       }}
     />
   );
@@ -83,7 +83,8 @@ export default function PetCreate() {
   const [breeds, setBreeds] = useState([]);
   const [petType, setPetType] = useState("dog");
   const [urlImage, setUrlImage] = useState([]);
-  const [skere, setSkere] = useState("");
+
+  const [json, setJson] = useState({images:[]})
 
   useEffect(() => {
     axios.get(`/breed?pet=${petType}`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
@@ -117,7 +118,7 @@ export default function PetCreate() {
         initialValues={{
           name: "", //string 255 caracteres
           pet: "", // cat or dog
-          image: "imagen harcodeada", //string 255 caracteres
+          image: "", //string 255 caracteres --> despues va a ser un array
           size: "", // small, medium, big
           weight: "", //
           fur: "", // short or long
@@ -128,13 +129,14 @@ export default function PetCreate() {
           state: "", //adopt or lost
           foundDate: null,
           foundPlace: "",
-          actualPlace: "",
-          formDate: moment().format('DD/MM/YYYY'),
+          actualPlace: "", // ---> array
+          formDate: moment().format("DD/MM/YYYY"),
           actualPlaceDirection: "",
           actualPlaceHood: "",
           actualPlaceCity: "",
           actualPlaceProvince: "Cordoba",
           actualPlacePostalCode: "",
+          userId: "userId",
         }}
         validate={(values) => {
           let errors = {};
@@ -194,7 +196,13 @@ export default function PetCreate() {
             values.actualPlaceProvince ||
             values.actualPlacePostalCode
           ) {
-            values.actualPlace = `${values.actualPlaceDirection}, ${values.actualPlaceHood}, ${values.actualPlaceCity}, ${values.actualPlaceProvince}, ${values.actualPlacePostalCode}`;
+            values.actualPlace = [
+              `${values.actualPlaceDirection}`,
+              `${values.actualPlaceHood}`,
+              `${values.actualPlaceCity}`,
+              `${values.actualPlaceProvince}`,
+              `${values.actualPlacePostalCode}`,
+            ];
 
             for (let prop in values) {
               if (
@@ -208,22 +216,24 @@ export default function PetCreate() {
               }
             }
           }
+          if (values.foundDate) {
+            values.foundDate = values.foundDate
+              .toISOString()
+              .slice(0, 10)
+              .split("-")
+              .reverse()
+              .join("/");
+          }
 
           if (values.state === "adopt") {
-            (values.actualPlace = ""),
-              (values.foundDate = ""),
-              (values.foundPlace = "");
+            delete values.actualPlace;
+            delete values.foundDate;
+            delete values.foundPlace;
           }
 
           if (values.breed) {
             values.breed = values.breed.label;
           }
-
-          if (values.foundDate) {
-            values.foundDate = values.foundDate.toISOString().slice(0, 10).split('-').reverse().join('/')
-          }       
-          
- 
 
           console.log(values);
           dispatch(createPet(values));
@@ -236,11 +246,8 @@ export default function PetCreate() {
         {(props) => (
           <FormContainer>
             <TitleForm>Carga tu mascota</TitleForm>
-            <Forms>
-              {/*  {console.log(props.values)}
-              <br />
-              <div>{JSON.stringify(props.errors)}</div>
-              <br />  */}
+            <Forms>              
+              {console.log(json)}
               <ContainerCamp>
                 <Camp>
                   <Label>¿Qué quieres hacer?</Label>
@@ -269,34 +276,13 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Imagen de la mascota</Label>
-                  {/*  <Input
-                    type="text"
-                    id="image"
-                    name="image"
-                    placeholder="Pet Image"
-                  />
-                  {props.values.image && (
-                    <img src={props.values.image} alt={`imagen de: ${props.values.name}`} />
-                  )}
-                  <ErrorMessage
+                  <Label>Imagen de la mascota</Label>                  
+                   <ImageUploader json={json} setJson={setJson} /> 
+                   <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
-                  /> */}
-                </Camp>
-                <Camp>
-                  {/* <Uploadcare callBackImage={callBackImage}/>  */}
-                  {/* <input
-                    type="hidden"
-                    role="uploadcare-uploader"
-                    data-public-key="demopublickey"
-                    data-images-only
-                  />  */}
-                </Camp>
-                <ErrorMessage
-                  name="image"
-                  component={() => <div>{props.errors.image}</div>}
-                />
+                  />
+                </Camp>                
                 <Camp>
                   <Label>Que tipo de animal es ?</Label>
                   <Label>

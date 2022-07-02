@@ -22,7 +22,7 @@ export default function Pets() {
   const pets = useSelector((state) => state.pets);
   const petsAmount = useSelector((state) => state.petsAmount);
   const [page, setPage] = useState(0)
-  const [filter, setFilter] = useState({})
+  const [filter, setFilter] = useState({state:['adopt','transit']})
 
   useEffect(() => {
     dispatch(getPets(page, filter))

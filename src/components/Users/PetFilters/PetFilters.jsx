@@ -49,7 +49,7 @@ export default function PetFilters({ petsToFilter, stateValue }) {
           <Form>
             {console.log('stateValue',stateValue)}
             <ButtonLink to={"/petcreate"}>
-              <ButtonCreate>Load Pet</ButtonCreate>
+              {stateValue.includes('adopt') && <ButtonCreate>Load Pet</ButtonCreate>}
             </ButtonLink>
             <Label>Type</Label>
             <Label>
