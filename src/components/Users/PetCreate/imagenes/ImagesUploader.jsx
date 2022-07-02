@@ -66,7 +66,7 @@ function ImageUploader({ json, setJson }) {
           );
         })}
 
-        <label  className={json.images.length < 6 ? 'card-footer' : 'card-footer card-footer-disabled'} 
+        <label  className={json.images.length < 3 ? 'card-footer' : 'card-footer card-footer-disabled'} 
         >
           <div>
             <BiImageAdd size="2em" />
@@ -75,7 +75,7 @@ function ImageUploader({ json, setJson }) {
             type="file"
              className='img-uploader' 
             onInput={(e) => handleUploadImage(e.target.files)}
-            disabled={json.images.length < 6 ? false : true}
+            disabled={json.images.length < 3 ? false : true}
             multiple
             accept="image/png, image/jpeg"
           />
