@@ -27,6 +27,7 @@ import {
   ContainerButton,
 } from "./StyledPetCreate";
 import axios from "axios";
+import ImageUploader from "./imagenes/ImagesUploader";
 /* import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom' */
 
@@ -47,9 +48,9 @@ const DatePickerField = ({ ...props }) => {
       {...field}
       {...props}
       selected={(field.value && new Date(field.value)) || null}
-      onChange={(val) => {        
+      onChange={(val) => {
         const valString = val ? val /* .toISOString().slice(0, 10) */ : null;
-        setFieldValue(field.name, valString);        
+        setFieldValue(field.name, valString);
       }}
     />
   );
@@ -83,7 +84,8 @@ export default function PetCreate() {
   const [breeds, setBreeds] = useState([]);
   const [petType, setPetType] = useState("dog");
   const [urlImage, setUrlImage] = useState([]);
-  const [skere, setSkere] = useState("");
+
+  const [json, setJson] = useState({images:[]})
 
   useEffect(() => {
     axios.get(`/breed?pet=${petType}`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
@@ -129,13 +131,13 @@ export default function PetCreate() {
           foundDate: null,
           foundPlace: "",
           actualPlace: "", // ---> array
-          formDate: moment().format('DD/MM/YYYY'),
+          formDate: moment().format("DD/MM/YYYY"),
           actualPlaceDirection: "",
           actualPlaceHood: "",
           actualPlaceCity: "",
           actualPlaceProvince: "Cordoba",
           actualPlacePostalCode: "",
-          userId:'userId'
+          userId: "userId",
         }}
         validate={(values) => {
           let errors = {};
@@ -195,7 +197,13 @@ export default function PetCreate() {
             values.actualPlaceProvince ||
             values.actualPlacePostalCode
           ) {
-            values.actualPlace = [`${values.actualPlaceDirection}`,`${values.actualPlaceHood}`,`${values.actualPlaceCity}`,`${values.actualPlaceProvince}`,`${values.actualPlacePostalCode}`]; 
+            values.actualPlace = [
+              `${values.actualPlaceDirection}`,
+              `${values.actualPlaceHood}`,
+              `${values.actualPlaceCity}`,
+              `${values.actualPlaceProvince}`,
+              `${values.actualPlacePostalCode}`,
+            ];
 
             for (let prop in values) {
               if (
@@ -210,19 +218,24 @@ export default function PetCreate() {
             }
           }
           if (values.foundDate) {
-            values.foundDate = values.foundDate.toISOString().slice(0, 10).split('-').reverse().join('/')
-          }       
+            values.foundDate = values.foundDate
+              .toISOString()
+              .slice(0, 10)
+              .split("-")
+              .reverse()
+              .join("/");
+          }
 
           if (values.state === "adopt") {
-             delete values.actualPlace ;
-             delete values.foundDate;
-             delete values.foundPlace ;              
+            delete values.actualPlace;
+            delete values.foundDate;
+            delete values.foundPlace;
           }
 
           if (values.breed) {
             values.breed = values.breed.label;
           }
-        
+
           console.log(values);
           dispatch(createPet(values));
           resetForm();
@@ -234,11 +247,8 @@ export default function PetCreate() {
         {(props) => (
           <FormContainer>
             <TitleForm>Carga tu mascota</TitleForm>
-            <Forms>
-              {/*  {console.log(props.values)}
-              <br />
-              <div>{JSON.stringify(props.errors)}</div>
-              <br />  */}
+            <Forms>              
+              {console.log(json)}
               <ContainerCamp>
                 <Camp>
                   <Label>¿Qué quieres hacer?</Label>
@@ -268,7 +278,7 @@ export default function PetCreate() {
                 </Camp>
                 <Camp>
                   <Label>Imagen de la mascota</Label>
-                    <Input
+                  {/* <Input
                     type="text"
                     id="image"
                     name="image"
@@ -280,7 +290,8 @@ export default function PetCreate() {
                   <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
-                  /> 
+                  />  */}
+                   <ImageUploader json={json} setJson={setJson} /> 
                 </Camp>
                 <Camp>
                   {/* <Uploadcare callBackImage={callBackImage}/>  */}

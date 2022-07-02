@@ -117,9 +117,9 @@ export default function UserItsMyPetForm() {
         {(props) => (
           <FormContainer>
             <TitleForm>Formulario esta es mi mascota</TitleForm>
-            <Camp>
+            {/* <Camp>
               <h3>Llena los siguientes campos</h3>
-            </Camp>           
+            </Camp> */}           
 
             <Forms>
                {console.log(props.errors)}
@@ -129,7 +129,7 @@ export default function UserItsMyPetForm() {
                     src={pet?.image}
                     alt={pet.name}
                     width="600"
-                    height="400"
+                    height="400"                    
                   />
                   <Label>
                     Macota elegida:{" "}
