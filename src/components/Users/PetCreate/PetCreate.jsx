@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import Uploadcare from "./UploadCare";
 import { createPet } from "../../../redux/actions/index";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -277,35 +276,13 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Imagen de la mascota</Label>
-                  {/* <Input
-                    type="text"
-                    id="image"
-                    name="image"
-                    placeholder="Pet Image"
-                  />
-                  {props.values.image && (
-                    <img src={props.values.image} alt={`${props.values.name}`} />
-                  )}
-                  <ErrorMessage
+                  <Label>Imagen de la mascota</Label>                  
+                   <ImageUploader json={json} setJson={setJson} /> 
+                   <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
-                  />  */}
-                   <ImageUploader json={json} setJson={setJson} /> 
-                </Camp>
-                <Camp>
-                  {/* <Uploadcare callBackImage={callBackImage}/>  */}
-                  {/* <input
-                    type="hidden"
-                    role="uploadcare-uploader"
-                    data-public-key="demopublickey"
-                    data-images-only
-                  />  */}
-                </Camp>
-                <ErrorMessage
-                  name="image"
-                  component={() => <div>{props.errors.image}</div>}
-                />
+                  />
+                </Camp>                
                 <Camp>
                   <Label>Que tipo de animal es ?</Label>
                   <Label>

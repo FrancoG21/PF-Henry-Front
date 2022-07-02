@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { BiImageAdd } from "react-icons/bi";
-// import './ImagesUploader.scss'
+import styles from './styles.css'
 
 function ImageUploader({ json, setJson }) {
   const [progress, setProgress] = useState(0);
@@ -49,15 +49,15 @@ function ImageUploader({ json, setJson }) {
   };
 
   return (
-    <div /* className='img-uploader-container' */>
-      <div /* className='card-previewer' */>
+    <div  className='img-uploader-container' >
+      <div  className='card-previewer' >
         {json.images.map((url, i) => {
           return (
-            <div /* className='img-view-container' */ key={i}>
-              <img src={url} alt="" /* className='img-view' */ />
-              <div /* className='img-front-film' */>Imagen {i + 1}</div>
+            <div  className='img-view-container'  key={i}>
+              <img src={url} alt=""  className='img-view'  />
+              <div  className='img-front-film' >Imagen {i + 1}</div>
               <button
-                /* className='onclose-btn' */ value={url}
+                 className='onclose-btn'  value={url}
                 onClick={(e) => handleOnClose(e.target.value)}
               >
                 X
@@ -66,26 +66,26 @@ function ImageUploader({ json, setJson }) {
           );
         })}
 
-        <label /* className={json.images.length < 6 ? 'card-footer' : 'card-footer card-footer-disabled'} */
+        <label  className={json.images.length < 6 ? 'card-footer' : 'card-footer card-footer-disabled'} 
         >
           <div>
             <BiImageAdd size="2em" />
           </div>
           <input
             type="file"
-            /* className='img-uploader' */
+             className='img-uploader' 
             onInput={(e) => handleUploadImage(e.target.files)}
             disabled={json.images.length < 6 ? false : true}
             multiple
             accept="image/png, image/jpeg"
           />
-          Agregar imágenes al producto
+          Agregar imágenes de la mascota
         </label>
       </div>
       <progress
         value={progress}
         max="100"
-        /* className= {progressVisible ? 'progress-bar-active' : 'progress-bar-inactive'} */
+         className= {progressVisible ? 'progress-bar-active' : 'progress-bar-inactive'} 
       />
     </div>
   );

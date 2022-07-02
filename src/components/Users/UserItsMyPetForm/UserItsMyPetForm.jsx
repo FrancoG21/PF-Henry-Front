@@ -18,11 +18,14 @@ import {
   ContainerButton,
 } from "./StyledUserItsMyPetForm";
 import moment from "moment";
+import ImageUploader from "../PetCreate/imagenes/ImagesUploader";
 
 export default function UserItsMyPetForm() {
   const [flag, setFlag] = useState(false);
   const pet = useSelector((state) => state.petDetail);
   const { id } = useParams();
+
+  const [json, setJson] = useState({images:[]})
 
   const dispatch = useDispatch();
   // Pagina de ejemplo --> https://www.vidanimal.org.ar/como-ayudar/ofrece-hogar-de-transito/
@@ -185,14 +188,7 @@ export default function UserItsMyPetForm() {
                 </Camp>
                 <Camp>
                   <Label>Cargue aqui fotos de la mascota, si esta acompañada de usted mejor</Label>
-                  <Input
-                    type="text"
-                    id="image"
-                    name="image"
-                    placeholder="Imagen de la mascota"
-                  />{props.values.image && (
-                    <img src={props.values.image} alt={`${pet.name}`} />
-                  )}
+                  <ImageUploader json={json} setJson={setJson} />
                   <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
