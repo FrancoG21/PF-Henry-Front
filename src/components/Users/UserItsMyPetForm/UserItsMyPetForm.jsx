@@ -46,7 +46,7 @@ export default function UserItsMyPetForm() {
   const options3 = ["Balcón", "Patio", "Terraza", "Parque", "Otro"];
 
   useEffect(() => {
-    /* dispatch(getById(id)); */
+     dispatch(getById(id))
   }, []);
 
   function capitalize(str) {
@@ -137,7 +137,7 @@ export default function UserItsMyPetForm() {
             <Forms>
               {/* {console.log(props.values)} */}
               <ContainerCamp>
-                {/* <Camp>
+                 <Camp>
                   <img
                     src={pet?.image}
                     alt={pet.name}
@@ -149,7 +149,7 @@ export default function UserItsMyPetForm() {
                     {pet?.name[0].toUpperCase() +
                       pet?.name.slice(1).toLowerCase()}
                   </Label>
-                </Camp> */}
+                </Camp> 
                 <Camp>
                   <Label>Nombre Usuario</Label>
                   <Label>Apellido Usuario</Label>
