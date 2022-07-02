@@ -78,7 +78,7 @@ const Carrusel = () => {
       <ContainerLost>
         <TitleCarrusel>Lost Animals</TitleCarrusel>
         <ContainerLink>
-          <LostLink to='/lostform'>
+          <LostLink to='/lostpets'>
             <ButtonLost>View Lost Pets</ButtonLost>
           </LostLink>
         </ContainerLink>
