@@ -117,7 +117,7 @@ export default function PetCreate() {
         initialValues={{
           name: "", //string 255 caracteres
           pet: "", // cat or dog
-          image: "imagen harcodeada", //string 255 caracteres
+          image: "", //string 255 caracteres --> despues va a ser un array
           size: "", // small, medium, big
           weight: "", //
           fur: "", // short or long
@@ -128,13 +128,14 @@ export default function PetCreate() {
           state: "", //adopt or lost
           foundDate: null,
           foundPlace: "",
-          actualPlace: "",
+          actualPlace: "", // ---> array
           formDate: moment().format('DD/MM/YYYY'),
           actualPlaceDirection: "",
           actualPlaceHood: "",
           actualPlaceCity: "",
           actualPlaceProvince: "Cordoba",
           actualPlacePostalCode: "",
+          userId:'userId'
         }}
         validate={(values) => {
           let errors = {};
@@ -194,7 +195,7 @@ export default function PetCreate() {
             values.actualPlaceProvince ||
             values.actualPlacePostalCode
           ) {
-            values.actualPlace = `${values.actualPlaceDirection}, ${values.actualPlaceHood}, ${values.actualPlaceCity}, ${values.actualPlaceProvince}, ${values.actualPlacePostalCode}`;
+            values.actualPlace = [`${values.actualPlaceDirection}`,`${values.actualPlaceHood}`,`${values.actualPlaceCity}`,`${values.actualPlaceProvince}`,`${values.actualPlacePostalCode}`]; 
 
             for (let prop in values) {
               if (
@@ -208,23 +209,20 @@ export default function PetCreate() {
               }
             }
           }
+          if (values.foundDate) {
+            values.foundDate = values.foundDate.toISOString().slice(0, 10).split('-').reverse().join('/')
+          }       
 
           if (values.state === "adopt") {
-            (values.actualPlace = ""),
-              (values.foundDate = ""),
-              (values.foundPlace = "");
+             delete values.actualPlace ;
+             delete values.foundDate;
+             delete values.foundPlace ;              
           }
 
           if (values.breed) {
             values.breed = values.breed.label;
           }
-
-          if (values.foundDate) {
-            values.foundDate = values.foundDate.toISOString().slice(0, 10).split('-').reverse().join('/')
-          }       
-          
- 
-
+        
           console.log(values);
           dispatch(createPet(values));
           resetForm();
@@ -270,19 +268,19 @@ export default function PetCreate() {
                 </Camp>
                 <Camp>
                   <Label>Imagen de la mascota</Label>
-                  {/*  <Input
+                    <Input
                     type="text"
                     id="image"
                     name="image"
                     placeholder="Pet Image"
                   />
                   {props.values.image && (
-                    <img src={props.values.image} alt={`imagen de: ${props.values.name}`} />
+                    <img src={props.values.image} alt={`${props.values.name}`} />
                   )}
                   <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
-                  /> */}
+                  /> 
                 </Camp>
                 <Camp>
                   {/* <Uploadcare callBackImage={callBackImage}/>  */}

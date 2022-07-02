@@ -46,9 +46,8 @@ export default function UserAdoptPetForm() {
     "Casa en Barrio Cerrado",
     "Quinta",
     "Campo",
-    "Otro",
   ];
-  const options3 = ["Balcón", "Patio", "Terraza", "Parque", "Otro"];
+  const options3 = ["Balcón", "Patio", "Terraza", "Parque"];
 
   useEffect(() => {
     dispatch(getById(id));
@@ -58,31 +57,33 @@ export default function UserAdoptPetForm() {
     <>
       <Formik
         initialValues={{
+          petId: id,
+          userId: "userId", //--> despues ver lo de login
+          formDate: moment().format("DD/MM/YYYY"),
           userAge: "",
           actualPlaceDirection: "",
           actualPlaceHood: "",
           actualPlaceCity: "",
           actualPlaceProvince: "",
           actualPlacePostalCode: "",
-          actualPlace:'',
+          actualPlace: "",
           tel: "",
           familySize: "",
           familyRelation: "",
           otherPets: "",
-          otherPetsInfo: "",
-          otherPetsCastration: "",
-          otherPetsVacunation: "",
-          adoptionReason: "",
+          otherPetsInfo: "", 
+          otherPetsCastration: "", 
+          otherPetsVacunation: "", 
+          getPetReason: "",
           adoptedPetPlace: "",
           openSpace: "",
-          owner: "",
+          rental: "",
           adoptedPetSleepingSpace: "",
           adoptedPetAloneMoments: "",
           adoptedPetWalkingInfo: "",
-          userMoveingIdea: "",
-          adaptationTime: "",
-          formDate: moment().format('DD/MM/YYYY'),
-          userMovility: "",
+          userMovingIdea: "",
+          adaptationTime: "",          
+          userMovility: "",         
         }}
         validate={(values) => {
           let errors = {};
@@ -94,12 +95,24 @@ export default function UserAdoptPetForm() {
             }
           }
 
+          if (values.otherPets === "false") {
+            for (let prop in errors) {
+              if (
+                prop === "otherPetsInfo" ||
+                prop === "otherPetsCastration" ||
+                prop === "otherPetsVacunation"
+              ) {
+                delete errors[prop];
+              }
+            }
+          }
+
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
           for (let prop in values) {
             if (
-              prop === "adoptionReason" ||
+              prop === "getPetReason" ||
               prop === "adoptedPetPlace" ||
               prop === "openSpace"
             ) {
@@ -113,7 +126,13 @@ export default function UserAdoptPetForm() {
               values.actualPlaceProvince ||
               values.actualPlacePostalCode
             ) {
-              values.actualPlace = `${values.actualPlaceDirection}, ${values.actualPlaceHood}, ${values.actualPlaceCity}, ${values.actualPlaceProvince}, ${values.actualPlacePostalCode}`;
+              values.actualPlace = [
+                `${values.actualPlaceDirection}`,
+                `${values.actualPlaceHood}`,
+                `${values.actualPlaceCity}`,
+                `${values.actualPlaceProvince}`,
+                `${values.actualPlacePostalCode}`,
+              ];
 
               for (let prop in values) {
                 if (
@@ -124,6 +143,18 @@ export default function UserAdoptPetForm() {
                   prop === "actualPlacePostalCode"
                 ) {
                   delete values[prop];
+                }
+              }
+            }
+
+            if (values.otherPets === "false") {
+              for (let prop in values) {
+                if (
+                  prop === "otherPetsInfo" ||
+                  prop === "otherPetsCastration" ||
+                  prop === "otherPetsVacunation"
+                ) {
+                  values[prop] = "";
                 }
               }
             }
@@ -277,7 +308,7 @@ export default function UserAdoptPetForm() {
                   <Label>
                     Composición del núcleo familiar (Relación y edades de las
                     Personas que viven en la casa) Nos permite saber si la
-                    mascota es apto para tu hogar.
+                    mascota es apta para tu hogar.
                   </Label>
                   <Input
                     type="text"
@@ -304,78 +335,85 @@ export default function UserAdoptPetForm() {
                     component={() => <div>{props.errors.otherPets}</div>}
                   />
                 </Camp>
-                <Camp>
-                  <Label>¿Cuántos ? ¿Nos cuenta un poco sobre ellos?</Label>
-                  <Input
-                    type="text"
-                    id="otherPetsInfo"
-                    name="otherPetsInfo"
-                    placeholder="Tu espuesta"
-                  />
-                  <ErrorMessage
-                    name="otherPetsInfo"
-                    component={() => <div>{props.errors.otherPetsInfo}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>¿Estan castrados?</Label>
-                  <Label>
-                    <Field
-                      type="radio"
-                      name="otherPetsCastration"
-                      value="true"
-                    />{" "}
-                    Si
-                    <Field
-                      type="radio"
-                      name="otherPetsCastration"
-                      value="false"
-                    />{" "}
-                    No
-                  </Label>
-                  <ErrorMessage
-                    name="otherPetsCastration"
-                    component={() => (
-                      <div>{props.errors.otherPetsCastration}</div>
-                    )}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>¿Estan vacunados?</Label>
-                  <Label>
-                    <Field
-                      type="radio"
-                      name="otherPetsVacunation"
-                      value="true"
-                    />{" "}
-                    Si
-                    <Field
-                      type="radio"
-                      name="otherPetsVacunation"
-                      value="false"
-                    />{" "}
-                    No
-                  </Label>
-                  <ErrorMessage
-                    name="otherPetsVacunation"
-                    component={() => (
-                      <div>{props.errors.otherPetsVacunation}</div>
-                    )}
-                  />
-                </Camp>
+                {props.values.otherPets === "true" && (
+                  <>
+                    {" "}
+                    <Camp>
+                      <Label>¿Cuántos ? ¿Nos cuenta un poco sobre ellos?</Label>
+                      <Input
+                        type="text"
+                        id="otherPetsInfo"
+                        name="otherPetsInfo"
+                        placeholder="Tu espuesta"
+                      />
+                      <ErrorMessage
+                        name="otherPetsInfo"
+                        component={() => (
+                          <div>{props.errors.otherPetsInfo}</div>
+                        )}
+                      />
+                    </Camp>
+                    <Camp>
+                      <Label>¿Estan castrados?</Label>
+                      <Label>
+                        <Field
+                          type="radio"
+                          name="otherPetsCastration"
+                          value="true"
+                        />{" "}
+                        Si
+                        <Field
+                          type="radio"
+                          name="otherPetsCastration"
+                          value="false"
+                        />{" "}
+                        No
+                      </Label>
+                      <ErrorMessage
+                        name="otherPetsCastration"
+                        component={() => (
+                          <div>{props.errors.otherPetsCastration}</div>
+                        )}
+                      />
+                    </Camp>
+                    <Camp>
+                      <Label>¿Estan vacunados?</Label>
+                      <Label>
+                        <Field
+                          type="radio"
+                          name="otherPetsVacunation"
+                          value="true"
+                        />{" "}
+                        Si
+                        <Field
+                          type="radio"
+                          name="otherPetsVacunation"
+                          value="false"
+                        />{" "}
+                        No
+                      </Label>
+                      <ErrorMessage
+                        name="otherPetsVacunation"
+                        component={() => (
+                          <div>{props.errors.otherPetsVacunation}</div>
+                        )}
+                      />
+                    </Camp>
+                  </>
+                )}
                 <Camp>
                   <Label>
                     <p>¿Por que se interesa en este animal en particular?</p>
                     <p>
-                      (Cómo conocemos el carácter de nuestras mascotas la
-                      pregunta nos permite evaluar si es el indicado para lo que
+                      (Cómo conocemos el carácter de nuestras mascotas, la
+                      pregunta nos permite evaluar si es la indicada para lo que
                       buscan)
                     </p>
                   </Label>
-                  <Supliers options={options1} name="adoptionReason" />
+                  <Supliers options={options1} name="getPetReason" />
                   <ErrorMessage
-                    name="adoptionReason"
-                    component={() => <div>{props.errors.adoptionReason}</div>}
+                    name="getPetReason"
+                    component={() => <div>{props.errors.getPetReason}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -401,13 +439,13 @@ export default function UserAdoptPetForm() {
                 <Camp>
                   <Label>¿Son propietarios o alquilan?</Label>
                   <Label>
-                    <Field type="radio" name="owner" value="owner" />{" "}
+                    <Field type="radio" name="rental" value="owner" />{" "}
                     Propietario
-                    <Field type="radio" name="owner" value="tenant" /> Alquilo
+                    <Field type="radio" name="rental" value="tenant" /> Alquilo
                   </Label>
                   <ErrorMessage
-                    name="owner"
-                    component={() => <div>{props.errors.owner}</div>}
+                    name="rental"
+                    component={() => <div>{props.errors.rental}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -461,13 +499,13 @@ export default function UserAdoptPetForm() {
                   </Label>
                   <Input
                     type="text"
-                    id="userMoveingIdea"
-                    name="userMoveingIdea"
+                    id="userMovingIdea"
+                    name="userMovingIdea"
                     placeholder="Tu espuesta"
                   />
                   <ErrorMessage
-                    name="userMoveingIdea"
-                    component={() => <div>{props.errors.userMoveingIdea}</div>}
+                    name="userMovingIdea"
+                    component={() => <div>{props.errors.userMovingIdea}</div>}
                   />
                 </Camp>
                 <Camp>
@@ -494,12 +532,12 @@ export default function UserAdoptPetForm() {
                   <Label>
                     <Field type="radio" name="userMovility" value="yes" /> Si
                     <Field type="radio" name="userMovility" value="no" /> No
-                    <Field
+                    {/* <Field
                       type="radio"
                       name="userMovility"
                       value="maybe"
                     />{" "}
-                    Posiblemente
+                    Posiblemente */}
                   </Label>
                   <ErrorMessage
                     name="userMovility"
