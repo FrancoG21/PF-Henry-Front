@@ -1,8 +1,3 @@
-/* @font-face {
-    font-family: 15;
-    src: url(https://images5.alphacoders.com/477/thumb-1920-477929.jpg);
-}*/
-
 .container {
     margin-top: 100px;
     margin-left: 100px;
@@ -14,23 +9,9 @@
     flex-direction: column;
     height: 300px;
     width: 300px;
-    background-color: #3da9fc;
+    background-color: #4d9a91;
     box-shadow: 2px 5px 10px -1px rgba(0, 0, 0, 0.75);
 }
-
-/*label {
-    padding: 40px;
-    margin-left: 20px;
-    font-weight: 100px;
-
-}
-
-input {
-    padding-left: 20px;
-    width: 70px;
-    margin-left: 180px;
-    margin-top: -60px;
-}*/
 
 button {
     background-color: #3da9fc;
@@ -60,4 +41,27 @@ p {
     text-decoration: none;
     overflow: hidden;
     cursor: pointer;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--success);
+    height: 100vh;
+    color: white;
+    font-size: 40px;
+}
+
+.confirm {
+    font-size: 40px;
+}
+
+.paragraph {
+    font-size: 24px;
+}
+
+.redi {
+    color: var(--black);
 }
