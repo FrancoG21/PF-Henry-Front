@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
     font-family: 15;
     src: url(https://images5.alphacoders.com/477/thumb-1920-477929.jpg);
-}
+}*/
 
 .container {
     margin-top: 100px;
@@ -18,7 +18,7 @@
     box-shadow: 2px 5px 10px -1px rgba(0, 0, 0, 0.75);
 }
 
-label {
+/*label {
     padding: 40px;
     margin-left: 20px;
     font-weight: 100px;
@@ -30,10 +30,34 @@ input {
     width: 70px;
     margin-left: 180px;
     margin-top: -60px;
-}
+}*/
 
 button {
-    width: 70px;
-    margin-left: 100px;
-    margin-top: 60px;
+    background-color: #3da9fc;
+    /* Green */
+    border: 1px solid blue;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100px;
+    display: block;
+    margin-left: 200px;
+}
+
+p {
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    font-size: 28px;
+    color: #FFFFFF;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
 }
