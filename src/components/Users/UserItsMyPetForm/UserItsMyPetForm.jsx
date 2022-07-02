@@ -156,9 +156,9 @@ export default function UserItsMyPetForm() {
                 </Camp>
                 {/* <div>{JSON.stringify(props.errors)}</div> */}
                 <Camp>
-                  <Label>Edad</Label>
+                  <Label>Porque cree que es su mascota ?</Label>
                   <Input
-                    type="number"
+                    type="text"
                     id="userAge"
                     name="userAge"
                     placeholder="Edad del postulante"
@@ -169,7 +169,7 @@ export default function UserItsMyPetForm() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Dirección:</Label>
+                  <Label>En que zona cree que se le pudo haber perdido ?</Label>
                   <Input
                     type="text"
                     id="actualPlaceDirection"
@@ -184,7 +184,7 @@ export default function UserItsMyPetForm() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Barrio: </Label>
+                  <Label>Cual era el nombre original de la mascota ?</Label>
                   <Input
                     type="text"
                     id="actualPlaceHood"
@@ -197,48 +197,19 @@ export default function UserItsMyPetForm() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Ciudad: </Label>
+                  <Label>Cargue aqui fotos de la mascota, si esta acompañada de usted mejor</Label>
                   <Input
                     type="text"
                     id="actualPlaceCity"
                     name="actualPlaceCity"
-                    placeholder="Ciudad"
+                    placeholder=""
                   />
                   <ErrorMessage
                     name="actualPlaceCity"
                     component={() => <div>{props.errors.actualPlaceCity}</div>}
                   />
                 </Camp>
-                <Camp>
-                  <Label>Provincia:</Label>
-                  <Input
-                    type="text"
-                    id="actualPlaceProvince"
-                    name="actualPlaceProvince"
-                    placeholder="Provincia"
-                  />
-                  <ErrorMessage
-                    name="actualPlaceProvince"
-                    component={() => (
-                      <div>{props.errors.actualPlaceProvince}</div>
-                    )}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>Codigo Postal: </Label>
-                  <Input
-                    type="number"
-                    id="actualPlacePostalCode"
-                    name="actualPlacePostalCode"
-                    placeholder="Codigo Postal"
-                  />
-                  <ErrorMessage
-                    name="actualPlacePostalCode"
-                    component={() => (
-                      <div>{props.errors.actualPlacePostalCode}</div>
-                    )}
-                  />
-                </Camp>
+              
                 <Camp>
                   <Label>Teléfono</Label>
                   <Input
@@ -266,65 +237,7 @@ export default function UserItsMyPetForm() {
                     component={() => <div>{props.errors.otherPets}</div>}
                   />
                 </Camp>
-                <Camp>
-                  <Label>¿Cuántos ? ¿Nos cuentan un poco sobre ellos?</Label>
-                  <Input
-                    type="text"
-                    id="otherPetsInfo"
-                    name="otherPetsInfo"
-                    placeholder="Tu espuesta"
-                  />
-                  <ErrorMessage
-                    name="otherPetsInfo"
-                    component={() => <div>{props.errors.otherPetsInfo}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>¿Estan castrados?</Label>
-                  <Label>
-                    <Field
-                      type="radio"
-                      name="otherPetsCastration"
-                      value="true"
-                    />{" "}
-                    Si
-                    <Field
-                      type="radio"
-                      name="otherPetsCastration"
-                      value="false"
-                    />{" "}
-                    No
-                  </Label>
-                  <ErrorMessage
-                    name="otherPetsCastration"
-                    component={() => (
-                      <div>{props.errors.otherPetsCastration}</div>
-                    )}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>¿Estan vacunados?</Label>
-                  <Label>
-                    <Field
-                      type="radio"
-                      name="otherPetsVacunation"
-                      value="true"
-                    />{" "}
-                    Si
-                    <Field
-                      type="radio"
-                      name="otherPetsVacunation"
-                      value="false"
-                    />{" "}
-                    No
-                  </Label>
-                  <ErrorMessage
-                    name="otherPetsVacunation"
-                    component={() => (
-                      <div>{props.errors.otherPetsVacunation}</div>
-                    )}
-                  />
-                </Camp>
+        
               {/*   <Camp>
                   <Label>
                     <p>¿Dónde vivira la mascota en transito?</p>
@@ -344,96 +257,7 @@ export default function UserItsMyPetForm() {
                     name="openSpace"
                     component={() => <div>{props.errors.openSpace}</div>}
                   />
-                </Camp> */}
-                <Camp>
-                  <Label>¿Son propietarios o alquilan?</Label>
-                  <Label>
-                    <Field type="radio" name="owner" value="owner" />{" "}
-                    Propietario
-                    <Field type="radio" name="owner" value="tenant" /> Alquilo
-                  </Label>
-                  <ErrorMessage
-                    name="owner"
-                    component={() => <div>{props.errors.owner}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>¿Dónde dormirá la mascota en transito?</Label>
-                  <Input
-                    type="text"
-                    id="adoptedPetSleepingSpace"
-                    name="adoptedPetSleepingSpace"
-                    placeholder="Tu espuesta"
-                  />
-                  <ErrorMessage
-                    name="adoptedPetSleepingSpace"
-                    component={() => (
-                      <div>{props.errors.adoptedPetSleepingSpace}</div>
-                    )}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>
-                    ¿Cuánto tiempo podés tener en tránsito al animal?
-                  </Label>
-                  <Input
-                    type="text"
-                    id="transitPetPeriod"
-                    name="transitPetPeriod"
-                    placeholder="Tu espuesta"
-                  />
-                  <ErrorMessage
-                    name="transitPetPeriod"
-                    component={() => (
-                      <div>{props.errors.transitPetPeriod}</div>
-                    )}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>¿Por qué deseas dar tránsito a un animal?</Label>
-                  <Input
-                    type="text"
-                    id="transitPetReason"
-                    name="transitPetReason"
-                    placeholder="Tu espuesta"
-                  />
-                  <ErrorMessage
-                    name="transitPetReason"
-                    component={() => <div>{props.errors.transitPetReason}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>¿Tiene movilidad para buscar a la mascota?</Label>
-                  <Label>
-                    <Field type="radio" name="userMovility" value="yes" /> Si
-                    <Field type="radio" name="userMovility" value="no" /> No
-                    <Field
-                      type="radio"
-                      name="userMovility"
-                      value="maybe"
-                    />{" "}
-                    Posiblemente
-                  </Label>
-                  <ErrorMessage
-                    name="userMovility"
-                    component={() => <div>{props.errors.userMovility}</div>}
-                  />
-                </Camp>
-                <Camp>
-                  <Label>
-                    ¿Sos consciente que la responsabilidad de ser un hogar
-                    transitorio implica hacerse cargo de la alimentación y
-                    cuidados veterinarios del animal?
-                  </Label>
-                  <Label>
-                    <Field type="radio" name="userAgreement" value="true" /> Si
-                    <Field type="radio" name="userAgreement" value="false" /> No
-                  </Label>
-                  <ErrorMessage
-                    name="userAgreement"
-                    component={() => <div>{props.errors.userAgreement}</div>}
-                  />
-                </Camp>
+                </Camp> */}            
               </ContainerCamp>
               <ContainerButton>
                 <ButtonSubmit type="submit">submit</ButtonSubmit>
