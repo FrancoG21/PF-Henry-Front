@@ -11,7 +11,7 @@ export default function Registrar() {
     email: '',
     password: '',
 })
-
+// hokla
   const handleChange = (e) => {
     setInput({
       ...input,
