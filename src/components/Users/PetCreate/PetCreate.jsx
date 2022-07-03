@@ -140,16 +140,14 @@ export default function PetCreate() {
         }}
         validate={(values) => {
           let errors = {};
-          // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-          if (!/^[a-z]+$/g.test(values.name))
-            errors.name = "Name only allows lower case letters";
+          // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {          
           /* if (
             !/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/.test(
               values.image
             )
           )
             errors.image = "Image must be a valid URL"; */
-
+          
           if (values.weight < 0) errors.weight = "Must be number > 0";
           if (values.weight > 100) errors.weight = "Must be number < 100";
           for (let prop in values) {
@@ -161,8 +159,19 @@ export default function PetCreate() {
               continue;
             }
 
+            if(json.images.length > 0) {                     
+              values.image = json.images
+            }
+            if(json.images.length === 0){
+              values.image = ''
+            }
+
             if (values.state === "adopt" && !values[prop]) {
-              errors[prop] = `${capitalize(prop)} is required`;
+              errors[prop] = `${newLabel(prop)}`;              
+            }
+            
+
+            if(values.state === 'adopt'){
               for (let prop in errors) {
                 if (
                   prop === "foundPlace" ||
@@ -172,7 +181,7 @@ export default function PetCreate() {
                   prop === "actualPlaceProvince" ||
                   prop === "actualPlacePostalCode" ||
                   prop === "foundDate" ||
-                  prop === "actualPlace"
+                  prop === "actualPlace"                 
                 ) {
                   delete errors[prop];
                 }
@@ -180,10 +189,19 @@ export default function PetCreate() {
             }
 
             if (values.state === "lost" && !values[prop]) {
-              errors[prop] = `${capitalize(prop)} is required`;
+              errors[prop] = `${newLabel(prop)}`;
               delete errors.actualPlace;
             }
+
+            if(values.state === 'lost' || values.state === 'adopt' && !errors.name){
+              if (!/^[a-z]+$/g.test(values.name))
+              errors.name = "Nombre solo acepta minuscula";
+            }            
           }
+                 
+          console.log(errors)
+          console.log('abajo values')
+          console.log(values)
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
@@ -238,6 +256,7 @@ export default function PetCreate() {
           console.log(values);
           dispatch(createPet(values));
           resetForm();
+          setJson({images:[]})
           setFlag(true);
           console.log("formulario enviado");
           setTimeout(() => setFlag(false), 3000);
@@ -246,8 +265,7 @@ export default function PetCreate() {
         {(props) => (
           <FormContainer>
             <TitleForm>Carga tu mascota</TitleForm>
-            <Forms>              
-              {console.log(json)}
+            <Forms>                            
               <ContainerCamp>
                 <Camp>
                   <Label>¿Qué quieres hacer?</Label>
@@ -514,64 +532,23 @@ export default function PetCreate() {
   );
 }
 
-/*  <Formik
-        initialValues={{
-          name: "",
-          image: "",
-        }}
-        validate={(values) => {
-          let errors = {};
-          if (!values.name) {
-            errors.name = "Name is required";
-          }else if(!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)){
-            errors.name = "Name only alows letters and blank space"
-          }
 
-
-          if (!values.image) {
-            errors.image = "Image is required";
-          }
-
-          return errors;
-        }}
-        onSubmit={(values, {resetForm}) => {
-          resetForm();
-          setFlag(true)
-          setTimeout(()=> setFlag(false), 3000)
-          console.log("formulario enviado");
-        }}
-      >
-        {(props) => (
-          <form onSubmit={props.handleSubmit}>
-            <div>
-              <label>Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="pet name"
-                value={props.values.name}
-                onChange={props.handleChange} //event listener
-                onBlur={props.handleBlur} //valida el input cuando hago click fuera del input
-              />
-              { props.touched.name && props.errors.name && <div>{props.errors.name}</div>}
-            </div>
-            <div>
-              <label>image</label>
-              <input
-                type="text"
-                id="image"
-                name="image"
-                placeholder="pet image"
-                value={props.values.image}
-                onChange={props.handleChange}
-                onBlur={props.handleBlur}
-              />
-              {props.touched.image && props.errors.image && <div>{props.errors.image}</div>}
-            </div>
-
-            <button type="submit">submit</button>
-            {flag && <p>Succesfully created</p>}
-          </form>
-        )}
-      </Formik> */
+const newLabel = (name)=>{
+  if(name === 'name') return 'Nombre es requerido'
+  if(name === 'pet') return 'Tipo de mascota es requerida'
+  if(name === 'image') return 'Al menos una imagen es requerida'
+  if(name === 'size') return 'Tamaño es requerido'
+  if(name === 'weight') return 'Peso es requerido'
+  if(name === 'fur') return 'Pelaje es requerido'
+  if(name === 'breed') return 'Raza es requerida'
+  if(name === 'gender') return 'Genero es requerido'
+  if(name === 'castration') return 'Castracion es requerida'
+  if(name === 'vaccinate') return 'Vacunados es requerido'
+  if(name === 'foundDate') return 'Fecha es requerida'
+  if(name === 'foundPlace') return 'Lugar donde fue encontrada es requerido'
+  if(name === 'actualPlaceDirection') return 'Direccion es requerida'
+  if(name === 'actualPlaceHood') return 'Barrio es requerido'
+  if(name === 'actualPlaceCity') return 'Ciudad es requerida'
+  if(name === 'actualPlaceProvince') return 'Provincia es requerida'
+  if(name === 'actualPlacePostalCode') return 'Codigo postal es requerido'
+}
