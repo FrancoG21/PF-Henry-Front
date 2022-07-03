@@ -12,7 +12,7 @@ import {
   Label,
 } from "./StyledPetFilters";
 
-export default function PetFilters({ petsToFilter }) {
+export default function PetFilters({ petsToFilter, stateValue }) {
   //const dispatch = useDispatch();
   const [petType, setPetType] = useState("");
 
@@ -32,22 +32,24 @@ export default function PetFilters({ petsToFilter }) {
   return (
     <>
       <Formik
-        initialValues={{state:['adopt','transit', 'lost']}}
+        initialValues={{state: stateValue}}
         onSubmit={(values, { resetForm }) => {
           console.log("onSubmit -->", values);
           for (let prop in values) {
             if (values[prop] === "all") {
               delete values[prop];
             }
-          }
+          }          
+
           console.log(values);
           petsToFilter(values);
         }}
       >
         {(props) => (
           <Form>
+            {console.log('stateValue',stateValue)}
             <ButtonLink to={"/petcreate"}>
-              <ButtonCreate>Load Pet</ButtonCreate>
+              {stateValue.includes('adopt') && <ButtonCreate>Load Pet</ButtonCreate>}
             </ButtonLink>
             <Label>Type</Label>
             <Label>

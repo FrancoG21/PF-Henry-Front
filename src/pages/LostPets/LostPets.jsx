@@ -15,14 +15,14 @@ import {
   ImageSpace,
   ContainerTop,
   ContainerFilters,
-} from "./StyledToAdopt";
+} from "./StyledLostPets";
 
-export default function Pets() {
+export default function LostPets() {
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets);
   const petsAmount = useSelector((state) => state.petsAmount);
   const [page, setPage] = useState(0)
-  const [filter, setFilter] = useState({state:['adopt','transit']})
+  const [filter, setFilter] = useState({state:'lost'})
 
   useEffect(() => {
     dispatch(getPets(page, filter))
@@ -43,11 +43,11 @@ export default function Pets() {
   return (
     <BackgroundPets>
       <ContainerTop>
-        <Searchbar  stateValue={['adopt','transit']} />
+        <Searchbar stateValue={['lost']}/>
       </ContainerTop>
 
       <ContainerFilters>
-        <PetFilters petsToFilter={petsToFilter} stateValue={['adopt','transit']}/>
+        <PetFilters petsToFilter={petsToFilter} stateValue={['lost']}/>
       </ContainerFilters>
 
       <Container>

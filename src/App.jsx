@@ -12,11 +12,14 @@ import Donation from "./pages/Donation/Donation";
 import UserAdoptPetForm from "./components/Users/UserAdoptPetForm/UserAdoptPetForm"
 import UserTransitPetForm from "./components/Users/UserTransitPetForm/UserTransitPetForm"
 import UserProfile from "./pages/UserProfile/UserProfile";
+import UserItsMyPetForm from "./components/Users/UserItsMyPetForm/UserItsMyPetForm";
+import LostPets from "./pages/LostPets/LostPets";
 
 //  MODO OSCURO //
 import { ThemeProvider } from "styled-components";
 import { themes } from "./styles/themes";
 import { useDarkMode } from "./DarkLightMode/DarkMode";
+
 
 function App() {
   const [theme, setTheme] = useDarkMode();
@@ -35,9 +38,11 @@ function App() {
             <Route path="/petcreate" element={<PetCreate />}></Route>
             <Route path="/lostform" element={<LostPets />}></Route>
             <Route path="/donation" element={<Donation />}></Route>
-            <Route path="/useradoptpet" element={<UserAdoptPetForm />}></Route>
-            <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route>
+            <Route path="/useradoptpet/:id" element={<UserAdoptPetForm />}></Route>
+            <Route path="/usertransitpet/:id" element={<UserTransitPetForm />}></Route>
             <Route path="/userprofile" element={<UserProfile />}></Route>
+            <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>     
+            <Route path="/lostpets" element={<LostPets />}></Route>            
           </Routes>
           <Footer />
         </ThemeProvider>

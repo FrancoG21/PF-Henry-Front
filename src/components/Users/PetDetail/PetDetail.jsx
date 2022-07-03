@@ -68,8 +68,7 @@ export default function PetDetail() {
                 {detail.gender}
               </SubTitle3>
               <SubTitle3>
-                <Span>Castration: </Span>{" "}
-                {detail.castration}
+                <Span>Castration: </Span> {detail.castration}
               </SubTitle3>
               <SubTitle3>
                 <Span>Vaccinate: </Span>
@@ -80,12 +79,20 @@ export default function PetDetail() {
                 {detail.state === "adopt" ? "for adopt" : detail.state}
               </SubTitle3>
             </ContainerContent>
-            <Link to="/useradoptpet">
-              <button>Quiero adoptar</button>
-            </Link>
-            <Link to="/usertransitpet">
-              <button>Hogar Transito</button>
-            </Link>
+            {detail.state === "adopt" || detail.state === "transit" ? (
+              <>
+                <Link to={`/useradoptpet/${id}`}>
+                  <button>Quiero adoptar</button>
+                </Link>
+                <Link to={`/usertransitpet/${id}`}>
+                  <button>Hogar Transito</button>
+                </Link>
+              </>
+            ) : (
+              <Link to={`/useritsmypet/${id}`}>
+                <button>Es mi perro</button>
+              </Link>
+            )}
           </DetailContainer>
         ) : (
           <h1>siga intentando mijo</h1>
