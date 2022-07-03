@@ -1,13 +1,17 @@
 import React from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useDispatch } from 'react-redux';
+import { getLogOut } from '../../../redux/actions/index';
 
 export default function Logout () {
+    const dispatch = useDispatch();
 
-    const { logout } = useAuth0();
+    const handleLogout = () => {
+        dispatch(getLogOut())
+    }
 
     return(
         <div>
-            <button onClick={() => logout()}>Logout</button>
+            <button onClick={() => handleLogout()}>Logout</button>
         </div>
     )
 }

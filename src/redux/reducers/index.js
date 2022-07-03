@@ -4,7 +4,9 @@ import {
   GET_PET_NAME,
   GET_TO_DETAILS,
   CLEAN_DETAILS,
-  GET_LOST_PETS,
+  // GET_LOST_PETS,
+  LOGIN,
+  LOGOUT,
 } from "../actions/nameAction";
 
 const initialState = {
@@ -13,6 +15,8 @@ const initialState = {
   petsAmount: {},
   petDetail: [],
   lostpets: [],
+  usuario: null,
+  // usuario: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -47,6 +51,20 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             petDetail: action.payload,
         }
+    }
+
+    case LOGIN:{
+      return{
+        ...state,
+        usuario: action.payload
+      }
+     }
+
+    case LOGOUT:{
+      return {
+        ...state,
+        usuario: action.payload,
+      }
     }
 
     default: {

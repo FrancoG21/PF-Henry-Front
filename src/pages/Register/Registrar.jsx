@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { getRegister } from '../../redux/actions';
@@ -18,7 +19,7 @@ export default function Registrar() {
     dispatch(getRegister(input))
   }
 
-  console.log("input regiter", input)
+  console.log("input register", input)
   return (
     <main class="container">
 

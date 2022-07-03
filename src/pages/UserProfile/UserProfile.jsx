@@ -3,6 +3,8 @@ import React from "react";
 export default function UserProfile (){
 
     return(
-        <h1>UserProfile component</h1>
+        <div>
+            <h1>UserProfile component</h1>
+        </div>
     )
 }
