@@ -25,17 +25,17 @@ button {
     cursor: pointer;
     width: 100px;
     display: block;
-    margin-left: 200px;
+    margin-left: 100px;
 }
 
 p {
     position: relative;
-    background-color: #4CAF50;
+    background-color: #4745d1;
     border: none;
     font-size: 28px;
     color: #FFFFFF;
     padding: 20px;
-    width: 200px;
+    width: 250px;
     text-align: center;
     transition-duration: 0.4s;
     text-decoration: none;
@@ -43,18 +43,22 @@ p {
     cursor: pointer;
 }
 
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: var(--success);
-    height: 100vh;
-    color: white;
-    font-size: 40px;
+h4 {
+    position: relative;
+    background-color: #e0631a;
+    border: none;
+    font-size: 28px;
+    color: #FFFFFF;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-.confirm {
+/* .confirm {
     font-size: 40px;
 }
 
@@ -64,4 +68,4 @@ p {
 
 .redi {
     color: var(--black);
-}
+} */

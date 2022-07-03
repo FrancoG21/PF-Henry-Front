@@ -27,15 +27,16 @@ export default function Donation() {
   return (
     <>
 
-      <p className="btn-donation">Pagos individuales:</p>
+      <p>DONACIÓN:</p>
       <div>
+
         {
-          precios.map(value => { return <button onClick={(e) => realizarPagoUnico(e)} value={value}>{value}</button> })
+          precios.map(value => { return <button onClick={(e) => realizarPagoUnico(e)} value={value}>{value} </button> })
         }
       </div>
 
 
-      <h3>Pago por suscripción</h3>
+      <h4>SUSCRIPCIÓN</h4>
       <button onClick={(e) => realizarPagoSub(e)} value={200}>{200}</button>
       {
         url && window.location.replace(url)
