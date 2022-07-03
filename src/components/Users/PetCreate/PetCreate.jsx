@@ -84,7 +84,7 @@ export default function PetCreate() {
   const [petType, setPetType] = useState("dog");
   const [urlImage, setUrlImage] = useState([]);
 
-  const [json, setJson] = useState({images:[]})
+  const [json, setJson] = useState({ images: [] });
 
   useEffect(() => {
     axios.get(`/breed?pet=${petType}`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
@@ -140,14 +140,16 @@ export default function PetCreate() {
         }}
         validate={(values) => {
           let errors = {};
-          // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {          
+          // if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
           /* if (
             !/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/.test(
               values.image
             )
           )
             errors.image = "Image must be a valid URL"; */
-          
+            if(!values.state) errors.complete = 'no hay nada completado'
+            if(values.state) delete errors.complete
+
           if (values.weight < 0) errors.weight = "Must be number > 0";
           if (values.weight > 100) errors.weight = "Must be number < 100";
           for (let prop in values) {
@@ -159,19 +161,18 @@ export default function PetCreate() {
               continue;
             }
 
-            if(json.images.length > 0) {                     
-              values.image = json.images
+            if (json.images.length > 0) {
+              values.image = json.images;
             }
-            if(json.images.length === 0){
-              values.image = ''
+            if (json.images.length === 0) {
+              values.image = "";
             }
 
             if (values.state === "adopt" && !values[prop]) {
-              errors[prop] = `${newLabel(prop)}`;              
+              errors[prop] = `${newLabel(prop)}`;
             }
-            
 
-            if(values.state === 'adopt'){
+            if (values.state === "adopt") {
               for (let prop in errors) {
                 if (
                   prop === "foundPlace" ||
@@ -181,7 +182,7 @@ export default function PetCreate() {
                   prop === "actualPlaceProvince" ||
                   prop === "actualPlacePostalCode" ||
                   prop === "foundDate" ||
-                  prop === "actualPlace"                 
+                  prop === "actualPlace"
                 ) {
                   delete errors[prop];
                 }
@@ -193,15 +194,18 @@ export default function PetCreate() {
               delete errors.actualPlace;
             }
 
-            if(values.state === 'lost' || values.state === 'adopt' && !errors.name){
+            if (
+              values.state === "lost" ||
+              (values.state === "adopt" && !errors.name)
+            ) {
               if (!/^[a-z]+$/g.test(values.name))
-              errors.name = "Nombre solo acepta minuscula";
-            }            
-          }
-                 
-          console.log(errors)
-          console.log('abajo values')
-          console.log(values)
+                errors.name = "Nombre solo acepta minuscula";
+            }
+          }          
+
+          console.log(errors);
+          console.log("abajo values");
+          console.log(values);
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
@@ -256,7 +260,7 @@ export default function PetCreate() {
           console.log(values);
           dispatch(createPet(values));
           resetForm();
-          setJson({images:[]})
+          setJson({ images: [] });
           setFlag(true);
           console.log("formulario enviado");
           setTimeout(() => setFlag(false), 3000);
@@ -265,7 +269,7 @@ export default function PetCreate() {
         {(props) => (
           <FormContainer>
             <TitleForm>Carga tu mascota</TitleForm>
-            <Forms>                            
+            <Forms>
               <ContainerCamp>
                 <Camp>
                   <Label>¿Qué quieres hacer?</Label>
@@ -294,13 +298,13 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Imagen de la mascota</Label>                  
-                   <ImageUploader json={json} setJson={setJson} /> 
-                   <ErrorMessage
+                  <Label>Imagen de la mascota</Label>
+                  <ImageUploader json={json} setJson={setJson} />
+                  <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
                   />
-                </Camp>                
+                </Camp>
                 <Camp>
                   <Label>Que tipo de animal es ?</Label>
                   <Label>
@@ -532,23 +536,23 @@ export default function PetCreate() {
   );
 }
 
-
-const newLabel = (name)=>{
-  if(name === 'name') return 'Nombre es requerido'
-  if(name === 'pet') return 'Tipo de mascota es requerida'
-  if(name === 'image') return 'Al menos una imagen es requerida'
-  if(name === 'size') return 'Tamaño es requerido'
-  if(name === 'weight') return 'Peso es requerido'
-  if(name === 'fur') return 'Pelaje es requerido'
-  if(name === 'breed') return 'Raza es requerida'
-  if(name === 'gender') return 'Genero es requerido'
-  if(name === 'castration') return 'Castracion es requerida'
-  if(name === 'vaccinate') return 'Vacunados es requerido'
-  if(name === 'foundDate') return 'Fecha es requerida'
-  if(name === 'foundPlace') return 'Lugar donde fue encontrada es requerido'
-  if(name === 'actualPlaceDirection') return 'Direccion es requerida'
-  if(name === 'actualPlaceHood') return 'Barrio es requerido'
-  if(name === 'actualPlaceCity') return 'Ciudad es requerida'
-  if(name === 'actualPlaceProvince') return 'Provincia es requerida'
-  if(name === 'actualPlacePostalCode') return 'Codigo postal es requerido'
-}
+const newLabel = (name) => {
+  if (name === "name") return "Nombre es requerido";
+  if (name === "pet") return "Tipo de mascota es requerida";
+  if (name === "image") return "Al menos una imagen es requerida";
+  if (name === "size") return "Tamaño es requerido";
+  if (name === "weight") return "Peso es requerido";
+  if (name === "fur") return "Pelaje es requerido";
+  if (name === "breed") return "Raza es requerida";
+  if (name === "gender") return "Genero es requerido";
+  if (name === "castration") return "Castracion es requerida";
+  if (name === "vaccinate") return "Vacunados es requerido";
+  if (name === "foundDate") return "Fecha es requerida";
+  if (name === "foundPlace") return "Lugar donde fue encontrada es requerido";
+  if (name === "actualPlaceDirection") return "Direccion es requerida";
+  if (name === "actualPlaceHood") return "Barrio es requerido";
+  if (name === "actualPlaceCity") return "Ciudad es requerida";
+  if (name === "actualPlaceProvince") return "Provincia es requerida";
+  if (name === "actualPlacePostalCode") return "Codigo postal es requerido";
+  if (name === "state") return "Debes seleccionar que quieres hacer";
+};
