@@ -20,7 +20,7 @@ import {
 
 export default function PetDetail() {
   // const detail = useSelector(state => state.pets)
-  const detail = useSelector((state) => state.petDetail);
+  const {petDetail, usuario} = useSelector((state) => state);
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -35,12 +35,12 @@ export default function PetDetail() {
         <BackIcon />
       </Link>
       <div>
-        {detail ? (
+        {petDetail ? (
           <DetailContainer>
             <ContainerImage>
-              <DetailTitle>{detail.name}</DetailTitle>
+              <DetailTitle>{petDetail.name}</DetailTitle>
               <ImageDetail
-                src={detail.image}
+                src={petDetail.image}
                 alt="pets"
                 width="600"
                 height="400"
@@ -49,49 +49,46 @@ export default function PetDetail() {
             <ContainerContent>
               <SubTitle2>
                 <Span>Breed: </Span>
-                {detail.breed}
+                {petDetail.breed}
               </SubTitle2>
               <SubTitle2>
                 <Span>Weight: </Span>
-                {detail.weight ? detail.weight : "unknown"}
+                {petDetail.weight ? petDetail.weight : "unknown"}
               </SubTitle2>
               <SubTitle2>
                 <Span>Size: </Span>
-                {detail.size}
+                {petDetail.size}
               </SubTitle2>
               <SubTitle3>
                 <Span>Fur: </Span>
-                {detail.fur}
+                {petDetail.fur}
               </SubTitle3>
               <SubTitle3>
                 <Span>Gender: </Span>
-                {detail.gender}
+                {petDetail.gender}
               </SubTitle3>
               <SubTitle3>
-                <Span>Castration: </Span> {detail.castration}
+                <Span>Castration: </Span> {petDetail.castration}
               </SubTitle3>
               <SubTitle3>
                 <Span>Vaccinate: </Span>
-                {detail.vaccinate}
+                {petDetail.vaccinate}
               </SubTitle3>
               <SubTitle3>
                 <Span>State: </Span>
-                {detail.state === "adopt" ? "for adopt" : detail.state}
+                {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>
-            {detail.state === "adopt" || detail.state === "transit" ? (
+            {petDetail.state === "adopt" || petDetail.state === "transit" ? (
               <>
-                <Link to={`/useradoptpet/${id}`}>
-                  <button>Quiero adoptar</button>
-                </Link>
-                <Link to={`/usertransitpet/${id}`}>
-                  <button>Hogar Transito</button>
-                </Link>
+                {/* <Link to={`/useradoptpet/${id}`}> */}
+                  <button onClick={() => usuario ? window.location.replace(`http://localhost:3000/useradoptpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Quiero adoptar</button>
+                {/* <Link to={`/usertransitpet/${id}`}> */}
+                  <button onClick={() => usuario ? window.location.replace(`http://localhost:3000/usertransitpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Hogar Transito</button>
               </>
             ) : (
-              <Link to={`/useritsmypet/${id}`}>
-                <button>Es mi perro</button>
-              </Link>
+              // <Link to={`/useritsmypet/${id}`}>
+                <button onClick={() => usuario ? window.location.replace(`http://localhost:3000/useritsmypet/${id}`) : window.location.replace('http://localhost:3000/login')}>Es mi perro</button>
             )}
           </DetailContainer>
         ) : (

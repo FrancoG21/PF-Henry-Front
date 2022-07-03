@@ -16,22 +16,22 @@ import {
 export default function About() {
   const data = [
     {
-      name: "name",
+      name: "...",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ3yFuczut4deQ3MZ1PqIb6ral5RkhSU4fIA&usqp=CAU",
     },
     {
-      name: "name",
+      name: "Lucas Giorgi",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwnJ-uXpwnrOViM6k6s9e5VDYsH5BNMmXH5w&usqp=CAU",
     },
     {
-      name: "name",
+      name: "....z",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjY5VbrZYWil3ywQ11M8Rhcvh53Il5QNmd-w&usqp=CAU",
     },
     {
-      name: "name",
+      name: "Agustin Di Giacinto",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScyLyhAmnAq11ZfpvNeN9zgY5_dXa6GpfiqDmPc7NFB29ACjMoX-WAu7Rjz-DizBYJo2w&usqp=CAU",
     },
@@ -41,17 +41,17 @@ export default function About() {
         "https://i.pinimg.com/originals/e0/7b/20/e07b20ffd67e495e5f6325dd395d0ac7.png",
     },
     {
-      name: "name",
+      name: "Yina Navarro",
       image:
         "https://www.seekpng.com/png/small/21-211386_image-mccoy-who-wiki-svg-free-library-pepe.png",
     },
     {
-      name: "name",
+      name: "Matias Farina",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSloGQ5CR_EOgxjpQs3X0s11qfufXC1A5AkOA&usqp=CAU",
     },
     {
-      name: "name",
+      name: "Franco Gimenez",
       image: "https://pics.me.me/i-love-this-pepe-meme-72072515.png",
     },
   ];
@@ -122,7 +122,7 @@ export default function About() {
         <Container>
           <SubtitleAbout>How did adopt come about?</SubtitleAbout>
           <TextAbout>
-            (page name) emerges as a final closing project for the Henry
+            AdoptA emerges as a final closing project for the Henry
             Bootcamp in which a group of students is expected to integrate
             everything they have learned in the last 4 months and develop an
             innovative and useful project for society.
@@ -131,7 +131,7 @@ export default function About() {
         <Container>
           <SubtitleAbout>what is our mission?</SubtitleAbout>
           <TextAbout>
-            Our mission is to provide a connection through (page name) between
+            Our mission is to provide a connection through AdoptA between
             people who want to adopt and animals that need a home, provide help
             when your animal is lost and put an animal up for adoption when you
             don't. can you take care of him

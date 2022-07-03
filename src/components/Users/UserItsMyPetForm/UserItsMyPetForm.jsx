@@ -130,14 +130,15 @@ export default function UserItsMyPetForm() {
                  <Camp>
                   <img
                     src={pet?.image}
-                    alt={pet.name}
+                    alt={pet?.name}
                     width="600"
                     height="400"                    
                   />
                   <Label>
                     Macota elegida:{" "}
-                    {pet?.name[0].toUpperCase() +
-                      pet?.name.slice(1).toLowerCase()}
+                    {pet.name}
+                    {/* {pet?.name[0].toUpperCase() +
+                      pet?.name.slice(1).toLowerCase()} */}
                   </Label>
                 </Camp> 
                 <Camp>

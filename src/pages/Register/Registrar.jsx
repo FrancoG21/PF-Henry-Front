@@ -2,10 +2,15 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { getRegister } from '../../redux/actions';
+import Swal from "sweetalert2";
 
 export default function Registrar() {
   const dispatch = useDispatch()
-  const [input, setInput] = useState();
+  const [input, setInput] = useState({
+    name: '',
+    email: '',
+    password: '',
+})
 
   const handleChange = (e) => {
     setInput({
@@ -17,6 +22,28 @@ export default function Registrar() {
   const handleRegister = (e) => {
     e.preventDefault();
     dispatch(getRegister(input))
+    if(input.name !== '' && input.email !== '' && input.password !== '') {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Registro exitoso!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Completa lo campos!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+    setInput({
+      name: '',
+      email: '',
+      password: ''
+    })
   }
 
   console.log("input register", input)
