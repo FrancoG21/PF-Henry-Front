@@ -22,7 +22,7 @@ export default function Pets() {
   const pets = useSelector((state) => state.pets);
   const petsAmount = useSelector((state) => state.petsAmount);
   const [page, setPage] = useState(0)
-  const [filter, setFilter] = useState({})
+  const [filter, setFilter] = useState({state:['adopt','transit']})
 
   useEffect(() => {
     dispatch(getPets(page, filter))
@@ -43,11 +43,11 @@ export default function Pets() {
   return (
     <BackgroundPets>
       <ContainerTop>
-        <Searchbar />
+        <Searchbar  stateValue={['adopt','transit']} />
       </ContainerTop>
 
       <ContainerFilters>
-        <PetFilters petsToFilter={petsToFilter}/>
+        <PetFilters petsToFilter={petsToFilter} stateValue={['adopt','transit']}/>
       </ContainerFilters>
 
       <Container>

@@ -122,7 +122,7 @@ export default function About() {
         <Container>
           <SubtitleAbout>How did adopt come about?</SubtitleAbout>
           <TextAbout>
-            (page name) emerges as a final closing project for the Henry
+            AdoptA emerges as a final closing project for the Henry
             Bootcamp in which a group of students is expected to integrate
             everything they have learned in the last 4 months and develop an
             innovative and useful project for society.
@@ -131,7 +131,7 @@ export default function About() {
         <Container>
           <SubtitleAbout>what is our mission?</SubtitleAbout>
           <TextAbout>
-            Our mission is to provide a connection through (page name) between
+            Our mission is to provide a connection through AdoptA between
             people who want to adopt and animals that need a home, provide help
             when your animal is lost and put an animal up for adoption when you
             don't. can you take care of him

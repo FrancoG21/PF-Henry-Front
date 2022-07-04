@@ -21,6 +21,10 @@ export const LostLink = styled(Link)`
     text-decoration: none;
 `
 
+export const CardLink = styled(Link)`
+text-decoration: none;
+`
+
 export const ButtonLost = styled.button`
     background-color: ${(props) => props.theme.secondary};
     color: #fff;
@@ -29,6 +33,7 @@ export const ButtonLost = styled.button`
     padding: .3rem;
     margin-right: 20px;
     margin-top: 30px;
+    cursor: pointer;
 
     &:hover {
         transition: all 0.3s ease-out;
@@ -38,6 +43,7 @@ export const ButtonLost = styled.button`
 
 export const ImageCarrusel = styled.img`
     width: 24rem;
+    height: 16rem;
 
     @media screen and (max-width: 600px) {
         width: 10rem;
@@ -47,11 +53,18 @@ export const ImageCarrusel = styled.img`
 
 export const TitleCarrusel = styled.h3`
     font-size: 1.5rem;
-    color: ${(props) => props.theme.secondary};
+    color: red;
+    /* color: ${(props) => props.theme.secondary}; */
     margin-left: 20px;
+
+    &:hover {
+        -webkit-box-shadow: 6px 5px 12px 1px rgba(0,0,0,0.7); 
+        box-shadow: 6px 5px 12px 1px rgba(0,0,0,0.7);
+    }
 `
 
 export const NameCard = styled.h4`
-    font-size: 1rem;
-    color: ${(props) => props.theme.secondary};
+    font-size: 1.2rem;
+    color: red;
+    /* color: ${(props) => props.theme.secondary}; */
 `

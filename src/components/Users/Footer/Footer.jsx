@@ -1,5 +1,5 @@
 import React from "react";
-import { BackgroundFooter, FooterContainer, FooterLinks, FooterLinksItems, FooterLinksContainer, FooterTitle, FooterText, ContactText, TextCopy, DivIcon, Icon, IconArrow } from "./StyledFooter";
+import { BackgroundFooter, FooterContainer, FooterLinks, FooterLinksItems, FooterLinksContainer, FooterTitle, FooterTitles, FooterText, ContactText, TextCopy, DivIcon, Icon, IconArrow } from "./StyledFooter";
 import { BsLinkedin } from 'react-icons/bs';
 
 export default function Footer () {
@@ -32,7 +32,30 @@ export default function Footer () {
 
                     <FooterLinksContainer>
                         <FooterLinksItems>
-                            <FooterTitle>Quick Links</FooterTitle>
+                        <FooterTitles>Contact Us</FooterTitles>
+                            <DivIcon>
+                                <Icon/>
+                                <ContactText href='https://www.linkedin.com/in/yina-navarro-a8b062b7/' target='blank'>Yina Navarro</ContactText>
+                            </DivIcon>
+                            <DivIcon>
+                                <Icon/>
+                                <ContactText href='https://www.linkedin.com/in/carolina-guzman-570642212/' target='blank'>Carolina Mailen</ContactText>
+                            </DivIcon>
+                            <DivIcon>
+                                <Icon/>
+                                <ContactText href='https://www.linkedin.com/in/lucas-giorgi-b8985416a/' target='blank'>Lucas Giorgi</ContactText>
+                            </DivIcon>
+                            <DivIcon>
+                                <Icon/>
+                                <ContactText href='https://www.linkedin.com/in/agustin-di-giacinto-5a0357218/' target='blank'>Agustín Di Giacinto</ContactText>
+                            </DivIcon>
+                        </FooterLinksItems>
+                    </FooterLinksContainer>
+                </FooterLinks>
+                <FooterLinks>
+                    <FooterLinksContainer>
+                        <FooterLinksItems>
+                        <FooterTitle>Quick Links</FooterTitle>
                             <DivIcon>
                                 <IconArrow/>
                                 <FooterText to='/'>Home</FooterText>
@@ -43,34 +66,25 @@ export default function Footer () {
                             </DivIcon>
                             <DivIcon>
                                 <IconArrow/>
-                                <FooterText to='/'>Donation</FooterText>
+                                <FooterText to='/donation'>Donation</FooterText>
                             </DivIcon>
                             <DivIcon>
                                 <IconArrow/>
-                                <FooterText to='/'>About Us</FooterText>
+                                <FooterText to='/about'>About Us</FooterText>
                             </DivIcon>
                         </FooterLinksItems>
                     </FooterLinksContainer>
-                </FooterLinks>
-                <FooterLinks>
+
                     <FooterLinksContainer>
                         <FooterLinksItems>
-                            <FooterTitle>Contact Us</FooterTitle>
+                        <FooterTitles>Quick Links</FooterTitles>
                             <DivIcon>
-                                <Icon/>
-                                <ContactText href='https://www.linkedin.com/in/yina-navarro-a8b062b7/' target='blank'>Yina Navarro</ContactText>
+                                <IconArrow/>
+                                <FooterText to='/login'>Login</FooterText>
                             </DivIcon>
                             <DivIcon>
-                                <Icon/>
-                                <ContactText href='#' target='blank'>Carolina Mailen</ContactText>
-                            </DivIcon>
-                            <DivIcon>
-                                <Icon/>
-                                <ContactText href='https://www.linkedin.com/in/lucas-giorgi-b8985416a/' target='blank'>Lucas Giorgi</ContactText>
-                            </DivIcon>
-                            <DivIcon>
-                                <Icon/>
-                                <ContactText href='https://www.linkedin.com/in/agustin-di-giacinto-5a0357218/' target='blank'>Agustín Di Giacinto</ContactText>
+                                <IconArrow/>
+                                <FooterText to='/register'>Register</FooterText>
                             </DivIcon>
                         </FooterLinksItems>
                     </FooterLinksContainer>
