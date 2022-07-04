@@ -202,8 +202,9 @@ export default function UserTransitPetForm() {
                   />
                   <Label>
                     Macota elegida:{" "}
-                    {pet?.name[0].toUpperCase() +
-                      pet?.name.slice(1).toLowerCase()}
+                    {pet.name}
+                    {/* {pet?.name[0].toUpperCase() +
+                      pet?.name.slice(1).toLowerCase()} */}
                   </Label>
                 </Camp>
                 <Camp>

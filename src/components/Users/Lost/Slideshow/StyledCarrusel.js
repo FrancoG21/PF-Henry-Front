@@ -42,7 +42,7 @@ export const ButtonLost = styled.button`
 
 export const ImageCarrusel = styled.img`
     width: 24rem;
-    height: 24rem
+    height: 16rem;
 
     @media screen and (max-width: 600px) {
         width: 10rem;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const BackgroundHero = styled.div`
     background-image: url(https://www.weare-family.com/petfanmx/wp-content/uploads/sites/10/2021/03/adopcion-mascotas.jpg);
@@ -90,7 +91,7 @@ export const Subtitle = styled.h2`
     color: ${(props) => props.theme.font_alt};
 `
 
-export const ButtonHero = styled.button`
+export const ButtonHero = styled(Link)`
     border-radius: 2px;
     background: ${(props) => props.theme.secondary};
     white-space: nowrap;
@@ -101,6 +102,7 @@ export const ButtonHero = styled.button`
     border: none;
     cursor: pointer;
     margin-top: 15px;
+    text-decoration: none;
 
     &:hover {
         transition: all 0.3s ease-out;

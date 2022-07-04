@@ -1,8 +1,11 @@
 import React from "react";
 import { BackgroundHero, ShadowBackground, ContainerHero, ContainerText, TitleHero, Info, Title, Subtitle, ButtonHero } from "./StyledHero";
+import { useSelector } from "react-redux";
+
 
 export default function Hero() {
 
+    const user = useSelector((state) => state.usuario);
     
     return (
         <BackgroundHero>
@@ -18,7 +21,10 @@ export default function Hero() {
                                         What do we ask? that you adopt, they have been waiting for a long time.
                                         There are many who wait.
                                     </Subtitle>
-                                    <ButtonHero>Sign Up</ButtonHero>
+
+                                    {
+                                        user && user ? <Subtitle>Welcome {user.message.name}</Subtitle> :  <ButtonHero to='/login'>Sign Up</ButtonHero>
+                                    }
                             </TitleHero>
                         </Info>
                     </ContainerText>
