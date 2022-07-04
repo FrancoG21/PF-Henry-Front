@@ -51,7 +51,7 @@ export default function PetDetail() {
                 {petDetail.state === "adopt" || petDetail.state === "transit" ? (
                   <>
                     {/* <Link to={`/useradoptpet/${id}`}> */}
-                      <ButtonForm onClick={() => usuario ? window.location.replace(`${urlFront}/useradoptpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Quiero adoptar</ButtonForm>
+                      <ButtonForm onClick={() => usuario ? window.open(`${urlFront}/useradoptpet/${id}`, '_self') : window.open(`${urlFront}/login`, '_self')}>Quiero adoptar</ButtonForm>
                     {/* <Link to={`/usertransitpet/${id}`}> */}
                       <ButtonForm onClick={() => usuario ? window.location.replace(`${urlFront}/usertransitpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Hogar Transito</ButtonForm>
                   </>
