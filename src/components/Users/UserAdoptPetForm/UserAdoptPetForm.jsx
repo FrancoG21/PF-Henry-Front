@@ -17,6 +17,7 @@ import {
   ButtonSubmit,
   ContainerButton,
   ImagePet,
+  BackIcon,
 } from "./StyledUserAdoptPetForm";
 import moment from "moment";
 
@@ -170,6 +171,9 @@ export default function UserAdoptPetForm() {
       >
         {(props) => (
           <FormContainer>
+            <Link to={`/petdetail/${id}`}>
+              <BackIcon />
+            </Link>
             <TitleForm>Formulario de adopción</TitleForm>
             <Forms>
               {/* {console.log("abajo values")}

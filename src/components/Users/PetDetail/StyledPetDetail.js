@@ -67,7 +67,7 @@ export const DetailTitle = styled.h1`
 `
 
 export const ContainerContent = styled.div`
-    margin-top: 40px;
+    margin-top: 140px;
     margin-bottom: 0;
 
     @media screen and (max-width: 600px) {
@@ -88,11 +88,13 @@ export const SubTitle = styled.h2`
 `
 
 export const SubTitle2 = styled.h3`
+    margin: 0;
     font-size: 2rem;
     color: ${(props) => props.theme.secondary};
 `
 
 export const SubTitle3 = styled.h4`
+    margin: 0;
     font-size: 1.8rem;
     color: ${(props) => props.theme.secondary};
 `
@@ -101,6 +103,7 @@ export const ContainerButton = styled.div`
     display: flex;
     margin-left: 20px;
     margin-top: 40px;
+    margin-bottom: 40px;
 `
 
 export const ButtonForm = styled.button`

@@ -53,11 +53,18 @@ export const ImageCarrusel = styled.img`
 
 export const TitleCarrusel = styled.h3`
     font-size: 1.5rem;
-    color: ${(props) => props.theme.secondary};
+    color: red;
+    /* color: ${(props) => props.theme.secondary}; */
     margin-left: 20px;
+
+    &:hover {
+        -webkit-box-shadow: 6px 5px 12px 1px rgba(0,0,0,0.7); 
+        box-shadow: 6px 5px 12px 1px rgba(0,0,0,0.7);
+    }
 `
 
 export const NameCard = styled.h4`
-    font-size: 1rem;
-    color: ${(props) => props.theme.secondary};
+    font-size: 1.2rem;
+    color: red;
+    /* color: ${(props) => props.theme.secondary}; */
 `
