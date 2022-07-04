@@ -91,7 +91,7 @@ export default function UserTransitPetForm() {
 
           for (let prop in values) {
             if (!values[prop]) {
-              errors[prop] = `${capitalize(prop)} is required`;
+              errors[prop] = `${newLabel(prop)}`;
               delete errors.actualPlace;
             }
           }
@@ -586,3 +586,33 @@ export default function UserTransitPetForm() {
     </>
   );
 }
+
+const newLabel = (name) => {
+  if (name === "userAge") return "Edad es requerido";
+  if (name === "actualPlaceDirection") return "Dirección es requerido";
+  if (name === "actualPlaceHood") return "Barrio es requerido";
+  if (name === "actualPlaceCity") return "Ciudad es requerido";
+  if (name === "actualPlaceProvince") return "Provincia es requerido";
+  if (name === "actualPlacePostalCode") return "Codigo Postal es requerido";
+  if (name === "tel") return "Teléfono es requerido";
+  if (name === "familySize") return "Debe completar este campo";
+  if (name === "familyRelation") return "Debe completar este campo";
+  if (name === "otherPets") return "Debe completar este campo";
+  if (name === "otherPetsInfo") return "Debe completar este campo";
+  if (name === "otherPetsCastration") return "Debe completar este campo";
+  if (name === "otherPetsVacunation") return "Debe completar este campo";
+  if (name === "getPetReason") return "Debe completar este campo";
+  if (name === "adoptedPetPlace") return "Debe completar este campo";
+  if (name === "openSpace") return "Debe completar este campo";
+  if (name === "rental") return "Debe completar este campo";
+  if (name === "adoptedPetSleepingSpace") return "Debe completar este campo";
+  if (name === "adoptedPetAloneMoments") return "Debe completar este campo";
+  if (name === "adoptedPetWalkingInfo") return "Debe completar este campo";
+  if (name === "userMovingIdea") return "Debe completar este campo";
+  if (name === "adaptationTime") return "Debe completar este campo";
+  if (name === "userMovility") return "Debe completar este campo";
+  if (name === "transitPetPeriod") return "Debe completar este campo";
+  if (name === "userAgreement") return "Debe completar este campo";
+};
+
+
