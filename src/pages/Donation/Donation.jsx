@@ -1,26 +1,27 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-// import "./Donation.module.css";
+import { useSelector } from "react-redux";
+import "./Donation.module.css";
 import { BackgroundDonation, ButtonDonation, ButtonSuscription, ContainerButton, SubTitle, Suscription, TitleDonation } from "./styledDonation";
 
 export default function Donation() {
   const [url, setUrl] = useState("");
   const precios = ["100", "200", "500", "1000", "2500", "5000"]
-
+  const { urlFront } = useSelector(state => state)
 
   function realizarPagoUnico(e) {
     axios.post('/payment', {
       unit_price: Number(e.target.value),
-      failure: 'http://localhost:3000/donation/failure',
-      success: 'http://localhost:3000/donation/success'
+      failure: `${urlFront}/donation/failure`,
+      success: `${urlFront}/donation/success`
     }).then(r => setUrl(r.data.url))
   }
 
   function realizarPagoSub(e) {
     axios.post('/payment/subscription', {
       transaction_amount: Number(e.target.value),
-      back_url: 'http://localhost:3000/donation/success',
+      back_url: `${urlFront}/donation/success`,
       payer_email: 'test_user_20466117@testuser.com'
     }).then(r => setUrl(r.data.url))
   }
