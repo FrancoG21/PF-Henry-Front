@@ -41,7 +41,7 @@ export function validation(input) {
 export default function Login() {
 
   const resLogin = useSelector((state) => state.usuario)
-  const url = useSelector((state) => state.url)
+  const urlBack = useSelector((state) => state.urlBack)
   console.log("LOGINUSER", resLogin);
   const history = useNavigate()
   const dispatch = useDispatch()
@@ -73,7 +73,7 @@ export default function Login() {
     // }
     const handleSubmit =(e) =>{
       e.preventDefault();
-      dispatch(loginManual(input,url))
+      dispatch(loginManual(input))
       if(input.email !== '' && input.password !== '') {
         Swal.fire({
           position: 'center',
@@ -111,7 +111,7 @@ export default function Login() {
     };
 
     const google = ()=>{
-      window.location.replace(url + '/auth/google/callback', '_self');
+      window.location.replace(urlBack + '/auth/google/callback', '_self');
     }
     console.log('google', google)
       

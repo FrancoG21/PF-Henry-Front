@@ -64,11 +64,11 @@ export function cleanDetail() {
   };
 }
 
-export function getGoogle(info, url) {
+export function getGoogle(info) {
   return async (dispatch) => {
     try {
 
-      const { res } = await axios.post(`${url}/auth/google/callback`, info);
+      const { res } = await axios.post(`/auth/google/callback`, info);
       localStorage.setItem("userInfo", JSON.stringify(res))
       dispatch({ type: LOGIN_GOOGLE, payload: res.data })
     } catch (err) {
@@ -77,11 +77,11 @@ export function getGoogle(info, url) {
   }
 
 }
-export const loginManual = (infoDform, url) => {
+export const loginManual = (infoDform) => {
   console.log("login -->", infoDform);
   return async function (dispatch) {
     try {
-      const res = await axios.post(`${url}/user/login`, infoDform);
+      const res = await axios.post(`/user/login`, infoDform);
       localStorage.setItem("userInfo", JSON.stringify(res.data))
       dispatch({ type: LOGIN, payload: res.data });
     } catch (e) {
@@ -95,9 +95,9 @@ export const getLogOut = () => {
   return {type: LOGOUT, payload: null};
 } 
 
-export const getRegister = (payload, url) => {
+export const getRegister = (payload) => {
   return async function(dispatch){
-    const res = await axios.post(`${url}/user/register`, payload);
+    const res = await axios.post(`/user/register`, payload);
     dispatch({type: REGISTER, payload: res.data});
   }
 }

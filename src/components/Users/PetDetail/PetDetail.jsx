@@ -20,7 +20,7 @@ import {
 
 export default function PetDetail() {
   // const detail = useSelector(state => state.pets)
-  const {petDetail, usuario, url} = useSelector((state) => state);
+  const {petDetail, usuario, urlFront} = useSelector((state) => state);
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -82,13 +82,13 @@ export default function PetDetail() {
             {petDetail.state === "adopt" || petDetail.state === "transit" ? (
               <>
                 {/* <Link to={`/useradoptpet/${id}`}> */}
-                  <button onClick={() => usuario ? window.location.replace(`${url}/useradoptpet/${id}`) : window.location.replace(`${url}/login`)}>Quiero adoptar</button>
+                  <button onClick={() => usuario ? window.location.replace(`${urlFront}/useradoptpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Quiero adoptar</button>
                 {/* <Link to={`/usertransitpet/${id}`}> */}
-                  <button onClick={() => usuario ? window.location.replace(`${url}/usertransitpet/${id}`) : window.location.replace(`${url}/login`)}>Hogar Transito</button>
+                  <button onClick={() => usuario ? window.location.replace(`${urlFront}/usertransitpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Hogar Transito</button>
               </>
             ) : (
               // <Link to={`/useritsmypet/${id}`}>
-                <button onClick={() => usuario ? window.location.replace(`${url}/useritsmypet/${id}`) : window.location.replace(`${url}/login`)}>Es mi perro</button>
+                <button onClick={() => usuario ? window.location.replace(`${urlFront}/useritsmypet/${id}`) : window.location.replace(`${urlFront}/login`)}>Es mi perro</button>
             )}
           </DetailContainer>
         ) : (

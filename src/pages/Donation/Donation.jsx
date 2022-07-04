@@ -6,7 +6,7 @@ import "./Donation.module.css";
 export default function Donation() {
   const [url, setUrl] = useState("");
   const precios = ["100", "200", "500", "1000", "2500", "5000"]
-  const urlBase = useState(state => state.url)
+  const urlBase = useState(state => state.urlFront)
 
   function realizarPagoUnico(e) {
     axios.post('/payment', {

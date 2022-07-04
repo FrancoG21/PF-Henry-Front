@@ -16,7 +16,8 @@ const initialState = {
   petDetail: [],
   lostpets: [],
   usuario: null,
-  url:  import.meta.env.VITE_APP_API || "http://localhost:3001"
+  urlFront:  import.meta.env.VITE_APP_FRONT || "http://localhost:3000",
+  urlBack: import.meta.env.VITE_APP_API || "http://localhost:3001"
 };
 
 const rootReducer = (state = initialState, action) => {
