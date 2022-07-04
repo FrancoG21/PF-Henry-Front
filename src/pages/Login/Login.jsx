@@ -73,7 +73,7 @@ export default function Login() {
     // }
     const handleSubmit =(e) =>{
       e.preventDefault();
-      dispatch(loginManual(input))
+      dispatch(loginManual(input,url))
       if(input.email !== '' && input.password !== '') {
         Swal.fire({
           position: 'center',

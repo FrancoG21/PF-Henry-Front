@@ -10,9 +10,6 @@ import {
   LOGOUT,
   REGISTER,
 } from "./nameAction";
-import { useState } from "react";
-
-const { url } = useState(state=>state)
 
 export function getPets(page, filter) {
   return async (dispatch) => {
@@ -67,7 +64,7 @@ export function cleanDetail() {
   };
 }
 
-export function getGoogle(info) {
+export function getGoogle(info, url) {
   return async (dispatch) => {
     try {
 
@@ -80,7 +77,7 @@ export function getGoogle(info) {
   }
 
 }
-export const loginManual = (infoDform) => {
+export const loginManual = (infoDform, url) => {
   console.log("login -->", infoDform);
   return async function (dispatch) {
     try {
@@ -98,7 +95,7 @@ export const getLogOut = () => {
   return {type: LOGOUT, payload: null};
 } 
 
-export const getRegister = (payload) => {
+export const getRegister = (payload, url) => {
   return async function(dispatch){
     const res = await axios.post(`${url}/user/register`, payload);
     dispatch({type: REGISTER, payload: res.data});

@@ -5,6 +5,7 @@ import { getRegister } from '../../redux/actions';
 import Swal from "sweetalert2";
 
 export default function Registrar() {
+  const { url } = useState(state=>state)
   const dispatch = useDispatch()
   const [input, setInput] = useState({
     name: '',
@@ -21,7 +22,7 @@ export default function Registrar() {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    dispatch(getRegister(input))
+    dispatch(getRegister(input,url))
     if(input.name !== '' && input.email !== '' && input.password !== '') {
       Swal.fire({
         position: 'center',
