@@ -3,26 +3,77 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { getRegister } from '../../redux/actions';
 import Swal from "sweetalert2";
+import {
+  BackgroundLogin,
+  Errors,
+  Wrapper,
+  Form,
+  Input,
+  Button,
+} from './StyledRegister';
+
+
+export function validation(input) {
+  let errors = {};
+
+  if (!input.name) {
+    errors.name = 'Nombre es requerido';
+  } else if (input.name.length > 50) {
+    errors.name = "El nombre es muy largo (Max = 50 letras)"
+  }
+
+  if (!input.email) {
+    errors.email = "Email es requerido";
+  } else if (
+    !input.email.match(
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    )
+  ) {
+    errors.email = "Ingrese un correo válido";
+  }
+
+  if (!input.password) {
+    errors.password = "Contraseña es requerida";
+  } else if (
+    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
+      input.password
+    )
+  ) {
+    errors.password =
+      "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
+  }
+
+  return errors;
+}
 
 export default function Registrar() {
   const dispatch = useDispatch()
+
+  const [errors, setErrors] = useState({});
+
   const [input, setInput] = useState({
     name: '',
     email: '',
     password: '',
-})
-// hokla
-  const handleChange = (e) => {
+  })
+  // hokla
+  const handleChange = function (e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
-    })
+    });
+    setErrors(
+      validation({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
 
   const handleRegister = (e) => {
     e.preventDefault();
     dispatch(getRegister(input))
-    if(input.name !== '' && input.email !== '' && input.password !== '') {
+    if (input.name !== '' && input.email !== '' && input.password !== '') {
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -48,18 +99,20 @@ export default function Registrar() {
 
   console.log("input register", input)
   return (
-    <main class="container">
+    <BackgroundLogin>
+      <Wrapper>
+        <Form onSubmit={(e) => handleRegister(e)}>
+          <Input type="text" value={input.name} placeholder="Name" name="name" onChange={handleChange} />
+          {errors.name && <Errors>{errors.name}</Errors>}
 
-      <div class="form form--signup">
-        <div class="form--heading">Welcome! Sign Up</div>
-        <form autocomplete="off" onSubmit={(e) => handleRegister(e)}>
-          <input type="text" placeholder="Name" name="name" onChange={handleChange} />
-          <input type="email" placeholder="Email" name="email" onChange={handleChange} />
-          <input type="password" placeholder="Password" name="password" onChange={handleChange} />
-          <button class="button">Sign Up</button>
-        </form>
-      </div>
+          <Input type="text" value={input.email} placeholder="Email" name="email" onChange={handleChange} />
+          {errors.email && <Errors>{errors.email}</Errors>}
 
-    </main>
-  )
+          <Input type="password" value={input.password} placeholder="Password" name="password" onChange={handleChange} />
+          {errors.password && <Errors>{errors.password}</Errors>}
+          <Button type="submit">Register</Button>
+        </Form>
+      </Wrapper>
+    </BackgroundLogin>
+  );
 }

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Field, Form } from 'formik';
+import { VscArrowLeft } from 'react-icons/vsc';
+import { Link } from "react-router-dom";
 
 export const TitleForm = styled.h1`
     color: ${(props) => props.theme.secondary};
@@ -109,4 +111,20 @@ export const ButtonSubmit = styled.button`
     @media screen and (max-width: 600px) {
         width: 50%;
     }
+`
+
+export const ImagePet = styled.img`
+    width: 15rem;
+`
+
+export const IconLink = styled(Link)`
+    margin-left: 20px;
+    height: 30px;
+`
+
+export const BackIcon = styled(VscArrowLeft)`
+    color: ${(props) => props.theme.secondary};
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 2em;
 `
