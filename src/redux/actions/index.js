@@ -10,6 +10,9 @@ import {
   LOGOUT,
   REGISTER,
 } from "./nameAction";
+import { useState } from "react";
+
+const { url } = useState(state=>state)
 
 export function getPets(page, filter) {
   return async (dispatch) => {
@@ -68,7 +71,7 @@ export function getGoogle(info) {
   return async (dispatch) => {
     try {
 
-      const { res } = await axios.post('http://localhost:3001/auth/google/callback', info);
+      const { res } = await axios.post(`${url}/auth/google/callback`, info);
       localStorage.setItem("userInfo", JSON.stringify(res))
       dispatch({ type: LOGIN_GOOGLE, payload: res.data })
     } catch (err) {
@@ -81,7 +84,7 @@ export const loginManual = (infoDform) => {
   console.log("login -->", infoDform);
   return async function (dispatch) {
     try {
-      const res = await axios.post('http://localhost:3001/user/login', infoDform);
+      const res = await axios.post(`${url}/user/login`, infoDform);
       localStorage.setItem("userInfo", JSON.stringify(res.data))
       dispatch({ type: LOGIN, payload: res.data });
     } catch (e) {
@@ -97,7 +100,7 @@ export const getLogOut = () => {
 
 export const getRegister = (payload) => {
   return async function(dispatch){
-    const res = await axios.post('http://localhost:3001/user/register', payload);
+    const res = await axios.post(`${url}/user/register`, payload);
     dispatch({type: REGISTER, payload: res.data});
   }
 }

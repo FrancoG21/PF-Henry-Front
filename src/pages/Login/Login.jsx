@@ -41,6 +41,7 @@ export function validation(input) {
 export default function Login() {
 
   const resLogin = useSelector((state) => state.usuario)
+  const url = useSelector((state) => state.url)
   console.log("LOGINUSER", resLogin);
   const history = useNavigate()
   const dispatch = useDispatch()
@@ -110,7 +111,7 @@ export default function Login() {
     };
 
     const google = ()=>{
-       window.open('http://localhost:3001/auth/google/callback', '_self');
+      window.location.replace(url + '/auth/google/callback', '_self');
     }
     console.log('google', google)
       

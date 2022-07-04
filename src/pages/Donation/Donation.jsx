@@ -6,20 +6,20 @@ import "./Donation.module.css";
 export default function Donation() {
   const [url, setUrl] = useState("");
   const precios = ["100", "200", "500", "1000", "2500", "5000"]
-
+  const urlBase = useState(state => state.url)
 
   function realizarPagoUnico(e) {
     axios.post('/payment', {
       unit_price: Number(e.target.value),
-      failure: 'http://localhost:3000/donation/failure',
-      success: 'http://localhost:3000/donation/success'
+      failure: `${urlBase}/donation/failure`,
+      success: `${urlBase}/donation/success`
     }).then(r => setUrl(r.data.url))
   }
 
   function realizarPagoSub(e) {
     axios.post('/payment/subscription', {
       transaction_amount: Number(e.target.value),
-      back_url: 'http://localhost:3000/donation/success',
+      back_url: `${urlBase}/donation/success`,
       payer_email: 'test_user_20466117@testuser.com'
     }).then(r => setUrl(r.data.url))
   }
