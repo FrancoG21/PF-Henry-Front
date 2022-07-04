@@ -22,6 +22,11 @@ export const NavContainer = styled(Container) `
   ${Container}
 `;
 
+export const ContainerLogo = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+
 export const NavLogo = styled(Link)`
     color: #fff;
     justify-self: flex-start;
@@ -42,10 +47,6 @@ export const DarkMode = styled.div`
     align-items: center;
     padding: 0.5rem 1rem;
     cursor: pointer;
-
-    @media screen and (max-width: 600px) {
-        margin-right: 90px;
-    }
 ` 
 
 export const MobileIcon = styled.div`

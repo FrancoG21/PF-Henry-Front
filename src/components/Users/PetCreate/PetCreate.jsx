@@ -14,6 +14,7 @@ import {
   useField,
 } from "formik";
 import {
+  BackgroundForm,
   ContainerCamp,
   FormContainer,
   Camp,
@@ -113,7 +114,7 @@ export default function PetCreate() {
   };
 
   return (
-    <>
+    <BackgroundForm>
       <Formik
         initialValues={{
           name: "", //string 255 caracteres
@@ -510,7 +511,7 @@ export default function PetCreate() {
           </FormContainer>
         )}
       </Formik>
-    </>
+    </BackgroundForm>
   );
 }
 

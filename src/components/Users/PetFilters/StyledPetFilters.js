@@ -30,8 +30,9 @@ export const ButtonFilter = styled.button`
     background: ${(props) => props.theme.primary};
     white-space: nowrap;
     padding: 5px;
-    font-size: 1rem;
-    color: ${(props) => props.theme.secondary};
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: ${(props) => props.theme.font};
     outline: none;
     border: none;
     cursor: pointer;
@@ -80,8 +81,9 @@ export const ButtonCreate = styled.button`
     border-radius: 4px;
     background: ${(props) => props.theme.primary};
     padding: 5px;
-    font-size: 1rem;
-    color: ${(props) => props.theme.secondary};
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: ${(props) => props.theme.font};
     outline: none;
     border: none;
     cursor: pointer;
@@ -99,4 +101,34 @@ export const Label = styled.label`
     margin-bottom: .5rem;
     margin-left: 5px;
     margin-right: 5px;
+`
+
+export const ContainerFilter = styled.label`
+    background-color: ${(props) => props.theme.card};
+    border-radius: 8px;
+    padding: 3px;
+    color: ${(props) => props.theme.secondary};
+    margin-bottom: .5rem;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    @media screen and (max-width: 600px) {
+        width: 80%;
+    } 
+`
+
+export const Content = styled.div`
+    margin-left: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    @media screen and (max-width: 600px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        margin: 0;
+    }
 `

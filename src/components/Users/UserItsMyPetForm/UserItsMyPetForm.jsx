@@ -16,6 +16,7 @@ import {
   Select,
   ButtonSubmit,
   ContainerButton,
+  ImagePet,
 } from "./StyledUserItsMyPetForm";
 import moment from "moment";
 import ImageUploader from "../PetCreate/imagenes/ImagesUploader";
@@ -128,7 +129,7 @@ export default function UserItsMyPetForm() {
                {console.log(props.errors)}
               <ContainerCamp>
                  <Camp>
-                  <img
+                  <ImagePet
                     src={pet?.image}
                     alt={pet?.name}
                     width="600"

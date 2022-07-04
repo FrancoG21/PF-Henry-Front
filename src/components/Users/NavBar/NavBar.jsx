@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {useSelector} from 'react-redux';
 import { FaSun, FaRegMoon, FaTimes, FaBars } from 'react-icons/fa';
 import { Link, NavLink } from "react-router-dom";
-import { Nav, NavContainer, NavLogo, NavIcon, DarkMode, MobileIcon, NavMenu, NavItem, NavAcces, MinText, NavButton, NavButtonLink, Button } from "./StyledNavBar";
+import { Nav, NavContainer, NavLogo, NavIcon, DarkMode, MobileIcon, NavMenu, NavItem, NavAcces, ContainerLogo, MinText, NavButton, NavButtonLink, Button } from "./StyledNavBar";
 import { IconContext } from 'react-icons/lib';
 import Logout from "../Logout/Logout";
 
@@ -43,11 +43,13 @@ export default function NavBar({theme, setTheme}) {
         <IconContext.Provider value={{color: 'fff'}}>
             <Nav>
                 <NavContainer>
-                    <NavLogo to='/'>
-                        <NavIcon/>
-                        AdoptA
-                    </NavLogo>
-                    <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
+                    <ContainerLogo>
+                        <NavLogo to='/'>
+                            <NavIcon/>
+                            AdoptA
+                        </NavLogo>
+                        <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
+                    </ContainerLogo>
                     <MobileIcon onClick={handleClick}>
                         {click ? <FaTimes/> : <FaBars/>}
                     </MobileIcon>

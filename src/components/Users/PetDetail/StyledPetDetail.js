@@ -45,7 +45,6 @@ export const ImageDetail = styled.img`
     border-radius: 5px;
     width: 35rem;
     margin-left: 30px;
-    margin-bottom: 20px;
     
     @media (max-width: 600px){
         width: 22rem;
@@ -96,4 +95,26 @@ export const SubTitle2 = styled.h3`
 export const SubTitle3 = styled.h4`
     font-size: 1.8rem;
     color: ${(props) => props.theme.secondary};
+`
+
+export const ContainerButton = styled.div`
+    display: flex;
+    margin-left: 20px;
+    margin-top: 40px;
+`
+
+export const ButtonForm = styled.button`
+    background-color: ${(props) => props.theme.primary};
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: .3rem;
+    cursor: pointer;
+    margin-left: 20px;
+
+    &:hover {
+        transition: all 0.3s ease-out;
+        background: ${(props) => props.theme.primary};
+    }
 `

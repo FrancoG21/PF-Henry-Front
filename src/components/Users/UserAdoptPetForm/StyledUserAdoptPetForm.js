@@ -110,3 +110,7 @@ export const ButtonSubmit = styled.button`
         width: 50%;
     }
 `
+
+export const ImagePet = styled.img`
+    width: 15rem;
+`

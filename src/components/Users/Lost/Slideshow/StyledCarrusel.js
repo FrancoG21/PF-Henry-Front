@@ -33,6 +33,7 @@ export const ButtonLost = styled.button`
     padding: .3rem;
     margin-right: 20px;
     margin-top: 30px;
+    cursor: pointer;
 
     &:hover {
         transition: all 0.3s ease-out;

@@ -12,6 +12,7 @@ export const Search = styled.input`
     border: none;
     padding: .52rem;
     outline: none;
+    height: 30px;
 `
 
 export const ButttonSearch = styled.button`
@@ -20,4 +21,5 @@ export const ButttonSearch = styled.button`
     border: none;
     padding: .49rem;
     cursor: pointer;
+    height: 30px;
 `

@@ -8,6 +8,12 @@
   position: relative;
   margin-bottom: 30px;
 }
+@media screen and (max-width: 600px) {
+  .img-uploader-container {
+    width: 50%;
+  }
+}
+
 .card-previewer {
   min-height: 10rem;
   height: 65%;
@@ -17,6 +23,12 @@
   border-radius: 4px;
   flex-wrap: wrap;
 }
+@media screen and (max-width: 600px) {
+  .card-previewer {
+    width: 100%;
+  }
+}
+
 .card-footer {
   width: 100%;
   text-align: center;
