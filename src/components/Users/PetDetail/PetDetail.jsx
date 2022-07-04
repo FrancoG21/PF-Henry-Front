@@ -16,6 +16,8 @@ import {
   ContainerImage,
   BackgroundDetail,
   BackIcon,
+  ButtonForm,
+  ContainerButton,
 } from "./StyledPetDetail";
 
 export default function PetDetail() {
@@ -45,6 +47,19 @@ export default function PetDetail() {
                 width="600"
                 height="400"
               />
+              <ContainerButton>
+                {petDetail.state === "adopt" || petDetail.state === "transit" ? (
+                  <>
+                    {/* <Link to={`/useradoptpet/${id}`}> */}
+                      <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/useradoptpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Quiero adoptar</ButtonForm>
+                    {/* <Link to={`/usertransitpet/${id}`}> */}
+                      <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/usertransitpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Hogar Transito</ButtonForm>
+                  </>
+                ) : (
+                  // <Link to={`/useritsmypet/${id}`}>
+                    <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/useritsmypet/${id}`) : window.location.replace('http://localhost:3000/login')}>Es mi perro</ButtonForm>
+                )}
+              </ContainerButton>
             </ContainerImage>
             <ContainerContent>
               <SubTitle2>

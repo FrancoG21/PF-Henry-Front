@@ -16,22 +16,22 @@ import {
 export default function About() {
   const data = [
     {
-      name: "...",
+      name: "name",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ3yFuczut4deQ3MZ1PqIb6ral5RkhSU4fIA&usqp=CAU",
     },
     {
-      name: "Lucas Giorgi",
+      name: "name",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwnJ-uXpwnrOViM6k6s9e5VDYsH5BNMmXH5w&usqp=CAU",
     },
     {
-      name: "....z",
+      name: "name",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjY5VbrZYWil3ywQ11M8Rhcvh53Il5QNmd-w&usqp=CAU",
     },
     {
-      name: "Agustin Di Giacinto",
+      name: "name",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScyLyhAmnAq11ZfpvNeN9zgY5_dXa6GpfiqDmPc7NFB29ACjMoX-WAu7Rjz-DizBYJo2w&usqp=CAU",
     },
@@ -41,17 +41,17 @@ export default function About() {
         "https://i.pinimg.com/originals/e0/7b/20/e07b20ffd67e495e5f6325dd395d0ac7.png",
     },
     {
-      name: "Yina Navarro",
+      name: "name",
       image:
         "https://www.seekpng.com/png/small/21-211386_image-mccoy-who-wiki-svg-free-library-pepe.png",
     },
     {
-      name: "Matias Farina",
+      name: "name",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSloGQ5CR_EOgxjpQs3X0s11qfufXC1A5AkOA&usqp=CAU",
     },
     {
-      name: "Franco Gimenez",
+      name: "name",
       image: "https://pics.me.me/i-love-this-pepe-meme-72072515.png",
     },
   ];

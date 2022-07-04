@@ -91,12 +91,19 @@ export const Subtitle = styled.h2`
     color: ${(props) => props.theme.font_alt};
 `
 
+export const Subtitles = styled.h3`
+    max-width: 440px;
+    margin-bottom: 25px;
+    font-size: 22px;
+    line-height: 24px;
+    color: ${(props) => props.theme.font_card};
+`
+
 export const ButtonHero = styled(Link)`
     border-radius: 2px;
     background: ${(props) => props.theme.secondary};
-    white-space: nowrap;
-    padding: 5px;
-    font-size: 20px;
+    padding: .3rem;
+    font-size: 15px;
     color: #fff;
     outline: none;
     border: none;

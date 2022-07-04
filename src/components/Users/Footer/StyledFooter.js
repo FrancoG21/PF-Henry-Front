@@ -55,7 +55,7 @@ export const FooterLinksItems = styled.div`
     box-sizing: border-box;
     color: #fff;
 
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 6000px) {
         margin: 0;
         padding: 10px;
         width: 100%;
@@ -78,6 +78,11 @@ export const IconArrow = styled(BsArrowRight)`
 
 export const FooterTitle = styled.h2`
     margin-bottom: 6px;
+`
+
+export const FooterTitles = styled.h2`
+    margin-bottom: 6px;
+    color: #000;
 `
 
 export const FooterText = styled(Link)`

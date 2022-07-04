@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { Field, Form } from 'formik';
 
+export const BackgroundForm = styled.div`
+    background-color: ${(props) => props.theme.background};
+    margin: 0;
+`
+
 export const TitleForm = styled.h1`
     color: ${(props) => props.theme.secondary};
     text-align: center;
@@ -19,7 +24,7 @@ export const FormContainer = styled.div`
     background-color: ${(props) => props.theme.primary};
     padding: 2rem;
     border-radius: 3px;
-    margin: 30px 80px;
+    margin: 0px 80px;
 
     @media screen and (max-width: 600px) {
         width: 73%;

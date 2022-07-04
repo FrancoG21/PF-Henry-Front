@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import "./Donation.module.css";
+import { BackgroundDonation, ButtonDonation, ButtonSuscription, ContainerButton, SubTitle, Suscription, TitleDonation } from "./styledDonation";
 
 export default function Donation() {
   const [url, setUrl] = useState("");
@@ -27,23 +28,24 @@ export default function Donation() {
 
   return (
     <>
+      <BackgroundDonation>
+        <TitleDonation>DONACIÓN:</TitleDonation>
+        <SubTitle>Nuestro trabajo depende enteramente de tu ayuda. Necesitamos tu apoyo para solventar el enorme costo de manutención de muchos animales ya que no poseemos ayuda del estado ni de empresas privadas. Gracias a tu aporte logramos seguir con nuestras tareas, para lograr un futuro libre de maltrato y abandono animal. Ayudanos a seguir ayudándolos con el monto que puedas y quieras, no hay montos estipulados ni tiempo de permanencia.
+          Gracias por permitirnos seguir trabajando por ellos.
+        </SubTitle>
+        <ContainerButton>
+          {
+            precios.map(value => { return <ButtonDonation onClick={(e) => realizarPagoUnico(e)} value={value}>{value} </ButtonDonation> })
+          }
+        </ContainerButton>
 
-      <p>DONACIÓN:</p>
-      <div>
 
+        <Suscription>SUSCRIPCIÓN</Suscription>
+        <ButtonSuscription onClick={(e) => realizarPagoSub(e)} value={200}>{200}</ButtonSuscription>
         {
-          precios.map(value => { return <button onClick={(e) => realizarPagoUnico(e)} value={value}>{value} </button> })
+          url && window.location.replace(url)
         }
-      </div>
-
-
-      <h4>SUSCRIPCIÓN</h4>
-      <button onClick={(e) => realizarPagoSub(e)} value={200}>{200}</button>
-      {
-        url && window.location.replace(url)
-      }
-
-
+      </BackgroundDonation>
     </>
   );
 }

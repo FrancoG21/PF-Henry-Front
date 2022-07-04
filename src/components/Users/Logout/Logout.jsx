@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { getLogOut } from '../../../redux/actions/index';
+import { ButtonLogout } from './StyledLogout';
 
 export default function Logout () {
     const dispatch = useDispatch();
@@ -11,7 +12,7 @@ export default function Logout () {
 
     return(
         <div>
-            <button onClick={() => handleLogout()}>Logout</button>
+            <ButtonLogout onClick={() => handleLogout()}>Logout</ButtonLogout>
         </div>
     )
 }

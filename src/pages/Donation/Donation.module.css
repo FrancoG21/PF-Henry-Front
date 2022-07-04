@@ -13,10 +13,10 @@
     box-shadow: 2px 5px 10px -1px rgba(0, 0, 0, 0.75);
 }
 
-button {
+/* button {
     background-color: #3da9fc;
     /* Green */
-    border: 1px solid blue;
+    /* border: 1px solid blue;
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -26,9 +26,9 @@ button {
     width: 100px;
     display: block;
     margin-left: 100px;
-}
+} */ 
 
-p {
+/* p {
     position: relative;
     background-color: #4745d1;
     border: none;
@@ -41,9 +41,9 @@ p {
     text-decoration: none;
     overflow: hidden;
     cursor: pointer;
-}
+} */
 
-h4 {
+/* h4 {
     position: relative;
     background-color: #e0631a;
     border: none;
@@ -56,7 +56,7 @@ h4 {
     text-decoration: none;
     overflow: hidden;
     cursor: pointer;
-}
+} */
 
 /* .confirm {
     font-size: 40px;
