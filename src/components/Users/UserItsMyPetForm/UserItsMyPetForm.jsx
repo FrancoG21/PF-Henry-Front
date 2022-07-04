@@ -5,6 +5,8 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 //import Supliers from "./Supliers";
+
+
 import {
   ContainerCamp,
   FormContainer,
@@ -74,7 +76,7 @@ export default function UserItsMyPetForm() {
 
           for (let prop in values) {
             if (!values[prop]) {
-              errors[prop] = `${capitalize(prop)} is required`;
+              errors[prop] = `${newLabel(prop)}`;
               delete errors.actualPlace;
             }
           }
@@ -258,3 +260,14 @@ export default function UserItsMyPetForm() {
     </>
   );
 }
+
+
+const newLabel = (name) => {
+  if (name === "tel") return "Telefono es requerido";
+  if (name === "image") return "Al menos una imagen es requerida";
+  if (name === "getReason") return "Debe completar este campo";
+  if (name === "lostZone") return "Debe completar este campo";
+  if (name === "originalName") return "Debe completar este campo";
+  if (name === "userMovility") return "Debe completar este campo";
+};
+
