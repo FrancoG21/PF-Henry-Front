@@ -51,13 +51,13 @@ export default function PetDetail() {
                 {petDetail.state === "adopt" || petDetail.state === "transit" ? (
                   <>
                     {/* <Link to={`/useradoptpet/${id}`}> */}
-                      <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/useradoptpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Quiero adoptar</ButtonForm>
+                      <ButtonForm onClick={() => usuario ? window.location.replace(`${urlFront}/useradoptpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Quiero adoptar</ButtonForm>
                     {/* <Link to={`/usertransitpet/${id}`}> */}
-                      <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/usertransitpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Hogar Transito</ButtonForm>
+                      <ButtonForm onClick={() => usuario ? window.location.replace(`${urlFront}/usertransitpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Hogar Transito</ButtonForm>
                   </>
                 ) : (
                   // <Link to={`/useritsmypet/${id}`}>
-                    <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/useritsmypet/${id}`) : window.location.replace('http://localhost:3000/login')}>Es mi perro</ButtonForm>
+                    <ButtonForm onClick={() => usuario ? window.location.replace(`${urlFront}/useritsmypet/${id}`) : window.location.replace(`${urlFront}/login`)}>Es mi perro</ButtonForm>
                 )}
               </ContainerButton>
             </ContainerImage>
@@ -94,17 +94,6 @@ export default function PetDetail() {
                 {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>
-            {petDetail.state === "adopt" || petDetail.state === "transit" ? (
-              <>
-                {/* <Link to={`/useradoptpet/${id}`}> */}
-                  <button onClick={() => usuario ? window.location.replace(`${urlFront}/useradoptpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Quiero adoptar</button>
-                {/* <Link to={`/usertransitpet/${id}`}> */}
-                  <button onClick={() => usuario ? window.location.replace(`${urlFront}/usertransitpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Hogar Transito</button>
-              </>
-            ) : (
-              // <Link to={`/useritsmypet/${id}`}>
-                <button onClick={() => usuario ? window.location.replace(`${urlFront}/useritsmypet/${id}`) : window.location.replace(`${urlFront}/login`)}>Es mi perro</button>
-            )}
           </DetailContainer>
         ) : (
           <h1>siga intentando mijo</h1>
