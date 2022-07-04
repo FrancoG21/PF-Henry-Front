@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 import { getById, getPets, cleanDetail } from "../../../redux/actions/index";
 import { Link } from "react-router-dom";
 import {
@@ -25,6 +26,7 @@ export default function PetDetail() {
   const {petDetail, usuario, urlFront} = useSelector((state) => state);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const history = useHistory()
 
   useEffect(() => {
     dispatch(getById(id));
@@ -51,13 +53,13 @@ export default function PetDetail() {
                 {petDetail.state === "adopt" || petDetail.state === "transit" ? (
                   <>
                     {/* <Link to={`/useradoptpet/${id}`}> */}
-                      <ButtonForm onClick={() => usuario ? window.open(`${urlFront}/useradoptpet/${id}`, '_self') : window.open(`${urlFront}/login`, '_self')}>Quiero adoptar</ButtonForm>
+                      <ButtonForm onClick={() => usuario ? history.push(`${urlFront}/useradoptpet/${id}`, '_self') : history.push(`${urlFront}/login`, '_self')}>Quiero adoptar</ButtonForm>
                     {/* <Link to={`/usertransitpet/${id}`}> */}
-                      <ButtonForm onClick={() => usuario ? window.location.replace(`${urlFront}/usertransitpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Hogar Transito</ButtonForm>
+                      <ButtonForm onClick={() => usuario ? history.push(`${urlFront}/usertransitpet/${id}`) : history.push(`${urlFront}/login`)}>Hogar Transito</ButtonForm>
                   </>
                 ) : (
                   // <Link to={`/useritsmypet/${id}`}>
-                    <ButtonForm onClick={() => usuario ? window.location.replace(`${urlFront}/useritsmypet/${id}`) : window.location.replace(`${urlFront}/login`)}>Es mi perro</ButtonForm>
+                    <ButtonForm onClick={() => usuario ? history.push(`${urlFront}/useritsmypet/${id}`) : history.push(`${urlFront}/login`)}>Es mi perro</ButtonForm>
                 )}
               </ContainerButton>
             </ContainerImage>
