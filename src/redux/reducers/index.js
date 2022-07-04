@@ -16,7 +16,7 @@ const initialState = {
   petDetail: [],
   lostpets: [],
   usuario: null,
-  // usuario: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null,
+  url:  import.meta.env.VITE_APP_API || "http://localhost:3001"
 };
 
 const rootReducer = (state = initialState, action) => {
