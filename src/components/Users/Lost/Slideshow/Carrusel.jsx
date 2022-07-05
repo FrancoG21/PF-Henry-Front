@@ -96,10 +96,10 @@ const Carrusel = () => {
   return (
     <div>
       <ContainerLost>
-        <TitleCarrusel>Lost Animals</TitleCarrusel>
+        <TitleCarrusel>Animales Perdidos</TitleCarrusel>
         <ContainerLink>
           <LostLink to="/lostpets">
-            <ButtonLost>View Lost Pets</ButtonLost>
+            <ButtonLost>Ver Animales Perdidos</ButtonLost>
           </LostLink>
         </ContainerLink>
       </ContainerLost>

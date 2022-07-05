@@ -35,7 +35,7 @@ export default function Searchbar({stateValue}) {
 
   return (
         <ContainerSearch>
-            <Search type="search" value={name} onChange={e => {handleChange(e)}} placeholder='Search Pets...'/>
+            <Search type="search" value={name} onChange={e => {handleChange(e)}} placeholder='Buscar Mascotas...'/>
             <ButttonSearch type="submit" onClick={e => {handleSubmit(e)}}><BiSearch/></ButttonSearch>
         </ContainerSearch>
   )
