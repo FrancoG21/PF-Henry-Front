@@ -64,10 +64,9 @@ export function cleanDetail() {
   };
 }
 
-export function getGoogle(info) {
+export function getGoogle(data) {
   return async (dispatch) => {
     try {
-
       const { res } = await axios.post(`/auth/google/callback`, info);
       localStorage.setItem("userInfo", JSON.stringify(res))
       dispatch({ type: LOGIN_GOOGLE, payload: res.data })

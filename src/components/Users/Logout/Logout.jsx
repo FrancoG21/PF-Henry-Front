@@ -12,7 +12,7 @@ export default function Logout () {
 
     return(
         <div>
-            <ButtonLogout onClick={() => handleLogout()}>Logout</ButtonLogout>
+            <ButtonLogout onClick={() => handleLogout()}>Cerrar Sesión</ButtonLogout>
         </div>
     )
 }

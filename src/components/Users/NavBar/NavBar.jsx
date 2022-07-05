@@ -58,40 +58,40 @@ export default function NavBar({theme, setTheme}) {
                         userInfo && userInfo ? (
                             <NavMenu onClick={handleClick} click={click}>
                                 <NavItem>
-                                    <NavAcces to='/'>Home</NavAcces>
+                                    <NavAcces to='/'>Hogar</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/adopt'>Pets</NavAcces>
+                                    <NavAcces to='/adopt'>Mascotas</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/donation'>Donation</NavAcces>
+                                    <NavAcces to='/donation'>Donación</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/about'>About Us</NavAcces>
+                                    <NavAcces to='/about'>Sobre Nosotros</NavAcces>
                                 </NavItem>                       
                                 <NavItem>
                                     <Logout />
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/userprofile'>Profile</NavAcces>
+                                    <NavAcces to='/userprofile'>Perfil</NavAcces>
                                 </NavItem>
                             </NavMenu>
                         ) : (
                             <NavMenu>
                                 <NavItem>
-                                    <NavAcces to='/'>Home</NavAcces>
+                                    <NavAcces to='/'>Hogar</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/adopt'>Pets</NavAcces>
+                                    <NavAcces to='/adopt'>Mascotas</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/about'>About Us</NavAcces>
+                                    <NavAcces to='/about'>Sobre Nosotros</NavAcces>
                                 </NavItem>  
                                 <NavItem>
-                                    <NavAcces to='/login'>Login</NavAcces>
+                                    <NavAcces to='/login'>Iniciar Sesión</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/register'>Register</NavAcces>
+                                    <NavAcces to='/register'>Registrar</NavAcces>
                                 </NavItem>
                             </NavMenu>
                         )
