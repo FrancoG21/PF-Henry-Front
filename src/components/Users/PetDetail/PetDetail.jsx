@@ -16,11 +16,13 @@ import {
   ContainerImage,
   BackgroundDetail,
   BackIcon,
+  ButtonForm,
+  ContainerButton,
 } from "./StyledPetDetail";
 
 export default function PetDetail() {
   // const detail = useSelector(state => state.pets)
-  const detail = useSelector((state) => state.petDetail);
+  const {petDetail, usuario, urlFront} = useSelector((state) => state);
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -35,57 +37,74 @@ export default function PetDetail() {
         <BackIcon />
       </Link>
       <div>
-        {detail ? (
+        {petDetail ? (
           <DetailContainer>
             <ContainerImage>
-              <DetailTitle>{detail.name}</DetailTitle>
+              <DetailTitle>{petDetail.name}</DetailTitle>
               <ImageDetail
-                src={detail.image}
+                src={petDetail.image}
                 alt="pets"
                 width="600"
                 height="400"
               />
+              <ContainerButton>
+                {petDetail.state === "adopt" || petDetail.state === "transit" ? (
+                  <>
+                    {/* <Link to={`/useradoptpet/${id}`}> */}
+                      <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/useradoptpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Quiero adoptar</ButtonForm>
+                    {/* <Link to={`/usertransitpet/${id}`}> */}
+                      <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/usertransitpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Hogar Transito</ButtonForm>
+                  </>
+                ) : (
+                  // <Link to={`/useritsmypet/${id}`}>
+                    <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/useritsmypet/${id}`) : window.location.replace('http://localhost:3000/login')}>Es mi perro</ButtonForm>
+                )}
+              </ContainerButton>
             </ContainerImage>
             <ContainerContent>
               <SubTitle2>
-                <Span>Breed: </Span>
-                {detail.breed}
+                <Span>Raza: </Span>
+                {petDetail.breed}
               </SubTitle2>
               <SubTitle2>
-                <Span>Weight: </Span>
-                {detail.weight ? detail.weight : "unknown"}
+                <Span>Peso: </Span>
+                {petDetail.weight ? petDetail.weight : "unknown"}
               </SubTitle2>
               <SubTitle2>
-                <Span>Size: </Span>
-                {detail.size}
+                <Span>Tamaño: </Span>
+                {petDetail.size}
               </SubTitle2>
               <SubTitle3>
-                <Span>Fur: </Span>
-                {detail.fur ? detail.fur : "unknown"}
+                <Span>Pelaje: </Span>
+                {petDetail.fur}
               </SubTitle3>
               <SubTitle3>
-                <Span>Gender: </Span>
-                {detail.gender}
+                <Span>Genero: </Span>
+                {petDetail.gender}
               </SubTitle3>
               <SubTitle3>
-                <Span>Castration: </Span>{" "}
-                {detail.castration === true ? "yes" : "no"}
+                <Span>Castrado: </Span> {petDetail.castration}
               </SubTitle3>
               <SubTitle3>
-                <Span>Vaccinate: </Span>
-                {detail.vaccinate === true ? "yes" : "no"}
+                <Span>Vacunado: </Span>
+                {petDetail.vaccinate}
               </SubTitle3>
               <SubTitle3>
-                <Span>State: </Span>
-                {detail.state === "adopt" ? "for adopt" : detail.state}
+                <Span>Stado: </Span>
+                {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>
-            <Link to="/useradoptpet">
-              <button>Quiero adoptar</button>
-            </Link>
-            <Link to="/usertransitpet">
-              <button>Hogar Transito</button>
-            </Link>
+            {petDetail.state === "adopt" || petDetail.state === "transit" ? (
+              <>
+                {/* <Link to={`/useradoptpet/${id}`}> */}
+                  <button onClick={() => usuario ? window.location.replace(`${urlFront}/useradoptpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Quiero adoptar</button>
+                {/* <Link to={`/usertransitpet/${id}`}> */}
+                  <button onClick={() => usuario ? window.location.replace(`${urlFront}/usertransitpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Hogar Transito</button>
+              </>
+            ) : (
+              // <Link to={`/useritsmypet/${id}`}>
+                <button onClick={() => usuario ? window.location.replace(`${urlFront}/useritsmypet/${id}`) : window.location.replace(`${urlFront}/login`)}>Es mi perro</button>
+            )}
           </DetailContainer>
         ) : (
           <h1>siga intentando mijo</h1>
