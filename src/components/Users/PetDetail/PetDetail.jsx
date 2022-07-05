@@ -23,7 +23,7 @@ import {
 
 export default function PetDetail() {
   // const detail = useSelector(state => state.pets)
-  const {petDetail, usuario, urlFront} = useSelector((state) => state);
+  const {petDetail, usuario} = useSelector((state) => state);
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate()
@@ -53,13 +53,13 @@ export default function PetDetail() {
                 {petDetail.state === "adopt" || petDetail.state === "transit" ? (
                   <>
                     {/* <Link to={`/useradoptpet/${id}`}> */}
-                      <ButtonForm onClick={() => usuario ? navigate(`${urlFront}/useradoptpet/${id}`, '_self') : navigate(`${urlFront}/login`, '_self')}>Quiero adoptar</ButtonForm>
+                      <ButtonForm onClick={() => usuario ? navigate(`/useradoptpet/${id}`, '_self') : navigate(`/login`, '_self')}>Quiero adoptar</ButtonForm>
                     {/* <Link to={`/usertransitpet/${id}`}> */}
-                      <ButtonForm onClick={() => usuario ? navigate(`${urlFront}/usertransitpet/${id}`) : navigate(`${urlFront}/login`)}>Hogar Transito</ButtonForm>
+                      <ButtonForm onClick={() => usuario ? navigate(`/usertransitpet/${id}`) : navigate(`/login`)}>Hogar Transito</ButtonForm>
                   </>
                 ) : (
                   // <Link to={`/useritsmypet/${id}`}>
-                    <ButtonForm onClick={() => usuario ? navigate(`${urlFront}/useritsmypet/${id}`) : navigate(`${urlFront}/login`)}>Es mi perro</ButtonForm>
+                    <ButtonForm onClick={() => usuario ? navigate(`/useritsmypet/${id}`) : navigate(`/login`)}>Es mi perro</ButtonForm>
                 )}
               </ContainerButton>
             </ContainerImage>
