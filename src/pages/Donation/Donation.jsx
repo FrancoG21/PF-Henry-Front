@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +28,10 @@ export default function Donation() {
     }).then(r => setUrl(r.data.url))
   }
 
+  useEffect(()=>{
+    url && Navigate(url)
+  }, [url])
+
   return (
     <>
       <BackgroundDonation>
@@ -44,9 +48,6 @@ export default function Donation() {
 
         <Suscription>SUSCRIPCIÓN</Suscription>
         <ButtonSuscription onClick={(e) => realizarPagoSub(e)} value={200}>{200}</ButtonSuscription>
-        {
-          url && Navigate(url)
-        }
       </BackgroundDonation>
     </>
   );
