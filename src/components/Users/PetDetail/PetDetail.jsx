@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { getById, getPets, cleanDetail } from "../../../redux/actions/index";
 import { Link } from "react-router-dom";
 import {
@@ -16,13 +17,16 @@ import {
   ContainerImage,
   BackgroundDetail,
   BackIcon,
+  ButtonForm,
+  ContainerButton,
 } from "./StyledPetDetail";
 
 export default function PetDetail() {
   // const detail = useSelector(state => state.pets)
-  const detail = useSelector((state) => state.petDetail);
+  const {petDetail, usuario} = useSelector((state) => state);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getById(id));
@@ -35,57 +39,63 @@ export default function PetDetail() {
         <BackIcon />
       </Link>
       <div>
-        {detail ? (
+        {petDetail ? (
           <DetailContainer>
             <ContainerImage>
-              <DetailTitle>{detail.name}</DetailTitle>
+              <DetailTitle>{petDetail.name}</DetailTitle>
               <ImageDetail
-                src={detail.image}
+                src={petDetail.image}
                 alt="pets"
                 width="600"
                 height="400"
               />
+              <ContainerButton>
+                {petDetail.state === "adopt" || petDetail.state === "transit" ? (
+                  <>
+                    {/* <Link to={`/useradoptpet/${id}`}> */}
+                      <ButtonForm onClick={() => usuario ? navigate(`/useradoptpet/${id}`, '_self') : navigate(`/login`, '_self')}>Quiero adoptar</ButtonForm>
+                    {/* <Link to={`/usertransitpet/${id}`}> */}
+                      <ButtonForm onClick={() => usuario ? navigate(`/usertransitpet/${id}`) : navigate(`/login`)}>Hogar Transito</ButtonForm>
+                  </>
+                ) : (
+                  // <Link to={`/useritsmypet/${id}`}>
+                    <ButtonForm onClick={() => usuario ? navigate(`/useritsmypet/${id}`) : navigate(`/login`)}>Es mi perro</ButtonForm>
+                )}
+              </ContainerButton>
             </ContainerImage>
             <ContainerContent>
               <SubTitle2>
-                <Span>Breed: </Span>
-                {detail.breed}
+                <Span>Raza: </Span>
+                {petDetail.breed}
               </SubTitle2>
               <SubTitle2>
-                <Span>Weight: </Span>
-                {detail.weight ? detail.weight : "unknown"}
+                <Span>Peso: </Span>
+                {petDetail.weight ? petDetail.weight : "unknown"}
               </SubTitle2>
               <SubTitle2>
-                <Span>Size: </Span>
-                {detail.size}
+                <Span>Tamaño: </Span>
+                {petDetail.size}
               </SubTitle2>
               <SubTitle3>
-                <Span>Fur: </Span>
-                {detail.fur}
+                <Span>Pelaje: </Span>
+                {petDetail.fur}
               </SubTitle3>
               <SubTitle3>
-                <Span>Gender: </Span>
-                {detail.gender}
+                <Span>Genero: </Span>
+                {petDetail.gender}
               </SubTitle3>
               <SubTitle3>
-                <Span>Castration: </Span>{" "}
-                {detail.castration}
+                <Span>Castrado: </Span> {petDetail.castration}
               </SubTitle3>
               <SubTitle3>
-                <Span>Vaccinate: </Span>
-                {detail.vaccinate}
+                <Span>Vacunado: </Span>
+                {petDetail.vaccinate}
               </SubTitle3>
               <SubTitle3>
-                <Span>State: </Span>
-                {detail.state === "adopt" ? "for adopt" : detail.state}
+                <Span>Stado: </Span>
+                {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>
-            <Link to="/useradoptpet">
-              <button>Quiero adoptar</button>
-            </Link>
-            <Link to="/usertransitpet">
-              <button>Hogar Transito</button>
-            </Link>
           </DetailContainer>
         ) : (
           <h1>siga intentando mijo</h1>

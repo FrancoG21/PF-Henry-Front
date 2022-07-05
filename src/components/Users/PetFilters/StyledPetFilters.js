@@ -2,6 +2,15 @@ import styled from "styled-components";
 import { Field, Form } from 'formik';
 import { Link } from "react-router-dom";
 
+export const AllContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (max-width:600px) {
+        justify-content: center;
+    }
+`
+
 export const Select = styled(Field)`
     background-color: #fff;
     font-family: 'Roboto Condensed', sans-serif;
@@ -30,8 +39,9 @@ export const ButtonFilter = styled.button`
     background: ${(props) => props.theme.primary};
     white-space: nowrap;
     padding: 5px;
-    font-size: 1rem;
-    color: ${(props) => props.theme.secondary};
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: ${(props) => props.theme.font};
     outline: none;
     border: none;
     cursor: pointer;
@@ -42,8 +52,8 @@ export const ButtonFilter = styled.button`
     
     @media screen and (max-width: 600px) {
         width: 90%;
-        margin: 0;
         margin-top: 10px;
+        margin-left: 15px;
     }
 `
 
@@ -54,12 +64,10 @@ export const ContainerFil = styled(Form)`
     margin-bottom: 20px;
 
     @media screen and (max-width: 600px) {
-        display: flex;
-        flex-direction: column;
-        margin: 16px;
-        text-align: center;
-        margin: 0;
         width: 90%;
+        margin-top: 0;
+        margin-right: 15px;
+        margin-bottom: 10px;
     }
 `
 
@@ -80,11 +88,13 @@ export const ButtonCreate = styled.button`
     border-radius: 4px;
     background: ${(props) => props.theme.primary};
     padding: 5px;
-    font-size: 1rem;
-    color: ${(props) => props.theme.secondary};
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: ${(props) => props.theme.font};
     outline: none;
     border: none;
     cursor: pointer;
+    margin-top: 20px;
     
     @media screen and (max-width: 600px) {
         width: 90%;
@@ -99,4 +109,18 @@ export const Label = styled.label`
     margin-bottom: .5rem;
     margin-left: 5px;
     margin-right: 5px;
+    
+    @media screen and (max-width: 600px) {
+        margin-right: 0;
+    }
+`
+
+export const ContainerFilter = styled.label`
+    display: flex;
+    flex-direction: column;
+    background-color: ${(props) => props.theme.card};
+    border-radius: 8px;
+    padding: 3px;
+    color: ${(props) => props.theme.secondary};
+    margin-top: 25px; 
 `

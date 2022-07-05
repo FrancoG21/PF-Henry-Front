@@ -4,6 +4,9 @@ import {
   GET_PET_NAME,
   GET_TO_DETAILS,
   CLEAN_DETAILS,
+  // GET_LOST_PETS,
+  LOGIN,
+  LOGOUT,
 } from "../actions/nameAction";
 
 const initialState = {
@@ -11,6 +14,10 @@ const initialState = {
   pets: [],
   petsAmount: {},
   petDetail: [],
+  lostpets: [],
+  usuario: null,
+  urlFront:  import.meta.env.VITE_APP_FRONT || "http://localhost:3000",
+  urlBack: import.meta.env.VITE_APP_API || "http://localhost:3001"
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -45,6 +52,20 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             petDetail: action.payload,
         }
+    }
+
+    case LOGIN:{
+      return{
+        ...state,
+        usuario: action.payload
+      }
+     }
+
+    case LOGOUT:{
+      return {
+        ...state,
+        usuario: action.payload,
+      }
     }
 
     default: {

@@ -5,6 +5,10 @@ import {
   GET_TO_DETAILS,
   POST_PET,
   CLEAN_DETAILS,
+  LOGIN_GOOGLE,
+  LOGIN,
+  LOGOUT,
+  REGISTER,
 } from "./nameAction";
 
 export function getPets(page, filter) {
@@ -58,4 +62,36 @@ export function cleanDetail() {
   return async (dispatch) => {
     dispatch({ type: CLEAN_DETAILS, payload: [] });
   };
+}
+
+export function getGoogle(data) {
+  return async (dispatch) => {
+    try {
+      const { res } = await axios.post(`/auth/google/callback`, info);
+      localStorage.setItem("userInfo", JSON.stringify(res))
+      dispatch({ type: LOGIN_GOOGLE, payload: res.data })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+}
+export const loginManual = (res) => {
+  return { type: LOGIN, payload: res };
+};
+
+export const getLogOut = () => {
+  localStorage.removeItem("userInfo");
+  return {type: LOGOUT, payload: null};
+} 
+
+export const getRegister = (payload) => {
+  return async function(dispatch){
+    const res = await axios.post(`/user/register`, payload);
+    dispatch({type: REGISTER, payload: res.data});
+  }
+}
+
+export const upLogin = (user) => {
+  return {type: LOGIN, payload: user};
 }
