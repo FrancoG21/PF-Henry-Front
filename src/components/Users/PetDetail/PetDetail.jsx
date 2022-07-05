@@ -22,7 +22,7 @@ import {
 
 export default function PetDetail() {
   // const detail = useSelector(state => state.pets)
-  const {petDetail, usuario} = useSelector((state) => state);
+  const {petDetail, usuario, urlFront} = useSelector((state) => state);
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -94,6 +94,17 @@ export default function PetDetail() {
                 {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>
+            {petDetail.state === "adopt" || petDetail.state === "transit" ? (
+              <>
+                {/* <Link to={`/useradoptpet/${id}`}> */}
+                  <button onClick={() => usuario ? window.location.replace(`${urlFront}/useradoptpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Quiero adoptar</button>
+                {/* <Link to={`/usertransitpet/${id}`}> */}
+                  <button onClick={() => usuario ? window.location.replace(`${urlFront}/usertransitpet/${id}`) : window.location.replace(`${urlFront}/login`)}>Hogar Transito</button>
+              </>
+            ) : (
+              // <Link to={`/useritsmypet/${id}`}>
+                <button onClick={() => usuario ? window.location.replace(`${urlFront}/useritsmypet/${id}`) : window.location.replace(`${urlFront}/login`)}>Es mi perro</button>
+            )}
           </DetailContainer>
         ) : (
           <h1>siga intentando mijo</h1>

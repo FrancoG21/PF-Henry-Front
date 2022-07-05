@@ -67,9 +67,8 @@ export function cleanDetail() {
 export function getGoogle(data) {
   return async (dispatch) => {
     try {
-
-      const res = await axios.get('http://localhost:3001/auth/google/callback', data);
-      localStorage.setItem("userInfo", JSON.stringify(res.data))
+      const { res } = await axios.post(`/auth/google/callback`, info);
+      localStorage.setItem("userInfo", JSON.stringify(res))
       dispatch({ type: LOGIN_GOOGLE, payload: res.data })
     } catch (err) {
       console.log(err)
@@ -81,7 +80,7 @@ export const loginManual = (infoDform) => {
   console.log("login -->", infoDform);
   return async function (dispatch) {
     try {
-      const res = await axios.post('http://localhost:3001/user/login', infoDform);
+      const res = await axios.post(`/user/login`, infoDform);
       localStorage.setItem("userInfo", JSON.stringify(res.data))
       dispatch({ type: LOGIN, payload: res.data });
     } catch (e) {
@@ -97,7 +96,7 @@ export const getLogOut = () => {
 
 export const getRegister = (payload) => {
   return async function(dispatch){
-    const res = await axios.post('http://localhost:3001/user/register', payload);
+    const res = await axios.post(`/user/register`, payload);
     dispatch({type: REGISTER, payload: res.data});
   }
 }
