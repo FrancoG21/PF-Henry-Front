@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Donation.module.css";
 import { BackgroundDonation, ButtonDonation, ButtonSuscription, ContainerButton, SubTitle, Suscription, TitleDonation } from "./styledDonation";
@@ -10,7 +9,6 @@ export default function Donation() {
   const [url, setUrl] = useState("");
   const precios = ["100", "200", "500", "1000", "2500", "5000"]
   const { urlFront } = useSelector(state => state)
-  const Navigate = useNavigate()
 
   function realizarPagoUnico(e) {
     axios.post('/payment', {
@@ -29,7 +27,7 @@ export default function Donation() {
   }
 
   useEffect(()=>{
-    url && Navigate(url)
+    url && window.location.replace(url)
   }, [url])
 
   return (
