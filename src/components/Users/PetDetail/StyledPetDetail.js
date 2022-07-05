@@ -45,7 +45,6 @@ export const ImageDetail = styled.img`
     border-radius: 5px;
     width: 35rem;
     margin-left: 30px;
-    margin-bottom: 20px;
     
     @media (max-width: 600px){
         width: 22rem;
@@ -68,7 +67,7 @@ export const DetailTitle = styled.h1`
 `
 
 export const ContainerContent = styled.div`
-    margin-top: 40px;
+    margin-top: 140px;
     margin-bottom: 0;
 
     @media screen and (max-width: 600px) {
@@ -89,11 +88,36 @@ export const SubTitle = styled.h2`
 `
 
 export const SubTitle2 = styled.h3`
+    margin: 0;
     font-size: 2rem;
     color: ${(props) => props.theme.secondary};
 `
 
 export const SubTitle3 = styled.h4`
+    margin: 0;
     font-size: 1.8rem;
     color: ${(props) => props.theme.secondary};
+`
+
+export const ContainerButton = styled.div`
+    display: flex;
+    margin-left: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+`
+
+export const ButtonForm = styled.button`
+    background-color: ${(props) => props.theme.primary};
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: .3rem;
+    cursor: pointer;
+    margin-left: 20px;
+
+    &:hover {
+        transition: all 0.3s ease-out;
+        background: ${(props) => props.theme.primary};
+    }
 `

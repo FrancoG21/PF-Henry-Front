@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {useSelector} from 'react-redux';
 import { FaSun, FaRegMoon, FaTimes, FaBars } from 'react-icons/fa';
 import { Link, NavLink } from "react-router-dom";
-import { Nav, NavContainer, NavLogo, NavIcon, DarkMode, MobileIcon, NavMenu, NavItem, NavAcces, MinText, NavButton, NavButtonLink, Button } from "./StyledNavBar";
+import { Nav, NavContainer, NavLogo, NavIcon, DarkMode, MobileIcon, NavMenu, NavItem, NavAcces, ContainerLogo, MinText, NavButton, NavButtonLink, Button } from "./StyledNavBar";
 import { IconContext } from 'react-icons/lib';
 import Logout from "../Logout/Logout";
 
@@ -43,11 +43,13 @@ export default function NavBar({theme, setTheme}) {
         <IconContext.Provider value={{color: 'fff'}}>
             <Nav>
                 <NavContainer>
-                    <NavLogo to='/'>
-                        <NavIcon/>
-                        AdoptA
-                    </NavLogo>
-                    <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
+                    <ContainerLogo>
+                        <NavLogo to='/'>
+                            <NavIcon/>
+                            AdoptA
+                        </NavLogo>
+                        <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
+                    </ContainerLogo>
                     <MobileIcon onClick={handleClick}>
                         {click ? <FaTimes/> : <FaBars/>}
                     </MobileIcon>
@@ -56,40 +58,40 @@ export default function NavBar({theme, setTheme}) {
                         userInfo && userInfo ? (
                             <NavMenu onClick={handleClick} click={click}>
                                 <NavItem>
-                                    <NavAcces to='/'>Home</NavAcces>
+                                    <NavAcces to='/'>Hogar</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/adopt'>Pets</NavAcces>
+                                    <NavAcces to='/adopt'>Mascotas</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/donation'>Donation</NavAcces>
+                                    <NavAcces to='/donation'>Donación</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/about'>About Us</NavAcces>
+                                    <NavAcces to='/about'>Sobre Nosotros</NavAcces>
                                 </NavItem>                       
                                 <NavItem>
                                     <Logout />
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/userprofile'>Profile</NavAcces>
+                                    <NavAcces to='/userprofile'>Perfil</NavAcces>
                                 </NavItem>
                             </NavMenu>
                         ) : (
                             <NavMenu>
                                 <NavItem>
-                                    <NavAcces to='/'>Home</NavAcces>
+                                    <NavAcces to='/'>Hogar</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/adopt'>Pets</NavAcces>
+                                    <NavAcces to='/adopt'>Mascotas</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/about'>About Us</NavAcces>
+                                    <NavAcces to='/about'>Sobre Nosotros</NavAcces>
                                 </NavItem>  
                                 <NavItem>
-                                    <NavAcces to='/login'>Login</NavAcces>
+                                    <NavAcces to='/login'>Iniciar Sesión</NavAcces>
                                 </NavItem>
                                 <NavItem>
-                                    <NavAcces to='/register'>Register</NavAcces>
+                                    <NavAcces to='/register'>Registrar</NavAcces>
                                 </NavItem>
                             </NavMenu>
                         )

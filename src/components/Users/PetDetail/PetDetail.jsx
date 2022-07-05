@@ -16,6 +16,8 @@ import {
   ContainerImage,
   BackgroundDetail,
   BackIcon,
+  ButtonForm,
+  ContainerButton,
 } from "./StyledPetDetail";
 
 export default function PetDetail() {
@@ -45,37 +47,50 @@ export default function PetDetail() {
                 width="600"
                 height="400"
               />
+              <ContainerButton>
+                {petDetail.state === "adopt" || petDetail.state === "transit" ? (
+                  <>
+                    {/* <Link to={`/useradoptpet/${id}`}> */}
+                      <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/useradoptpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Quiero adoptar</ButtonForm>
+                    {/* <Link to={`/usertransitpet/${id}`}> */}
+                      <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/usertransitpet/${id}`) : window.location.replace('http://localhost:3000/login')}>Hogar Transito</ButtonForm>
+                  </>
+                ) : (
+                  // <Link to={`/useritsmypet/${id}`}>
+                    <ButtonForm onClick={() => usuario ? window.location.replace(`http://localhost:3000/useritsmypet/${id}`) : window.location.replace('http://localhost:3000/login')}>Es mi perro</ButtonForm>
+                )}
+              </ContainerButton>
             </ContainerImage>
             <ContainerContent>
               <SubTitle2>
-                <Span>Breed: </Span>
+                <Span>Raza: </Span>
                 {petDetail.breed}
               </SubTitle2>
               <SubTitle2>
-                <Span>Weight: </Span>
+                <Span>Peso: </Span>
                 {petDetail.weight ? petDetail.weight : "unknown"}
               </SubTitle2>
               <SubTitle2>
-                <Span>Size: </Span>
+                <Span>Tamaño: </Span>
                 {petDetail.size}
               </SubTitle2>
               <SubTitle3>
-                <Span>Fur: </Span>
+                <Span>Pelaje: </Span>
                 {petDetail.fur}
               </SubTitle3>
               <SubTitle3>
-                <Span>Gender: </Span>
+                <Span>Genero: </Span>
                 {petDetail.gender}
               </SubTitle3>
               <SubTitle3>
-                <Span>Castration: </Span> {petDetail.castration}
+                <Span>Castrado: </Span> {petDetail.castration}
               </SubTitle3>
               <SubTitle3>
-                <Span>Vaccinate: </Span>
+                <Span>Vacunado: </Span>
                 {petDetail.vaccinate}
               </SubTitle3>
               <SubTitle3>
-                <Span>State: </Span>
+                <Span>Stado: </Span>
                 {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>

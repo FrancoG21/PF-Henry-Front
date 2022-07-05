@@ -1,13 +1,22 @@
 import React from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {loginManual} from '../../redux/actions/index';
+import { useDispatch, useSelector } from 'react-redux'
+// import GoogleButton from 'react-google-button'
+import { loginManual } from '../../redux/actions/index';
 // import {loginManual} from '../../../redux/actions/index'
-import {useState} from 'react'
-import{useNavigate} from 'react-router-dom'
-import {Link} from 'react-router-dom'
-import s from './login.module.css'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+// import s from './login.module.css'
 import Swal from "sweetalert2";
-import { useEffect } from 'react'
+import {
+  BackgroundLogin,
+  Errors,
+  Wrapper,
+  Form,
+  Input,
+  Button,
+  Acces,
+} from './StyledLogin';
 
 export function validation(input) {
   let errors = {};
@@ -49,104 +58,93 @@ export default function Login() {
   const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
-      email: '',
-      password: ''
+    email: '',
+    password: ''
   })
 
-    // const handleSubmit = async(e) =>{
-    //     e.preventDefault()
-    //     if (input.email !== "" && input.password !== "") {
-    //       const token = await axios.post(`/user/login`, input);
-    
-    //       const usuario = resLogin.find((user) => user.email === input.email);
-    //       if (token.data.user) {
-    //         dispatch(loginManual(input))
-    //         if (usuario.admin.filter((r) => r.type === "admin").length > 0)
-    //         history('/userprofile')
-    //         else history('/userprofile');
-    //       } else {
-    //         if (!token.data.user) alert("Email/password incorrecto");
-    //       }
-    //     } else {
-    //       alert("Debes rellenar todos los campos antes de loguearte");
-    //     }
-    // }
-    const handleSubmit =(e) =>{
-      e.preventDefault();
-      dispatch(loginManual(input))
-      if(input.email !== '' && input.password !== '') {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Inicio de sesión exitoso!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Completa lo campos!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
-      setInput({
-        email: '',
-        password: ''
+  // const handleSubmit = async(e) =>{
+  //     e.preventDefault()
+  //     if (input.email !== "" && input.password !== "") {
+  //       const token = await axios.post(`/user/login`, input);
+
+  //       const usuario = resLogin.find((user) => user.email === input.email);
+  //       if (token.data.user) {
+  //         dispatch(loginManual(input))
+  //         if (usuario.admin.filter((r) => r.type === "admin").length > 0)
+  //         history('/userprofile')
+  //         else history('/userprofile');
+  //       } else {
+  //         if (!token.data.user) alert("Email/password incorrecto");
+  //       }
+  //     } else {
+  //       alert("Debes rellenar todos los campos antes de loguearte");
+  //     }
+  // }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginManual(input))
+    if (input.email !== '' && input.password !== '') {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Inicio de sesión exitoso!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Completa lo campos!',
+        showConfirmButton: false,
+        timer: 1500
       })
     }
+    setInput({
+      email: '',
+      password: ''
+    })
+  }
 
-    const handleChange = function(e) {
-      setInput({
+  const handleChange = function (e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    setErrors(
+      validation({
         ...input,
         [e.target.name]: e.target.value,
-      });
-      setErrors(
-        validation({
-          ...input,
-          [e.target.name]: e.target.value,
-        })
-      );
-    };
+      })
+    );
+  };
 
-    const google = ()=>{
-      window.location.replace(urlBack + '/auth/google/callback', '_self');
-    }
-    console.log('google', google)
-      
-      return (
-      <form  onSubmit={(e) => handleSubmit(e)}>
-        <div className={s.login}>
-            
-          <h1 className={s.loginTitle}>Choose a Login Method</h1>
-          <div className={s.wrapper}>
-            <div className={s.left}>
-              <div className={s.loginButton} onClick={google}>
-                <img  alt="img" className={s.icon} />
-                  Google
-              </div>
-            </div>
-            <div className={s.center}>
-              <div className={s.line} />
-              
-              <div className={s.or}>OR</div>
-            </div>
-            <div className={s.right}>
-              <input type="text" value={input.email} placeholder="email" name="email" onChange={handleChange}/>
-              {errors.email && <p className={s.error}>{errors.email}</p>}
-           
-              <input  type="password" value={input.password} placeholder="password" name="password" onChange={handleChange}/>
-              {errors.password && <p className={s.error}>{errors.password}</p>}
-              <button type="submit" className={s.submit}>Login</button>
-            </div>
-            <div className={s.regist}>
-                <Link to={'/register'}>
-                  Register
-                </Link>
-            </div>
-          </div>
-        </div>
-         </form>
-      );
-    };
+  const google = () => {
+    window.location.replace(url + '/auth/google/callback', '_self');
+  }
+  console.log('google', google)
+
+  return (
+    <BackgroundLogin>
+      <Wrapper>
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <Input type="text" value={input.email} placeholder="Email" name="email" onChange={handleChange} />
+          {errors.email && <Errors>{errors.email}</Errors>}
+
+          <Input type="password" value={input.password} placeholder="Password" name="password" onChange={handleChange} />
+          {errors.password && <Errors>{errors.password}</Errors>}
+          <Button type="submit">Login</Button>
+          <Button>
+            <Acces to={'/register'}>
+              Register
+            </Acces>
+          </Button>
+          {/* <GoogleButton
+            label='Be Cool'
+            onClick={google}
+          /> */}
+        </Form>
+      </Wrapper>
+    </BackgroundLogin>
+  );
+};

@@ -16,6 +16,8 @@ import {
   Select,
   ButtonSubmit,
   ContainerButton,
+  ImagePet,
+  BackIcon,
 } from "./StyledUserTransitPetForm";
 import moment from "moment";
 
@@ -165,6 +167,9 @@ export default function UserTransitPetForm() {
       >
         {(props) => (
           <FormContainer>
+            <Link to={`/petdetail/${id}`}>
+              <BackIcon />
+            </Link>
             <TitleForm>Formulario Hogar transitorio</TitleForm>
             <Camp>
               <h2>¿Qué es un hogar transitorio?</h2>
@@ -194,7 +199,7 @@ export default function UserTransitPetForm() {
               {console.log(props.values)}
               <ContainerCamp>
                 <Camp>
-                  <img
+                  <ImagePet
                     src={pet?.image}
                     alt={pet.name}
                     width="600"

@@ -2,15 +2,16 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Cards = styled.div`
-    height: 19rem;
+    justify-content: center;
+    height: 20rem;
+    width: 15rem;
     background-color: ${(props) => props.theme.card};
     padding: 1rem;
     border: 2px;
     margin-left: 20px;
     margin-right: 20px;
+    margin-top: 50px;
     text-decoration: none;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 
     &:hover {
         transform: scale(1.03);
@@ -28,8 +29,6 @@ export const NameCard = styled(Link)`
 export const CardImage = styled.img`
     width: 100%;
     height: 17rem;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 `
 
 export const TitleCard = styled.h3`
