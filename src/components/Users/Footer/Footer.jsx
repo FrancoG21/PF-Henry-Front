@@ -25,7 +25,7 @@ export default function Footer () {
                             </DivIcon>
                             <DivIcon>
                                 <Icon/>
-                                <ContactText href='#' target='blank'>Edwin Montoya</ContactText>
+                                <ContactText href='https://www.linkedin.com/in/edwin-arias-555303235/' target='blank'>Edwin Montoya</ContactText>
                             </DivIcon>
                         </FooterLinksItems>
                     </FooterLinksContainer>

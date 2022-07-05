@@ -41,8 +41,8 @@ export default function About() {
     {
       name: "Edwin Montoya",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScyLyhAmnAq11ZfpvNeN9zgY5_dXa6GpfiqDmPc7NFB29ACjMoX-WAu7Rjz-DizBYJo2w&usqp=CAU",
-      linkedIn: "https://www.linkedin.com/in/matias-farina-sola-09040b147/",
+        "https://media-exp2.licdn.com/dms/image/C4E03AQGWzhC-eclkJA/profile-displayphoto-shrink_200_200/0/1649822770739?e=1662595200&v=beta&t=VPR9-BnDP7XneNaxXUR2zGd-pQEYFbpV8uYM5MHw7sY",
+      linkedIn: "https://www.linkedin.com/in/edwin-arias-555303235/",
       github: "https://github.com/EFAM2907",
     },
     {
@@ -77,14 +77,14 @@ export default function About() {
   return (
     <BackgroundAbout>
       <ImagePorta>
-        <TitleAbout>Sobre Nosotros!</TitleAbout>
-        <Text>
-          Somos un equipo de 8 desarrolladores full stack con la idea de hacer un
-          beneficio social, concientisar a las personas a aoptar animales y no venderlos. Sobre todo buscamos ayudar a los animales que se encuentran en malas
-          condiciones de vida, sin comer y sin salud. Proporcionamos un
-          conexión entre la persona que quiere ayudar a un animal a que lo adopten
-          y darle un buen hospedaje y vida
-        </Text>
+          <TitleAbout>Sobre Nosotros!</TitleAbout>
+          <Text>
+            Somos un equipo de 8 desarrolladores full stack con la idea de hacer un
+            beneficio social, concientisar a las personas a aoptar animales y no venderlos. Sobre todo buscamos ayudar a los animales que se encuentran en malas
+            condiciones de vida, sin comer y sin salud. Proporcionamos un
+            conexión entre la persona que quiere ayudar a un animal a que lo adopten
+            y darle un buen hospedaje y vida
+          </Text>
       </ImagePorta>
       {/* <Splide
         options={{

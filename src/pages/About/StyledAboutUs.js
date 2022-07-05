@@ -29,34 +29,43 @@ export const ShadowBackground = styled.div`
 
 export const AboutSlide = styled.div`
     display: grid;
-    grid-template-columns: repeat(4, 1fr)
+    grid-template-columns: repeat(4, 1fr);
+
+    @media screen and (max-width: 600px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `
 
 export const ImageAbout = styled.img`
     width: 5rem;
 `
 export const TitleAbout = styled.h1`
-    color: #fff;
+    color: ${(props) => props.theme.font};
     font-size: 2rem;
     margin: 0;
-    margin-left: 20px;
+    margin-left: 50px;
 
     @media screen and (max-width: 600px) {
         text-align: center;
+        margin: 0;
     }
 `
 
 export const Text = styled.h2`
-    color: #fff;
+    color: ${(props) => props.theme.font};
     font-size: 1rem;
     /* text-align: left; */
+    width: 30rem;
     text-align: left;
     margin-top: 20px;
+    margin-left: 50px;
 
     @media screen and (max-width: 600px) {
         margin-left: 20px;
         margin-right: 20px;
         margin-bottom: 20px;
+        width: 90%;
+        text-align: center;
     }
 `
 
@@ -64,6 +73,10 @@ export const ContainerAbout = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+
+    @media screen and (max-width:600px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `
 
 export const Container = styled.div`
