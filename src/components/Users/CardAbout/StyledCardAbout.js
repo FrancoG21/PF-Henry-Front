@@ -5,11 +5,12 @@ import {BsGithub, BsLinkedin} from 'react-icons/bs';
 export const Card = styled.div`
     max-width: 250px;
     margin: 150px auto 0;
-    background-color: ${(props) => props.theme.primary};
-    box-shadow: 0 10px 90px #00000024;
+    background-color: ${(props) => props.theme.card_alt};
     text-align: center;
     font-size: 20px;
     border-radius: 15px;
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.93); 
+    box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.93);
 `
 
 export const CardHeader = styled.div`
@@ -57,7 +58,7 @@ export const Email = styled(Link)`
 
     &:hover{
         font-size: 16px;
-        color: #ffffff;
+        color: ${(props) => props.theme.secondary};
     }
 `
 
@@ -78,7 +79,7 @@ export const SocialLinks = styled.div`
     }
 `
 
-export const SocialIcons = styled(Link, BsGithub)`
+export const SocialIcons = styled.a`
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -90,6 +91,7 @@ export const SocialIcons = styled(Link, BsGithub)`
     border-radius: 100%;
     text-decoration: none;
     margin: 0 13px 30px 0;
+    cursor: pointer;
 
     &:hover{
     background-color: ${(props) => props.theme.secondary};

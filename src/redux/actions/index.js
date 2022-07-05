@@ -64,12 +64,12 @@ export function cleanDetail() {
   };
 }
 
-export function getGoogle(info) {
+export function getGoogle(data) {
   return async (dispatch) => {
     try {
 
-      const { res } = await axios.post('http://localhost:3001/auth/google/callback', info);
-      localStorage.setItem("userInfo", JSON.stringify(res))
+      const res = await axios.get('http://localhost:3001/auth/google/callback', data);
+      localStorage.setItem("userInfo", JSON.stringify(res.data))
       dispatch({ type: LOGIN_GOOGLE, payload: res.data })
     } catch (err) {
       console.log(err)

@@ -36,11 +36,10 @@ export const ImageAbout = styled.img`
     width: 5rem;
 `
 export const TitleAbout = styled.h1`
-    color: ${(props) => props.theme.secondary};
+    color: #fff;
     font-size: 2rem;
     margin: 0;
     margin-left: 20px;
-    margin-top: 20px;
 
     @media screen and (max-width: 600px) {
         text-align: center;
@@ -48,10 +47,10 @@ export const TitleAbout = styled.h1`
 `
 
 export const Text = styled.h2`
-    color: ${(props) => props.theme.secondary};
+    color: #fff;
     font-size: 1rem;
     /* text-align: left; */
-    text-align: center;
+    text-align: left;
     margin-top: 20px;
 
     @media screen and (max-width: 600px) {

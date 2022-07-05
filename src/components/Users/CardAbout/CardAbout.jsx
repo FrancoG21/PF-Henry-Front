@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardBody, CardHeader, Email, Job, Name, ProfileCard, SocialIcons, SocialLinks } from "./StyledCardAbout";
 import {BsGithub, BsLinkedin} from 'react-icons/bs';
 
-export default function CardAbout({name, image}) {
+export default function CardAbout({name, image, linkedIn, github}) {
 
     return (
         <Card>
@@ -16,8 +16,8 @@ export default function CardAbout({name, image}) {
             </CardBody>
 
             <SocialLinks>
-                <SocialIcons to='#'><BsGithub/></SocialIcons>
-                <SocialIcons to='#'><BsLinkedin/></SocialIcons>
+                <SocialIcons href={`${linkedIn}`} target='blank'><BsGithub/></SocialIcons>
+                <SocialIcons href={`${github}`} target='blank'><BsLinkedin/></SocialIcons>
             </SocialLinks>
         </Card>
     )

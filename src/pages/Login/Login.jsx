@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import GoogleButton from 'react-google-button'
 import { loginManual } from '../../redux/actions/index';
 // import {loginManual} from '../../../redux/actions/index'
 import { useState } from 'react'
@@ -137,6 +138,10 @@ export default function Login() {
               Register
             </Acces>
           </Button>
+          <GoogleButton
+            label='Be Cool'
+            onClick={google}
+          />
         </Form>
       </Wrapper>
     </BackgroundLogin>
