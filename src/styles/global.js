@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
-export default createGlobalStyle `
+export default createGlobalStyle`
     *{
         margin: 0;
         padding: 0;
@@ -10,11 +10,13 @@ export default createGlobalStyle `
     body {
         background-color: ${props => props.theme.background};
         color: ${props => props.theme.font};
+        font-family: 'Poppins', sans-serif;
         scroll-behavior: smooth;
     }
 
     a {
         list-style: none;
+        text-decoration: none;
     }
     ul {
         list-style: none;
