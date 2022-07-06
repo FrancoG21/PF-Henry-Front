@@ -10,6 +10,7 @@ export const BackgroundDetail = styled.div`
 export const IconLink = styled(Link)`
     margin-left: 20px;
     height: 30px;
+    
 `
 
 export const BackIcon = styled(VscArrowLeft)`
