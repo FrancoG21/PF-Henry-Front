@@ -93,7 +93,7 @@ export default function PetDetail() {
                 {petDetail.vaccinate}
               </SubTitle3>
               <SubTitle3>
-                <Span>Stado: </Span>
+                <Span>Estado: </Span>
                 {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>
