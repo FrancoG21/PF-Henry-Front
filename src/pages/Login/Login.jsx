@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 // import s from './login.module.css'
 import Swal from "sweetalert2";
+import axios from 'axios'
 import {
   BackgroundLogin,
   Errors,
@@ -17,6 +18,8 @@ import {
   Button,
   Acces,
 } from './StyledLogin';
+import { GoogleLogin } from 'react-google-login'
+
 
 export function validation(input) {
   let errors = {};
@@ -61,6 +64,20 @@ export default function Login() {
     email: '',
     password: ''
   })
+
+  const responseGoogle = async (response) => {
+    const objGoogle = {
+      ...response.profileObj,
+      tokenId: response.tokenId
+    }
+    
+    const result = await axios.post (
+      "http://localhost:3001/google",
+      objGoogle
+    )
+    console.log(result)
+  }
+
 
   // const handleSubmit = async(e) =>{
   //     e.preventDefault()
@@ -139,10 +156,13 @@ export default function Login() {
               Register
             </Acces>
           </Button>
-          {/* <GoogleButton
-            label='Be Cool'
-            onClick={google}
-          /> */}
+          <GoogleLogin
+            clientId="587687410177-o4okd3jb0lgb7s8if0hi49ppmv5u4m3k.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+                />
         </Form>
       </Wrapper>
     </BackgroundLogin>
