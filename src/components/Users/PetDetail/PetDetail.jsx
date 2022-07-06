@@ -40,13 +40,6 @@ export default function PetDetail() {
         {petDetail ? (
           <DetailContainer>
             <ContainerImage>
-              <DetailTitle>{petDetail.name}</DetailTitle>
-              <ImageDetail
-                src={petDetail.image}
-                alt="pets"
-                width="600"
-                height="400"
-              />
               <ContainerButton>
                 {petDetail.state === "adopt" || petDetail.state === "transit" ? (
                   <>
@@ -60,6 +53,14 @@ export default function PetDetail() {
                     <ButtonForm onClick={() => usuario ? window.location.replace(`${urlFront}/useritsmypet/${id}`) : window.location.replace(`${urlFront}/login`)}>Es mi perro</ButtonForm>
                 )}
               </ContainerButton>
+              
+              <DetailTitle>{petDetail.name}</DetailTitle>
+              <ImageDetail
+                src={petDetail.image}
+                alt="pets"
+                width="600"
+                height="400"
+              />
             </ContainerImage>
             <ContainerContent>
               <SubTitle2>

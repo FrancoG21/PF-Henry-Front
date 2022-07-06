@@ -64,11 +64,12 @@ export function cleanDetail() {
   };
 }
 
-export function getGoogle(data) {
+export function getGoogle(info) {
+  console.log('estoy en',info)
   return async (dispatch) => {
     try {
-      const { res } = await axios.post(`/auth/google/callback`, info);
-      localStorage.setItem("userInfo", JSON.stringify(res))
+      const  res  = await axios.post(`/auth/google/callback`, info);
+      localStorage.setItem("InfoSeccion", JSON.stringify(res.data))
       dispatch({ type: LOGIN_GOOGLE, payload: res.data })
     } catch (err) {
       console.log(err)

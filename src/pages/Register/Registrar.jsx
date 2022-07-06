@@ -35,13 +35,14 @@ export function validation(input) {
   if (!input.password) {
     errors.password = "Contraseña es requerida";
   } else if (
-    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
-      input.password
-    )
+    // !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
+    //   input.password
+    // )
+    //  !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.password)
+     !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i.test(input.password)
   ) {
     errors.password =
-      "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
-  }
+'debe contener almenos 8 caracteres'  }
 
   return errors;
 }
@@ -73,7 +74,7 @@ export default function Registrar() {
   const handleRegister = (e) => {
     e.preventDefault();
     dispatch(getRegister(input))
-    if (input.name !== '' && input.email !== '' && input.password !== '') {
+    if (input.name !== '' && input.email !== '' && input.password !== '' && !errors.name && !errors.email && !errors.password) {
       Swal.fire({
         position: 'center',
         icon: 'success',
