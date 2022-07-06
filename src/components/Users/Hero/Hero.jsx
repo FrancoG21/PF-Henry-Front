@@ -14,16 +14,13 @@ export default function Hero() {
                     <ContainerText>
                         <Info>
                             <TitleHero>
-                                <Title>They are your best company</Title>
+                                <Title>Ellos son tu mejor compañia</Title>
                                 <Subtitle>  
-                                        Many believe they are just dogs. We do not.
-                                        We help those who abandoned and those who never knew a home. And since they dream and cannot ask, we ask:
-                                        What do we ask? that you adopt, they have been waiting for a long time.
-                                        There are many who wait.
-                                    </Subtitle>
+                                    Muchos creen que son solo perros. Nosotros no. Ayudamos a los que abandonaron y los que nunca conocieron un hogar. Y como sueñan y no pueden pedir, nosotros pedimos: ¿Qué pedimos? que adoptes, han estado esperando durante mucho tiempo. Hay muchos que esperan.
+                                </Subtitle>
 
                                     {
-                                        user && user ? <Subtitles>Welcome {user.message.name}!!</Subtitles> :  <ButtonHero to='/login'>Sign Up</ButtonHero>
+                                        user && user ? <Subtitles>Bienvenido {user.message.name}!!</Subtitles> :  <ButtonHero to='/login'>Sign Up</ButtonHero>
                                     }
                             </TitleHero>
                         </Info>

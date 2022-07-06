@@ -7,7 +7,9 @@ export default function PetCard({ id, name, image }) {
     return (
         <Cards>
             <NameCard to={`/petdetail/${id}`}>
-                <CardImage src={image} alt={name} height='200px'/>
+                <div>
+                    <CardImage src={image} alt={name} height='200px'/>
+                </div>
                 <TitleCard>{name[0].toUpperCase()+name.slice(1).toLowerCase()}</TitleCard>
             </NameCard>
         </Cards>

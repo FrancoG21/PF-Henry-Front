@@ -10,7 +10,7 @@ export default function Footer () {
                 <FooterLinks>
                     <FooterLinksContainer>
                         <FooterLinksItems>
-                            <FooterTitle>Contact Us</FooterTitle>
+                            <FooterTitle>Contactanos</FooterTitle>
                             <DivIcon>
                                 <Icon/>
                                 <ContactText href='https://www.linkedin.com/in/ignacio-sol%C3%A1-zambrano-8b1532222/' target='blank'>Ignacio Zambrano</ContactText>
@@ -25,14 +25,14 @@ export default function Footer () {
                             </DivIcon>
                             <DivIcon>
                                 <Icon/>
-                                <ContactText href='#' target='blank'>Edwin Montoya</ContactText>
+                                <ContactText href='https://www.linkedin.com/in/edwin-arias-555303235/' target='blank'>Edwin Montoya</ContactText>
                             </DivIcon>
                         </FooterLinksItems>
                     </FooterLinksContainer>
 
                     <FooterLinksContainer>
                         <FooterLinksItems>
-                        <FooterTitles>Contact Us</FooterTitles>
+                        <FooterTitles>Contactanos</FooterTitles>
                             <DivIcon>
                                 <Icon/>
                                 <ContactText href='https://www.linkedin.com/in/yina-navarro-a8b062b7/' target='blank'>Yina Navarro</ContactText>
@@ -55,42 +55,42 @@ export default function Footer () {
                 <FooterLinks>
                     <FooterLinksContainer>
                         <FooterLinksItems>
-                        <FooterTitle>Quick Links</FooterTitle>
+                        <FooterTitle>Links Rapidos</FooterTitle>
                             <DivIcon>
                                 <IconArrow/>
-                                <FooterText to='/'>Home</FooterText>
+                                <FooterText to='/'>Hogar</FooterText>
                             </DivIcon>
                             <DivIcon>
                                 <IconArrow/>
-                                <FooterText to='/adopt'>To Adopt</FooterText>
+                                <FooterText to='/adopt'>Mascotas</FooterText>
                             </DivIcon>
                             <DivIcon>
                                 <IconArrow/>
-                                <FooterText to='/donation'>Donation</FooterText>
+                                <FooterText to='/donation'>Donación</FooterText>
                             </DivIcon>
                             <DivIcon>
                                 <IconArrow/>
-                                <FooterText to='/about'>About Us</FooterText>
+                                <FooterText to='/about'>Nosotros</FooterText>
                             </DivIcon>
                         </FooterLinksItems>
                     </FooterLinksContainer>
 
                     <FooterLinksContainer>
                         <FooterLinksItems>
-                        <FooterTitles>Quick Links</FooterTitles>
+                        <FooterTitles>Links Rapidos</FooterTitles>
                             <DivIcon>
                                 <IconArrow/>
-                                <FooterText to='/login'>Login</FooterText>
+                                <FooterText to='/login'>Iniciar Sesión</FooterText>
                             </DivIcon>
                             <DivIcon>
                                 <IconArrow/>
-                                <FooterText to='/register'>Register</FooterText>
+                                <FooterText to='/register'>Registrar</FooterText>
                             </DivIcon>
                         </FooterLinksItems>
                     </FooterLinksContainer>
                 </FooterLinks>
             </FooterContainer>
-            <TextCopy>Copyright ©. All rights reserved</TextCopy>
+            <TextCopy>Copyright ©. Todos los derechos reservados</TextCopy>
         </BackgroundFooter>
     )
 }

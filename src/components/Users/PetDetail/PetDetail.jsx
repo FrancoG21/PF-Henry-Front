@@ -65,34 +65,34 @@ export default function PetDetail() {
             </ContainerImage>
             <ContainerContent>
               <SubTitle2>
-                <Span>Breed: </Span>
+                <Span>Raza: </Span>
                 {petDetail.breed}
               </SubTitle2>
               <SubTitle2>
-                <Span>Weight: </Span>
+                <Span>Peso: </Span>
                 {petDetail.weight ? petDetail.weight : "unknown"}
               </SubTitle2>
               <SubTitle2>
-                <Span>Size: </Span>
+                <Span>Tamaño: </Span>
                 {petDetail.size}
               </SubTitle2>
               <SubTitle3>
-                <Span>Fur: </Span>
+                <Span>Pelaje: </Span>
                 {petDetail.fur}
               </SubTitle3>
               <SubTitle3>
-                <Span>Gender: </Span>
+                <Span>Genero: </Span>
                 {petDetail.gender}
               </SubTitle3>
               <SubTitle3>
-                <Span>Castration: </Span> {petDetail.castration}
+                <Span>Castrado: </Span> {petDetail.castration}
               </SubTitle3>
               <SubTitle3>
-                <Span>Vaccinate: </Span>
+                <Span>Vacunado: </Span>
                 {petDetail.vaccinate}
               </SubTitle3>
               <SubTitle3>
-                <Span>State: </Span>
+                <Span>Stado: </Span>
                 {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>

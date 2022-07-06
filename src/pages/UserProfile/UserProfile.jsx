@@ -9,7 +9,7 @@ export default function UserProfile (){
     return(
         <BackgroundProfile>
             <ContainerProfile>
-                <TitleProfile>My Profile</TitleProfile>
+                <TitleProfile>Mi Perfil</TitleProfile>
                 <ContainerContent>
                     {
                         user && user ? 
