@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { getRegister } from '../../redux/actions';
 import Swal from "sweetalert2";
+import axios from 'axios'
 import {
   BackgroundLogin,
   Errors,
@@ -70,26 +70,38 @@ export default function Registrar() {
     );
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    dispatch(getRegister(input))
-    if (input.name !== '' && input.email !== '' && input.password !== '') {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Registro exitoso!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    } else {
-      Swal.fire({
+    if (input.name === '' && input.email === '' && input.password === '')  {
+      return Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'Completa lo campos!',
         showConfirmButton: false,
-        timer: 1500
+        timer: 1000
       })
     }
+
+    const res = await axios.post(`/user/register`, input);
+    
+    console.log(res)
+    if(res.error){
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: res.error,
+        showConfirmButton: false,
+        timer: 1000
+    })
+    }
+
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: res.message,
+      showConfirmButton: true,
+      timer: 1500
+    })
     setInput({
       name: '',
       email: '',

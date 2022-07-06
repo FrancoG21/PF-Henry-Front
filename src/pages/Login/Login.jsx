@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom'
 // import s from './login.module.css'
 import Swal from "sweetalert2";
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
 import {
   BackgroundLogin,
   Errors,
@@ -76,11 +75,11 @@ export default function Login() {
   //   )
   //   console.log(result)
   // }
-  function handleCredentialResponse(response) {
-    console.log("Encoded JWT ID token: " + response.credential);
-    const decoded = jwt_decode(response.credential)
-    console.log(decoded)
-    dispatch(loginManual({name: decoded.name,password: decoded.password, email: decoded.email}))
+  async function handleCredentialResponse(response) {
+    const res = await axios.post(`/user/loginGoogle`, {token: response.credential});
+    console.log(res)
+    localStorage.setItem("userInfo", JSON.stringify(response.credential))
+    dispatch(loginManual(response.credential))
   }
 
   function logOutGoogle(){
@@ -102,18 +101,10 @@ export default function Login() {
       google.accounts.id.disableAutoSelect();
       
     },[user])
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (input.email !== '' && input.password !== '') {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Inicio de sesión exitoso!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    } else {
-      Swal.fire({
+    if (input.email === '' && input.password === '') {
+      return Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'Completa lo campos!',
@@ -121,11 +112,35 @@ export default function Login() {
         timer: 1500
       })
     }
+
+    const res = await axios.post(`/user/login`, input)
+
+    if(res.error){
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: res.error,
+        showConfirmButton: false,
+        timer: 1000
+    })
+    }
+
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Sesion iniciada!',
+      showConfirmButton: true,
+      timer: 1500
+    })
+
+    localStorage.setItem("userInfo", JSON.stringify(res.token))
+
     setInput({
       email: '',
       password: ''
     })
-    dispatch(loginManual(input))
+
+    dispatch(loginManual(token))
   }
 
   const handleChange = function (e) {
