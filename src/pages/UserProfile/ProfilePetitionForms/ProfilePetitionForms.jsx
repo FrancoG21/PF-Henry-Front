@@ -1,52 +1,82 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.css";
-import axios from 'axios'
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-export function PetitionGetLosts({ formDate, petId }) {
-  const [pet, setPet] = useState({})
+function capitalize(str) {
+  //  return str.replace(/^\w/, (c) => c.toUpperCase());
+  return str;
+}
 
-  useEffect(()=>{
-    axios
-      .get(`/pet/${petId}`)
-      .then((r) => setPet(r.data));
-      console.log('petPetitionGetLosts', pet)
-  },[])
+export function PetitionGetLosts({ formDate, petId}) {
+  const [pet, setPet] = useState({});
+
+  useEffect(() => {
+    axios.get(`/pet/${petId}`).then((r) => setPet(r.data));
+    //console.log('petPetitionGetLosts', pet)
+  }, []);
 
   return (
-    <div className="containerForm">         
+    <div className="containerForm">
       <h3>Peticion encontre mi mascota</h3>
       <h5>fecha: {formDate}</h5>
-      <h5>mascota: {pet.name}</h5>
+      <h5>
+        mascota: {capitalize(pet.name)};  {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
+      </h5>
+      <Link to={`/petdetail/${petId}`}>
+        <button>ver mascota</button>
+      </Link>
       <h5>Estado de la peticion: </h5>
     </div>
   );
 }
 
-export function PetitionGets({ formDate, petId }) {
-  const [pet, setPet] = useState({})
+export function PetitionGets({ formDate, petId, state }) {
+  const [pet, setPet] = useState({});
 
-  useEffect(()=>{
-    axios
-      .get(`/pet/${petId}`)
-      .then((r) => setPet(r.data));
-      console.log('PetitionGets', pet)
-  },[])
+  useEffect(() => {
+    axios.get(`/pet/${petId}`).then((r) => setPet(r.data));
+    //console.log('PetitionGets', pet)
+  }, []);
 
   return (
     <div className="containerForm">
-      <h1>Adoptar mascota adopted or transit</h1>
-      <h3>PetitionGets</h3>
+      {state === "adopted" ? (
+        <h3>Peticion para adoptar</h3>
+      ) : (
+        <h3>Peticion para hogar transito</h3>
+      )}
       <h5>fecha: {formDate}</h5>
+      <h5>mascota: {capitalize(pet.name)}; {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}</h5>
+      <Link to={`/petdetail/${petId}`}>
+        <button>ver mascota</button>
+      </Link>
+      <h5>Estado de la peticion: </h5>
     </div>
   );
 }
 
-export function PetitionLoads({ formDate, petId }) {
+export function PetitionLoads({ formDate, petId, state, petName, type }) {
+  const [pet, setPet] = useState({});
+
+  useEffect(() => {
+    axios.get(`/pet/${petId}`).then((r) => setPet(r.data));
+    //console.log('PetitionLoads', pet)
+  }, []);
+
   return (
     <div className="containerForm">
-      <h1>Cargar mascota adopt or lost</h1>
-      <h3>PetitionLoads</h3>
+      {state === "adopt" ? (
+        <h3>Peticion para cargar mascota y dar en adopcion</h3>
+      ) : (
+        <h3>Peticion para cargar mascota encontrada</h3>
+      )}
       <h5>fecha: {formDate}</h5>
+      <h5>mascota: {pet.name ? capitalize(pet.name) : capitalize(petName)}; {type === "dog" ? "perro" : type === "cat" ? "gato" : null}</h5>
+      <Link to={`/petdetail/${petId ? petId : "9999999"}`}>
+        <button>ver mascota</button>
+      </Link>
+      <h5>Estado de la peticion: </h5>
     </div>
   );
 }

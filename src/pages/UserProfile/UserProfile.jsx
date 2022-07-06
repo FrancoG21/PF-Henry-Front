@@ -95,8 +95,15 @@ export default function UserProfile() {
                 <h1>id: {user.message.id}</h1>
                 <h1>password: {user.message.password}</h1>
               </ContainerInfo>
-              <button onClick={handleClick1}>mis mascotas</button>
-              <button onClick={handleClick2}>mis peticiones</button>
+              <button onClick={handleClick1}>
+                Mis mascotas: {pets.length}
+              </button>
+              <button onClick={handleClick2}>
+                Mis peticiones:{" "}
+                {petitionGetLosts.length +
+                  petitionGets.length +
+                  petitionLoads.length}
+              </button>
               <div>
                 {flagPets
                   ? pets.map((p) => (
@@ -117,12 +124,19 @@ export default function UserProfile() {
                           <PetitionLoads
                             formDate={p.formDate}
                             petId={p.petId}
+                            state={p.state}
+                            petName={p.name}
+                            type={p.pet}
                           />
                         ))
                       : null}
                     {petitionGets.length
                       ? petitionGets.map((p) => (
-                          <PetitionGets formDate={p.formDate} petId={p.petId} />
+                          <PetitionGets
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            state={p.state}
+                          />
                         ))
                       : null}
                     {petitionGetLosts.length
