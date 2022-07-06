@@ -52,15 +52,12 @@ export function validation(input) {
 
 export default function Login() {
 
-  const resLogin = useSelector((state) => state.usuario)
+  const user = useSelector((state) => state.usuario)
   const urlBack = useSelector((state) => state.urlBack)
-  console.log("LOGINUSER", resLogin);
   const history = useNavigate()
   const dispatch = useDispatch()
 
   const [errors, setErrors] = useState({});
-
-  const [user, setUser] = useState(null);
 
   const [input, setInput] = useState({
     email: '',
@@ -83,21 +80,12 @@ export default function Login() {
     console.log("Encoded JWT ID token: " + response.credential);
     const decoded = jwt_decode(response.credential)
     console.log(decoded)
-    setUser({name: decoded.name,password: decoded.password})
     dispatch(loginManual({name: decoded.name,password: decoded.password, email: decoded.email}))
   }
 
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
   function logOutGoogle(){
-    console.log(getCookie('g_state'))
     google.accounts.id.disableAutoSelect();
     console.log('logout')
-    setUser(null)
     dispatch(getLogOut())
   }
 
