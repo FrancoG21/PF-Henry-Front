@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 // import s from './login.module.css'
 import Swal from "sweetalert2";
+import axios from 'axios'
 import {
   BackgroundLogin,
   Errors,
@@ -33,14 +34,15 @@ export function validation(input) {
 
   if (!input.password) {
     errors.password = "Contraseña es requerida";
-  } else if (
-    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
-      input.password
-    )
-  ) {
-    errors.password =
-      "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
   }
+  //  else if (
+  //   !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
+  //     input.password
+  //   )
+  // ) {
+  //   errors.password =
+  //     "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
+  // }
 
   return errors;
 }
@@ -50,9 +52,8 @@ export function validation(input) {
 export default function Login() {
 
   const resLogin = useSelector((state) => state.usuario)
-  const urlBack = useSelector((state) => state.urlBack)
   console.log("LOGINUSER", resLogin);
-  const history = useNavigate()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [errors, setErrors] = useState({});
@@ -62,47 +63,58 @@ export default function Login() {
     password: ''
   })
 
-  // const handleSubmit = async(e) =>{
-  //     e.preventDefault()
-  //     if (input.email !== "" && input.password !== "") {
-  //       const token = await axios.post(`/user/login`, input);
-
-  //       const usuario = resLogin.find((user) => user.email === input.email);
-  //       if (token.data.user) {
-  //         dispatch(loginManual(input))
-  //         if (usuario.admin.filter((r) => r.type === "admin").length > 0)
-  //         history('/userprofile')
-  //         else history('/userprofile');
-  //       } else {
-  //         if (!token.data.user) alert("Email/password incorrecto");
-  //       }
-  //     } else {
-  //       alert("Debes rellenar todos los campos antes de loguearte");
-  //     }
-  // }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginManual(input))
-    if (input.email !== '' && input.password !== '') {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Inicio de sesión exitoso!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    } else {
-      Swal.fire({
+    
+    if(errors.email || errors.password) return
+
+    if (input.email === '' || input.password === '') {
+      return Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Completa lo campos!',
+        text: 'Completa todos los campos!',
         showConfirmButton: false,
         timer: 1500
       })
     }
+    
+    const res = await axios.post(`/user/login`, input).then(e=> e.data, r=> {return r.response.data});
+
+    if(res.error === 'password'){
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Contraseña incorrecta!',
+        showConfirmButton: false,
+        timer: 1500
+      }) 
+    } 
+    if(res.error === 'mail'){
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Mail no encontrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+
+    console.log(res)
+    dispatch(loginManual(res))
+    localStorage.setItem("userInfo", JSON.stringify(res))
+
     setInput({
       email: '',
       password: ''
+    })
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Inicio de sesión exitoso!',
+      showConfirmButton: true,
+      timer: 3000
+    }).then(()=>{
+      navigate('/')
     })
   }
 

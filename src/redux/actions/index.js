@@ -76,17 +76,8 @@ export function getGoogle(data) {
   }
 
 }
-export const loginManual = (infoDform) => {
-  console.log("login -->", infoDform);
-  return async function (dispatch) {
-    try {
-      const res = await axios.post(`/user/login`, infoDform);
-      localStorage.setItem("userInfo", JSON.stringify(res.data))
-      dispatch({ type: LOGIN, payload: res.data });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+export const loginManual = (res) => {
+  return { type: LOGIN, payload: res };
 };
 
 export const getLogOut = () => {
