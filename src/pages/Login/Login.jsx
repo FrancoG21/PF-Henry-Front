@@ -66,8 +66,9 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(input)
     
-    if(errors.email || errors.password) return
+    /* if(errors.email || errors.password) return */
 
     if (input.email === '' || input.password === '') {
       return Swal.fire({
@@ -157,13 +158,13 @@ function alert(result) {
           {errors.email && <Errors>{errors.email}</Errors>}
           
 
-          <GoogleLogin
+          {/* <GoogleLogin
     clientId="6229358800-jmcgp4kol677o5qvhs02hnkaclvk1174.apps.googleusercontent.com"
     buttonText="Login"
     onSuccess={responseGoogle}
     onFailure={alert}
     cookiePolicy={'single_host_origin'}
-  />
+  /> */}
 
 
 

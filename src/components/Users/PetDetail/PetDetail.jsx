@@ -50,10 +50,10 @@ export default function PetDetail() {
                     {/* <Link to={`/usertransitpet/${id}`}> */}
                       <ButtonForm onClick={() => usuario ? navigate(`/usertransitpet/${id}`) : navigate(`/login`)}>Hogar Transito</ButtonForm>
                   </>
-                ) : (
+                ) : petDetail.state === "lost" ? (
                   // <Link to={`/useritsmypet/${id}`}>
                     <ButtonForm onClick={() => usuario ? navigate(`/useritsmypet/${id}`) : navigate(`/login`)}>Es mi perro</ButtonForm>
-                )}
+                ) : null}
               </ContainerButton>
               
               <DetailTitle>{petDetail.name}</DetailTitle>
@@ -93,13 +93,13 @@ export default function PetDetail() {
                 {petDetail.vaccinate}
               </SubTitle3>
               <SubTitle3>
-                <Span>Stado: </Span>
+                <Span>Estado: </Span>
                 {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>
           </DetailContainer>
         ) : (
-          <h1>siga intentando mijo</h1>
+          <h1>Esta mascota no existe o aún no fue cargada</h1>
         )}
       </div>
     </BackgroundDetail>

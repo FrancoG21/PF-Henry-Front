@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const BackgroundProfile = styled.div`
     background: ${(props) => props.theme.background};
-    height: 80vh;
+    height: 100%;
 `
 
 export const TitleProfile = styled.h1`
@@ -31,6 +31,7 @@ export const ContainerInfo = styled.div`
     background-color: ${(props) => props.theme.card};
     padding: 3rem;
     border-radius: 3px;
+    max-width: 376px;     
 `
 
 export const Name = styled.h2`
