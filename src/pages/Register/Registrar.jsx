@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { getRegister } from '../../redux/actions';
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom'
+
 import {
   BackgroundLogin,
   Errors,
@@ -35,20 +37,19 @@ export function validation(input) {
   if (!input.password) {
     errors.password = "Contraseña es requerida";
   } else if (
-    // !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
-    //   input.password
-    // )
-    //  !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.password)
+    
      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i.test(input.password)
   ) {
     errors.password =
-'debe contener almenos 8 caracteres'  }
+'debe contener almenos 8 caracteres,incluyendo algun numero'  }
 
   return errors;
 }
 
 export default function Registrar() {
   const dispatch = useDispatch()
+  const history = useNavigate()
+
 
   const [errors, setErrors] = useState({});
 
@@ -80,7 +81,9 @@ export default function Registrar() {
         icon: 'success',
         title: 'Registro exitoso!',
         showConfirmButton: false,
-        timer: 1500
+        timer: 3000
+      }).then(()=>{
+  history('/login')
       })
     } else {
       Swal.fire({

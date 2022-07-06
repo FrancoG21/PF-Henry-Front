@@ -43,7 +43,7 @@ export const ImageDetail = styled.img`
     padding: 0.7rem;
     border-radius: 26px;
     max-width: 35rem;
-    margin-left: 100px;
+    margin-left: 99px;
     -webkit-box-shadow: 5px 5px 15px 5px #000000; 
     box-shadow: 5px 5px 15px 5px #000000;
     background-color: deepskyblue;
