@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import GoogleButton from 'react-google-button'
-import { loginManual } from '../../redux/actions/index';
+import { getLogOut, loginManual } from '../../redux/actions/index';
 // import {loginManual} from '../../../redux/actions/index'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 // import s from './login.module.css'
 import Swal from "sweetalert2";
 import axios from 'axios'
+import jwt_decode from 'jwt-decode'
 import {
   BackgroundLogin,
   Errors,
@@ -18,7 +19,6 @@ import {
   Button,
   Acces,
 } from './StyledLogin';
-import { GoogleLogin } from 'react-google-login'
 
 
 export function validation(input) {
@@ -60,46 +60,62 @@ export default function Login() {
 
   const [errors, setErrors] = useState({});
 
+  const [user, setUser] = useState(null);
+
   const [input, setInput] = useState({
     email: '',
     password: ''
   })
 
-  const responseGoogle = async (response) => {
-    const objGoogle = {
-      ...response.profileObj,
-      tokenId: response.tokenId
-    }
+  // const responseGoogle = async (response) => {
+  //   const objGoogle = {
+  //     ...response.profileObj,
+  //     tokenId: response.tokenId
+  //   }
     
-    const result = await axios.post (
-      "http://localhost:3001/google",
-      objGoogle
-    )
-    console.log(result)
+  //   const result = await axios.post (
+  //     "http://localhost:3001/google",
+  //     objGoogle
+  //   )
+  //   console.log(result)
+  // }
+  function handleCredentialResponse(response) {
+    console.log("Encoded JWT ID token: " + response.credential);
+    const decoded = jwt_decode(response.credential)
+    console.log(decoded)
+    setUser({name: decoded.name,password: decoded.password})
+    dispatch(loginManual({name: decoded.name,password: decoded.password, email: decoded.email}))
   }
 
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
 
-  // const handleSubmit = async(e) =>{
-  //     e.preventDefault()
-  //     if (input.email !== "" && input.password !== "") {
-  //       const token = await axios.post(`/user/login`, input);
+  function logOutGoogle(){
+    console.log(getCookie('g_state'))
+    google.accounts.id.disableAutoSelect();
+    console.log('logout')
+    setUser(null)
+    dispatch(getLogOut())
+  }
 
-  //       const usuario = resLogin.find((user) => user.email === input.email);
-  //       if (token.data.user) {
-  //         dispatch(loginManual(input))
-  //         if (usuario.admin.filter((r) => r.type === "admin").length > 0)
-  //         history('/userprofile')
-  //         else history('/userprofile');
-  //       } else {
-  //         if (!token.data.user) alert("Email/password incorrecto");
-  //       }
-  //     } else {
-  //       alert("Debes rellenar todos los campos antes de loguearte");
-  //     }
-  // }
+  useEffect(()=>{
+    /*google google*/
+      google.accounts.id.initialize({
+        client_id: "1028519940337-g0k86eebnu3s23dhvn2d1q32l1rg46sr.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "large" }  // customization attributes
+      );
+      google.accounts.id.disableAutoSelect();
+      
+    },[user])
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginManual(input))
     if (input.email !== '' && input.password !== '') {
       Swal.fire({
         position: 'center',
@@ -121,6 +137,7 @@ export default function Login() {
       email: '',
       password: ''
     })
+    dispatch(loginManual(input))
   }
 
   const handleChange = function (e) {
@@ -136,10 +153,10 @@ export default function Login() {
     );
   };
 
-  const google = () => {
-    window.location.replace(url + '/auth/google/callback', '_self');
-  }
-  console.log('google', google)
+  // const google = () => {
+  //   window.location.replace(url + '/auth/google/callback', '_self');
+  // }
+  // console.log('google', google)
 
   return (
     <BackgroundLogin>
@@ -156,14 +173,15 @@ export default function Login() {
               Register
             </Acces>
           </Button>
-          <GoogleLogin
-            clientId="587687410177-o4okd3jb0lgb7s8if0hi49ppmv5u4m3k.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-                />
         </Form>
+        { !user 
+            ? <div id='buttonDiv'>holu</div>
+            : <>
+              <button className="g_id_signout" onClick={logOutGoogle}> log out google </button>
+              <p>{user.name}</p>
+            </>
+        }
+          
       </Wrapper>
     </BackgroundLogin>
   );
