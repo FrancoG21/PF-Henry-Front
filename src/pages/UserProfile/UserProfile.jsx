@@ -27,17 +27,25 @@ export default function UserProfile() {
   const [petitionGetLosts, setPetitionGetLosts] = useState([]);
   const [petitionGets, setPetitionGets] = useState([]);
   const [petitionLoads, setPetitionLoads] = useState([]);
-  
-  const user = useSelector((state) => state.usuario);
 
   const [flagPets, setFlagPets] = useState(false);
   const [flagPetitions, setFlagPetitions] = useState(false);
   const [flagDonations, setFlagDonations] = useState(false);
+  const [user, setUser] = useState(null)
+
+  useEffect(()=>{
+      axios.get('/user/' + JSON.parse(localStorage.getItem("userInfo"))).then(r=>{
+          setUser(r.data)
+          console.log(r.data)
+      }, error => {
+          console.log(error)
+      })
+  },[])
 
   const callbackIn = async () => {
     try {
      // console.log("try");
-      const res = await axios.get(`/petitionGet/${user.message.id}`);
+      const res = await axios.get(`/petitionGet/${user.id}`);
       const resData = res.data;
       console.log(resData);
       if(resData !== 'no se encontraron peticiones.'){
@@ -111,15 +119,15 @@ export default function UserProfile() {
           {user && user ? (
             <div>
               <ContainerInfo>
-                {/* <Image src={user.message.picture} alt='avatar profile'/> */}
+                {/* <Image src={user.picture} alt='avatar profile'/> */}
                 <ImageProfile
                   src="https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg"
                   alt="avatar"
                 />
-                <Name>{user.message.name}</Name>
-                <Email>{user.message.email}</Email>
-                {/* <h1>id: {user.message.id}</h1>
-                <h1>password: {user.message.password}</h1> */}
+                <Name>{user.name}</Name>
+                <Email>{user.email}</Email>
+                {/* <h1>id: {user.id}</h1>
+                <h1>password: {user.password}</h1> */}
                 {user.message === 'password or mail incorrect' && <Name>Password or mail incorrect</Name>}
               </ContainerInfo>
               <div>
