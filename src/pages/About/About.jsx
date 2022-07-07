@@ -86,61 +86,6 @@ export default function About() {
             y darle un buen hospedaje y vida
           </Text>
       </ImagePorta>
-      {/* <Splide
-        options={{
-          rewind: false,
-          perPage: 8,
-          perMove: 8,
-          gap: 10,
-          padding: "1rem",
-          pagination: false,
-          breakpoints: {
-            623: {
-              perPage: 2,
-              perMove: 2,
-            },
-            935: {
-              perPage: 32,
-              perMove: 2,
-            },
-            1247: {
-              perPage: 2,
-              perMove: 2,
-            },
-          },
-        }}
-        onMounted={() => {
-          console.log("mounted");
-        }}
-        onUpdated={() => {
-          console.log("updated");
-        }}
-        onMoved={() => {
-          console.log("moved");
-        }}
-        onVisible={(splide, slide) => {
-          console.log("visible", slide.index);
-        }}
-      > */}
-
-      <AboutSlide>
-        {data.map((item) => {
-          return (
-            <div key={item}>
-              <CardAbout image={item.image} name={item.name} github={item.github} linkedIn={item.linkedIn}/>
-              {/* <ImageAbout
-                className="image-carrusel"
-                src={item.image}
-                alt={"img not found"}
-              />
-              <h2>
-                {item.name[0].toUpperCase() + item.name.slice(1).toLowerCase()}
-              </h2> */}
-            </div>
-          );
-        })}
-      </AboutSlide>
-      {/* </Splide> */}
 
       <ContainerAbout>
         <Container>
@@ -162,6 +107,16 @@ export default function About() {
           </TextAbout>
         </Container>
       </ContainerAbout>
+      <AboutSlide>
+        {data.map((item) => {
+          return (
+            <div key={item}>
+              <CardAbout image={item.image} name={item.name} github={item.github} linkedIn={item.linkedIn}/>
+            </div>
+          );
+        })}
+      </AboutSlide>
+
     </BackgroundAbout>
   );
 }

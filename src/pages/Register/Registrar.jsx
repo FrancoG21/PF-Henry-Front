@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import {
   BackgroundLogin,
   Errors,
@@ -36,13 +37,11 @@ export function validation(input) {
   if (!input.password) {
     errors.password = "Contraseña es requerida";
   } else if (
-    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
-      input.password
-    )
+    
+     !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i.test(input.password)
   ) {
     errors.password =
-      "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
-  }
+'debe contener almenos 8 caracteres,incluyendo algun numero'  }
 
   return errors;
 }

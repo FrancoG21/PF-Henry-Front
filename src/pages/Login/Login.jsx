@@ -6,6 +6,7 @@ import { getLogOut, loginManual } from '../../redux/actions/index';
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+// import  GoogleLogin  from 'react-google-login'
 // import s from './login.module.css'
 import Swal from "sweetalert2";
 import axios from 'axios'
@@ -35,14 +36,15 @@ export function validation(input) {
 
   if (!input.password) {
     errors.password = "Contraseña es requerida";
-  } else if (
-    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
-      input.password
-    )
-  ) {
-    errors.password =
-      "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
   }
+  //  else if (
+  //   !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
+  //     input.password
+  //   )
+  // ) {
+  //   errors.password =
+  //     "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
+  // }
 
   return errors;
 }
@@ -53,6 +55,8 @@ export default function Login() {
 
   const user = useSelector((state) => state.usuario)
   const urlBack = useSelector((state) => state.urlBack)
+  const resLogin = useSelector((state) => state.usuario)
+  console.log("LOGINUSER", resLogin);
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -62,11 +66,6 @@ export default function Login() {
     email: '',
     password: ''
   })
-
-  const div = {
-    textAlign: "center",
-    justifyContent: "center"
-  }
 
   async function handleCredentialResponse(response) {
     const res = await axios.post(`/user/loginGoogle`, {token: response.credential});
@@ -104,7 +103,7 @@ export default function Login() {
       return Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Completa lo campos!',
+        text: 'Completa todos los campos!',
         showConfirmButton: false,
         timer: 1500
       })
@@ -154,13 +153,41 @@ export default function Login() {
       })
     );
   };
+// const url = 'http://localhost:3001'
+//   const google = () => {
+//     window.location.replace(url + '/auth/google/callback', '_self');
+//   }
+//   console.log('google', google)
+  
+//   const logout = () => {
+//     window.location.replace(url + '/auth/google/callback', '_self');
+//   }
+  
+// function responseGoogle(response) {
+//   console.log('responseGoogle', response)
+// }
+// function alert(result) {
+//  console.log(result)
+// }
 
   return (
     <BackgroundLogin>
-      <Wrapper>
+      <Wrapper>  
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Input type="text" value={input.email} placeholder="Email" name="email" onChange={handleChange} />
           {errors.email && <Errors>{errors.email}</Errors>}
+          
+
+          {/* <GoogleLogin
+    clientId="6229358800-jmcgp4kol677o5qvhs02hnkaclvk1174.apps.googleusercontent.com"
+    buttonText="Login"
+    onSuccess={responseGoogle}
+    onFailure={alert}
+    cookiePolicy={'single_host_origin'}
+   /> */}
+
+
+
 
           <Input type="password" value={input.password} placeholder="Password" name="password" onChange={handleChange} />
           {errors.password && <Errors>{errors.password}</Errors>}
