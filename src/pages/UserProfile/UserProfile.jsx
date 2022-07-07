@@ -13,11 +13,13 @@ import {
   TitleProfile,
   ButtonLink,
 } from "./StyledUserProfile";
+import Swal from "sweetalert2";
 import {
   PetitionGets,
   PetitionGetLosts,
   PetitionLoads,
 } from "./ProfilePetitionForms/ProfilePetitionForms";
+
 
 export default function UserProfile() {
   //const [data, setData] = useState({})
@@ -25,6 +27,7 @@ export default function UserProfile() {
   const [petitionGetLosts, setPetitionGetLosts] = useState([]);
   const [petitionGets, setPetitionGets] = useState([]);
   const [petitionLoads, setPetitionLoads] = useState([]);
+  
   const user = useSelector((state) => state.usuario);
 
   const [flagPets, setFlagPets] = useState(false);
@@ -33,7 +36,7 @@ export default function UserProfile() {
 
   const callbackIn = async () => {
     try {
-      console.log("try");
+     // console.log("try");
       const res = await axios.get(`/petitionGet/${user.message.id}`);
       const resData = res.data;
       console.log(resData);
@@ -56,10 +59,21 @@ export default function UserProfile() {
     setPetitionLoads([]);
     setFlagPets(false);
     setFlagPetitions(false);
+    setFlagDonations(false)
   };
 
   useEffect(() => {
     callbackIn();
+    
+
+     /*  Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: 'Sesion iniciada!',
+  showConfirmButton: true,
+  //timer: 3000
+}) 
+.then(()=>{window.location.replace('https://www.instagram.com')}) */
 
     return () => {
       callbackOut();
@@ -106,6 +120,7 @@ export default function UserProfile() {
                 <Email>{user.message.email}</Email>
                 {/* <h1>id: {user.message.id}</h1>
                 <h1>password: {user.message.password}</h1> */}
+                {user.message === 'password or mail incorrect' && <Name>Password or mail incorrect</Name>}
               </ContainerInfo>
               <div>
                 <ButtonLink onClick={handleClick1}>
@@ -152,6 +167,7 @@ export default function UserProfile() {
                               state={p.state}
                               petName={p.name}
                               type={p.pet}
+                              formState={p.formState}
                             />
                           ))
                         : null}
@@ -161,6 +177,7 @@ export default function UserProfile() {
                             formDate={p.formDate}
                             petId={p.petId}
                             state={p.state}
+                            formState={p.formState}
                           />
                         ))}
                       {petitionGetLosts.length &&
@@ -168,6 +185,7 @@ export default function UserProfile() {
                           <PetitionGetLosts
                             formDate={p.formDate}
                             petId={p.petId}
+                            formState={p.formState}
                           />
                         ))}
                     </div>
