@@ -25,7 +25,7 @@ export default function UserProfile() {
   const [petitionGets, setPetitionGets] = useState([]);
   const [petitionLoads, setPetitionLoads] = useState([]);
   const user = useSelector((state) => state.usuario);
-  3;
+  
 
   const [flagPets, setFlagPets] = useState(false);
   const [flagPetitions, setFlagPetitions] = useState(false);
@@ -61,7 +61,7 @@ export default function UserProfile() {
     return () => {
       callbackOut();
     };
-  }, []);
+  }, [user]);
 
   const handleClick1 = () => {
     setFlagPets(true);
