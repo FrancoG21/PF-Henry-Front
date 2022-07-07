@@ -10,6 +10,7 @@ export const BackgroundDetail = styled.div`
 export const IconLink = styled(Link)`
     margin-left: 20px;
     height: 30px;
+    
 `
 
 export const BackIcon = styled(VscArrowLeft)`
@@ -22,15 +23,13 @@ export const BackIcon = styled(VscArrowLeft)`
 
 export const DetailContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 120rem;
-    margin: 0 auto;
-
-    @media (max-width: 600px) {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        column-gap: 2rem;
-    }
+    display: flex;
+    /* grid-template-columns: repeat(2,1fr); */
+    max-width: 118rem;
+    margin: -34px auto;
+    justify-content: space-around;
+    margin-left: -39px;
+    height: 679px;
 `
 
 export const ContainerImage = styled.div`
@@ -41,14 +40,18 @@ export const ContainerImage = styled.div`
 
 export const ImageDetail = styled.img`
     grid-row: 1 / 2;
-    padding: .7rem;
-    border-radius: 5px;
-    width: 35rem;
-    margin-left: 30px;
-    
-    @media (max-width: 600px){
-        width: 22rem;
-        margin: 0;
+    grid-row: 1 / 2;
+    padding: 0.7rem;
+    border-radius: 26px;
+    max-width: 35rem;
+    margin-left: 99px;
+    -webkit-box-shadow: 5px 5px 15px 5px #000000; 
+    box-shadow: 5px 5px 15px 5px #000000;
+    background-color: deepskyblue;
+    margin-left: -13px;
+    &:hover {
+        transition: all 0.3s ease-out;
+        background: ${(props) => props.theme.primary};
     }
 `
 
@@ -67,8 +70,10 @@ export const DetailTitle = styled.h1`
 `
 
 export const ContainerContent = styled.div`
-    margin-top: 140px;
-    margin-bottom: 0;
+margin-top: 140px;
+margin-bottom: 0;
+margin-right: 300px;
+margin-top: 179px;
 
     @media screen and (max-width: 600px) {
         margin: 0;
@@ -101,9 +106,8 @@ export const SubTitle3 = styled.h4`
 
 export const ContainerButton = styled.div`
     display: flex;
-    margin-left: 20px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+
+   
 `
 
 export const ButtonForm = styled.button`

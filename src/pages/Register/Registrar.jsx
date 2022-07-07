@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { getRegister } from '../../redux/actions';
 import Swal from "sweetalert2";
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import {
   BackgroundLogin,
   Errors,
@@ -35,19 +36,18 @@ export function validation(input) {
   if (!input.password) {
     errors.password = "Contraseña es requerida";
   } else if (
-    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
-      input.password
-    )
+    
+     !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i.test(input.password)
   ) {
     errors.password =
-      "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
-  }
+'debe contener almenos 8 caracteres,incluyendo algun numero'  }
 
   return errors;
 }
 
 export default function Registrar() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [errors, setErrors] = useState({});
 
@@ -55,6 +55,7 @@ export default function Registrar() {
     name: '',
     email: '',
     password: '',
+    lastname: ''
   })
   // hokla
   const handleChange = function (e) {
@@ -70,40 +71,57 @@ export default function Registrar() {
     );
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    dispatch(getRegister(input))
-    if (input.name !== '' && input.email !== '' && input.password !== '') {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Registro exitoso!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    } else {
-      Swal.fire({
+    if (input.name === '' && input.email === '' && input.password === '')  {
+      return Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'Completa lo campos!',
         showConfirmButton: false,
-        timer: 1500
+        timer: 1000
       })
     }
+
+    const res = await axios.post(`/user/register`, input);
+    
+    console.log(res.data)
+    if(res.data.error){
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: res.data.error,
+        showConfirmButton: false,
+        timer: 1000
+    })
+    }
+
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: res.data.message,
+      showConfirmButton: true,
+      timer: 1500
+    }).then(()=>{
+      navigate("/login")
+    })
     setInput({
       name: '',
       email: '',
-      password: ''
+      password: '',
+      lastname: ''
     })
   }
 
-  console.log("input register", input)
   return (
     <BackgroundLogin>
       <Wrapper>
         <Form onSubmit={(e) => handleRegister(e)}>
           <Input type="text" value={input.name} placeholder="Name" name="name" onChange={handleChange} />
           {errors.name && <Errors>{errors.name}</Errors>}
+
+          <Input type="text" value={input.lastname} placeholder="lastName" name="lastname" onChange={handleChange} />
+          {errors.lastname && <Errors>{errors.lastname}</Errors>}
 
           <Input type="text" value={input.email} placeholder="Email" name="email" onChange={handleChange} />
           {errors.email && <Errors>{errors.email}</Errors>}
