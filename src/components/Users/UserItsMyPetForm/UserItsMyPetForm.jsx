@@ -4,8 +4,8 @@ import { getById, petitionGetLost } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 //import Supliers from "./Supliers";
-
 
 import {
   ContainerCamp,
@@ -29,7 +29,9 @@ export default function UserItsMyPetForm() {
   const pet = useSelector((state) => state.petDetail);
   const { id } = useParams();
 
-  const [json, setJson] = useState({images:[]})
+  const [json, setJson] = useState({ images: [] });
+
+  const [user, setUser] = useState(null);
 
   const dispatch = useDispatch();
   // Pagina de ejemplo --> https://www.vidanimal.org.ar/como-ayudar/ofrece-hogar-de-transito/
@@ -51,8 +53,24 @@ export default function UserItsMyPetForm() {
   ];
   const options3 = ["Balcón", "Patio", "Terraza", "Parque", "Otro"];
 
+  const decodeToken = async () => {
+    try {
+      const res = await axios.get(
+        "/user/" + JSON.parse(localStorage.getItem("userInfo"))
+      );
+      const resData = res.data;
+      setUser(resData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-     dispatch(getById(id))
+    dispatch(getById(id));
+  }, []);
+
+  useEffect(() => {
+    decodeToken();
   }, []);
 
   function capitalize(str) {
@@ -62,16 +80,16 @@ export default function UserItsMyPetForm() {
   return (
     <>
       <Formik
-        initialValues={{        
-          tel: "",       
+        initialValues={{
+          tel: "",
           image: "",
           getReason: "",
           lostZone: "",
           originalName: "",
           userMovility: "",
           petId: id,
-          userId:1, //--> despues ver lo de login              
-          formDate: moment().format('DD/MM/YYYY')          
+          userId: user && user.id,
+          formDate: moment().format("DD/MM/YYYY"),
         }}
         validate={(values) => {
           let errors = {};
@@ -102,6 +120,11 @@ export default function UserItsMyPetForm() {
             }
           }
 
+          if (user) {
+            values.userId = user.id;
+            delete errors.userId;
+          }
+
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
@@ -117,7 +140,13 @@ export default function UserItsMyPetForm() {
               values.actualPlaceProvince ||
               values.actualPlacePostalCode
             ) {
-              values.actualPlace = [`${values.actualPlaceDirection}`,`${values.actualPlaceHood}`,`${values.actualPlaceCity}`,`${values.actualPlaceProvince}`,`${values.actualPlacePostalCode}`];
+              values.actualPlace = [
+                `${values.actualPlaceDirection}`,
+                `${values.actualPlaceHood}`,
+                `${values.actualPlaceCity}`,
+                `${values.actualPlaceProvince}`,
+                `${values.actualPlacePostalCode}`,
+              ];
 
               for (let prop in values) {
                 if (
@@ -160,28 +189,29 @@ export default function UserItsMyPetForm() {
             <TitleForm>Formulario esta es mi mascota</TitleForm>
             {/* <Camp>
               <h3>Llena los siguientes campos</h3>
-            </Camp> */}           
+            </Camp> */}
 
             <Forms>
-               {console.log(props.errors)}
+              {console.log(props.errors)}
               <ContainerCamp>
-                 <Camp>
+                <Camp>
                   <ImagePet
                     src={pet?.image}
                     alt={pet?.name}
                     width="600"
-                    height="400"                    
+                    height="400"
                   />
                   <Label>
-                    Macota elegida:{" "}
-                    {pet.name}
+                    Macota elegida: {pet.name}
                     {/* {pet?.name[0].toUpperCase() +
                       pet?.name.slice(1).toLowerCase()} */}
                   </Label>
-                </Camp> 
+                </Camp>
                 <Camp>
-                  <Label>Nombre Usuario</Label>
-                  <Label>Apellido Usuario</Label>
+                <Label>
+                    Nombre y apellido del adoptante:{" "}
+                    {user && user.name + " " + user.lastname}
+                  </Label>
                 </Camp>
                 {/* <div>{JSON.stringify(props.errors)}</div> */}
                 <Camp>
@@ -207,13 +237,12 @@ export default function UserItsMyPetForm() {
                   />
                   <ErrorMessage
                     name="lostZone"
-                    component={() => (
-                      <div>{props.errors.lostZone}</div>
-                    )}
+                    component={() => <div>{props.errors.lostZone}</div>}
                   />
                 </Camp>
                 <Camp>
-                  <Label>A que nombre responde la mascota ?</Label> {/* Cual era el nombre original de la mascota */}
+                  <Label>A que nombre responde la mascota ?</Label>{" "}
+                  {/* Cual era el nombre original de la mascota */}
                   <Input
                     type="text"
                     id="originalName"
@@ -226,14 +255,17 @@ export default function UserItsMyPetForm() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Cargue aqui fotos de la mascota, si esta acompañada de usted mejor</Label>
+                  <Label>
+                    Cargue aqui fotos de la mascota, si esta acompañada de usted
+                    mejor
+                  </Label>
                   <ImageUploader json={json} setJson={setJson} />
                   <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
                   />
                 </Camp>
-              
+
                 <Camp>
                   <Label>Teléfono</Label>
                   <Input
@@ -264,8 +296,8 @@ export default function UserItsMyPetForm() {
                     component={() => <div>{props.errors.userMovility}</div>}
                   />
                 </Camp>
-        
-              {/*   <Camp>
+
+                {/*   <Camp>
                   <Label>
                     <p>¿Dónde vivira la mascota en transito?</p>
                   </Label>
@@ -284,7 +316,7 @@ export default function UserItsMyPetForm() {
                     name="openSpace"
                     component={() => <div>{props.errors.openSpace}</div>}
                   />
-                </Camp> */}            
+                </Camp> */}
               </ContainerCamp>
               <ContainerButton>
                 <ButtonSubmit type="submit">submit</ButtonSubmit>
@@ -298,7 +330,6 @@ export default function UserItsMyPetForm() {
   );
 }
 
-
 const newLabel = (name) => {
   if (name === "tel") return "Telefono es requerido";
   if (name === "image") return "Al menos una imagen es requerida";
@@ -307,4 +338,3 @@ const newLabel = (name) => {
   if (name === "originalName") return "Debe completar este campo";
   if (name === "userMovility") return "Debe completar este campo";
 };
-

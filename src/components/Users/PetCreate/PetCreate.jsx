@@ -85,13 +85,29 @@ export default function PetCreate() {
   const [petType, setPetType] = useState("dog");
   const [urlImage, setUrlImage] = useState([]);
 
-  const user = useSelector((state) => state.usuario);
+  const [user, setUser] = useState(null)
 
   const [json, setJson] = useState({ images: [] });
+
+  const decodeToken = async () => {
+    try {
+      const res = await axios.get(
+        "/user/" + JSON.parse(localStorage.getItem("userInfo"))
+      );
+      const resData = res.data;
+      setUser(resData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     axios.get(`/breed?pet=${petType}`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
   }, [petType]);
+
+  useEffect(()=>{
+    decodeToken()
+  },[])
 
   let isUrl =
     /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
@@ -139,7 +155,7 @@ export default function PetCreate() {
           actualPlaceCity: "",
           actualPlaceProvince: "Cordoba",
           actualPlacePostalCode: "",
-          userId: 1/* user.message.id */,
+          userId: user && user.id
         }}
         validate={(values) => {
           let errors = {};
@@ -205,6 +221,11 @@ export default function PetCreate() {
                 errors.name = "Nombre solo acepta minuscula";
             }
           }          
+
+          if(user){
+            values.userId = user.id
+            delete errors.userId
+          }
 
           console.log(errors);
           console.log("abajo values");

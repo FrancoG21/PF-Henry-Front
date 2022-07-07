@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Field, ErrorMessage } from "formik";
-import { getById } from "../../../redux/actions/index";
+import { getById, petitionGet } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Supliers from "./Supliers";
+import axios from 'axios'
 import {
   ContainerCamp,
   FormContainer,
@@ -26,6 +27,8 @@ export default function UserTransitPetForm() {
   const pet = useSelector((state) => state.petDetail);
   const { id } = useParams();
 
+  const [user, setUser] = useState(null);
+
   const dispatch = useDispatch();
   // Pagina de ejemplo --> https://www.vidanimal.org.ar/como-ayudar/ofrece-hogar-de-transito/
 
@@ -46,8 +49,24 @@ export default function UserTransitPetForm() {
   ];
   const options3 = ["Balcón", "Patio", "Terraza", "Parque"];
 
+  const decodeToken = async () => {
+    try {
+      const res = await axios.get(
+        "/user/" + JSON.parse(localStorage.getItem("userInfo"))
+      );
+      const resData = res.data;
+      setUser(resData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     dispatch(getById(id));
+  }, []);
+
+  useEffect(() => {
+    decodeToken();
   }, []);
 
   function capitalize(str) {
@@ -60,16 +79,16 @@ export default function UserTransitPetForm() {
         initialValues={{
           userAge: "",
           tel: "",
-          otherPets: "", // 'true' ,'false'
-          otherPetsInfo: "", 
-          otherPetsCastration: "", 
-          otherPetsVacunation: "", 
-          adoptedPetPlace: "", 
+          otherPets: "",
+          otherPetsInfo: "",
+          otherPetsCastration: "",
+          otherPetsVacunation: "",
+          adoptedPetPlace: "",
           openSpace: "",
           rental: "",
           adoptedPetSleepingSpace: "",
           transitPetPeriod: "",
-          actualPlace: "", // ---> array
+          actualPlace: "", //
           userAgreement: "",
           formDate: moment().format("DD/MM/YYYY"),
           getPetReason: "",
@@ -79,13 +98,14 @@ export default function UserTransitPetForm() {
           actualPlaceProvince: "",
           actualPlacePostalCode: "",
           userMovility: "",
-          adoptedPetAloneMoments: "", //agregar
-          adoptedPetWalkingInfo: "", //  agregar
-          adaptationTime: "", // agregar
-          familySize: "", //agregar
-          familyRelation: "", //agregar
+          adoptedPetAloneMoments: "",
+          adoptedPetWalkingInfo: "",
+          adaptationTime: "",
+          familySize: "",
+          familyRelation: "",
           petId: id,
-          userId: "userId", //--> despues ver lo de login
+          userId: user && user.id,
+          state:'transit'
           // userMovingIdea no hay
         }}
         validate={(values) => {
@@ -108,6 +128,11 @@ export default function UserTransitPetForm() {
                 delete errors[prop];
               }
             }
+          }
+
+          if (user) {
+            values.userId = user.id;
+            delete errors.userId;
           }
 
           return errors;
@@ -160,7 +185,7 @@ export default function UserTransitPetForm() {
 
           setFlag(true);
           console.log("formulario enviado");
-          console.log(values);
+          dispatch(petitionGet(values))
           resetForm();
           setTimeout(() => setFlag(false), 3000);
         }}
@@ -206,15 +231,17 @@ export default function UserTransitPetForm() {
                     height="400"
                   />
                   <Label>
-                    Macota elegida:{" "}
-                    {pet.name}
+                    Macota elegida: {pet.name}
                     {/* {pet?.name[0].toUpperCase() +
                       pet?.name.slice(1).toLowerCase()} */}
                   </Label>
                 </Camp>
                 <Camp>
-                  <Label>Nombre Usuario</Label>
-                  <Label>Apellido Usuario</Label>
+                  <Label>
+                    {" "}
+                    Nombre y apellido del adoptante:{" "}
+                    {user && user.name + " " + user.lastname}
+                  </Label>
                 </Camp>
                 {/* <div>{JSON.stringify(props.errors)}</div> */}
                 <Camp>
@@ -619,5 +646,3 @@ const newLabel = (name) => {
   if (name === "transitPetPeriod") return "Debe completar este campo";
   if (name === "userAgreement") return "Debe completar este campo";
 };
-
-
