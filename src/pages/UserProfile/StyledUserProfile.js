@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const BackgroundProfile = styled.div`
     background: ${(props) => props.theme.background};
-    height: 80vh;
+    height: 100%;
 `
 
 export const TitleProfile = styled.h1`
@@ -31,6 +31,7 @@ export const ContainerInfo = styled.div`
     background-color: ${(props) => props.theme.card};
     padding: 3rem;
     border-radius: 3px;
+    max-width: 376px;     
 `
 
 export const Name = styled.h2`
@@ -46,4 +47,16 @@ export const Email = styled.h3`
 export const ImageProfile = styled.img`
     width: 8rem;
     border-radius: 30px;
+`
+
+export const ButtonLink = styled.button`
+border-radius: 4px;
+background: ${(props) => props.theme.secondary};
+padding: 5px;
+font-size: 1rem;
+color: #fff;
+outline: none;
+border: none;
+cursor: pointer;
+margin:15px
 `

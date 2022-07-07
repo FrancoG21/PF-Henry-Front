@@ -85,7 +85,7 @@ export default function UserAdoptPetForm() {
           adoptedPetWalkingInfo: "",
           userMovingIdea: "",
           adaptationTime: "",          
-          userMovility: "",         
+          userMovility: ""                   
         }}
         validate={(values) => {
           let errors = {};
