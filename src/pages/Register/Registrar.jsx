@@ -12,7 +12,6 @@ import {
   Input,
   Button,
 } from './StyledRegister';
-import { useNavigate } from 'react-router-dom';
 
 
 export function validation(input) {

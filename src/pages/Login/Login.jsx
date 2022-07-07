@@ -198,7 +198,7 @@ export default function Login() {
             </Acces>
           </Button>
           <br/>
-        { !user && <div id='buttonDiv' style={div}>holu</div> }
+        { !user && <div id='buttonDiv'>holu</div> }
         </Form>
       </Wrapper>
     </BackgroundLogin>
