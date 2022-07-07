@@ -48,3 +48,15 @@ export const ImageProfile = styled.img`
     width: 8rem;
     border-radius: 30px;
 `
+
+export const ButtonLink = styled.button`
+border-radius: 4px;
+background: ${(props) => props.theme.secondary};
+padding: 5px;
+font-size: 1rem;
+color: #fff;
+outline: none;
+border: none;
+cursor: pointer;
+margin:15px
+`

@@ -11,6 +11,7 @@ import {
   ImageProfile,
   Name,
   TitleProfile,
+  ButtonLink,
 } from "./StyledUserProfile";
 import {
   PetitionGets,
@@ -35,11 +36,13 @@ export default function UserProfile() {
       console.log("try");
       const res = await axios.get(`/petitionGet/${user.message.id}`);
       const resData = res.data;
-      console.log(res);
-      setPets(resData.Pets);
-      setPetitionGetLosts(resData.PetitionGetLosts);
-      setPetitionGets(resData.PetitionGets);
-      setPetitionLoads(resData.PetitionLoads);
+      console.log(resData);
+      if(resData !== 'no se encontraron peticiones.'){
+      resData.Pets && setPets(resData.Pets);
+      resData.PetitionGetLosts && setPetitionGetLosts(resData.PetitionGetLosts);
+      resData.PetitionGets && setPetitionGets(resData.PetitionGets);
+      resData.PetitionLoads && setPetitionLoads(resData.PetitionLoads);
+      }
     } catch (e) {
       console.log("catch");
       console.log(e);
@@ -101,19 +104,23 @@ export default function UserProfile() {
                 />
                 <Name>{user.message.name}</Name>
                 <Email>{user.message.email}</Email>
-                <h1>id: {user.message.id}</h1>
-                <h1>password: {user.message.password}</h1>
+                {/* <h1>id: {user.message.id}</h1>
+                <h1>password: {user.message.password}</h1> */}
               </ContainerInfo>
-              <button onClick={handleClick1}>
-                Mis mascotas: {pets.length}
-              </button>
-              <button onClick={handleClick2}>
-                Mis peticiones:{" "}
-                {petitionGetLosts.length +
-                  petitionGets.length +
-                  petitionLoads.length}
-              </button>
-              <button onClick={handleClick3}>Mis donaciones: {0}</button>
+              <div>
+                <ButtonLink onClick={handleClick1}>
+                  Mis mascotas: {pets && pets.length }
+                </ButtonLink>
+                <ButtonLink onClick={handleClick2}>
+                  Mis peticiones:{" "}
+                  {petitionGetLosts && petitionGets && petitionLoads && petitionGetLosts.length +
+                    petitionGets.length +
+                    petitionLoads.length}
+                </ButtonLink>
+                <ButtonLink onClick={handleClick3}>
+                  Mis donaciones: {0}
+                </ButtonLink>
+              </div>
               <div>
                 {flagPets ? (
                   pets.length ? (
