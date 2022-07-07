@@ -6,7 +6,7 @@ import { loginManual } from '../../redux/actions/index';
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import  GoogleLogin  from 'react-google-login'
+// import  GoogleLogin  from 'react-google-login'
 // import s from './login.module.css'
 import Swal from "sweetalert2";
 import axios from 'axios'
@@ -141,12 +141,12 @@ export default function Login() {
 //     window.location.replace(url + '/auth/google/callback', '_self');
 //   }
   
-function responseGoogle(response) {
-  console.log('responseGoogle', response)
-}
-function alert(result) {
- console.log(result)
-}
+// function responseGoogle(response) {
+//   console.log('responseGoogle', response)
+// }
+// function alert(result) {
+//  console.log(result)
+// }
 
 
   return (
@@ -157,13 +157,13 @@ function alert(result) {
           {errors.email && <Errors>{errors.email}</Errors>}
           
 
-          <GoogleLogin
+          {/* <GoogleLogin
     clientId="6229358800-jmcgp4kol677o5qvhs02hnkaclvk1174.apps.googleusercontent.com"
     buttonText="Login"
     onSuccess={responseGoogle}
     onFailure={alert}
     cookiePolicy={'single_host_origin'}
-  />
+   /> */}
 
 
 
