@@ -18,13 +18,14 @@ import UserItsMyPetForm from "./components/Users/UserItsMyPetForm/UserItsMyPetFo
 import LostPets from "./pages/LostPets/LostPets";
 import Success from "./pages/Donation/results/Success";
 import Failure from "./pages/Donation/results/Failure";
+import AdminDashboard from "./components/admin/AdminDashboard";
 
 //  MODO OSCURO //
 import { ThemeProvider } from "styled-components";
 import { themes } from "./styles/themes";
 import { useDarkMode } from "./DarkLightMode/DarkMode";
-import {useSelector, useDispatch} from 'react-redux';
-import {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { upLogin } from './redux/actions/index';
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ThemeProvider theme={themes[themeMode]}>
-          <NavBar theme={theme} setTheme={setTheme} userInfo={userInfo}/>
+          <NavBar theme={theme} setTheme={setTheme} userInfo={userInfo} />
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/adopt" element={<Pets />}></Route>
@@ -64,8 +65,9 @@ function App() {
             {/* <Route path="/useradoptpet" element={<UserAdoptPetForm />}></Route>
             <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route> */}
             <Route path="/userprofile" element={<UserProfile />}></Route>
-            <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>     
-            <Route path="/lostpets" element={<LostPets />}></Route>            
+            <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>
+            <Route path="/lostpets" element={<LostPets />}></Route>
+            <Route path="/admin" element={<AdminDashboard />}></Route>
           </Routes>
           <Footer />
         </ThemeProvider>

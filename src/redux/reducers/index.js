@@ -7,6 +7,8 @@ import {
   // GET_LOST_PETS,
   LOGIN,
   LOGOUT,
+  GET_PETITION_LOAD,
+  GET_PETITION_LOST,
 } from "../actions/nameAction";
 
 const initialState = {
@@ -16,7 +18,9 @@ const initialState = {
   petDetail: [],
   lostpets: [],
   usuario: null,
-  urlFront:  import.meta.env.VITE_APP_FRONT || "http://localhost:3000",
+  petitionLoad: [],
+  petitionLost: [],
+  urlFront: import.meta.env.VITE_APP_FRONT || "http://localhost:3000",
   urlBack: import.meta.env.VITE_APP_API || "http://localhost:3001"
 };
 
@@ -48,23 +52,37 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case CLEAN_DETAILS: {
-        return {
-            ...state,
-            petDetail: action.payload,
-        }
+      return {
+        ...state,
+        petDetail: action.payload,
+      }
     }
 
-    case LOGIN:{
-      return{
+    case LOGIN: {
+      return {
         ...state,
         usuario: action.payload
       }
-     }
+    }
 
-    case LOGOUT:{
+    case LOGOUT: {
       return {
         ...state,
         usuario: action.payload,
+      }
+    }
+    case GET_PETITION_LOAD: {
+      console.log(action.payload, "que llega al reducer")
+      return {
+        ...state,
+        petitionLoad: action.payload,
+      }
+    }
+    case GET_PETITION_LOST: {
+      console.log(action.payload, "Lo llega al reducer")
+      return {
+        ...state,
+        petitionLost: action.payload,
       }
     }
 

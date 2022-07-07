@@ -82,16 +82,17 @@ export const loginManual = (res) => {
 
 export const getLogOut = () => {
   localStorage.removeItem("userInfo");
-  return {type: LOGOUT, payload: null};
-} 
+  return { type: LOGOUT, payload: null };
+}
 
 export const getRegister = (payload) => {
-  return async function(dispatch){
+  return async function (dispatch) {
     const res = await axios.post(`/user/register`, payload);
-    dispatch({type: REGISTER, payload: res.data});
+    dispatch({ type: REGISTER, payload: res.data });
   }
 }
 
 export const upLogin = (user) => {
-  return {type: LOGIN, payload: user};
+  return { type: LOGIN, payload: user };
 }
+
