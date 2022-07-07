@@ -66,8 +66,9 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(input)
     
-    if(errors.email || errors.password) return
+    /* if(errors.email || errors.password) return */
 
     if (input.email === '' || input.password === '') {
       return Swal.fire({
@@ -164,6 +165,7 @@ export default function Login() {
     onFailure={alert}
     cookiePolicy={'single_host_origin'}
    /> */}
+
 
 
 
