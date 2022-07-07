@@ -8,7 +8,6 @@ import {
   LOGIN_GOOGLE,
   LOGIN,
   LOGOUT,
-  REGISTER,
 } from "./nameAction";
 
 export function getPets(page, filter) {
@@ -77,21 +76,14 @@ export function getGoogle(info) {
   }
 
 }
-export const loginManual = (res) => {
-  return { type: LOGIN, payload: res };
+export const loginManual = (payload) => {
+  return { type: LOGIN, payload }
 };
 
 export const getLogOut = () => {
   localStorage.removeItem("userInfo");
   return {type: LOGOUT, payload: null};
 } 
-
-export const getRegister = (payload) => {
-  return async function(dispatch){
-    const res = await axios.post(`/user/register`, payload);
-    dispatch({type: REGISTER, payload: res.data});
-  }
-}
 
 export const upLogin = (user) => {
   return {type: LOGIN, payload: user};

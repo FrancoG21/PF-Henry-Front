@@ -30,14 +30,13 @@ import { upLogin } from './redux/actions/index';
 function App() {
   const dispatch = useDispatch();
 
-  const userInfo = useSelector((state) => state.usuario)
-  console.log("user logged", userInfo)
+  // const userInfo = useSelector((state) => state.usuario)
 
   useEffect(() => {
     window.localStorage.getItem('userInfo') && dispatch(upLogin(JSON.parse(localStorage.getItem("userInfo"))))
   }, [])
 
-  console.log(JSON.parse(localStorage.getItem("userInfo")))
+  // console.log(JSON.parse(localStorage.getItem("userInfo")))
 
   const [theme, setTheme] = useDarkMode();
   const themeMode = theme === "light" ? "light" : "dark";
@@ -46,7 +45,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ThemeProvider theme={themes[themeMode]}>
-          <NavBar theme={theme} setTheme={setTheme} userInfo={userInfo}/>
+           <NavBar theme={theme} setTheme={setTheme} />{/*userInfo={userInfo} */}
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/adopt" element={<Pets />}></Route>
