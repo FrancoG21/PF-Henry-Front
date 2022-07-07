@@ -8,7 +8,7 @@ function capitalize(str) {
  // return str;
 }
 
-export function PetitionGetLosts({ formDate, petId }) {
+export function PetitionGetLosts({ formDate, petId, formState }) {
   const [pet, setPet] = useState({});
 
   useEffect(() => {
@@ -27,12 +27,12 @@ export function PetitionGetLosts({ formDate, petId }) {
       <Link to={`/petdetail/${petId}`}>
         <button>ver mascota</button>
       </Link>
-      <h5>Estado de la peticion: </h5>
+      <h5>Estado de la peticion: {formState}</h5>
     </div>
   );
 }
 
-export function PetitionGets({ formDate, petId, state }) {
+export function PetitionGets({ formDate, petId, state,formState }) {
   const [pet, setPet] = useState({});
 
   useEffect(() => {
@@ -57,18 +57,12 @@ export function PetitionGets({ formDate, petId, state }) {
       <Link to={`/petdetail/${petId}`}>
         <button>ver mascota</button>
       </Link>
-      <h5>Estado de la peticion: </h5>
+      <h5>Estado de la peticion: {formState}</h5>
     </div>
   );
 }
 
-export function PetitionLoads({ formDate, petId, state, petName, type }) {
-  const [pet, setPet] = useState({});
-
-  useEffect(() => {
-    axios.get(`/pet/${petId}`).then((r) => setPet(r.data));
-    //console.log('PetitionLoads', pet)
-  }, []);
+export function PetitionLoads({ formDate, state, petName, type, formState }) {
 
   return (
     <div className="containerForm">
@@ -76,18 +70,16 @@ export function PetitionLoads({ formDate, petId, state, petName, type }) {
         <h3>Petición para cargar mascota y dar en adopcion</h3>
       ) : state === "lost" ? (
         <h3>Petición para cargar mascota encontrada</h3>
-      ) : (
-        <h3>Algo anda mal con el state</h3>
-      )}
+      ) : null}
       <h5>fecha: {formDate}</h5>
       <h5>
-        mascota: {pet.name ? pet.name && capitalize(pet.name) : petName && capitalize(petName)};{" "}
+        mascota: {petName && capitalize(petName)};{" "}
         {type === "dog" ? "perro" : type === "cat" ? "gato" : null}
       </h5>
-      <Link to={`/petdetail/${petId ? petId : "9999999"}`}>
+      {/* <Link to={`/petdetail/${petId ? petId : "9999999"}`}>
         <button>ver mascota</button>
-      </Link>
-      <h5>Estado de la peticion: </h5>
+      </Link> */}
+      <h5>Estado de la peticion: {formState}</h5>
     </div>
   );
 }
