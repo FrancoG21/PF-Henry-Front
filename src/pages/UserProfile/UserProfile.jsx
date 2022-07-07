@@ -25,10 +25,10 @@ export default function UserProfile() {
   const [petitionGets, setPetitionGets] = useState([]);
   const [petitionLoads, setPetitionLoads] = useState([]);
   const user = useSelector((state) => state.usuario);
-  
 
   const [flagPets, setFlagPets] = useState(false);
   const [flagPetitions, setFlagPetitions] = useState(false);
+  const [flagDonations, setFlagDonations] = useState(false);
 
   const callbackIn = async () => {
     try {
@@ -66,11 +66,19 @@ export default function UserProfile() {
   const handleClick1 = () => {
     setFlagPets(true);
     setFlagPetitions(false);
+    setFlagDonations(false);
   };
 
   const handleClick2 = () => {
-    setFlagPets(false);
     setFlagPetitions(true);
+    setFlagPets(false);
+    setFlagDonations(false);
+  };
+
+  const handleClick3 = () => {
+    setFlagDonations(true);
+    setFlagPets(false);
+    setFlagPetitions(false);
   };
 
   return (
@@ -82,6 +90,7 @@ export default function UserProfile() {
           {console.log("petitionGetLosts", petitionGetLosts)}
           {console.log("petitionGets", petitionGets)}
           {console.log("petitionLoads", petitionLoads)}
+          {console.log(flagPets, flagPetitions, flagDonations)}
           {user && user ? (
             <div>
               <ContainerInfo>
@@ -104,9 +113,11 @@ export default function UserProfile() {
                   petitionGets.length +
                   petitionLoads.length}
               </button>
+              <button onClick={handleClick3}>Mis donaciones: {0}</button>
               <div>
-                {flagPets
-                  ? pets.map((p) => (
+                {flagPets ? (
+                  pets.length ? (
+                    pets.map((p) => (
                       <ProfilePetCard
                         name={p.name}
                         pet={p.pet}
@@ -116,39 +127,48 @@ export default function UserProfile() {
                         actualPlace={p.actualPlace}
                       />
                     ))
-                  : null}
+                  ) : (
+                    <h1>No posees ninguna mascotas todavia</h1>
+                  )
+                ) : null}
                 {flagPetitions ? (
-                  <div>
-                    {petitionLoads.length
-                      ? petitionLoads.map((p) => (
-                          <PetitionLoads
-                            formDate={p.formDate}
-                            petId={p.petId}
-                            state={p.state}
-                            petName={p.name}
-                            type={p.pet}
-                          />
-                        ))
-                      : null}
-                    {petitionGets.length
-                      ? petitionGets.map((p) => (
+                  petitionGetLosts.length +
+                    petitionGets.length +
+                    petitionLoads.length >
+                  0 ? (
+                    <div>
+                      {petitionLoads.length
+                        ? petitionLoads.map((p) => (
+                            <PetitionLoads
+                              formDate={p.formDate}
+                              petId={p.petId}
+                              state={p.state}
+                              petName={p.name}
+                              type={p.pet}
+                            />
+                          ))
+                        : null}
+                      {petitionGets.length &&
+                        petitionGets.map((p) => (
                           <PetitionGets
                             formDate={p.formDate}
                             petId={p.petId}
                             state={p.state}
                           />
-                        ))
-                      : null}
-                    {petitionGetLosts.length
-                      ? petitionGetLosts.map((p) => (
+                        ))}
+                      {petitionGetLosts.length &&
+                        petitionGetLosts.map((p) => (
                           <PetitionGetLosts
                             formDate={p.formDate}
                             petId={p.petId}
                           />
-                        ))
-                      : null}
-                  </div>
+                        ))}
+                    </div>
+                  ) : (
+                    <h1>No posees peticiones todavia</h1>
+                  )
                 ) : null}
+                {flagDonations && <h1>Mis donaciones</h1>}
               </div>
             </div>
           ) : (
