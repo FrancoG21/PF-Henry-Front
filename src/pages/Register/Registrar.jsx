@@ -11,6 +11,7 @@ import {
   Input,
   Button,
 } from './StyledRegister';
+import { useNavigate } from 'react-router-dom';
 
 
 export function validation(input) {
@@ -48,6 +49,7 @@ export function validation(input) {
 
 export default function Registrar() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [errors, setErrors] = useState({});
 
@@ -55,6 +57,7 @@ export default function Registrar() {
     name: '',
     email: '',
     password: '',
+    lastname: ''
   })
   // hokla
   const handleChange = function (e) {
@@ -84,12 +87,12 @@ export default function Registrar() {
 
     const res = await axios.post(`/user/register`, input);
     
-    console.log(res)
-    if(res.error){
+    console.log(res.data)
+    if(res.data.error){
       return Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: res.error,
+        text: res.data.error,
         showConfirmButton: false,
         timer: 1000
     })
@@ -101,21 +104,26 @@ export default function Registrar() {
       title: res.data.message,
       showConfirmButton: true,
       timer: 1500
+    }).then(()=>{
+      navigate("/login")
     })
     setInput({
       name: '',
       email: '',
-      password: ''
+      password: '',
+      lastname: ''
     })
   }
 
-  console.log("input register", input)
   return (
     <BackgroundLogin>
       <Wrapper>
         <Form onSubmit={(e) => handleRegister(e)}>
           <Input type="text" value={input.name} placeholder="Name" name="name" onChange={handleChange} />
           {errors.name && <Errors>{errors.name}</Errors>}
+
+          <Input type="text" value={input.lastname} placeholder="lastName" name="lastname" onChange={handleChange} />
+          {errors.lastname && <Errors>{errors.lastname}</Errors>}
 
           <Input type="text" value={input.email} placeholder="Email" name="email" onChange={handleChange} />
           {errors.email && <Errors>{errors.email}</Errors>}

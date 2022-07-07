@@ -53,7 +53,7 @@ export default function Login() {
 
   const user = useSelector((state) => state.usuario)
   const urlBack = useSelector((state) => state.urlBack)
-  const history = useNavigate()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [errors, setErrors] = useState({});
@@ -63,28 +63,25 @@ export default function Login() {
     password: ''
   })
 
-  // const responseGoogle = async (response) => {
-  //   const objGoogle = {
-  //     ...response.profileObj,
-  //     tokenId: response.tokenId
-  //   }
-    
-  //   const result = await axios.post (
-  //     "http://localhost:3001/google",
-  //     objGoogle
-  //   )
-  //   console.log(result)
-  // }
+  const div = {
+    textAlign: "center",
+    justifyContent: "center"
+  }
+
   async function handleCredentialResponse(response) {
     const res = await axios.post(`/user/loginGoogle`, {token: response.credential});
     localStorage.setItem("userInfo", JSON.stringify(response.credential))
     dispatch(loginManual(response.credential))
-  }
-
-  function logOutGoogle(){
-    google.accounts.id.disableAutoSelect();
-    console.log('logout')
-    dispatch(getLogOut())
+    
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Sesion iniciada!',
+      showConfirmButton: true,
+      timer: 1500
+    }).then(()=>{
+      navigate("/")
+    })
   }
 
   useEffect(()=>{
@@ -95,7 +92,7 @@ export default function Login() {
       });
       google.accounts.id.renderButton(
         document.getElementById("buttonDiv"),
-        { theme: "outline", size: "large" }  // customization attributes
+        { theme: "outline", size: "medium" }  // customization attributes
       );
       google.accounts.id.disableAutoSelect();
       
@@ -131,6 +128,8 @@ export default function Login() {
       title: 'Sesion iniciada!',
       showConfirmButton: true,
       timer: 1500
+    }).then(()=>{
+      navigate("/")
     })
 
     localStorage.setItem("userInfo", JSON.stringify(res.data.token))
@@ -156,11 +155,6 @@ export default function Login() {
     );
   };
 
-  // const google = () => {
-  //   window.location.replace(url + '/auth/google/callback', '_self');
-  // }
-  // console.log('google', google)
-
   return (
     <BackgroundLogin>
       <Wrapper>
@@ -176,15 +170,9 @@ export default function Login() {
               Register
             </Acces>
           </Button>
+          <br/>
+        { !user && <div id='buttonDiv' style={div}>holu</div> }
         </Form>
-        { !user 
-            ? <div id='buttonDiv'>holu</div>
-            : <>
-              <button className="g_id_signout" onClick={logOutGoogle}> log out google </button>
-              <p>{user.name}</p>
-            </>
-        }
-          
       </Wrapper>
     </BackgroundLogin>
   );

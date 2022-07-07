@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { BackgroundProfile, ContainerContent, ContainerInfo, ContainerProfile, Email, ImageProfile, Name, TitleProfile } from "./StyledUserProfile";
+import axios from "axios"
 
 export default function UserProfile (){
+    const [user, setUser] = useState(null)
 
-    const token = useSelector((state) => state.usuario)
+    useEffect(()=>{
+        axios.get('/user/' + JSON.parse(localStorage.getItem("userInfo"))).then(r=>{
+            setUser(r.data)
+            console.log(r.data)
+        }, error => {
+            console.log(error)
+        })
+    },[])
 
     return(
         <BackgroundProfile>
@@ -12,9 +21,13 @@ export default function UserProfile (){
                 <TitleProfile>Mi Perfil</TitleProfile>
                 <ContainerContent>
                     {
-                        token
-                            ? token
-                            : <p>desconectado</p>
+                        user 
+                        ? <>
+                        <p>{user.id}</p>
+                        <p>{user.email}</p>
+                        <p>{user.name} ; {user.rol}</p>
+                        <img src={user.picture} alt='picture'></img>
+                        </> : null
                     }
                 </ContainerContent>
             </ContainerProfile>
