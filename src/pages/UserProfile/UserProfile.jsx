@@ -124,8 +124,9 @@ export default function UserProfile() {
                   src="https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg"
                   alt="avatar"
                 />
-                <Name>{user.name}</Name>
+                <Name>{user.name + " " + user.lastname}</Name>
                 <Email>{user.email}</Email>
+                <p>Rol: {user.rol === 'user' ? 'usuaio' : user.rol === 'admin' ? 'administrador' : null}</p>
                 {/* <h1>id: {user.id}</h1>
                 <h1>password: {user.password}</h1> */}
                 {user.message === 'password or mail incorrect' && <Name>Password or mail incorrect</Name>}
