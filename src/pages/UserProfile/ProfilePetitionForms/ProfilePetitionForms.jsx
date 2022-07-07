@@ -4,11 +4,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function capitalize(str) {
-  //  return str.replace(/^\w/, (c) => c.toUpperCase());
-  return str;
+    return str.replace(/^\w/, (c) => c.toUpperCase());
+ // return str;
 }
 
-export function PetitionGetLosts({ formDate, petId}) {
+export function PetitionGetLosts({ formDate, petId }) {
   const [pet, setPet] = useState({});
 
   useEffect(() => {
@@ -18,10 +18,11 @@ export function PetitionGetLosts({ formDate, petId}) {
 
   return (
     <div className="containerForm">
-      <h3>Peticion encontre mi mascota</h3>
+      <h3>Petición encontre mi mascota</h3>
       <h5>fecha: {formDate}</h5>
       <h5>
-        mascota: {capitalize(pet.name)};  {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
+        mascota: {pet.name && capitalize(pet.name)};{" "}
+        {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
       </h5>
       <Link to={`/petdetail/${petId}`}>
         <button>ver mascota</button>
@@ -42,12 +43,17 @@ export function PetitionGets({ formDate, petId, state }) {
   return (
     <div className="containerForm">
       {state === "adopted" ? (
-        <h3>Peticion para adoptar</h3>
+        <h3>Petición para adoptar</h3>
+      ) : state === "transit" ? (
+        <h3>Petición para hogar transito</h3>
       ) : (
-        <h3>Peticion para hogar transito</h3>
+        <h3>Algo anda mal con el state</h3>
       )}
       <h5>fecha: {formDate}</h5>
-      <h5>mascota: {capitalize(pet.name)}; {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}</h5>
+      <h5>
+        mascota: {pet.name && capitalize(pet.name)};{" "}
+        {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
+      </h5>
       <Link to={`/petdetail/${petId}`}>
         <button>ver mascota</button>
       </Link>
@@ -67,12 +73,17 @@ export function PetitionLoads({ formDate, petId, state, petName, type }) {
   return (
     <div className="containerForm">
       {state === "adopt" ? (
-        <h3>Peticion para cargar mascota y dar en adopcion</h3>
+        <h3>Petición para cargar mascota y dar en adopcion</h3>
+      ) : state === "lost" ? (
+        <h3>Petición para cargar mascota encontrada</h3>
       ) : (
-        <h3>Peticion para cargar mascota encontrada</h3>
+        <h3>Algo anda mal con el state</h3>
       )}
       <h5>fecha: {formDate}</h5>
-      <h5>mascota: {pet.name ? capitalize(pet.name) : capitalize(petName)}; {type === "dog" ? "perro" : type === "cat" ? "gato" : null}</h5>
+      <h5>
+        mascota: {pet.name ? pet.name && capitalize(pet.name) : petName && capitalize(petName)};{" "}
+        {type === "dog" ? "perro" : type === "cat" ? "gato" : null}
+      </h5>
       <Link to={`/petdetail/${petId ? petId : "9999999"}`}>
         <button>ver mascota</button>
       </Link>
