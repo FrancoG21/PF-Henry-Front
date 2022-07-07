@@ -4,7 +4,7 @@ import { BackgroundProfile, ContainerContent, ContainerInfo, ContainerProfile, E
 
 export default function UserProfile (){
 
-    const user = useSelector((state) => state.usuario)
+    const token = useSelector((state) => state.usuario)
 
     return(
         <BackgroundProfile>
@@ -12,18 +12,25 @@ export default function UserProfile (){
                 <TitleProfile>Mi Perfil</TitleProfile>
                 <ContainerContent>
                     {
-                        user && user ? 
-                        <ContainerInfo>
-                            {/* <Image src={user.message.picture} alt='avatar profile'/> */}
-                            <ImageProfile src='https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg' alt='avatar'/>
-                            <Name>{user.message.name}</Name>
-                            <Email>{user.message.email}</Email>
-                        </ContainerInfo>
-                        :
-                        <p>User Not Defined</p>
+                        token
+                            ? token
+                            : <p>desconectado</p>
                     }
                 </ContainerContent>
             </ContainerProfile>
         </BackgroundProfile>
     )
 }
+
+
+// {
+//     user && user ? 
+//     <ContainerInfo>
+//         {/* <Image src={user.message.picture} alt='avatar profile'/> */}
+//         <ImageProfile src='https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg' alt='avatar'/>
+//         <Name>{user.message.name}</Name>
+//         <Email>{user.message.email}</Email>
+//     </ContainerInfo>
+//     :
+//     <p>User Not Defined</p>
+// }

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export default function Hero() {
 
-    const user = useSelector((state) => state.usuario);
+    // const user = useSelector((state) => state.usuario);
     
     return (
         <BackgroundHero>
@@ -20,8 +20,9 @@ export default function Hero() {
                                 </Subtitle>
 
                                     {
-                                        user && user ? <Subtitles>Bienvenido {user.message.name}!!</Subtitles> :  <ButtonHero to='/login'>Sign Up</ButtonHero>
+                                        // user && user ? <Subtitles>Bienvenido {user.message.name}!!</Subtitles> :  <ButtonHero to='/login'>Sign Up</ButtonHero>
                                     }
+                                    <ButtonHero to='/login'>Sign Up</ButtonHero>
                             </TitleHero>
                         </Info>
                     </ContainerText>

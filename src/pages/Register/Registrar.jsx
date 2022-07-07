@@ -98,7 +98,7 @@ export default function Registrar() {
     Swal.fire({
       position: 'center',
       icon: 'success',
-      title: res.message,
+      title: res.data.message,
       showConfirmButton: true,
       timer: 1500
     })

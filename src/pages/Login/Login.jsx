@@ -77,7 +77,6 @@ export default function Login() {
   // }
   async function handleCredentialResponse(response) {
     const res = await axios.post(`/user/loginGoogle`, {token: response.credential});
-    console.log(res)
     localStorage.setItem("userInfo", JSON.stringify(response.credential))
     dispatch(loginManual(response.credential))
   }
@@ -101,6 +100,7 @@ export default function Login() {
       google.accounts.id.disableAutoSelect();
       
     },[user])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (input.email === '' && input.password === '') {
@@ -114,12 +114,12 @@ export default function Login() {
     }
 
     const res = await axios.post(`/user/login`, input)
-
-    if(res.error){
+    console.log(res)
+    if(res.data.error){
       return Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: res.error,
+        text: res.data.error,
         showConfirmButton: false,
         timer: 1000
     })
@@ -133,14 +133,14 @@ export default function Login() {
       timer: 1500
     })
 
-    localStorage.setItem("userInfo", JSON.stringify(res.token))
+    localStorage.setItem("userInfo", JSON.stringify(res.data.token))
 
     setInput({
       email: '',
       password: ''
     })
 
-    dispatch(loginManual(token))
+    dispatch(loginManual(res.data.token))
   }
 
   const handleChange = function (e) {
