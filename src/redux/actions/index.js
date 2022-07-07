@@ -35,11 +35,35 @@ export function searchByName(payload) {
   };
 }
 
-export const createPet = (payload) => {
-  console.log("createPet -->", payload);
+export const petitionLoad = (payload) => {
+  console.log("petitionLoad -->", payload);
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/pet`, payload);
+      const res = await axios.post(`/petitionLoad/`, payload);
+      dispatch({ type: POST_PET, payload: res.data });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const petitionGet = (payload) => {
+  console.log("petitionGet -->", payload);
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`/petitionGet/`, payload);
+      dispatch({ type: POST_PET, payload: res.data });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const petitionGetLost = (payload) => {
+  console.log("petitionGetLost -->", payload);
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`/petitionGet/lost`, payload);
       dispatch({ type: POST_PET, payload: res.data });
     } catch (e) {
       console.log(e);

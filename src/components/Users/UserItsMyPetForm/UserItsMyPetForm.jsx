@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Field, ErrorMessage } from "formik";
-import { getById } from "../../../redux/actions/index";
+import { getById, petitionGetLost } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -70,7 +70,7 @@ export default function UserItsMyPetForm() {
           originalName: "",
           userMovility: "",
           petId: id,
-          userId:'userId', //--> despues ver lo de login              
+          userId:1, //--> despues ver lo de login              
           formDate: moment().format('DD/MM/YYYY')          
         }}
         validate={(values) => {
@@ -80,6 +80,25 @@ export default function UserItsMyPetForm() {
             if (!values[prop]) {
               errors[prop] = `${newLabel(prop)}`;
               delete errors.actualPlace;
+            }
+
+            if (json.images.length > 0) {
+              values.image = json.images;
+            }
+            if (json.images.length === 0) {
+              values.image = "";
+            }
+          }
+
+          if (values.otherPets === "false") {
+            for (let prop in errors) {
+              if (
+                prop === "otherPetsInfo" ||
+                prop === "otherPetsCastration" ||
+                prop === "otherPetsVacunation"
+              ) {
+                delete errors[prop];
+              }
             }
           }
 
@@ -112,12 +131,24 @@ export default function UserItsMyPetForm() {
                 }
               }
             }
+            if (values.otherPets === "false") {
+              for (let prop in values) {
+                if (
+                  prop === "otherPetsInfo" ||
+                  prop === "otherPetsCastration" ||
+                  prop === "otherPetsVacunation"
+                ) {
+                  delete values[prop];
+                }
+              }
+            }
           }
 
           setFlag(true);
           console.log("formulario enviado");
-          console.log(values);
+          dispatch(petitionGetLost(values));
           resetForm();
+          setJson({ images: [] });
           setTimeout(() => setFlag(false), 3000);
         }}
       >

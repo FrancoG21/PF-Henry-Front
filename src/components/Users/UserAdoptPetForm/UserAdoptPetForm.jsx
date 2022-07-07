@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Field, ErrorMessage } from "formik";
-import { getById } from "../../../redux/actions/index";
+import { getById, petitionGet } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -60,7 +60,8 @@ export default function UserAdoptPetForm() {
       <Formik
         initialValues={{
           petId: id,
-          userId: "userId", //--> despues ver lo de login
+          state:'adopted',
+          userId: 1, //--> despues ver lo de login
           formDate: moment().format("DD/MM/YYYY"),
           userAge: "",
           actualPlaceDirection: "",
@@ -109,6 +110,7 @@ export default function UserAdoptPetForm() {
             }
           }
 
+          
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
@@ -156,7 +158,7 @@ export default function UserAdoptPetForm() {
                   prop === "otherPetsCastration" ||
                   prop === "otherPetsVacunation"
                 ) {
-                  values[prop] = "";
+                  delete values[prop];
                 }
               }
             }
@@ -165,6 +167,7 @@ export default function UserAdoptPetForm() {
           setFlag(true);
           console.log("formulario enviado");
           console.log(values);
+          dispatch(petitionGet(values))
           resetForm();
           setTimeout(() => setFlag(false), 3000);
         }}

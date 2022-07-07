@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { createPet } from "../../../redux/actions/index";
+import { useDispatch, useSelector } from "react-redux";
+import { petitionLoad } from "../../../redux/actions/index";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import uploadcare from "uploadcare-widget";
@@ -85,6 +85,8 @@ export default function PetCreate() {
   const [petType, setPetType] = useState("dog");
   const [urlImage, setUrlImage] = useState([]);
 
+  const user = useSelector((state) => state.usuario);
+
   const [json, setJson] = useState({ images: [] });
 
   useEffect(() => {
@@ -137,7 +139,7 @@ export default function PetCreate() {
           actualPlaceCity: "",
           actualPlaceProvince: "Cordoba",
           actualPlacePostalCode: "",
-          userId: "userId",
+          userId: 1/* user.message.id */,
         }}
         validate={(values) => {
           let errors = {};
@@ -259,7 +261,7 @@ export default function PetCreate() {
           }
 
           console.log(values);
-          dispatch(createPet(values));
+          dispatch(petitionLoad(values));
           resetForm();
           setJson({ images: [] });
           setFlag(true);
