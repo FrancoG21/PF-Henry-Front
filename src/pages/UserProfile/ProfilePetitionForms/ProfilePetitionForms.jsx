@@ -120,7 +120,7 @@ export function PetitionLoads({
           : null}
       </h5>
       {petImg.map((p, i) => (
-        <img src={p} alt={petName} key={i} height="60px" />
+        <img src={p} alt={petName} key={'a'+i} height="60px" />
       ))}
     </div>
   );
