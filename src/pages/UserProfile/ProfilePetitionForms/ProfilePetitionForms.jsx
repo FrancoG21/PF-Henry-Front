@@ -2,50 +2,49 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 function capitalize(str) {
   return str.replace(/^\w/, (c) => c.toUpperCase());
   // return str;
 }
 
+const popUp1 = () => {
+  Swal.fire("Petición encontre mi mascota");
+};
+const popUp2 = () => {
+  Swal.fire("Petición para adoptar");
+};
+const popUp3 = () => {
+  Swal.fire("Petición para hogar transito");
+};
+const popUp4 = () => {
+  Swal.fire("Petición para cargar mascota y dar en adopcion");
+};
+const popUp5 = () => {
+  Swal.fire("Petición para cargar mascota encontrada");
+};
 
-
-const popUp1 = ()=>{
-  Swal.fire('Petición encontre mi mascota')
-}
-const popUp2 = ()=>{
-  Swal.fire('Petición para adoptar')
-}
-const popUp3 = ()=>{
-  Swal.fire('Petición para hogar transito')
-}
-const popUp4 = ()=>{
-  Swal.fire('Petición para cargar mascota y dar en adopcion')
-}
-const popUp5 = ()=>{
-  Swal.fire('Petición para cargar mascota encontrada')
-}
-
-const popUpDeletePetition = ()=>{
+const popUpDeletePetition = () => {
   Swal.fire({
-    title: 'Esta seguro?',
+    title: "Esta seguro?",
     text: "No podra revertir los cambios!",
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Eliminar'
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Eliminar",
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire(
-        'Eliminado',
-        'Tu peticion ha sido eliminada correctamente',
-        'success'
-      )
+        "Eliminado",
+        "Tu peticion ha sido eliminada correctamente",
+        "success"
+      );
     }
-  })
-}
+  });
+};
 
 export function PetitionGetLosts({ formDate, petId, formState }) {
   const [pet, setPet] = useState({});
@@ -65,7 +64,7 @@ export function PetitionGetLosts({ formDate, petId, formState }) {
         mascota: {pet.name && capitalize(pet.name)};{" "}
         {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
       </h5>
-     {/*  <Link to={`/petdetail/${petId}`}>
+      {/*  <Link to={`/petdetail/${petId}`}>
         <button>ver mascota</button>
       </Link> */}
       <h5>
@@ -99,7 +98,13 @@ export function PetitionGets({ formDate, petId, state, formState }) {
         <h3>Petición para hogar transito</h3>
       ) : null}
       <button onClick={popUpDeletePetition}>eliminar peticion</button>
-      <button onClick={state === 'adopted' ? popUp2 : state === 'transit' ? popUp3 : null}>ver mas</button>
+      <button
+        onClick={
+          state === "adopted" ? popUp2 : state === "transit" ? popUp3 : null
+        }
+      >
+        ver mas
+      </button>
       <h5>fecha: {formDate}</h5>
       <h5>
         mascota: {pet.name && capitalize(pet.name)};{" "}
@@ -139,7 +144,11 @@ export function PetitionLoads({
         <h3>Petición para cargar mascota encontrada</h3>
       ) : null}
       <button onClick={popUpDeletePetition}>eliminar peticion</button>
-      <button onClick={state === 'adopt' ? popUp4 : state === 'lost' ? popUp5 : null}>ver mas</button>
+      <button
+        onClick={state === "adopt" ? popUp4 : state === "lost" ? popUp5 : null}
+      >
+        ver mas
+      </button>
       <h5>fecha: {formDate}</h5>
       <h5>
         mascota: {petName && capitalize(petName)};{" "}
@@ -159,7 +168,7 @@ export function PetitionLoads({
           : null}
       </h5>
       {petImg.map((p, i) => (
-        <img src={p} alt={petName} key={'a'+i} height="60px" />
+        <img src={p} alt={petName} key={"a" + i} height="60px" />
       ))}
     </div>
   );

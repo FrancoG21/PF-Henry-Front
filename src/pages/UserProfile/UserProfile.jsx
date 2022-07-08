@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import ProfilePetCard from "./PetCard/ProfilePetCard";
+import Swal from "sweetalert2";
 import {
   BackgroundProfile,
   ContainerContent,
@@ -15,7 +16,6 @@ import {
   ContainerDiv,
   ContainerPetitions,
 } from "./StyledUserProfile";
-import Swal from "sweetalert2";
 import {
   PetitionGets,
   PetitionGetLosts,
@@ -52,7 +52,7 @@ export default function UserProfile() {
 
   const callbackIn = async () => {
     try {
-      console.log('entree')
+      console.log("entree");
       const res = await axios.get(`/petitionGet/${user.id}`);
       const resData = res.data;
       console.log("resData", resData);
@@ -91,7 +91,7 @@ export default function UserProfile() {
         }
       }
 
-    console.log('termine de entrar')
+      console.log("termine de entrar");
     } catch (e) {
       console.log("error al entrar");
       console.log(e);
@@ -110,7 +110,36 @@ export default function UserProfile() {
     setFlagPet("all");
     setFlagPetitions("all");
     setFlagDonations("all");
-    console.log('ya me re fui')
+    console.log("ya me re fui");
+  };
+
+  const popUpChangePassword = () => {
+    Swal.fire({
+      title: "Cambiar contraseña",
+      html: `<input type="text" id="password1" class="swal2-input" placeholder="Nueva contraseña">
+      <input type="text" id="password2" class="swal2-input" placeholder="Repetir contraseña">`,
+      confirmButtonText: "Aceptar",
+      focusConfirm: false,
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      cancelButtonColor: "#d33",
+      preConfirm: () => {
+        const password1 = Swal.getPopup().querySelector("#password1").value;
+        const password2 = Swal.getPopup().querySelector("#password2").value;
+        if (password1 !== password2) {
+          Swal.showValidationMessage(`Las contraseñas no coinciden`);
+        }
+        /* return { login: login, password: password }; */
+      },
+    }).then((result) => {
+      if(result.isConfirmed){
+        Swal.fire(
+          "Excelente",
+          "Tu contraseña ha sido cambiada correctamente",
+          "success"
+        );
+      }
+    });
   };
 
   useEffect(() => {
@@ -153,6 +182,7 @@ export default function UserProfile() {
                 : null
               : null}
           </p>
+          <button onClick={popUpChangePassword}>cambiar contraseña</button>
           {user
             ? user.message === "password or mail incorrect" && (
                 <Name>Password or mail incorrect</Name>
