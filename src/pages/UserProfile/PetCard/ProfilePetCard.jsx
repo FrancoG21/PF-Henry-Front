@@ -17,6 +17,7 @@ export default function PetCard({ name, pet, state, id, image, actualPlace }) {
       <Link to={`/petdetail/${id}`}>
         <button>mas detalles</button>
       </Link>
+      {state === 'adopted' ? <button>seguimiento</button> : null}
     </div>
   );
 }

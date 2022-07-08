@@ -52,6 +52,7 @@ export default function UserProfile() {
 
   const callbackIn = async () => {
     try {
+      console.log('entree')
       const res = await axios.get(`/petitionGet/${user.id}`);
       const resData = res.data;
       console.log("resData", resData);
@@ -89,8 +90,10 @@ export default function UserProfile() {
           }
         }
       }
+
+    console.log('termine de entrar')
     } catch (e) {
-      console.log("catch");
+      console.log("error al entrar");
       console.log(e);
     }
   };
@@ -107,6 +110,7 @@ export default function UserProfile() {
     setFlagPet("all");
     setFlagPetitions("all");
     setFlagDonations("all");
+    console.log('ya me re fui')
   };
 
   useEffect(() => {

@@ -65,7 +65,6 @@ export const ContainerDiv = styled.div`
   flex-direction:row;
   justify-content: space-evenly;
   //background-color:blue
-  margin-bottom:20px
   
 `;
 
