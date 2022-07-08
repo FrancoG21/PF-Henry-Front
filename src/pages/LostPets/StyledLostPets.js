@@ -50,28 +50,29 @@ export const ImageSpace = styled.div`
 
 export const Grid = styled.div`
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 310px);
     gap: 1rem;
     line-height: 0;
 
     @media screen and (max-width: 600px) {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
+        gap: .5rem;
     }
 `
 
 export const ContainerTop = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 0px 20px;
+    /* position: fixed;
+    left: 0;
+    top: 100px; */
 
     @media screen and (max-width: 600px) {
-        display: flex;
-        flex-direction: column;
-        margin: 16px;
-        text-align: center;
-        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
     }
 `
 

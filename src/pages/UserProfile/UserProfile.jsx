@@ -12,6 +12,8 @@ import {
   Name,
   TitleProfile,
   ButtonLink,
+  ContainerDiv,
+  ContainerPetitions,
 } from "./StyledUserProfile";
 import Swal from "sweetalert2";
 import {
@@ -20,39 +22,72 @@ import {
   PetitionLoads,
 } from "./ProfilePetitionForms/ProfilePetitionForms";
 
-
 export default function UserProfile() {
-  //const [data, setData] = useState({})
-  const [pets, setPets] = useState([]);
-  const [petitionGetLosts, setPetitionGetLosts] = useState([]);
-  const [petitionGets, setPetitionGets] = useState([]);
-  const [petitionLoads, setPetitionLoads] = useState([]);
+  const [petsAdopted, setPetsAdopted] = useState([]);
+  const [petsTransit, setPetsTransit] = useState([]);
 
-  const [flagPets, setFlagPets] = useState(false);
-  const [flagPetitions, setFlagPetitions] = useState(false);
-  const [flagDonations, setFlagDonations] = useState(false);
-  const [user, setUser] = useState(null)
+  const [loadPetAdopt, setLoadPetAdopt] = useState([]);
+  const [loadPetLost, setLoadPetLost] = useState([]);
+  const [getAdopt, setGetAdopt] = useState([]);
+  const [getTransit, setGetTransit] = useState([]);
+  const [getItsMyPet, setGetItsMyPet] = useState([]);
 
-  useEffect(()=>{
-      axios.get('/user/' + JSON.parse(localStorage.getItem("userInfo"))).then(r=>{
-          setUser(r.data)
-          console.log(r.data)
-      }, error => {
-          console.log(error)
-      })
-  },[])
+  const [flagPet, setFlagPet] = useState("all");
+  const [flagPetitions, setFlagPetitions] = useState("all");
+  const [flagDonations, setFlagDonations] = useState("all");
+
+  const [user, setUser] = useState(null);
+
+  const decodeToken = async () => {
+    try {
+      const res = await axios.get(
+        "/user/" + JSON.parse(localStorage.getItem("userInfo"))
+      );
+      const resData = res.data;
+      setUser(resData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const callbackIn = async () => {
     try {
-     // console.log("try");
       const res = await axios.get(`/petitionGet/${user.id}`);
       const resData = res.data;
-      console.log(resData);
-      if(resData !== 'no se encontraron peticiones.'){
-      resData.Pets && setPets(resData.Pets);
-      resData.PetitionGetLosts && setPetitionGetLosts(resData.PetitionGetLosts);
-      resData.PetitionGets && setPetitionGets(resData.PetitionGets);
-      resData.PetitionLoads && setPetitionLoads(resData.PetitionLoads);
+      console.log("resData", resData);
+
+      if (resData.Pets) {
+        for (let pet of resData.Pets) {
+          if (pet.state === "adopted") {
+            setPetsAdopted((prevState) => [...prevState, pet]);
+          }
+          if (pet.state === "transit") {
+            setPetsTransit((prevState) => [...prevState, pet]);
+          }
+        }
+      }
+      if (resData.PetitionGetLosts) {
+        setGetItsMyPet(resData.PetitionGetLosts);
+      }
+      if (resData.PetitionLoads) {
+        for (let petition of resData.PetitionLoads) {
+          if (petition.state === "adopt") {
+            setLoadPetAdopt((prevState) => [...prevState, petition]);
+          }
+          if (petition.state === "lost") {
+            setLoadPetLost((prevState) => [...prevState, petition]);
+          }
+        }
+      }
+      if (resData.PetitionGets) {
+        for (let petition of resData.PetitionGets) {
+          if (petition.state === "transit") {
+            setGetTransit((prevState) => [...prevState, petition]);
+          }
+          if (petition.state === "adopted") {
+            setGetAdopt((prevState) => [...prevState, petition]);
+          }
+        }
       }
     } catch (e) {
       console.log("catch");
@@ -61,94 +96,151 @@ export default function UserProfile() {
   };
 
   const callbackOut = () => {
-    setPets([]);
-    setPetitionGetLosts([]);
-    setPetitionGets([]);
-    setPetitionLoads([]);
-    setFlagPets(false);
-    setFlagPetitions(false);
-    setFlagDonations(false)
+    console.log("me fui");
+    setGetItsMyPet([]);
+    setLoadPetAdopt([]);
+    setLoadPetLost([]);
+    setGetAdopt([]);
+    setGetTransit([]);
+    setPetsAdopted([]);
+    setPetsTransit([]);
+    setFlagPet("all");
+    setFlagPetitions("all");
+    setFlagDonations("all");
   };
 
   useEffect(() => {
+    decodeToken();
     callbackIn();
-    
-
-     /*  Swal.fire({
-  position: 'center',
-  icon: 'success',
-  title: 'Sesion iniciada!',
-  showConfirmButton: true,
-  //timer: 3000
-}) 
-.then(()=>{window.location.replace('https://www.instagram.com')}) */
 
     return () => {
       callbackOut();
     };
-  }, [user]);
-
-  const handleClick1 = () => {
-    setFlagPets(true);
-    setFlagPetitions(false);
-    setFlagDonations(false);
-  };
-
-  const handleClick2 = () => {
-    setFlagPetitions(true);
-    setFlagPets(false);
-    setFlagDonations(false);
-  };
-
-  const handleClick3 = () => {
-    setFlagDonations(true);
-    setFlagPets(false);
-    setFlagPetitions(false);
-  };
+  }, []);
 
   return (
     <BackgroundProfile>
+      <div>
+        {console.log("getItsMyPet", getItsMyPet)}
+        {console.log("loadPetAdopt", loadPetAdopt)}
+        {console.log("loadPetLost", loadPetLost)}
+        {console.log("getAdopt", getAdopt)}
+        {console.log("getTransit", getTransit)}
+        {console.log("petsAdopted", petsAdopted)}
+        {console.log("petsTransit", petsTransit)}
+        {console.log(flagPet, flagPetitions, flagDonations)}
+      </div>
       <ContainerProfile>
         <TitleProfile>Mi Perfil</TitleProfile>
-        <ContainerContent>
-          {console.log("pets", pets)}
-          {console.log("petitionGetLosts", petitionGetLosts)}
-          {console.log("petitionGets", petitionGets)}
-          {console.log("petitionLoads", petitionLoads)}
-          {console.log(flagPets, flagPetitions, flagDonations)}
-          {user && user ? (
-            <div>
-              <ContainerInfo>
-                {/* <Image src={user.picture} alt='avatar profile'/> */}
-                <ImageProfile
-                  src="https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg"
-                  alt="avatar"
-                />
-                <Name>{user.name + " " + user.lastname}</Name>
-                <Email>{user.email}</Email>
-                <p>Rol: {user.rol === 'user' ? 'usuaio' : user.rol === 'admin' ? 'administrador' : null}</p>
-                {/* <h1>id: {user.id}</h1>
-                <h1>password: {user.password}</h1> */}
-                {user.message === 'password or mail incorrect' && <Name>Password or mail incorrect</Name>}
-              </ContainerInfo>
-              <div>
-                <ButtonLink onClick={handleClick1}>
-                  Mis mascotas: {pets && pets.length }
-                </ButtonLink>
-                <ButtonLink onClick={handleClick2}>
-                  Mis peticiones:{" "}
-                  {petitionGetLosts && petitionGets && petitionLoads && petitionGetLosts.length +
-                    petitionGets.length +
-                    petitionLoads.length}
-                </ButtonLink>
-                <ButtonLink onClick={handleClick3}>
-                  Mis donaciones: {0}
-                </ButtonLink>
-              </div>
-              <div>
-                {flagPets ? (
-                  pets.length ? (
-                    pets.map((p) => (
+        <ContainerInfo>
+          <ImageProfile
+            src="https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg"
+            alt="avatar"
+          />
+          <Name>{user ? user.name + " " + user.lastname : null}</Name>
+          <Email>{user ? user.email : null}</Email>
+          <p>
+            Rol:{" "}
+            {user
+              ? user.rol === "user"
+                ? "usuaio"
+                : user.rol === "admin"
+                ? "administrador"
+                : null
+              : null}
+          </p>
+          {user
+            ? user.message === "password or mail incorrect" && (
+                <Name>Password or mail incorrect</Name>
+              )
+            : null}
+        </ContainerInfo>
+        <div>
+          <select
+            defaultValue={"default"}
+            onChange={(e) => setFlagPet(e.target.value)}
+          >
+            <option value="default" hidden>
+              Filtrar mascotas
+            </option>
+            <option value="all">todo</option>
+            <option value="adopted">en adopcion</option>
+            <option value="transit">en transito</option>
+          </select>
+          <select
+            defaultValue={"default"}
+            onChange={(e) => setFlagPetitions(e.target.value)}
+          >
+            <option value="default" hidden>
+              Filtrar peticiones
+            </option>
+            <option value="all">todo</option>
+            <option value="adopted">adopciones</option>
+            <option value="transit">hogar transito</option>
+            <option value="loadAdopt">cargar y dar en adopcion</option>
+            <option value="loadFound">cargar mascota encontrada</option>
+            <option value="found">encontre mi mascota</option>
+          </select>
+          <select
+            defaultValue={"default"}
+            onChange={(e) => setFlagDonations(e.target.value)}
+          >
+            <option value="default" hidden>
+              Filtrar donaciones
+            </option>
+            <option value="all">todo</option>
+            <option value="suscription">suscripcion</option>
+            <option value="unique">normal</option>
+          </select>
+        </div>
+        <ContainerDiv>
+          <div>
+            <h3>
+              Cantidad de mascotas: {petsAdopted.length + petsTransit.length}
+            </h3>
+            {petsAdopted.length > 0 || petsTransit.length > 0 ? (
+              flagPet === "all" ? (
+                <div>
+                  {petsAdopted.map((p) => (
+                    <ProfilePetCard
+                      name={p.name}
+                      pet={p.pet}
+                      state={p.state}
+                      id={p.id}
+                      image={p.image}
+                      actualPlace={p.actualPlace}
+                      key={p.id}
+                    />
+                  ))}
+                  {petsTransit.map((p) => (
+                    <ProfilePetCard
+                      name={p.name}
+                      pet={p.pet}
+                      state={p.state}
+                      id={p.id}
+                      image={p.image}
+                      actualPlace={p.actualPlace}
+                      key={"a" + p.id}
+                    />
+                  ))}
+                </div>
+              ) : flagPet === "adopted" ? (
+                <div>
+                  {petsAdopted.map((p) => (
+                    <ProfilePetCard
+                      name={p.name}
+                      pet={p.pet}
+                      state={p.state}
+                      id={p.id}
+                      image={p.image}
+                      actualPlace={p.actualPlace}
+                    />
+                  ))}
+                </div>
+              ) : (
+                flagPet === "transit" && (
+                  <div>
+                    {petsTransit.map((p) => (
                       <ProfilePetCard
                         name={p.name}
                         pet={p.pet}
@@ -157,59 +249,194 @@ export default function UserProfile() {
                         image={p.image}
                         actualPlace={p.actualPlace}
                       />
+                    ))}
+                  </div>
+                )
+              )
+            ) : (
+              <p>No tienes ninguna mascota</p>
+            )}
+          </div>
+          <ContainerPetitions>
+            <h3>
+              {" "}
+              Cantidad de peticiones:{" "}
+              {loadPetAdopt.length +
+                loadPetLost.length +
+                getAdopt.length +
+                getTransit.length +
+                getItsMyPet.length}
+            </h3>
+            {loadPetAdopt.length +
+              loadPetLost.length +
+              getAdopt.length +
+              getTransit.length +
+              getItsMyPet.length >
+            0 ? (
+              flagPetitions === "all" ? (
+                <div>
+                  {loadPetAdopt.length > 0
+                    ? loadPetAdopt.map((p) => (
+                        <PetitionLoads
+                          formDate={p.formDate}
+                          petId={p.petId}
+                          state={p.state}
+                          petName={p.name}
+                          type={p.pet}
+                          formState={p.formState}
+                          petImg={p.image}
+                        />
+                      ))
+                    : null}
+                  {loadPetLost.length > 0
+                    ? loadPetLost.map((p) => (
+                        <PetitionLoads
+                          formDate={p.formDate}
+                          petId={p.petId}
+                          state={p.state}
+                          petName={p.name}
+                          type={p.pet}
+                          formState={p.formState}
+                          petImg={p.image}
+                        />
+                      ))
+                    : null}
+                  {getAdopt.length > 0
+                    ? getAdopt.map((p) => (
+                        <PetitionGets
+                          formDate={p.formDate}
+                          petId={p.petId}
+                          state={p.state}
+                          formState={p.formState}
+                        />
+                      ))
+                    : null}
+                  {getTransit.length > 0
+                    ? getTransit.map((p) => (
+                        <PetitionGets
+                          formDate={p.formDate}
+                          petId={p.petId}
+                          state={p.state}
+                          formState={p.formState}
+                        />
+                      ))
+                    : null}
+                  {getItsMyPet.length > 0
+                    ? getItsMyPet.map((p) => (
+                        <PetitionGetLosts
+                          formDate={p.formDate}
+                          petId={p.petId}
+                          formState={p.formState}
+                        />
+                      ))
+                    : null}
+                </div>
+              ) : flagPetitions === "adopted" ? (
+                <div>
+                  {getAdopt.length > 0 ? (
+                    getAdopt.map((p) => (
+                      <PetitionGets
+                        formDate={p.formDate}
+                        petId={p.petId}
+                        state={p.state}
+                        formState={p.formState}
+                      />
                     ))
                   ) : (
-                    <h1>No posees ninguna mascotas todavia</h1>
-                  )
-                ) : null}
-                {flagPetitions ? (
-                  petitionGetLosts.length +
-                    petitionGets.length +
-                    petitionLoads.length >
-                  0 ? (
-                    <div>
-                      {petitionLoads.length
-                        ? petitionLoads.map((p) => (
-                            <PetitionLoads
-                              formDate={p.formDate}
-                              petId={p.petId}
-                              state={p.state}
-                              petName={p.name}
-                              type={p.pet}
-                              formState={p.formState}
-                            />
-                          ))
-                        : null}
-                      {petitionGets.length &&
-                        petitionGets.map((p) => (
-                          <PetitionGets
-                            formDate={p.formDate}
-                            petId={p.petId}
-                            state={p.state}
-                            formState={p.formState}
-                          />
-                        ))}
-                      {petitionGetLosts.length &&
-                        petitionGetLosts.map((p) => (
-                          <PetitionGetLosts
-                            formDate={p.formDate}
-                            petId={p.petId}
-                            formState={p.formState}
-                          />
-                        ))}
-                    </div>
+                    <div>No posees peticiones de este tipo</div>
+                  )}
+                </div>
+              ) : flagPetitions === "transit" ? (
+                <div>
+                  {getTransit.length > 0 ? (
+                    getTransit.map((p) => (
+                      <PetitionGets
+                        formDate={p.formDate}
+                        petId={p.petId}
+                        state={p.state}
+                        formState={p.formState}
+                      />
+                    ))
                   ) : (
-                    <h1>No posees peticiones todavia</h1>
-                  )
-                ) : null}
-                {flagDonations && <h1>Mis donaciones</h1>}
-              </div>
-            </div>
-          ) : (
-            <p>User Not Defined</p>
-          )}
-        </ContainerContent>
+                    <div>No posees peticiones de este tipo</div>
+                  )}
+                </div>
+              ) : flagPetitions === "loadAdopt" ? (
+                <div>
+                  {loadPetAdopt.length > 0 ? (
+                    loadPetAdopt.map((p) => (
+                      <PetitionLoads
+                        formDate={p.formDate}
+                        petId={p.petId}
+                        state={p.state}
+                        petName={p.name}
+                        type={p.pet}
+                        formState={p.formState}
+                        petImg={p.image}
+                      />
+                    ))
+                  ) : (
+                    <div>No posees peticiones de este tipo</div>
+                  )}
+                </div>
+              ) : flagPetitions === "loadFound" ? (
+                <div>
+                  {loadPetLost.length > 0 ? (
+                    loadPetLost.map((p) => (
+                      <PetitionLoads
+                        formDate={p.formDate}
+                        petId={p.petId}
+                        state={p.state}
+                        petName={p.name}
+                        type={p.pet}
+                        formState={p.formState}
+                        petImg={p.image}
+                      />
+                    ))
+                  ) : (
+                    <div>No posees peticiones de este tipo</div>
+                  )}
+                </div>
+              ) : flagPetitions === "found" ? (
+                <div>
+                  {getItsMyPet.length > 0 ? (
+                    getItsMyPet.map((p) => (
+                      <PetitionGetLosts
+                        formDate={p.formDate}
+                        petId={p.petId}
+                        formState={p.formState}
+                      />
+                    ))
+                  ) : (
+                    <div>No posees peticiones de este tipo</div>
+                  )}
+                </div>
+              ) : null
+            ) : (
+              <p>No posees ninguna peticion</p>
+            )}
+          </ContainerPetitions>
+          <h3>
+            Tipo de donaciones:{" "}
+            {flagDonations === "all"
+              ? "todo"
+              : flagDonations === "suscription"
+              ? "suscripcion"
+              : flagDonations === "unique"
+              ? "normal"
+              : null}
+          </h3>
+        </ContainerDiv>
       </ContainerProfile>
     </BackgroundProfile>
   );
 }
+
+/*  Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: 'Sesion iniciada!',
+  showConfirmButton: true,
+  //timer: 3000
+}) 
+.then(()=>{window.location.replace('https://www.instagram.com')}) */
