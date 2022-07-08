@@ -8,7 +8,8 @@ import {
   LOGIN,
   LOGOUT,
   LOGIN_GOOGLE,
-  POST_PET
+  POST_PET,
+  USERS
 } from "../actions/nameAction";
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
   usuario: null,
   urlFront:  import.meta.env.VITE_APP_FRONT || "http://localhost:3000",
   urlBack: import.meta.env.VITE_APP_API || "http://localhost:3001",
-  google:[]
+  google:[],
+  usuarios:[]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -80,6 +82,13 @@ const rootReducer = (state = initialState, action) => {
     case POST_PET:{
       return {
         ...state,        
+      }
+    }
+
+    case USERS:{
+      return{
+        ...state, 
+        usuarios: action.payload
       }
     }
 
