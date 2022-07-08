@@ -21,52 +21,56 @@ export default function LostPets() {
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets);
   const petsAmount = useSelector((state) => state.petsAmount);
-  const [page, setPage] = useState(0)
-  const [filter, setFilter] = useState({state:'lost'})
+  const [page, setPage] = useState(0);
+  const [filter, setFilter] = useState({ state: "lost" });
 
   useEffect(() => {
-    dispatch(getPets(page, filter))
+    dispatch(getPets(page, filter));
   }, [dispatch]);
 
   const paginateFunction = (pagee) => {
-    pagee -= 1
-    setPage(pagee)
+    pagee -= 1;
+    setPage(pagee);
     dispatch(getPets(pagee, filter));
   };
 
-  const petsToFilter = (obj)=>{
-    setFilter(obj)
+  const petsToFilter = (obj) => {
+    setFilter(obj);
     dispatch(getPets(page, obj));
-    setPage(0)
-  }
+    setPage(0);
+  };
 
   return (
     <BackgroundPets>
       <ContainerTop>
-        <Searchbar stateValue={['lost']}/>
+        <div>
+          <Searchbar stateValue={["lost"]} />
+          <PetFilters petsToFilter={petsToFilter} stateValue={["lost"]} />
+        </div>
+        <Container>
+          <ImageSpace>
+            <Grid>
+              {!pets ? (
+                <p>Please choose other option</p>
+              ) : pets[0] === "the search returned no results" ? (
+                <p>the search returned no results</p>
+              ) : (
+                pets?.map((p) => {
+                  return (
+                    <PetCard
+                      key={p.id}
+                      id={p.id}
+                      name={p.name}
+                      image={p.image}
+                    />
+                  );
+                })
+              )}
+            </Grid>
+          </ImageSpace>
+        </Container>
       </ContainerTop>
 
-      <ContainerFilters>
-        <PetFilters petsToFilter={petsToFilter} stateValue={['lost']}/>
-      </ContainerFilters>
-
-      <Container>
-        <ImageSpace>
-          <Grid>
-            {!pets ? (
-              <p>Please choose other option</p>
-            ) : pets[0] === "the search returned no results" ? (
-              <p>the search returned no results</p>
-            ) : (
-              pets?.map((p) => {
-                return (
-                  <PetCard key={p.id} id={p.id} name={p.name} image={p.image} />
-                );
-              })
-            )}
-          </Grid>
-        </ImageSpace>
-      </Container>
       <Paginate
         total={petsAmount}
         petsPerPage={6}
