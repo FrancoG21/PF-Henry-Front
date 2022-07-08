@@ -12,11 +12,12 @@ export default function PetCard({ name, pet, state, id, image, actualPlace }) {
       <h4>{capitalize(name)}</h4>
       <h4>{pet === 'dog'? 'Perro' : pet === 'cat' ? 'Gato' : null}</h4>
       <h4>{state === 'transit' ? 'Mascota en transito' : state === 'adopted' ? 'Mascota adoptada' : null}</h4>
-      <h4>Ubicación actual <br/><br/>{actualPlace}</h4>
+      {/* <h4>Ubicación actual <br/><br/>{actualPlace}</h4> */}
       <img src={image} alt={name} height='100px' width='100px'/>      
       <Link to={`/petdetail/${id}`}>
         <button>mas detalles</button>
       </Link>
+      {state === 'adopted' ? <button>seguimiento</button> : null}
     </div>
   );
 }
