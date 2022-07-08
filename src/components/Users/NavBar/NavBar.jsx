@@ -46,7 +46,7 @@ export default function NavBar({theme, setTheme}) {
                     <ContainerLogo>
                         <NavLogo to='/'>
                             <NavIcon/>
-                            AdoptA
+                            Patitas
                         </NavLogo>
                         <DarkMode onClick={handleTheme}>{iconTheme}</DarkMode>
                     </ContainerLogo>

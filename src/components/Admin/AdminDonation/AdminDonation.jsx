@@ -1,5 +1,4 @@
 import React from "react";
-import './estilos.css'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';

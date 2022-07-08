@@ -1,5 +1,5 @@
 import React from 'react';
-import { 
+import {
     ListDiv,
     List,
     Title,
@@ -14,24 +14,60 @@ import {
 export default function SideBar() {
 
     return (
-            <ListDiv>
-                <List>
-                    <Title>LISTADO</Title>
-                    <LiList>
-                        <Icon />
+        <ListDiv>
+
+            <List>
+                <Title>MENU</Title>
+            <LiList>
+                <Icon3 />
+                <LinkList to='/admin'>
+                    <Text>Dashboard</Text>
+                </LinkList>
+            </LiList>
+
+            <br/>
+                <Title>LISTADO</Title>
+                <LiList>
+                    <Icon />
+                    <LinkList to='/admin/users'>
                         <Text>Usuarios</Text>
-                    </LiList>
-                    <LiList>
-                        <Icon2 />
-                        <LinkList to='/admin/pets'>
+                    </LinkList>
+                </LiList>
+                <LiList>
+                    <Icon2 />
+                    <LinkList to='/admin/pets'>
                         <Text>Animales</Text>
-                        </LinkList>
-                    </LiList>
-                    <LiList>
-                        <Icon3 />
+                    </LinkList>
+                </LiList>
+                <LiList>
+                    <Icon3 />
+                    <LinkList to='/admin/donation'>
                         <Text>Donaciones</Text>
-                    </LiList>
-                </List>
-            </ListDiv>
+                    </LinkList>
+                </LiList>
+
+                <br />
+
+                <Title>PETICIONES</Title>
+                <LiList>
+                    <Icon3 />
+                    <LinkList to='/admin/formadopt'>
+                        <Text>Adopcion</Text>
+                    </LinkList>
+                </LiList>
+                <LiList>
+                    <Icon3 />
+                    <LinkList to='/admin/formtransit'>
+                        <Text>Transito</Text>
+                    </LinkList>
+                </LiList>
+                <LiList>
+                    <Icon3 />
+                    <LinkList to='/admin/formlost'>
+                        <Text>Extraviados</Text>
+                    </LinkList>
+                </LiList>
+            </List>
+        </ListDiv>
     )
 }

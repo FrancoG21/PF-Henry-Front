@@ -9,7 +9,7 @@ export default function AdminPets() {
         <BackgroundListPets>
             <ContainerListPets>
                 <SideBar />
-                    <DatatablePets />
+                <DatatablePets />
             </ContainerListPets>
         </BackgroundListPets>
     )

@@ -1,20 +1,22 @@
 import React from "react";
-import AdminDonation from "./AdminDonation";
+import AdminDonation from "../AdminDonation/AdminDonation";
 import AdminTable from "./AdminTable";
-import './estilos.css'
+import SideBar from "../SideBar/SideBar";
+import { BackgroundListUsers, ContainerListUsers  } from "./StyledAdminUsers";
 
 
 export default function AdminUsers() {
 
     return (
         <>
-        <div>
-            <div className="listContainer">
-                <div className="listTitle">Users</div>
+        <BackgroundListUsers>
+            <ContainerListUsers >
+                {/* <div className="listTitle">Users</div> */}
+                <SideBar />
                 <AdminTable/>
-                <AdminDonation/>
-            </div>
-        </div>
+                {/* <AdminDonation/> */}
+            </ContainerListUsers >
+        </BackgroundListUsers>
         </>
     )
 }

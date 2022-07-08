@@ -18,8 +18,15 @@ import UserItsMyPetForm from "./components/Users/UserItsMyPetForm/UserItsMyPetFo
 import LostPets from "./pages/LostPets/LostPets";
 import Success from "./pages/Donation/results/Success";
 import Failure from "./pages/Donation/results/Failure";
+
+//ADMIN
 import AdminHome from "./pages/AdminHome/AdminHome";
 import AdminPets from "./components/Admin/AdminPets/AdminPets";
+import AdminDonation from "./components/Admin/AdminDonation/AdminDonation";
+import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
+import FormLostAnimals from "./components/Admin/FormLostAnimals/FormLostAnimals";
+import FormAdopt from "./components/Admin/FormAdopt/FormAdopt";
+// import FormTransit from "./components/Admin/FormTransit/FormTransit";
 
 //  MODO OSCURO //
 import { ThemeProvider } from "styled-components";
@@ -69,6 +76,11 @@ function App() {
             <Route path="/lostpets" element={<LostPets />}></Route>      
             <Route path="/admin" element={<AdminHome />}></Route>
             <Route path="/admin/pets" element={<AdminPets />}></Route>
+            <Route path="/admin/users" element={<AdminUsers />}></Route>
+            <Route path="/admin/donation" element={<AdminDonation />}></Route>
+            <Route path="/admin/formadopt" element={<FormAdopt />}></Route>
+            <Route path="/admin/formlost" element={<FormLostAnimals />}></Route>
+            {/* <Route path="/admin/formtransit" element={<FormTransit />}></Route> */}
           </Routes>
           <Footer />
         </ThemeProvider>
