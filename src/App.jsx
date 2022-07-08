@@ -18,6 +18,8 @@ import UserItsMyPetForm from "./components/Users/UserItsMyPetForm/UserItsMyPetFo
 import LostPets from "./pages/LostPets/LostPets";
 import Success from "./pages/Donation/results/Success";
 import Failure from "./pages/Donation/results/Failure";
+import AdminHome from "./pages/AdminHome/AdminHome";
+import AdminPets from "./components/Admin/AdminPets/AdminPets";
 
 //  MODO OSCURO //
 import { ThemeProvider } from "styled-components";
@@ -64,7 +66,9 @@ function App() {
             <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route> */}
             <Route path="/userprofile" element={<UserProfile />}></Route>
             <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>     
-            <Route path="/lostpets" element={<LostPets />}></Route>            
+            <Route path="/lostpets" element={<LostPets />}></Route>      
+            <Route path="/admin" element={<AdminHome />}></Route>
+            <Route path="/admin/pets" element={<AdminPets />}></Route>
           </Routes>
           <Footer />
         </ThemeProvider>

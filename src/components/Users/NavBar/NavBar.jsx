@@ -77,6 +77,9 @@ export default function NavBar({theme, setTheme}) {
                                 <NavItem>
                                     <NavAcces to='/userprofile'>Perfil</NavAcces>
                                 </NavItem>
+                                <NavItem>
+                                    <NavAcces to='/admin'>Admin</NavAcces>
+                                </NavItem>
                             </NavMenu>
                         ) : (
                             <NavMenu>
@@ -94,6 +97,9 @@ export default function NavBar({theme, setTheme}) {
                                 </NavItem>
                                 <NavItem>
                                     <NavAcces to='/register'>Registrar</NavAcces>
+                                </NavItem>
+                                <NavItem>
+                                    <NavAcces to='/admin'>Admin</NavAcces>
                                 </NavItem>
                             </NavMenu>
                         )
