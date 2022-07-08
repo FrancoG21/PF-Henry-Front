@@ -129,6 +129,9 @@ export default function UserProfile() {
         if (password1 !== password2) {
           Swal.showValidationMessage(`Las contraseñas no coinciden`);
         }
+        if (!password1.length || !password2.length) {
+          Swal.showValidationMessage(`Debes completar los campos`);
+        }
         /* return { login: login, password: password }; */
       },
     }).then((result) => {
