@@ -5,6 +5,9 @@ import { Link, NavLink } from "react-router-dom";
 import { Nav, NavContainer, NavLogo, NavIcon, DarkMode, MobileIcon, NavMenu, NavItem, NavAcces, ContainerLogo, MinText, NavButton, NavButtonLink, Button } from "./StyledNavBar";
 import { IconContext } from 'react-icons/lib';
 import Logout from "../Logout/Logout";
+import axios from 'axios'
+import s from './Nav.module.css'
+
 
 export default function NavBar({theme, setTheme}) {
 
@@ -12,6 +15,7 @@ export default function NavBar({theme, setTheme}) {
 
     const [click, setClick] = useState(false)
     const [button, setButton] = useState(true)
+    const [user, setUser] = useState(null)
 
     const handleClick = () => setClick(!click)
 
@@ -24,8 +28,16 @@ export default function NavBar({theme, setTheme}) {
     }
 
     useEffect(() => {
+        axios.get('/user/' + JSON.parse(localStorage.getItem("userInfo"))).then(r=>{
+            setUser(r.data)
+          
+        }, error => {
+            console.log(error)
+        })
 
     }, [userInfo])
+
+    console.log('este es el usuario --->',user)
 
     const showButton = () => {
         if(window.innerWidth <= 960) {
@@ -70,16 +82,33 @@ export default function NavBar({theme, setTheme}) {
                                 </NavItem>
                                 <NavItem>
                                     <NavAcces to='/about'>Sobre Nosotros</NavAcces>
-                                </NavItem>                       
-                                <NavItem>
-                                    <Logout />
-                                </NavItem>
-                                <NavItem>
-                                    <NavAcces to='/userprofile'>Perfil</NavAcces>
                                 </NavItem>
                                 <NavItem>
                                     <NavAcces to='/admin'>Admin</NavAcces>
+                                </NavItem>                  
+                                <NavItem>
+                                    <Logout />
                                 </NavItem>
+                                {user && user? (
+                                  <NavAcces to='/userprofile'>{
+                                    <ul className={s.list}> 
+                                          <li className={s.listItem}>
+                                               <img src= {user.picture? user.picture: 'https://p16-va-default.akamaized.net/img/musically-maliva-obj/1665282759496710~c5_720x720.jpeg'} alt='User Profile' className={s.avatar} />
+                                               
+                                           </li>
+                                             <li className={s.listItem}>{user.name}</li>
+                                        </ul>}
+                                        </NavAcces>
+
+                                    
+                                        
+                                ): 
+                                <NavItem>
+                                <NavAcces to='/userprofile'>Perfil</NavAcces>
+                            </NavItem>}
+                                
+                            
+                              
                             </NavMenu>
                         ) : (
                             <NavMenu>
@@ -105,28 +134,6 @@ export default function NavBar({theme, setTheme}) {
                         )
                     }
 
-                        {/* <NavButton>
-                            {
-                                button ? (
-                                    <NavButtonLink to='/'>
-                                        <Button primary>Sign Up</Button>
-                                    </NavButtonLink>
-                                ) : (
-                                    <NavButtonLink to='/'>
-                                    <Button fontBig primary>Sign Up</Button>
-                                </NavButtonLink>
-                                )
-                            }
-                        </NavButton> */}
-                    
-                        {/* </NavMenu>
-                        <NavMenu> */}
-                        {/* <MinText>|</MinText> */}
-
-                        {/* {
-                            userInfo && userInfo ?(
-                            :
-                        } */}
                 </NavContainer>
             </Nav>
         </IconContext.Provider>
