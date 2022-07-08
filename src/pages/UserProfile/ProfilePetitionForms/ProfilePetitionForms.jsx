@@ -27,7 +27,7 @@ export function PetitionGetLosts({ formDate, petId, formState }) {
       <Link to={`/petdetail/${petId}`}>
         <button>ver mascota</button>
       </Link>
-      <h5>Estado de la peticion: {formState}</h5>
+      <h5>Estado de la peticion: {formState === 'pending' ? 'en revisión' : formState === 'acepted' ? 'aceptado' : formState === 'rejected' ? 'rechazado' : null}</h5>
     </div>
   );
 }
@@ -57,7 +57,7 @@ export function PetitionGets({ formDate, petId, state,formState }) {
       <Link to={`/petdetail/${petId}`}>
         <button>ver mascota</button>
       </Link>
-      <h5>Estado de la peticion: {formState}</h5>
+      <h5>Estado de la peticion: {formState === 'pending' ? 'en revisión' : formState === 'acepted' ? 'aceptado' : formState === 'rejected' ? 'rechazado' : null}</h5>
     </div>
   );
 }
@@ -79,7 +79,7 @@ export function PetitionLoads({ formDate, state, petName, type, formState }) {
       {/* <Link to={`/petdetail/${petId ? petId : "9999999"}`}>
         <button>ver mascota</button>
       </Link> */}
-      <h5>Estado de la peticion: {formState}</h5>
+      <h5>Estado de la peticion: {formState === 'pending' ? 'en revisión' : formState === 'acepted' ? 'aceptado' : formState === 'rejected' ? 'rechazado' : null}</h5>
     </div>
   );
 }

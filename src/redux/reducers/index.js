@@ -7,7 +7,8 @@ import {
   // GET_LOST_PETS,
   LOGIN,
   LOGOUT,
-  LOGIN_GOOGLE
+  LOGIN_GOOGLE,
+  POST_PET
 } from "../actions/nameAction";
 
 const initialState = {
@@ -73,6 +74,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         usuario: action.payload,
+      }
+    }
+
+    case POST_PET:{
+      return {
+        ...state,        
       }
     }
 
