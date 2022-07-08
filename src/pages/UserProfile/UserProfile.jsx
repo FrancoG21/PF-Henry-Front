@@ -170,8 +170,8 @@ export default function UserProfile() {
         <TitleProfile>Mi Perfil</TitleProfile>
         <ContainerInfo>
           <ImageProfile
-            src="https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg"
-            alt="avatar"
+            src={user? user.picture : "https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg"}
+            alt={user ? user.name : 'avatar'}
           />
           <Name>{user ? user.name + " " + user.lastname : null}</Name>
           <Email>{user ? user.email : null}</Email>
