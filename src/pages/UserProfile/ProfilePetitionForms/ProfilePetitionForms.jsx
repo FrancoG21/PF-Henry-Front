@@ -242,8 +242,6 @@ export function PetitionGets({
       `,
     });
   };
-  /* <p><b>¿Porque eligio este animal en particular?</b> </br> ${getPetReason}</p> */
-  /* <p><b>¿Si se muda que hará con la mascota?</b> <br/> ${userMovingIdea}</p> */
 
   const popUp3 = () => {
     Swal.fire({
@@ -399,14 +397,124 @@ export function PetitionLoads({
   size,
   vaccinate,
   weight,
+  image,
 }) {
   const from = "PetitionLoads";
 
   const popUp4 = () => {
-    Swal.fire("Petición para cargar mascota y dar en adopcion");
+    Swal.fire({
+      title: `Petición para cargar mascota y dar en adopcion`,
+      html: `        
+        <p><b>Fecha de la peticion:</b> ${formDate}</p>
+        <p><b>¿Qué quieres hacer?</b> </br> ${
+          state === "adopt" ? "Dar una mascota en adopción" : null
+        }</p>
+        <p><b>Nombre de la mascota</b> </br> ${petName}</p>
+        <img src=${image[0]} alt=${petName} height='200px' width='200px' />
+        <p>
+        ${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null} 
+        ${breed === "crossbreed" ? "Caschi" : capitalize(breed)}, 
+        ${
+          gender === "male"
+            ? "macho"
+            : gender === "female"
+            ? "hembra"
+            : gender === "unknown"
+            ? "no se sabe"
+            : null
+        }
+        </p>
+        <p><b>Pelaje:</b> ${
+          fur === "short" ? "corto" : fur === "long" ? "largo" : null
+        }</p>
+        <p><b>Tamaño:</b> ${
+          size === "small"
+            ? "pequeño"
+            : size === "medium"
+            ? "mediano"
+            : size === "big"
+            ? "grande"
+            : null
+        }</p> 
+        <p><b>Vacunación:</b> ${
+          vaccinate === "true"
+            ? "si"
+            : vaccinate === "false"
+            ? "no"
+            : vaccinate === "unknown"
+            ? "no se sabe"
+            : null
+        }</p>
+        <p><b>Castración:</b> ${
+          castration === "true"
+            ? "si"
+            : castration === "false"
+            ? "no"
+            : castration === "unknown"
+            ? "no se sabe"
+            : null
+        }</p>        
+      `,
+    });
   };
   const popUp5 = () => {
-    Swal.fire("Petición para cargar mascota encontrada");
+    Swal.fire({
+      title: `Petición para cargar mascota encontrada`,
+      html: `        
+        <p><b>Fecha de la peticion:</b> ${formDate}</p>
+        <p><b>¿Qué quieres hacer?</b> </br> ${
+          state === "lost" ? "Cargar una mascota que encontraste" : null
+        }</p>
+        <p><b>Nombre de la mascota</b> </br> ${petName}</p>
+        <img src=${image[0]} alt=${petName} height='200px' width='200px' />
+        <p>
+        ${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null} 
+        ${breed === "crossbreed" ? "Caschi" : capitalize(breed)}, 
+        ${
+          gender === "male"
+            ? "macho"
+            : gender === "female"
+            ? "hembra"
+            : gender === "unknown"
+            ? "no se sabe"
+            : null
+        }
+        </p>
+        <p><b>Pelaje:</b> ${
+          fur === "short" ? "corto" : fur === "long" ? "largo" : null
+        }</p>
+        <p><b>Tamaño:</b> ${
+          size === "small"
+            ? "pequeño"
+            : size === "medium"
+            ? "mediano"
+            : size === "big"
+            ? "grande"
+            : null
+        }</p> 
+        <p><b>Vacunación:</b> ${
+          vaccinate === "true"
+            ? "si"
+            : vaccinate === "false"
+            ? "no"
+            : vaccinate === "unknown"
+            ? "no se sabe"
+            : null
+        }</p>
+        <p><b>Castración:</b> ${
+          castration === "true"
+            ? "si"
+            : castration === "false"
+            ? "no"
+            : castration === "unknown"
+            ? "no se sabe"
+            : null
+        }</p>
+        <p><b>¿Cuándo la encontraste?</b> ${foundDate}</p>
+        <p><b>¿Dónde la encontraste?</b> </br> ${foundPlace}</p>        
+        <p><b>¿Dónde se encuentra actualmente la mascota ?</b> </br> ${actualPlace}</p>
+      `,
+    });
   };
 
   return (
