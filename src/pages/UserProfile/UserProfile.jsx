@@ -292,7 +292,7 @@ export default function UserProfile() {
           </select>
         </div>
         <ContainerDiv>
-          <div>          
+          <div>
             {petsAdopted.length > 0 || petsTransit.length > 0 ? (
               flagPet === "all" ? (
                 <div>
@@ -311,6 +311,7 @@ export default function UserProfile() {
                       size={p.size}
                       weight={p.weight}
                       gender={p.gender}
+                      fur={p.fur}
                     />
                   ))}
                   {petsTransit.map((p, i) => (
@@ -328,6 +329,7 @@ export default function UserProfile() {
                       size={p.size}
                       weight={p.weight}
                       gender={p.gender}
+                      fur={p.fur}
                     />
                   ))}
                 </div>
@@ -348,6 +350,7 @@ export default function UserProfile() {
                       size={p.size}
                       weight={p.weight}
                       gender={p.gender}
+                      fur={p.fur}
                     />
                   ))}
                 </div>
@@ -369,6 +372,7 @@ export default function UserProfile() {
                         size={p.size}
                         weight={p.weight}
                         gender={p.gender}
+                        fur={p.fur}
                       />
                     ))}
                   </div>
@@ -399,6 +403,18 @@ export default function UserProfile() {
                           petImg={p.image}
                           formId={p.id}
                           key={"e" + i}
+                          actualPlace={p.actualPlace}
+                          breed={p.breed}
+                          castration={p.castration}
+                          foundDate={p.foundDate}
+                          foundPlace={p.foundPlace}
+                          fur={p.fur}
+                          gender={p.gender}
+                          pet={p.pet}
+                          size={p.size}
+                          vaccinate={p.vaccinate}
+                          weight={p.weight}
+                          image={p.image}
                         />
                       ))
                     : null}
@@ -425,6 +441,7 @@ export default function UserProfile() {
                           size={p.size}
                           vaccinate={p.vaccinate}
                           weight={p.weight}
+                          image={p.image}
                         />
                       ))
                     : null}
@@ -602,6 +619,18 @@ export default function UserProfile() {
                         petImg={p.image}
                         formId={p.id}
                         key={"l" + i}
+                        actualPlace={p.actualPlace}
+                        breed={p.breed}
+                        castration={p.castration}
+                        foundDate={p.foundDate}
+                        foundPlace={p.foundPlace}
+                        fur={p.fur}
+                        gender={p.gender}
+                        pet={p.pet}
+                        size={p.size}
+                        vaccinate={p.vaccinate}
+                        weight={p.weight}
+                        image={p.image}
                       />
                     ))
                   ) : (
@@ -633,6 +662,7 @@ export default function UserProfile() {
                         size={p.size}
                         vaccinate={p.vaccinate}
                         weight={p.weight}
+                        image={p.image}
                       />
                     ))
                   ) : (

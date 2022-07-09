@@ -44,11 +44,9 @@ export default function PetCard({
   size,
   weight,
   gender,
-  actualPlace
+  actualPlace,
+  fur
 }) {
-
-  
-
 
   const popUp1 = () => {
     Swal.fire({
@@ -59,7 +57,8 @@ export default function PetCard({
         <p><b>Raza:</b> ${breed === 'crossbreed' ? 'caschi' : breed}</p>
         <p><b>Genero:</b> ${gender === 'male' ? 'macho' : gender === 'female' ? 'hembra' : gender === 'unknown' ? 'no se sabe' : null}<p/>
         <p><b>Tamaño:</b> ${size === 'small' ? 'pequeño' : size === 'medium' ? 'mediano' : size === 'big' ? 'grande' : null}</p> 
-        <p><b>Peso:</b> ${weight ? weight : '-'}</p>     
+        <p><b>Peso:</b> ${weight ? weight : '-'}</p>
+        <p><b>Pelaje:</b> ${fur === 'short' ? 'corto' : fur === 'long' ? 'largo' : null}</p>
         <p><b>Vacunación:</b> ${vaccinate === 'true'? 'si' : vaccinate === 'false'? 'no': vaccinate === 'unknown'? 'no se sabe' : null}</p>
         <p><b>Castración:</b> ${castration === 'true'? 'si' : castration === 'false'? 'no': castration === 'unknown'? 'no se sabe' : null}</p>
         <p><b>Ubicación actual:</b></p>
