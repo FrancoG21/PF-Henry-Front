@@ -292,10 +292,7 @@ export default function UserProfile() {
           </select>
         </div>
         <ContainerDiv>
-          <div>
-            {/* <h3>
-              Cantidad de mascotas: {petsAdopted.length + petsTransit.length}
-            </h3> */}
+          <div>          
             {petsAdopted.length > 0 || petsTransit.length > 0 ? (
               flagPet === "all" ? (
                 <div>
