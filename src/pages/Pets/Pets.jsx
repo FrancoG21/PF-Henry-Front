@@ -44,6 +44,7 @@ export default function Pets() {
     <BackgroundPets>
       <ContainerTop>
         <div>
+          <h1>Adopta o Transito tu mascota</h1>
           <Searchbar stateValue={['adopt', 'transit']} />
           <PetFilters petsToFilter={petsToFilter} stateValue={['adopt', 'transit']} />
         </div>
