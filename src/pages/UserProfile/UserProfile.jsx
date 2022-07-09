@@ -291,6 +291,7 @@ export default function UserProfile() {
             <option value="unique">normal</option>
           </select>
         </div>
+        <h2>Si se duplican las cards apreta F5 {"-->"} este error será arreglado muy pronto</h2>
         <ContainerDiv>
           <div>
             {petsAdopted.length > 0 || petsTransit.length > 0 ? (
