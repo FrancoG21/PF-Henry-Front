@@ -7,6 +7,9 @@ import Footer from "./components/Users/Footer/Footer";
 import About from "./pages/About/About";
 import PetDetail from "./components/Users/PetDetail/PetDetail";
 import PetCreate from "./components/Users/PetCreate/PetCreate";
+import ContenidoChatb from "./components/Chatbot/ContenidoChatb/ContenidoChatb"
+
+
 // import LostPets from "./pages/LostPets/LostPets";
 import Donation from "./pages/Donation/Donation";
 import Login from "./pages/Login/Login";
@@ -23,8 +26,8 @@ import Failure from "./pages/Donation/results/Failure";
 import { ThemeProvider } from "styled-components";
 import { themes } from "./styles/themes";
 import { useDarkMode } from "./DarkLightMode/DarkMode";
-import {useSelector, useDispatch} from 'react-redux';
-import {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { upLogin } from './redux/actions/index';
 
 function App() {
@@ -45,7 +48,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ThemeProvider theme={themes[themeMode]}>
-           <NavBar theme={theme} setTheme={setTheme} />{/*userInfo={userInfo} */}
+          <NavBar theme={theme} setTheme={setTheme} />{/*userInfo={userInfo} */}
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/adopt" element={<Pets />}></Route>
@@ -63,9 +66,10 @@ function App() {
             {/* <Route path="/useradoptpet" element={<UserAdoptPetForm />}></Route>
             <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route> */}
             <Route path="/userprofile" element={<UserProfile />}></Route>
-            <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>     
-            <Route path="/lostpets" element={<LostPets />}></Route>            
-          </Routes>
+            <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>
+            <Route path="/lostpets" element={<LostPets />}></Route>
+            <Route path="/chatbot" element={<ContenidoChatb />}></Route>
+          </Routes>         
           <Footer />
         </ThemeProvider>
       </BrowserRouter>
