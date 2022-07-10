@@ -8,6 +8,7 @@ import {
   LOGIN_GOOGLE,
   LOGIN,
   LOGOUT,
+  GET_USER,
 } from "./nameAction";
 
 export function getPets(page, filter) {
@@ -111,4 +112,16 @@ export const getLogOut = () => {
 
 export const upLogin = (user) => {
   return {type: LOGIN, payload: user};
+}
+
+export function getUser(payload) {
+  return async (dispatch) => {
+    try {
+      console.log("searchByName -->", payload);
+      const res = await axios.get(`/user`, payload);
+      dispatch({ type: GET_USER, payload: res.data });
+    } catch (e) {
+      dispatch({ type: GET_USER, payload: e.response.data });
+    }
+  };
 }
