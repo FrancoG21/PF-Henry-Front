@@ -4,9 +4,11 @@ import {
     List,
     Title,
     LiList,
+    IconMenu,
     Icon,
     Icon2,
     Icon3,
+    IconList1,
     Text,
     LinkList,
 } from './StyledSideBar';
@@ -19,7 +21,7 @@ export default function SideBar() {
             <List>
                 <Title>MENU</Title>
             <LiList>
-                <Icon3 />
+                <IconMenu />
                 <LinkList to='/admin'>
                     <Text>Dashboard</Text>
                 </LinkList>
@@ -50,7 +52,7 @@ export default function SideBar() {
 
                 <Title>PETICIONES</Title>
                 <LiList>
-                    <Icon3 />
+                    <IconList1 />
                     <LinkList to='/admin/formadopt'>
                         <Text>Adopcion</Text>
                     </LinkList>

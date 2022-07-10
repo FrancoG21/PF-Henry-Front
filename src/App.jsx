@@ -26,7 +26,8 @@ import AdminDonation from "./components/Admin/AdminDonation/AdminDonation";
 import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
 import FormLostAnimals from "./components/Admin/FormLostAnimals/FormLostAnimals";
 import FormAdopt from "./components/Admin/FormAdopt/FormAdopt";
-// import FormTransit from "./components/Admin/FormTransit/FormTransit";
+import FormTransit from "./components/Admin/FormTransit/FormTransit";
+import ProfilePets from "./components/Admin/ProfilePets/ProfilePets";
 
 //  MODO OSCURO //
 import { ThemeProvider } from "styled-components";
@@ -80,7 +81,8 @@ function App() {
             <Route path="/admin/donation" element={<AdminDonation />}></Route>
             <Route path="/admin/formadopt" element={<FormAdopt />}></Route>
             <Route path="/admin/formlost" element={<FormLostAnimals />}></Route>
-            {/* <Route path="/admin/formtransit" element={<FormTransit />}></Route> */}
+            <Route path="/admin/formtransit" element={<FormTransit />}></Route>
+            <Route path="/admin/profilepets/:id" element={<ProfilePets />}></Route>
           </Routes>
           <Footer />
         </ThemeProvider>

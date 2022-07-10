@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
+import FormatListNumberedOutlinedIcon from '@mui/icons-material/FormatListNumberedOutlined';
 import {Link} from'react-router-dom';
 
 export const ListDiv = styled.div`
@@ -40,6 +43,11 @@ export const LinkList = styled(Link)`
     text-decoration: none;
 `
 
+export const IconMenu = styled(DashboardOutlinedIcon)`
+    font-size: 18px;
+    color: ${(props) => props.theme.secondary};
+`
+
 export const Icon = styled(PersonOutlineOutlinedIcon)`
     font-size: 18px;
     color: ${(props) => props.theme.secondary};
@@ -51,6 +59,16 @@ export const Icon2 = styled(PetsOutlinedIcon)`
 `
 
 export const Icon3 = styled(AttachMoneyOutlinedIcon)`
+    font-size: 18px;
+    color: ${(props) => props.theme.secondary};
+`
+
+export const IconList1 = styled(FormatListBulletedOutlinedIcon)`
+    font-size: 18px;
+    color: ${(props) => props.theme.secondary};
+`
+
+export const IconList2 = styled(FormatListNumberedOutlinedIcon)`
     font-size: 18px;
     color: ${(props) => props.theme.secondary};
 `
