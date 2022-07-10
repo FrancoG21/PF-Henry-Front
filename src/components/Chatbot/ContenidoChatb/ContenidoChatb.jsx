@@ -3,7 +3,7 @@ import ChatBot from 'react-simple-chatbot'
 import { ThemeProvider } from 'styled-components'
 import ChatbotSearch from "../ChatbotSearch/ChatbotSearch"
 
-const tem = {
+const theme = {
     background: '#f5f8fb',
     headerBgColor: '#0cb3c9',
     headerFontColor: '#fff',
@@ -17,7 +17,7 @@ const tem = {
 export default class ContenidoChatb extends Component {
     render() {
         return (
-            <ThemeProvider tem={tem}>
+            <ThemeProvider theme={theme}>
                 <ChatBot
                     steps={[
                         {

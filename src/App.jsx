@@ -68,10 +68,8 @@ function App() {
             <Route path="/userprofile" element={<UserProfile />}></Route>
             <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>
             <Route path="/lostpets" element={<LostPets />}></Route>
-          </Routes>
-          <div className='Chat'>
-            ContenidoChatb
-          </div>
+            <Route path="/chatbot" element={<ContenidoChatb />}></Route>
+          </Routes>         
           <Footer />
         </ThemeProvider>
       </BrowserRouter>
