@@ -23,6 +23,12 @@ import {
 } from "./ProfilePetitionForms/ProfilePetitionForms";
 
 export default function UserProfile() {
+  const donacionHarcodeada = [
+    { date: "05/07/2022", id: 1 , type:'fijo', amount: '1000'},
+    { date: "05/07/2022", id: 3 , type:'fijo', amount: '500'},
+    { date: "05/07/2022", id: 2 , type:'suscripcion', amount: '1500'}
+  ];
+
   const [petsAdopted, setPetsAdopted] = useState([]);
   const [petsTransit, setPetsTransit] = useState([]);
 
@@ -31,6 +37,8 @@ export default function UserProfile() {
   const [getAdopt, setGetAdopt] = useState([]);
   const [getTransit, setGetTransit] = useState([]);
   const [getItsMyPet, setGetItsMyPet] = useState([]);
+
+  const [donations, setDonatiosn] = useState([]);
 
   const [flagPet, setFlagPet] = useState("all");
   const [flagPetitions, setFlagPetitions] = useState("all");
@@ -161,9 +169,9 @@ export default function UserProfile() {
   useEffect(() => {
     callbackIn();
 
-    return () => {
+    /* return () => {
       callbackOut();
-    };
+    }; */
   }, []);
 
   useEffect(() => {
@@ -173,7 +181,7 @@ export default function UserProfile() {
   return (
     <BackgroundProfile>
       <div>
-        {console.log("getItsMyPet", getItsMyPet)}
+{/*         {console.log("getItsMyPet", getItsMyPet)}
         {console.log("loadPetAdopt", loadPetAdopt)}
         {console.log("loadPetLost", loadPetLost)}
         {console.log("getAdopt", getAdopt)}
@@ -181,7 +189,7 @@ export default function UserProfile() {
         {console.log("petsAdopted", petsAdopted)}
         {console.log("petsTransit", petsTransit)}
         {console.log(flagPet, flagPetitions, flagDonations)}
-        {user ? console.log("user.password", user.password) : null}
+        {user ? console.log("user.password", user.password) : null} */}
       </div>
       <ContainerProfile>
         <TitleProfile>Mi Perfil</TitleProfile>
@@ -290,8 +298,7 @@ export default function UserProfile() {
             <option value="suscription">suscripcion</option>
             <option value="unique">normal</option>
           </select>
-        </div>
-        <h2>Si se duplican las cards apreta F5 {"-->"} este error será arreglado muy pronto</h2>
+        </div>       
         <ContainerDiv>
           <div>
             {petsAdopted.length > 0 || petsTransit.length > 0 ? (
