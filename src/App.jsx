@@ -77,7 +77,6 @@ function App() {
             {/* <Route path="/useradoptpet" element={<UserAdoptPetForm />}></Route>
             <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route> */}
             <Route path="/userprofile" element={<UserProfile />}></Route>
-<<<<<<< HEAD
             <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>     
             <Route path="/lostpets" element={<LostPets />}></Route>      
             <Route path="/admin" element={<AdminHome />}></Route>
@@ -89,13 +88,10 @@ function App() {
             <Route path="/admin/formtransit" element={<FormTransit />}></Route>
             <Route path="/admin/profilepets/:id" element={<ProfilePets />}></Route>
             <Route path="/admin/petitionuser/:id" element={<Peticiones />}></Route>
-          </Routes>
-=======
-            <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>
-            <Route path="/lostpets" element={<LostPets />}></Route>
+            {/* <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route> */}
+            {/* <Route path="/lostpets" element={<LostPets />}></Route> */}
             <Route path="/chatbot" element={<ContenidoChatb />}></Route>                     
           </Routes>         
->>>>>>> 94712d108d7bfa1315ad72545e160019be43a5c4
           <Footer />
         </ThemeProvider>
       </BrowserRouter>
