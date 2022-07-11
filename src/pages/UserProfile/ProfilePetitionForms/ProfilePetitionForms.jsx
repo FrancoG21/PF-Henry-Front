@@ -552,9 +552,9 @@ export function PetitionLoads({
           ? "rechazado"
           : null}
       </h5>
-      {petImg.map((p, i) => (
+       {petImg.map((p, i) => (
         <img src={p} alt={petName} key={"a" + i} height="60px" />
-      ))}
+      ))} 
     </div>
   );
 }

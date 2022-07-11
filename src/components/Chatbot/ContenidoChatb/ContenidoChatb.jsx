@@ -12,7 +12,7 @@ const theme = {
     botBubbleColor: '#0cb3c9',
     botFontColor: '#fff',
     userBubbleColor: '#eb3449',
-    userFontColor: '#fff',
+    userFontColor: '#fff',    
 }
 
 export default class ContenidoChatb extends Component {

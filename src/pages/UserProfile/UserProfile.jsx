@@ -21,8 +21,18 @@ import {
   PetitionGetLosts,
   PetitionLoads,
 } from "./ProfilePetitionForms/ProfilePetitionForms";
+import DonationCard from "./DonationCard/DonationCard";
 
 export default function UserProfile() {
+  const donacionHarcodeadaUnique = [
+    { date: "05/07/2022", id: 1, type: "unique", amount: "1000" },
+    { date: "05/07/2022", id: 3, type: "unique", amount: "500" },
+  ];
+
+  const donacionHarcodeadaSuscr = [
+    { date: "05/07/2022", id: 2, type: "suscription", amount: "1500" },
+  ];
+
   const [petsAdopted, setPetsAdopted] = useState([]);
   const [petsTransit, setPetsTransit] = useState([]);
 
@@ -32,6 +42,13 @@ export default function UserProfile() {
   const [getTransit, setGetTransit] = useState([]);
   const [getItsMyPet, setGetItsMyPet] = useState([]);
 
+  /*   const [donationsUnique, setDonationsUnique] = useState([]);
+  const [donationsSuscription, setDonationsSuscription] = useState([]);
+  const chauDuplicados = new Set(donationsUnique)
+  const chauDuplicados2 = new Set(donationsSuscription)
+  const concatenadaUnique = [... chauDuplicados]
+  const concatenadaSuscription = [... chauDuplicados2]
+ */
   const [flagPet, setFlagPet] = useState("all");
   const [flagPetitions, setFlagPetitions] = useState("all");
   const [flagDonations, setFlagDonations] = useState("all");
@@ -76,6 +93,16 @@ export default function UserProfile() {
         }
       }
     }
+    /* if(donacionHarcodeada.length){
+      for(let donation of donacionHarcodeada){
+        if(donation.type === 'unique'){
+          setDonationsUnique((prevState) => [...prevState, donation]);
+        }
+        if(donation.type === 'suscription'){
+          setDonationsSuscription((prevState) => [...prevState, donation]);
+        }
+      }
+    } */
   };
 
   const callbackIn = async () => {
@@ -161,9 +188,9 @@ export default function UserProfile() {
   useEffect(() => {
     callbackIn();
 
-    return () => {
+    /* return () => {
       callbackOut();
-    };
+    }; */
   }, []);
 
   useEffect(() => {
@@ -173,7 +200,7 @@ export default function UserProfile() {
   return (
     <BackgroundProfile>
       <div>
-        {console.log("getItsMyPet", getItsMyPet)}
+        {/*         {console.log("getItsMyPet", getItsMyPet)}
         {console.log("loadPetAdopt", loadPetAdopt)}
         {console.log("loadPetLost", loadPetLost)}
         {console.log("getAdopt", getAdopt)}
@@ -181,7 +208,9 @@ export default function UserProfile() {
         {console.log("petsAdopted", petsAdopted)}
         {console.log("petsTransit", petsTransit)}
         {console.log(flagPet, flagPetitions, flagDonations)}
-        {user ? console.log("user.password", user.password) : null}
+        {user ? console.log("user.password", user.password) : null} */}
+        {console.log("donationsUnique", donacionHarcodeadaSuscr)}
+        {console.log("donationsSuscription", donacionHarcodeadaUnique)}
       </div>
       <ContainerProfile>
         <TitleProfile>Mi Perfil</TitleProfile>
@@ -291,7 +320,6 @@ export default function UserProfile() {
             <option value="unique">normal</option>
           </select>
         </div>
-        <h2>Si se duplican las cards apreta F5 {"-->"} este error será arreglado muy pronto</h2>
         <ContainerDiv>
           <div>
             {petsAdopted.length > 0 || petsTransit.length > 0 ? (
@@ -697,16 +725,52 @@ export default function UserProfile() {
               <p>No posees ninguna peticion</p>
             )}
           </ContainerPetitions>
-          <h3>
-            Tipo de donaciones:{" "}
-            {flagDonations === "all"
-              ? "todo"
-              : flagDonations === "suscription"
-              ? "suscripcion"
-              : flagDonations === "unique"
-              ? "normal"
-              : null}
-          </h3>
+                      
+            {flagDonations === "all" ? (
+              <div>
+                {donacionHarcodeadaUnique.length > 0 ? (
+                  donacionHarcodeadaUnique.map((d) => (
+                    <DonationCard
+                      amount={d.amount}
+                      date={d.date}
+                      type={d.type}
+                    />
+                  ))
+                ) : (
+                  null
+                )}
+                {donacionHarcodeadaSuscr.length > 0 ? (
+                  donacionHarcodeadaSuscr.map((d) => (
+                    <DonationCard
+                      amount={d.amount}
+                      date={d.date}
+                      type={d.type}
+                    />
+                  ))
+                ) : (
+                  null
+                )}
+              </div>
+            ) : flagDonations === "suscription" ? 
+              <div>
+                {donacionHarcodeadaSuscr.length > 0 ? (
+                donacionHarcodeadaSuscr.map((d) => (
+                  <DonationCard amount={d.amount}/*  date={d.date} type={d.type} */ />
+                ))
+              ) : (
+                <div>No posees donaciones de este tipo</div>
+              )}
+              </div>
+             : flagDonations === "unique" ? <div>{(
+              donacionHarcodeadaUnique.length > 0 ? (
+                donacionHarcodeadaUnique.map((d) => (
+                  <DonationCard amount={d.amount}/*  date={d.date} type={d.type} */ />
+                ))
+              ) : (
+                <div>No posees donaciones de este tipo</div>
+              )
+            )}</div> : <div>No posees ninguna donacion</div>}
+          
         </ContainerDiv>
       </ContainerProfile>
     </BackgroundProfile>
