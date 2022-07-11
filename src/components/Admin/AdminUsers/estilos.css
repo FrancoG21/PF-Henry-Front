@@ -1,5 +1,7 @@
 
-
+.container{
+    align-items: center;
+}
 .cellWrapper{
     display: flex;
     align-items: center;

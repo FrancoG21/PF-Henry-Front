@@ -134,7 +134,7 @@ export const getUsers = () => {
   return async function (dispatch) {
     try {
       const res = await axios.get('/user');
-      dispatch({ type: USERS, payload: res.data });
+      dispatch({ type:USERS, payload: res.data });
     } catch (e) {
       console.log(e);
     }

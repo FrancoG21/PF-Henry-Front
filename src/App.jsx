@@ -28,7 +28,7 @@ import FormLostAnimals from "./components/Admin/FormLostAnimals/FormLostAnimals"
 import FormAdopt from "./components/Admin/FormAdopt/FormAdopt";
 import FormTransit from "./components/Admin/FormTransit/FormTransit";
 import ProfilePets from "./components/Admin/ProfilePets/ProfilePets";
-
+import Peticiones from './components/Admin/AdminUsers/Peticiones'
 //  MODO OSCURO //
 import { ThemeProvider } from "styled-components";
 import { themes } from "./styles/themes";
@@ -83,6 +83,7 @@ function App() {
             <Route path="/admin/formlost" element={<FormLostAnimals />}></Route>
             <Route path="/admin/formtransit" element={<FormTransit />}></Route>
             <Route path="/admin/profilepets/:id" element={<ProfilePets />}></Route>
+            <Route path="/admin/petitionuser/:id" element={<Peticiones />}></Route>
           </Routes>
           <Footer />
         </ThemeProvider>
