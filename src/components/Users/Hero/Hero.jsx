@@ -1,6 +1,7 @@
 import React from "react";
 import { BackgroundHero, ShadowBackground, ContainerHero, ContainerText, TitleHero, Info, Title, Subtitle, Subtitles, ButtonHero } from "./StyledHero";
 import { useSelector } from "react-redux";
+import ContenidoChatb from "../../Chatbot/ContenidoChatb/ContenidoChatb";
 
 
 export default function Hero() {
@@ -25,6 +26,7 @@ export default function Hero() {
                                     <ButtonHero to='/login'>Sign Up</ButtonHero>
                             </TitleHero>
                         </Info>
+                        <ContenidoChatb />
                     </ContainerText>
                 </ContainerHero>
             </ShadowBackground>

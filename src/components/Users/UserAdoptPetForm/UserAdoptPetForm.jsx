@@ -205,9 +205,9 @@ export default function UserAdoptPetForm() {
               {console.log(props.values)}
               {console.log("abajo errors")} +/}              
               {/* {console.log('user',user)} */}
-              {console.log("errors", props.errors)}
-              {console.log("user", user)}
-              {console.log("value userId", props.values.userId)}
+              {/* {console.log("errors", props.errors)} */}
+              {console.log("values", props.values)}
+              {/* {console.log("value userId", props.values.userId)} */}
               <ContainerCamp>
                 <Camp>
                   <ImagePet

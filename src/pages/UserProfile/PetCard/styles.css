@@ -7,7 +7,7 @@
   line-height: 1;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-bottom: 20px;
   background-color: #caf0f8;
   border-radius: 30px;
@@ -23,4 +23,7 @@ border-radius: 20px;
 }
 .cardContainer button {
   border-radius: 10px;
+}
+.cardContainer .dev {
+  margin-top: 2px;
 }
