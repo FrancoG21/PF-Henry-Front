@@ -24,3 +24,6 @@ border-radius: 20px;
 .cardContainer button {
   border-radius: 10px;
 }
+.cardContainer .dev {
+  margin-top: 2px;
+}

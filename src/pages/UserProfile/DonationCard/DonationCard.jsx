@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
+import styles from "./styles.css";
 
-export default function DonationCard() {
-  const skere2 = "1 2 3";
+export default function DonationCard(amount, date, type) {
+  
 
-  useEffect(() => {
-    console.log(skere2);
-  }, []);
-
-  return <h1>donaciones</h1>;
+  return (<div className="cardContainer"> 
+    {console.log('amount',amount)}
+    {console.log('date',date)}
+    {console.log('type',type)} 
+    {amount.type === 'unique' ? <h3>Donación única</h3> : amount.type==='suscription' ? <h3>Donación suscripcion</h3> :null}    
+     {/* <div>{JSON.stringify(amount)}</div>  */}
+    <p>Fecha: {amount.date}</p>
+    <p>Monto: ${amount.amount}</p>    
+  </div>)
 }

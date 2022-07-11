@@ -45,28 +45,81 @@ export default function PetCard({
   weight,
   gender,
   actualPlace,
-  fur
+  fur,
 }) {
-
   const popUp1 = () => {
     Swal.fire({
       title: `${capitalize(name)}`,
       html: `
         <img src=${image} alt=${name} height='200px' width='200px'/>
         <p>${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null}</p>
-        <p><b>Raza:</b> ${breed === 'crossbreed' ? 'caschi' : breed}</p>
-        <p><b>Genero:</b> ${gender === 'male' ? 'macho' : gender === 'female' ? 'hembra' : gender === 'unknown' ? 'no se sabe' : null}<p/>
-        <p><b>Tamaño:</b> ${size === 'small' ? 'pequeño' : size === 'medium' ? 'mediano' : size === 'big' ? 'grande' : null}</p> 
-        <p><b>Peso:</b> ${weight ? weight : '-'}</p>
-        <p><b>Pelaje:</b> ${fur === 'short' ? 'corto' : fur === 'long' ? 'largo' : null}</p>
-        <p><b>Vacunación:</b> ${vaccinate === 'true'? 'si' : vaccinate === 'false'? 'no': vaccinate === 'unknown'? 'no se sabe' : null}</p>
-        <p><b>Castración:</b> ${castration === 'true'? 'si' : castration === 'false'? 'no': castration === 'unknown'? 'no se sabe' : null}</p>
+        <p><b>Raza:</b> ${breed === "crossbreed" ? "caschi" : breed}</p>
+        <p><b>Genero:</b> ${
+          gender === "male"
+            ? "macho"
+            : gender === "female"
+            ? "hembra"
+            : gender === "unknown"
+            ? "no se sabe"
+            : null
+        }<p/>
+        <p><b>Tamaño:</b> ${
+          size === "small"
+            ? "pequeño"
+            : size === "medium"
+            ? "mediano"
+            : size === "big"
+            ? "grande"
+            : null
+        }</p> 
+        <p><b>Peso:</b> ${weight ? weight : "-"}</p>
+        <p><b>Pelaje:</b> ${
+          fur === "short" ? "corto" : fur === "long" ? "largo" : null
+        }</p>
+        <p><b>Vacunación:</b> ${
+          vaccinate === "true"
+            ? "si"
+            : vaccinate === "false"
+            ? "no"
+            : vaccinate === "unknown"
+            ? "no se sabe"
+            : null
+        }</p>
+        <p><b>Castración:</b> ${
+          castration === "true"
+            ? "si"
+            : castration === "false"
+            ? "no"
+            : castration === "unknown"
+            ? "no se sabe"
+            : null
+        }</p>
         <p><b>Ubicación actual:</b></p>
         <p>${actualPlace.toString()}</p>
       `,
     });
   };
- 
+
+  const popUp2 = () => {
+    Swal.fire({
+      title: "Esta seguro?",
+      text: "Su peticion será enviada",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Devolver mascota",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "Peticion enviada",
+          "Tu peticion pronto sera revisada",
+          "success"
+        );        
+      }
+    });
+  };
 
   return (
     <div className="cardContainer" key={"a" + id}>
@@ -82,17 +135,24 @@ export default function PetCard({
       {/* <h4>Ubicación actual <br/><br/>{actualPlace}</h4> */}
       <img src={image} alt={name} height="100px" width="100px" />
 
-      <button
-        onClick={
-          state === "adopted" ? popUp1 : state === "transit" ? popUp1 : null
+      <div>
+        {
+          <button
+            onClick={
+              state === "adopted" ? popUp1 : state === "transit" ? popUp1 : null
+            }
+          >
+            ver mas
+          </button>
         }
-      >
-        ver mas
-      </button>
+        {state === "adopted" ? <button className="dev" onClick={popUp2}>devolver</button> : null}
+      </div>
 
       {state === "adopted" ? (
         <button onClick={loadSeguimiento}>seguimiento</button>
       ) : null}
+
+      {state === "transit" ? <button onClick={popUp2}>devolver</button> : null}
     </div>
   );
 }
