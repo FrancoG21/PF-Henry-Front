@@ -37,7 +37,11 @@ export default function NavBar({ theme, setTheme }) {
 
     }, [userInfo])
 
+<<<<<<< HEAD
     console.log('este es el usuario --->', user)
+=======
+    /* console.log('este es el usuario --->',user) */
+>>>>>>> 94712d108d7bfa1315ad72545e160019be43a5c4
 
     const showButton = () => {
         if (window.innerWidth <= 960) {

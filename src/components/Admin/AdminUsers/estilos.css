@@ -1,6 +1,14 @@
 
 .container{
+    display: grid;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.containerCard{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 .cellWrapper{
     display: flex;

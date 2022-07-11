@@ -21,13 +21,23 @@ const Peticiones = () => {
       <button>adopcion</button>
       <button>carga</button>
     </div>
+
+    
+
     <div className='container'>
-      <h1>get</h1>
-      {user&&user.PetitionGets.map((e)=><Cardpetition info={e} />)}
-      <h1>getLost</h1>
-      {user&&user.PetitionGetLosts.map((e)=><Cardpetition info={e} />)}
-      <h1>Load</h1>
-      {user&&user.PetitionLoads.map((e)=><Cardpetition info={e} />)}
+      <div>
+       <h1>Peticion de Adopcion</h1>
+        {user&&user.PetitionGets.map((e)=><Cardpetition info={e} />)}
+        </div>
+      <div>
+        <h1>Peticion perdidos</h1>
+        {user&&user.PetitionGetLosts.map((e)=><Cardpetition info={e} />)}
+      </div>
+      <div>
+        <h1>Load</h1>
+        {user&&user.PetitionLoads.map((e)=><Cardpetition info={e} />)}
+      </div>
+      
     </div>
     </>
   )

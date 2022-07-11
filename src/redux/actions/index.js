@@ -141,8 +141,6 @@ export const getUsers = () => {
     }
   };
 };
-<<<<<<< HEAD
-=======
 
 export const deletePet = (id) => {
   return async function (dispatch) {
@@ -154,4 +152,3 @@ export const deletePet = (id) => {
     }
   }
 }
->>>>>>> 42c8f2943afe10ee6969bc5b393d87f332bd15e9

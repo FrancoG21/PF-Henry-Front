@@ -44,6 +44,7 @@ export default function LostPets() {
     <BackgroundPets>
       <ContainerTop>
         <div>
+        <h1>Si perdiste tu mascota buscala aqui</h1>
           <Searchbar stateValue={["lost"]} />
           <PetFilters petsToFilter={petsToFilter} stateValue={["lost"]} />
         </div>

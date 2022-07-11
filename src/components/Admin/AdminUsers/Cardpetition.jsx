@@ -10,12 +10,13 @@ const Cardpetition = ({info}) => {
   return (
     <>
     <div>
-        <div className='container'>
+        <div>
          {detalles().map(e=><p>{e}</p>)}
             {console.log(info)}
         </div>
         <button>aceptar</button> <button>denegar</button>
     </div>
+    
     </>
   )
 }
