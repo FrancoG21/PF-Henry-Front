@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 
 export const BackgroundProfilePets = styled.div`
     background-color: ${(props) => props.theme.background};
@@ -21,5 +21,62 @@ export const DivTitleProfile = styled.div`
 
 export  const GridDiv = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 500px);
+`
+
+export const Left = styled.div`
+    width: 12rem;
+    margin-left: 30px;
+`
+
+export const Right = styled.div`
+    display: 2;
+`
+
+export const ImagePetAdmin = styled.img`
+    width: 11rem;
+    height: 11rem;
+    border-radius: 50%;
+    margin-left: 50%;
+    margin-top: 40px;
+`
+
+export const Form = styled.form`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    margin-right: 60px;
+`
+
+export const ContInput = styled.div`
+    width: 40%;
+`
+
+export const Input = styled.input`
+    width: 100%;
+    padding: 5px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid ${(props) => props.theme.primary};
+`
+
+export const Label = styled.label`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`
+
+export const ButtonEditPet = styled.button`
+    width: 150px;
+    padding: 10px;
+    border: none;
+    background-color: ${(props) => props.theme.primary};
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+`
+
+export const FolderIcon = styled(AddPhotoAlternateOutlinedIcon)`
+    cursor: pointer;
 `

@@ -9,6 +9,8 @@ import {
     Icon2,
     Icon3,
     IconList1,
+    IconList2,
+    IconList3,
     Text,
     LinkList,
 } from './StyledSideBar';
@@ -58,13 +60,13 @@ export default function SideBar() {
                     </LinkList>
                 </LiList>
                 <LiList>
-                    <Icon3 />
+                    <IconList2 />
                     <LinkList to='/admin/formtransit'>
                         <Text>Transito</Text>
                     </LinkList>
                 </LiList>
                 <LiList>
-                    <Icon3 />
+                    <IconList3 />
                     <LinkList to='/admin/formlost'>
                         <Text>Extraviados</Text>
                     </LinkList>

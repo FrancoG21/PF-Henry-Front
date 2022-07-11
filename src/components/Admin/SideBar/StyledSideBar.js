@@ -5,6 +5,7 @@ import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import FormatListNumberedOutlinedIcon from '@mui/icons-material/FormatListNumberedOutlined';
+import FormatListNumberedRtlOutlinedIcon from '@mui/icons-material/FormatListNumberedRtlOutlined';
 import {Link} from'react-router-dom';
 
 export const ListDiv = styled.div`
@@ -69,6 +70,11 @@ export const IconList1 = styled(FormatListBulletedOutlinedIcon)`
 `
 
 export const IconList2 = styled(FormatListNumberedOutlinedIcon)`
+    font-size: 18px;
+    color: ${(props) => props.theme.secondary};
+`
+
+export const IconList3 = styled(FormatListNumberedRtlOutlinedIcon)`
     font-size: 18px;
     color: ${(props) => props.theme.secondary};
 `
