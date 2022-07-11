@@ -5,7 +5,8 @@ class chatbotSearch extends Component {
     constructor(props) {
         super(props);
         const { steps } = this.props;
-        const { seleccion, seleccionAdopt, seleccionDonation } = steps;
+        const { seleccion, seleccionAdopt, seleccionDonation } =  steps;
+        console.log('bienvenido',steps)
         this.state = {
             seleccion,
             seleccionAdopt,
@@ -52,6 +53,7 @@ class chatbotSearch extends Component {
     render() {
         return (
             <div>
+                <button>{}</button>
                 <p>Te invito a dar un recorrido por nuestra pagina web {this.state.nombreCurado}: </p>
                 <a href={"https://www.soyhenry.com/" + this.state.busqueda} target="_blank">{this.state.nombreCurado}</a>
             </div>

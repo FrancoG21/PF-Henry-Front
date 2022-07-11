@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Pets from "./pages/Pets/Pets";
 import NavBar from "./components/Users/NavBar/NavBar";
+import Icono from './components/Chatbot/Icono/Icono'
 
 import Footer from "./components/Users/Footer/Footer";
 import About from "./pages/About/About";
@@ -49,6 +50,8 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={themes[themeMode]}>
           <NavBar theme={theme} setTheme={setTheme} />{/*userInfo={userInfo} */}
+          
+          <Icono />
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/adopt" element={<Pets />}></Route>

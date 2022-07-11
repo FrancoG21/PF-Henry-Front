@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ChatBot from 'react-simple-chatbot'
 import { ThemeProvider } from 'styled-components'
 import ChatbotSearch from "../ChatbotSearch/ChatbotSearch"
+import s from './chatbot.module.css'
 
 const theme = {
     background: '#f5f8fb',
@@ -17,9 +18,10 @@ const theme = {
 export default class ContenidoChatb extends Component {
     render() {
         return (
+            <div class ={s.container}>
             <ThemeProvider theme={theme}>
                 <ChatBot
-                    steps={[
+                   steps={[
                         {
                             id: "1",
                             message: "Cordial saludo. Por favor, me indicas tu nombre?",
@@ -70,6 +72,7 @@ export default class ContenidoChatb extends Component {
                             options: [
                                 { value: "a", label: "Sobre mascotas", trigger: "seleccionA" },
                                 { value: "d", label: "Sobre Donación", trigger: "seleccionB" },
+                              
                             ]
                         },
                         {
@@ -118,7 +121,9 @@ export default class ContenidoChatb extends Component {
                         }
                     ]}
                 />
+                
             </ThemeProvider>
+            </div>
         )
     }
 }
