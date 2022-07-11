@@ -9,7 +9,8 @@ import {
   LOGIN,
   LOGOUT,
   REGISTER,
-  USERS
+  USERS,
+  DELETE_PETS,
 } from "./nameAction";
 
 export function getPets(page, filter) {
@@ -140,3 +141,17 @@ export const getUsers = () => {
     }
   };
 };
+<<<<<<< HEAD
+=======
+
+export const deletePet = (id) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(`/pet/${id}`);
+      dispatch({type: DELETE_PETS, payload: res.data})
+    } catch(err) {
+      console.log(err)
+    }
+  }
+}
+>>>>>>> 42c8f2943afe10ee6969bc5b393d87f332bd15e9

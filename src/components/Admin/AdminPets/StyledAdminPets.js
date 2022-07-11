@@ -11,4 +11,3 @@ export const ContainerListPets = styled.div`
     grid-template-columns: 150px 1183px;
     gap: 1rem;
 `
-

@@ -9,7 +9,7 @@ import {
   LOGOUT,
   LOGIN_GOOGLE,
   POST_PET,
-  USERS
+  USERS,
 } from "../actions/nameAction";
 
 const initialState = {
