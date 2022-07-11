@@ -9,6 +9,8 @@ import {
   LOGIN,
   LOGOUT,
   REGISTER,
+  USERS,
+  DELETE_PETS,
 } from "./nameAction";
 
 export function getPets(page, filter) {
@@ -35,11 +37,35 @@ export function searchByName(payload) {
   };
 }
 
-export const createPet = (payload) => {
-  console.log("createPet -->", payload);
+export const petitionLoad = (payload) => {
+  console.log("petitionLoad -->", payload);
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/pet`, payload);
+      const res = await axios.post(`/petitionLoad/`, payload);
+      dispatch({ type: POST_PET, payload: res.data });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const petitionGet = (payload) => {
+  console.log("petitionGet -->", payload);
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`/petitionGet/`, payload);
+      dispatch({ type: POST_PET, payload: res.data });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const petitionGetLost = (payload) => {
+  console.log("petitionGetLost -->", payload);
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`/petitionGet/lost`, payload);
       dispatch({ type: POST_PET, payload: res.data });
     } catch (e) {
       console.log(e);
@@ -65,11 +91,11 @@ export function cleanDetail() {
 }
 
 export function getGoogle(info) {
+  console.log('estoy en',info)
   return async (dispatch) => {
     try {
-
-      const { res } = await axios.post(`/auth/google/callback`, info);
-      localStorage.setItem("userInfo", JSON.stringify(res))
+      const  res  = await axios.post(`/auth/google/callback`, info);
+      localStorage.setItem("InfoSeccion", JSON.stringify(res.data))
       dispatch({ type: LOGIN_GOOGLE, payload: res.data })
     } catch (err) {
       console.log(err)
@@ -77,17 +103,8 @@ export function getGoogle(info) {
   }
 
 }
-export const loginManual = (infoDform) => {
-  console.log("login -->", infoDform);
-  return async function (dispatch) {
-    try {
-      const res = await axios.post(`/user/login`, infoDform);
-      localStorage.setItem("userInfo", JSON.stringify(res.data))
-      dispatch({ type: LOGIN, payload: res.data });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+export const loginManual = (payload) => {
+  return { type: LOGIN, payload }
 };
 
 export const getLogOut = () => {
@@ -95,13 +112,43 @@ export const getLogOut = () => {
   return {type: LOGOUT, payload: null};
 } 
 
-export const getRegister = (payload) => {
-  return async function(dispatch){
-    const res = await axios.post(`/user/register`, payload);
-    dispatch({type: REGISTER, payload: res.data});
-  }
-}
-
 export const upLogin = (user) => {
   return {type: LOGIN, payload: user};
+}
+
+
+export const postRegister = (payload) => {
+  console.log("postRegister -->", payload);
+  return async function (dispatch) {
+    try {
+      const res = await axios.post('/user/register', payload);
+      dispatch({ type: REGISTER, payload: res.data });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+
+export const getUsers = () => {
+ 
+  return async function (dispatch) {
+    try {
+      const res = await axios.get('/user');
+      dispatch({ type:USERS, payload: res.data });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const deletePet = (id) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(`/pet/${id}`);
+      dispatch({type: DELETE_PETS, payload: res.data})
+    } catch(err) {
+      console.log(err)
+    }
+  }
 }

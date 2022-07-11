@@ -22,7 +22,7 @@ export default function Pets() {
   const pets = useSelector((state) => state.pets);
   const petsAmount = useSelector((state) => state.petsAmount);
   const [page, setPage] = useState(0)
-  const [filter, setFilter] = useState({state:['adopt','transit']})
+  const [filter, setFilter] = useState({ state: ['adopt', 'transit'] })
 
   useEffect(() => {
     dispatch(getPets(page, filter))
@@ -34,7 +34,7 @@ export default function Pets() {
     dispatch(getPets(pagee, filter));
   };
 
-  const petsToFilter = (obj)=>{
+  const petsToFilter = (obj) => {
     setFilter(obj)
     dispatch(getPets(page, obj));
     setPage(0)
@@ -43,30 +43,30 @@ export default function Pets() {
   return (
     <BackgroundPets>
       <ContainerTop>
-        <Searchbar  stateValue={['adopt','transit']} />
+        <div>
+          <h1>Adopta o Transito tu mascota</h1>
+          <Searchbar stateValue={['adopt', 'transit']} />
+          <PetFilters petsToFilter={petsToFilter} stateValue={['adopt', 'transit']} />
+        </div>
+        <Container>
+          <ImageSpace>
+            <Grid>
+              {!pets ? (
+                <p>Please choose other option</p>
+              ) : pets[0] === "the search returned no results" ? (
+                <p>the search returned no results</p>
+              ) : (
+                pets?.map((p) => {
+                  return (
+                    <PetCard key={p.id} id={p.id} name={p.name} image={p.image} />
+                  );
+                })
+              )}
+            </Grid>
+          </ImageSpace>
+        </Container>
       </ContainerTop>
 
-      <ContainerFilters>
-        <PetFilters petsToFilter={petsToFilter} stateValue={['adopt','transit']}/>
-      </ContainerFilters>
-
-      <Container>
-        <ImageSpace>
-          <Grid>
-            {!pets ? (
-              <p>Please choose other option</p>
-            ) : pets[0] === "the search returned no results" ? (
-              <p>the search returned no results</p>
-            ) : (
-              pets?.map((p) => {
-                return (
-                  <PetCard key={p.id} id={p.id} name={p.name} image={p.image} />
-                );
-              })
-            )}
-          </Grid>
-        </ImageSpace>
-      </Container>
       <Paginate
         total={petsAmount}
         petsPerPage={6}

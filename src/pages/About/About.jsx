@@ -2,7 +2,7 @@ import React from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import {
-  ImageAbout,
+  // ImageAbout,
   AboutSlide,
   BackgroundAbout,
   TitleAbout,
@@ -11,133 +11,112 @@ import {
   Container,
   SubtitleAbout,
   TextAbout,
+  ImagePorta,
 } from "./StyledAboutUs";
+import CardAbout from "../../components/Users/CardAbout/CardAbout";
 
 export default function About() {
   const data = [
     {
-      name: "name",
+      name: "Ignacio Solá Zambrano",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ3yFuczut4deQ3MZ1PqIb6ral5RkhSU4fIA&usqp=CAU",
+        "https://media-exp2.licdn.com/dms/image/C4E03AQE4ZyZLwaLFkQ/profile-displayphoto-shrink_200_200/0/1637091260005?e=1662595200&v=beta&t=gqkUhMGe67ZFSFeUPfFlRTy89rkuAeju_iL3tFuSV9U",
+      linkedIn: "https://www.linkedin.com/in/ignacio-sol%C3%A1-zambrano-8b1532222/",
+      github: "https://github.com/ignacioSola",
     },
     {
-      name: "name",
+      name: "Franco Gimenez",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwnJ-uXpwnrOViM6k6s9e5VDYsH5BNMmXH5w&usqp=CAU",
+        "https://media-exp2.licdn.com/dms/image/C4E03AQGgYjGCCNGAag/profile-displayphoto-shrink_200_200/0/1575240142010?e=1662595200&v=beta&t=JyonSP7IfFt4ghQxok0J3-kxJeo48zp4MHafhVnATjU",
+      linkedIn: "https://www.linkedin.com/in/franco-ramiro-gimenez-98742b184/",
+      github: "https://github.com/FrancoG21",
     },
     {
-      name: "name",
+      name: "Matias Farina Sola",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjY5VbrZYWil3ywQ11M8Rhcvh53Il5QNmd-w&usqp=CAU",
+        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      linkedIn: "https://www.linkedin.com/in/matias-farina-sola-09040b147/",
+      github: "https://github.com/matifagith",
     },
     {
-      name: "name",
+      name: "Edwin Montoya",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScyLyhAmnAq11ZfpvNeN9zgY5_dXa6GpfiqDmPc7NFB29ACjMoX-WAu7Rjz-DizBYJo2w&usqp=CAU",
+        "https://media-exp2.licdn.com/dms/image/C4E03AQGWzhC-eclkJA/profile-displayphoto-shrink_200_200/0/1649822770739?e=1662595200&v=beta&t=VPR9-BnDP7XneNaxXUR2zGd-pQEYFbpV8uYM5MHw7sY",
+      linkedIn: "https://www.linkedin.com/in/edwin-arias-555303235/",
+      github: "https://github.com/EFAM2907",
     },
     {
-      name: "name",
+      name: "Yina Navarro",
       image:
-        "https://i.pinimg.com/originals/e0/7b/20/e07b20ffd67e495e5f6325dd395d0ac7.png",
+        "https://media-exp2.licdn.com/dms/image/C5603AQHs66A1nZ6ATw/profile-displayphoto-shrink_200_200/0/1597790077992?e=1662595200&v=beta&t=tej5YBL67VNQJn2DCKghB_19X45kr7IULwL7GvyVq8E",
+      linkedIn: "https://www.linkedin.com/in/yina-navarro-a8b062b7/",
+      github: "https://github.com/ynavarro44",
     },
     {
-      name: "name",
+      name: "Carolina Guzman",
       image:
-        "https://www.seekpng.com/png/small/21-211386_image-mccoy-who-wiki-svg-free-library-pepe.png",
+        "https://media-exp2.licdn.com/dms/image/C4D03AQF24dwWGiV5-Q/profile-displayphoto-shrink_200_200/0/1621537745521?e=1662595200&v=beta&t=o3j_FQpV6y6kb88F7eyLnLPGvtO0YqqpjtUTr-7bmD0",
+      linkedIn: "https://www.linkedin.com/in/carolina-guzman-570642212//",
+      github: "https://github.com/Caro-Mailen",
     },
     {
-      name: "name",
+      name: "Lucas Giorgi",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSloGQ5CR_EOgxjpQs3X0s11qfufXC1A5AkOA&usqp=CAU",
+        "https://media-exp2.licdn.com/dms/image/C4D03AQFmIqacfpYrug/profile-displayphoto-shrink_200_200/0/1655870457475?e=1662595200&v=beta&t=OwX_9Mkh8RkcaIYTCojGuZaSlvoOfOTI3-jZVlzW-3E",
+      linkedIn: "https://www.linkedin.com/in/lucas-giorgi-b8985416a/",
+      github: "https://github.com/lucasgiorgi95",
     },
     {
-      name: "name",
-      image: "https://pics.me.me/i-love-this-pepe-meme-72072515.png",
+      name: "Agustin Di Giacinto",
+      image: "https://media-exp2.licdn.com/dms/image/C4D03AQGr6joJNV4Cyw/profile-displayphoto-shrink_200_200/0/1643246912186?e=1662595200&v=beta&t=NyMuSt1D1Ra9tkW_Qp7SsqHUaiOlC3XWJHR6oxQ7YwE",
+    linkedIn: "https://www.linkedin.com/in/agustin-di-giacinto-5a0357218/",
+    github: "https://github.com/AgustinDi",
     },
   ];
 
   return (
     <BackgroundAbout>
-      <TitleAbout>About Us!</TitleAbout>
-      <Text>
-        We are a team of 8 full stack developers with the idea of making an
-        application for social benefit and to help animals that are in poor
-        living conditions, without eating and without health. We provide a
-        connection between the person who wants to help an animal to adopt it
-        and give it a good lodging and life
-      </Text>
-      <Splide
-        options={{
-          rewind: false,
-          perPage: 8,
-          perMove: 8,
-          gap: 10,
-          padding: "1rem",
-          pagination: false,
-          breakpoints: {
-            623: {
-              perPage: 2,
-              perMove: 2,
-            },
-            935: {
-              perPage: 32,
-              perMove: 2,
-            },
-            1247: {
-              perPage: 2,
-              perMove: 2,
-            },
-          },
-        }}
-        onMounted={() => {
-          console.log("mounted");
-        }}
-        onUpdated={() => {
-          console.log("updated");
-        }}
-        onMoved={() => {
-          console.log("moved");
-        }}
-        onVisible={(splide, slide) => {
-          console.log("visible", slide.index);
-        }}
-      >
-        {data.map((item) => {
-          return (
-            <AboutSlide key={item}>
-              <ImageAbout
-                className="image-carrusel"
-                src={item.image}
-                alt={"img not found"}
-              />
-              <h2>
-                {item.name[0].toUpperCase() + item.name.slice(1).toLowerCase()}
-              </h2>
-            </AboutSlide>
-          );
-        })}
-      </Splide>
+      <ImagePorta>
+          <TitleAbout>Sobre Nosotros!</TitleAbout>
+          <Text>
+            Somos un equipo de 8 desarrolladores full stack con la idea de hacer un
+            beneficio social, concientisar a las personas a aoptar animales y no venderlos. Sobre todo buscamos ayudar a los animales que se encuentran en malas
+            condiciones de vida, sin comer y sin salud. Proporcionamos un
+            conexión entre la persona que quiere ayudar a un animal a que lo adopten
+            y darle un buen hospedaje y vida
+          </Text>
+      </ImagePorta>
 
       <ContainerAbout>
         <Container>
-          <SubtitleAbout>How did adopt come about?</SubtitleAbout>
+          <SubtitleAbout>Como surgió el Proyecto AdoptA?</SubtitleAbout>
           <TextAbout>
-            AdoptA emerges as a final closing project for the Henry
-            Bootcamp in which a group of students is expected to integrate
-            everything they have learned in the last 4 months and develop an
-            innovative and useful project for society.
+            AdoptA surge como proyecto final de cierre para el Henry
+            Bootcamp en el que se espera que se integre un grupo de alumnos
+            todo lo que han aprendido en los últimos 4 meses y desarrollan un
+            proyecto innovador y útil para la sociedad.
           </TextAbout>
         </Container>
         <Container>
-          <SubtitleAbout>what is our mission?</SubtitleAbout>
+          <SubtitleAbout>Cuál es nuestra mision?</SubtitleAbout>
           <TextAbout>
-            Our mission is to provide a connection through AdoptA between
-            people who want to adopt and animals that need a home, provide help
-            when your animal is lost and put an animal up for adoption when you
-            don't. can you take care of him
+            Nuestra misión es proporcionar una conexión a través de AdoptA entre
+            personas que quieran adoptar animales que necesitan un hogar, brindar ayuda
+            cuando su animal se pierde y dar un animal en adopción cuando usted
+            no pueda cuidarlo
           </TextAbout>
         </Container>
       </ContainerAbout>
+      <AboutSlide>
+        {data.map((item) => {
+          return (
+            <div key={item}>
+              <CardAbout image={item.image} name={item.name} github={item.github} linkedIn={item.linkedIn}/>
+            </div>
+          );
+        })}
+      </AboutSlide>
+
     </BackgroundAbout>
   );
 }

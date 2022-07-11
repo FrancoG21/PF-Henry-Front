@@ -7,6 +7,7 @@ const ligthTheme = {
     font_alt: '#011d32',
     font_card: '#041e2f',
     card: '#caf0f8',
+    card_alt: '#fff',
     search: '#000',
 }
 
@@ -19,6 +20,7 @@ const darkTheme = {
     font_alt: '#fff',
     font_card: '#3da9fc',
     card: '#041e2f',
+    card_alt: '#041e2f',
     search: '#fff',
 }
 

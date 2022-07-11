@@ -7,6 +7,9 @@ import {
   // GET_LOST_PETS,
   LOGIN,
   LOGOUT,
+  LOGIN_GOOGLE,
+  POST_PET,
+  USERS,
 } from "../actions/nameAction";
 
 const initialState = {
@@ -17,7 +20,10 @@ const initialState = {
   lostpets: [],
   usuario: null,
   urlFront:  import.meta.env.VITE_APP_FRONT || "http://localhost:3000",
-  urlBack: import.meta.env.VITE_APP_API || "http://localhost:3001"
+  urlBack: import.meta.env.VITE_APP_API || "http://localhost:3001",
+  google:[],
+  usuarios:[],
+  user:[]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -46,6 +52,12 @@ const rootReducer = (state = initialState, action) => {
         petDetail: action.payload,
       };
     }
+    case LOGIN_GOOGLE: {
+      return{
+        ...state,
+         google: action.payload
+      }
+    }
 
     case CLEAN_DETAILS: {
         return {
@@ -68,8 +80,23 @@ const rootReducer = (state = initialState, action) => {
       }
     }
 
+    case POST_PET:{
+      return {
+        ...state,        
+      }
+    }
+    
+
+    case USERS:{
+      return{
+        ...state, 
+        usuarios: action.payload
+      }
+    }
+
     default: {
       return state;
+    
     }
   }
 };

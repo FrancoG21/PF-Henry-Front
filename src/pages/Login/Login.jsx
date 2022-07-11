@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginManual } from '../../redux/actions/index';
+// import GoogleButton from 'react-google-button'
+import { getLogOut, loginManual } from '../../redux/actions/index';
 // import {loginManual} from '../../../redux/actions/index'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+// import  GoogleLogin  from 'react-google-login'
 // import s from './login.module.css'
 import Swal from "sweetalert2";
+import axios from 'axios'
 import {
   BackgroundLogin,
   Errors,
@@ -16,6 +19,7 @@ import {
   Button,
   Acces,
 } from './StyledLogin';
+
 
 export function validation(input) {
   let errors = {};
@@ -32,14 +36,15 @@ export function validation(input) {
 
   if (!input.password) {
     errors.password = "Contraseña es requerida";
-  } else if (
-    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
-      input.password
-    )
-  ) {
-    errors.password =
-      "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
   }
+  //  else if (
+  //   !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/i.test(
+  //     input.password
+  //   )
+  // ) {
+  //   errors.password =
+  //     "Minimo 8 carateres, maximo 15, al menos una letra mayuscula, al menos una letra minuscula, al menos 1 digito, al menos un caracter especial";
+  // }
 
   return errors;
 }
@@ -48,10 +53,11 @@ export function validation(input) {
 
 export default function Login() {
 
-  const resLogin = useSelector((state) => state.usuario)
+  const user = useSelector((state) => state.usuario)
   const urlBack = useSelector((state) => state.urlBack)
+  const resLogin = useSelector((state) => state.usuario)
   console.log("LOGINUSER", resLogin);
-  const history = useNavigate()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [errors, setErrors] = useState({});
@@ -61,48 +67,78 @@ export default function Login() {
     password: ''
   })
 
-  // const handleSubmit = async(e) =>{
-  //     e.preventDefault()
-  //     if (input.email !== "" && input.password !== "") {
-  //       const token = await axios.post(`/user/login`, input);
+  async function handleCredentialResponse(response) {
+    const res = await axios.post(`/user/loginGoogle`, {token: response.credential});
+    localStorage.setItem("userInfo", JSON.stringify(response.credential))
+    dispatch(loginManual(response.credential))
+    
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Sesion iniciada!',
+      showConfirmButton: true,
+      timer: 1500
+    }).then(()=>{
+      navigate("/")
+    })
+  }
 
-  //       const usuario = resLogin.find((user) => user.email === input.email);
-  //       if (token.data.user) {
-  //         dispatch(loginManual(input))
-  //         if (usuario.admin.filter((r) => r.type === "admin").length > 0)
-  //         history('/userprofile')
-  //         else history('/userprofile');
-  //       } else {
-  //         if (!token.data.user) alert("Email/password incorrecto");
-  //       }
-  //     } else {
-  //       alert("Debes rellenar todos los campos antes de loguearte");
-  //     }
-  // }
-  const handleSubmit = (e) => {
+  useEffect(()=>{
+    /*google google*/
+      google.accounts.id.initialize({
+        client_id: "1028519940337-g0k86eebnu3s23dhvn2d1q32l1rg46sr.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "medium" }  // customization attributes
+      );
+      google.accounts.id.disableAutoSelect();
+      
+    },[user])
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginManual(input))
-    if (input.email !== '' && input.password !== '') {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Inicio de sesión exitoso!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    } else {
-      Swal.fire({
+    if (input.email === '' && input.password === '') {
+      return Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Completa lo campos!',
+        text: 'Completa todos los campos!',
         showConfirmButton: false,
         timer: 1500
       })
     }
+
+    const res = await axios.post(`/user/login`, input)
+    console.log(res)
+    if(res.data.error){
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: res.data.error,
+        showConfirmButton: false,
+        timer: 1000
+    })
+    }
+
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Sesion iniciada!',
+      showConfirmButton: true,
+      timer: 1500
+    }).then(()=>{
+      navigate("/")
+    })
+
+    localStorage.setItem("userInfo", JSON.stringify(res.data.token))
+
     setInput({
       email: '',
       password: ''
     })
+
+    dispatch(loginManual(res.data.token))
   }
 
   const handleChange = function (e) {
@@ -117,18 +153,41 @@ export default function Login() {
       })
     );
   };
-
-  const google = () => {
-    window.location.replace(url + '/auth/google/callback', '_self');
-  }
-  console.log('google', google)
+// const url = 'http://localhost:3001'
+//   const google = () => {
+//     window.location.replace(url + '/auth/google/callback', '_self');
+//   }
+//   console.log('google', google)
+  
+//   const logout = () => {
+//     window.location.replace(url + '/auth/google/callback', '_self');
+//   }
+  
+// function responseGoogle(response) {
+//   console.log('responseGoogle', response)
+// }
+// function alert(result) {
+//  console.log(result)
+// }
 
   return (
     <BackgroundLogin>
-      <Wrapper>
+      <Wrapper>  
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Input type="text" value={input.email} placeholder="Email" name="email" onChange={handleChange} />
           {errors.email && <Errors>{errors.email}</Errors>}
+          
+
+          {/* <GoogleLogin
+    clientId="6229358800-jmcgp4kol677o5qvhs02hnkaclvk1174.apps.googleusercontent.com"
+    buttonText="Login"
+    onSuccess={responseGoogle}
+    onFailure={alert}
+    cookiePolicy={'single_host_origin'}
+   /> */}
+
+
+
 
           <Input type="password" value={input.password} placeholder="Password" name="password" onChange={handleChange} />
           {errors.password && <Errors>{errors.password}</Errors>}
@@ -138,6 +197,8 @@ export default function Login() {
               Register
             </Acces>
           </Button>
+          <br/>
+        { !user && <div id='buttonDiv'>holu</div> }
         </Form>
       </Wrapper>
     </BackgroundLogin>

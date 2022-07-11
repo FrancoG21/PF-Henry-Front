@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Field, ErrorMessage } from "formik";
-import { getById } from "../../../redux/actions/index";
+import { getById, petitionGet } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Supliers from "./Supliers";
 import {
   ContainerCamp,
@@ -25,6 +26,7 @@ export default function UserAdoptPetForm() {
   const [flag, setFlag] = useState(false);
   const pet = useSelector((state) => state.petDetail);
   const { id } = useParams();
+  const [user, setUser] = useState(null);
 
   // Pagina de ejemplo --> https://docs.google.com/forms/d/e/1FAIpQLSdh3Te8u3anAH182My7fORBlKlAyBzSuiHfp6YjkqcoQq5F8Q/viewform
 
@@ -51,16 +53,33 @@ export default function UserAdoptPetForm() {
   ];
   const options3 = ["Balcón", "Patio", "Terraza", "Parque"];
 
+  const decodeToken = async () => {
+    try {
+      const res = await axios.get(
+        "/user/" + JSON.parse(localStorage.getItem("userInfo"))
+      );
+      const resData = res.data;
+      setUser(resData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     dispatch(getById(id));
   }, [dispatch]);
+
+  useEffect(() => {
+    decodeToken();
+  }, []);
 
   return (
     <>
       <Formik
         initialValues={{
           petId: id,
-          userId: "userId", //--> despues ver lo de login
+          state: "adopted",
+          userId: user && user.id,
           formDate: moment().format("DD/MM/YYYY"),
           userAge: "",
           actualPlaceDirection: "",
@@ -73,9 +92,9 @@ export default function UserAdoptPetForm() {
           familySize: "",
           familyRelation: "",
           otherPets: "",
-          otherPetsInfo: "", 
-          otherPetsCastration: "", 
-          otherPetsVacunation: "", 
+          otherPetsInfo: "",
+          otherPetsCastration: "",
+          otherPetsVacunation: "",
           getPetReason: "",
           adoptedPetPlace: "",
           openSpace: "",
@@ -84,8 +103,8 @@ export default function UserAdoptPetForm() {
           adoptedPetAloneMoments: "",
           adoptedPetWalkingInfo: "",
           userMovingIdea: "",
-          adaptationTime: "",          
-          userMovility: "",         
+          adaptationTime: "",
+          userMovility: "",
         }}
         validate={(values) => {
           let errors = {};
@@ -107,6 +126,11 @@ export default function UserAdoptPetForm() {
                 delete errors[prop];
               }
             }
+          }
+
+          if (user) {
+            values.userId = user.id;
+            delete errors.userId;
           }
 
           return errors;
@@ -156,7 +180,7 @@ export default function UserAdoptPetForm() {
                   prop === "otherPetsCastration" ||
                   prop === "otherPetsVacunation"
                 ) {
-                  values[prop] = "";
+                  delete values[prop];
                 }
               }
             }
@@ -165,6 +189,7 @@ export default function UserAdoptPetForm() {
           setFlag(true);
           console.log("formulario enviado");
           console.log(values);
+          dispatch(petitionGet(values));
           resetForm();
           setTimeout(() => setFlag(false), 3000);
         }}
@@ -178,8 +203,11 @@ export default function UserAdoptPetForm() {
             <Forms>
               {/* {console.log("abajo values")}
               {console.log(props.values)}
-              {console.log("abajo errors")}
-              {console.log(props.errors)} */}
+              {console.log("abajo errors")} +/}              
+              {/* {console.log('user',user)} */}
+              {/* {console.log("errors", props.errors)} */}
+              {console.log("values", props.values)}
+              {/* {console.log("value userId", props.values.userId)} */}
               <ContainerCamp>
                 <Camp>
                   <ImagePet
@@ -189,15 +217,14 @@ export default function UserAdoptPetForm() {
                     height="400"
                   />
                   <Label>
-                    Macota elegida:{" "}
-                    {pet.name}
-                    {/* {pet?.name[0].toUpperCase() +
-                      pet?.name.slice(1).toLowerCase()} */}
+                    Macota elegida: {pet.name}                  
                   </Label>
                 </Camp>
                 <Camp>
-                  <Label>Nombre Usuario</Label>
-                  <Label>Apellido Usuario</Label>
+                  <Label>
+                    Nombre y apellido del adoptante:{" "}
+                    {user && user.name + " " + user.lastname}
+                  </Label>
                 </Camp>
                 {/* <div>{JSON.stringify(props.errors)}</div> */}
                 <Camp>
@@ -562,7 +589,6 @@ export default function UserAdoptPetForm() {
     </>
   );
 }
-
 
 const newLabel = (name) => {
   if (name === "userAge") return "Edad es requerido";

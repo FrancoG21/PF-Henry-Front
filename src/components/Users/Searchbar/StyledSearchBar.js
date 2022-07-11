@@ -2,7 +2,14 @@ import styled from "styled-components";
 
 export const ContainerSearch = styled.div`
     display: flex;
-    margin: 10px 20px 10px 20px;
+    margin-top: 50px;
+    margin-left: 8px;
+    
+    @media screen and (max-width: 600px) {
+        justify-content: center;
+        margin-left: 0;
+        
+    }
 `
 
 export const Search = styled.input`
