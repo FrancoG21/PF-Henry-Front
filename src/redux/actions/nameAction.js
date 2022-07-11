@@ -8,5 +8,6 @@ export const LOGIN  = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const REGISTER = "REGISTER";
 export const USERS = "USERS";
+export const DELETE_PETS = "DELETE_PETS";
 
 
