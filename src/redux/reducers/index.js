@@ -22,7 +22,8 @@ const initialState = {
   urlFront:  import.meta.env.VITE_APP_FRONT || "http://localhost:3000",
   urlBack: import.meta.env.VITE_APP_API || "http://localhost:3001",
   google:[],
-  usuarios:[]
+  usuarios:[],
+  user:[]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -84,6 +85,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,        
       }
     }
+    
 
     case USERS:{
       return{

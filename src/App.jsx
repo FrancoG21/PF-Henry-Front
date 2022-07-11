@@ -19,6 +19,16 @@ import LostPets from "./pages/LostPets/LostPets";
 import Success from "./pages/Donation/results/Success";
 import Failure from "./pages/Donation/results/Failure";
 
+//ADMIN
+import AdminHome from "./pages/AdminHome/AdminHome";
+import AdminPets from "./components/Admin/AdminPets/AdminPets";
+import AdminDonation from "./components/Admin/AdminDonation/AdminDonation";
+import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
+import FormLostAnimals from "./components/Admin/FormLostAnimals/FormLostAnimals";
+import FormAdopt from "./components/Admin/FormAdopt/FormAdopt";
+import FormTransit from "./components/Admin/FormTransit/FormTransit";
+import ProfilePets from "./components/Admin/ProfilePets/ProfilePets";
+import Peticiones from './components/Admin/AdminUsers/Peticiones'
 //  MODO OSCURO //
 import { ThemeProvider } from "styled-components";
 import { themes } from "./styles/themes";
@@ -64,7 +74,16 @@ function App() {
             <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route> */}
             <Route path="/userprofile" element={<UserProfile />}></Route>
             <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route>     
-            <Route path="/lostpets" element={<LostPets />}></Route>            
+            <Route path="/lostpets" element={<LostPets />}></Route>      
+            <Route path="/admin" element={<AdminHome />}></Route>
+            <Route path="/admin/pets" element={<AdminPets />}></Route>
+            <Route path="/admin/users" element={<AdminUsers />}></Route>
+            <Route path="/admin/donation" element={<AdminDonation />}></Route>
+            <Route path="/admin/formadopt" element={<FormAdopt />}></Route>
+            <Route path="/admin/formlost" element={<FormLostAnimals />}></Route>
+            <Route path="/admin/formtransit" element={<FormTransit />}></Route>
+            <Route path="/admin/profilepets/:id" element={<ProfilePets />}></Route>
+            <Route path="/admin/petitionuser/:id" element={<Peticiones />}></Route>
           </Routes>
           <Footer />
         </ThemeProvider>
