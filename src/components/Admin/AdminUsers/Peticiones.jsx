@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import {
   PetitionGets,
   PetitionGetLosts,
@@ -70,19 +72,14 @@ const Peticiones = () => {
     callbackIn2();
   }, [user]);
 
-  // useEffect(() => {
-  //   console.log(id);
-  //   axios.get(`/petitionGet/${id}`).then(r => {
-  //     setUser(r.data);
-  //   });
-  // }, []);
 
   return (
     <>
       <div>
-        <button>volver</button>
-        <button>adopcion</button>
-        <button>carga</button>
+      <Button variant="contained" size="medium">
+        <Link to={'/admin/'}> volver </Link>
+      </Button>
+      
       </div>
 
       <div className="container">

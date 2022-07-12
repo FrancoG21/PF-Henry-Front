@@ -14,7 +14,7 @@ const Cardpetition = ({info}) => {
  }
 
  function acepted(){
-  axios.post('admin/petitionGet/acepted', { petitionId: info.id, token})
+  axios.post('admin/petitionGet/acepted', { petitionId:petId, token})
     .then(r=>console.log(r.data))
  }
 

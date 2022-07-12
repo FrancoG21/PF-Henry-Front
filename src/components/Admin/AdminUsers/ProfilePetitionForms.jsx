@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
-import styles from "./styles.css";
-import { useSelector } from 'react-redux'
+import "./styles.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import { useSelector } from 'react-redux'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
 
 function capitalize(str) {
   return str.replace(/^\w/, (c) => c.toUpperCase());
@@ -103,40 +111,46 @@ export function PetitionGetLosts({
     });
   };
 
-  // const token = useSelector(state=>state.usuario)
+  const token = useSelector(state=>state.usuario)
 
-  // function acepted(){
-  //   axios.post('admin/petitionGet/acepted', { petitionId: info.id, token})
-  //     .then(r=>console.log(r.data))
-  //  }
+  function acepted(){
+    axios.post('/admin/petitionGet/acepted', { petitionId: petId, token})
+      .then(r=>console.log(r.data))
+   }
 
   return (
-    <div className="containerForm">
-      <h3>Petición encontre mi mascota</h3>
-      <button >aceptar</button> <button>denegar</button>
-      <button onClick={popUp1}>ver mas</button> 
-      <h5>fecha: {formDate}</h5>
-      <h5>
-        mascota: {pet.name && capitalize(pet.name)};{" "}
-        {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
-      </h5>
-      {/*  <Link to={`/petdetail/${petId}`}>
-        <button>ver mascota</button>
-      </Link> */}
-      <h5>
-        Estado de la peticion:{" "}
-        {formState === "pending"
-          ? "en revisión"
-          : formState === "acepted"
-          ? "aceptado"
-          : formState === "rejected"
-          ? "rechazado"
-          : null}
-      </h5>
-      
-      <img src={pet.image} alt={pet.name} width="80px" height="80px" />
+  <>
+    <div>
+      <Card sx={{ maxWidth: 345 }}>
+       <img src={pet.image} alt={pet.name} width="345px" height="250px" />
+       <h3>Peticion perdidos</h3>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {pet.name && capitalize(pet.name)};{" "}
+        {pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "gato" : null}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        <h3>fecha: {formDate}</h3>
+        <h3>
+            Estado de la peticion:{" "}
+            {formState === "pending"
+              ? "en revisión"
+              : formState === "acepted"
+              ? "aceptado"
+              : formState === "rejected"
+              ? "rechazado"
+              : null}
+          </h3>
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" variant="outlined" onClick={popUp1}>ver peticion</Button> 
+        <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
+        <Button size="small" variant="outlined" color="error">denegar</Button>
+      </CardActions>
+    </Card>
     </div>
-    
+    </>
   );
 }
 
@@ -343,30 +357,33 @@ export function PetitionGets({
     console.log("PetitionGets", pet);
   }, []);
 
+  const token = useSelector(state=>state.usuario)
+
+  function acepted(){
+    axios.post('/admin/petitionGet/acepted', { petitionId: petId, token})
+      .then(r=>console.log(r.data))
+   }
+
   const from = "PetitionGets";
 
   return (
-    <div className="containerForm">
-      {state === "adopted" ? (
+    <div>    
+      <Card sx={{ maxWidth: 345 }}>
+       <img src={pet.image} alt={pet.name} width="345px" height="250px" />
+       {state === "adopted" ? (
         <h3>Petición para adoptar</h3>
       ) : state === "transit" ? (
         <h3>Petición para hogar transito</h3>
       ) : null}
-      <button >aceptar</button> <button>denegar</button>
-      <button
-        onClick={
-          state === "adopted" ? popUp2 : state === "transit" ? popUp3 : null
-        }
-      >
-        ver mas
-      </button>
-      <h5>fecha: {formDate}</h5>
-      <h5>
-        mascota: {pet.name && capitalize(pet.name)};{" "}
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {pet.name && capitalize(pet.name)};{" "}
         {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
-      </h5>
-      <h5>
-        Estado de la peticion:{" "}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        <h3>fecha: {formDate}</h3>
+        <h3>
+            Estado de la peticion:{" "}
         {formState === "pending"
           ? "en revisión"
           : formState === "acepted"
@@ -374,8 +391,22 @@ export function PetitionGets({
           : formState === "rejected"
           ? "rechazado"
           : null}
-      </h5>
-      <img src={pet.image} alt={pet.name} width="80px" height="80px" />
+          </h3>
+        </Typography>
+      </CardContent>
+      <CardActions>
+      <Button
+        size="small" variant="outlined"
+        onClick={
+          state === "adopted" ? popUp2 : state === "transit" ? popUp3 : null
+        }
+      >
+        ver peticion
+      </Button>
+        <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
+        <Button size="small" variant="outlined" color="error">denegar</Button>
+      </CardActions>
+    </Card>
     </div>
   );
 }
@@ -521,36 +552,30 @@ export function PetitionLoads({
       `,
     });
   };
+  const token = useSelector(state=>state.usuario)
 
+  function acepted(){
+    axios.post('admin/petitionGet/acepted', { petitionId: info.id, token})
+      .then(r=>console.log(r.data))
+   }
   return (
-    <div className="containerForm">
-      {state === "adopt" ? (
+    <div >
+
+<Card sx={{ maxWidth: 345 }}>
+{state === "adopt" ? (
         <h3>Petición para cargar mascota y dar en adopcion</h3>
       ) : state === "lost" ? (
         <h3>Petición para cargar mascota encontrada</h3>
       ) : null}
-      {/* {formState === "pending" && (
-        <button onClick={() => popUpDeletePetition(formId, from)}>
-          eliminar peticion
-        </button>
-      )} */}
-      <button >aceptar</button> <button>denegar</button>
-
-      <button
-        onClick={state === "adopt" ? popUp4 : state === "lost" ? popUp5 : null}
-      >
-        ver mas
-      </button>
-      <h5>fecha: {formDate}</h5>
-      <h5>
-        mascota: {petName && capitalize(petName)};{" "}
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {petName && capitalize(petName)};{" "}
         {type === "dog" ? "perro" : type === "cat" ? "gato" : null}
-      </h5>
-      {/* <Link to={`/petdetail/${petId ? petId : "9999999"}`}>
-        <button>ver mascota</button>
-      </Link> */}
-      <h5>
-        Estado de la peticion:{" "}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        <h3>fecha: {formDate}</h3>
+        <h3>
+            Estado de la peticion:{" "}
         {formState === "pending"
           ? "en revisión"
           : formState === "acepted"
@@ -558,10 +583,20 @@ export function PetitionLoads({
           : formState === "rejected"
           ? "rechazado"
           : null}
-      </h5>
-      {/* {petImg.map((p, i) => (
-        <img src={p} alt={petName} key={"a" + i} height="60px" />
-      ))} */}
+          </h3>
+        </Typography>
+      </CardContent>
+      <CardActions>
+      <Button
+        size="small" variant="contained"
+        onClick={state === "adopt" ? popUp4 : state === "lost" ? popUp5 : null}
+      >
+        ver peticion
+      </Button>
+        <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
+        <Button size="small" variant="outlined" color="error">denegar</Button>
+      </CardActions>
+    </Card>
     </div>
   );
 }

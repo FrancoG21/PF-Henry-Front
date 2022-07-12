@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Link} from 'react-router-dom'
+import Button from '@mui/material/Button';
 
 const AdminTable = () => {
 
@@ -55,13 +56,15 @@ useEffect(() => {
                   <TableCell className="tableCell">{e.id}</TableCell>
                   <TableCell className="tableCell">{e.id}</TableCell>
                   <TableCell className="tableCell">{e.PetitionGets.id}
-                    <Link to={'/admin/petitionuser/' + e.id}> Ver </Link> 
+                    <Button size="small" variant="outlined">
+                    <Link  to={'/admin/petitionuser/' + e.id}> Ver </Link> 
+                    </Button>
                     </TableCell>
                     <TableCell className="tableCell">
-                    <button> Banear </button>
+                    <Button size="small" variant="outlined" color="error"> Banear </Button>
                     </TableCell>
                     <TableCell className="tableCell">
-                    <button> Admin </button>
+                    <Button size="small" variant="outlined" color="secondary"> Admin </Button>
                     </TableCell>
                 </TableRow>
               ))}

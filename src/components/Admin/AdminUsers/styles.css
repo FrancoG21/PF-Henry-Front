@@ -1,6 +1,7 @@
 .containerForm {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   background-color: #caf0f8;
@@ -11,3 +12,4 @@
   padding-bottom: 10px;
   min-width: 495px;
 }
+
