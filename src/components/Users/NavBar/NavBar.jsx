@@ -16,6 +16,7 @@ export default function NavBar({ theme, setTheme }) {
     const [click, setClick] = useState(false)
     const [button, setButton] = useState(true)
     const [user, setUser] = useState(null)
+    const [isAdmin, setIsAdmin] = useState(false)
 
     const handleClick = () => setClick(!click)
 
@@ -28,14 +29,24 @@ export default function NavBar({ theme, setTheme }) {
     }
 
     useEffect(() => {
-        axios.get('/user/' + JSON.parse(localStorage.getItem("userInfo"))).then(r => {
-            setUser(r.data)
+        const token = JSON.parse(localStorage.getItem("userInfo"))
+        token && getUser(token)
+    }, [userInfo])
 
+    function getUser(token){
+        axios.get('/user/' + token ).then(r => {
+            setUser(r.data)
         }, error => {
             console.log(error)
         })
-
-    }, [userInfo])
+        axios.put('/admin/', { token }).then(r => {
+            r.data.result === 'admin' 
+                ? setIsAdmin(true)
+                : setIsAdmin(false)
+        }, error => {
+            console.log(error)
+        })
+    }
 
     /* console.log('este es el usuario --->',user) */
 
@@ -83,11 +94,13 @@ export default function NavBar({ theme, setTheme }) {
                                 <NavItem>
                                     <NavAcces to='/about'>Sobre Nosotros</NavAcces>
                                 </NavItem>
+                                { isAdmin === true &&
                                 <NavItem>
                                     <NavAcces to='/admin'>Admin</NavAcces>
                                 </NavItem>
+                                }
                                 <NavItem>
-                                    <Logout />
+                                    <Logout isAdmin={isAdmin}/>
                                 </NavItem>
                                 {user && user ? (
                                     <NavAcces to='/userprofile'>{
@@ -103,9 +116,6 @@ export default function NavBar({ theme, setTheme }) {
                                     <NavItem>
                                         <NavAcces to='/userprofile'>Perfil</NavAcces>
                                     </NavItem>}
-
-
-
                             </NavMenu>
                         ) : (
                             <NavMenu>
@@ -123,9 +133,6 @@ export default function NavBar({ theme, setTheme }) {
                                 </NavItem>
                                 <NavItem>
                                     <NavAcces to='/register'>Registrar</NavAcces>
-                                </NavItem>
-                                <NavItem>
-                                    <NavAcces to='/admin'>Admin</NavAcces>
                                 </NavItem>
                             </NavMenu>
                         )
