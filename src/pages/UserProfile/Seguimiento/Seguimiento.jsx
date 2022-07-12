@@ -36,8 +36,12 @@ export default function Seguimiento() {
         validate={(values) => {
           let errors = {};
 
-          if(!values.description){ errors.description='skeree'}
-          if(!values.image){ errors.image='skeree'}
+          if (!values.description) {
+            errors.description = "skeree";
+          }
+          if (!values.image) {
+            errors.image = "skeree";
+          }
 
           if (json.images.length > 0) {
             values.image = json.images;
@@ -60,11 +64,16 @@ export default function Seguimiento() {
             confirmButtonText: "Cargar",
           }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire("Felicidades", "Tu seguimiento se cargo correctamente.", "success");
-                console.log('fornulario enviado')
-                console.log(values)
+              Swal.fire(
+                "Felicidades",
+                "Tu seguimiento se cargo correctamente.",
+                "success"
+              );
+              console.log("fornulario enviado");
+              console.log(values);
               setJson({ images: [] });
               resetForm();
+              setTimeout(() =>  location.href = `/userprofile`, 1000)
             }
           });
 
@@ -73,25 +82,31 @@ export default function Seguimiento() {
       >
         {(props) => (
           <FormContainer>
-              {console.log('image', props.image)}
-              {console.log('description', props.description)}
-            <TitleForm>Cargar tu seguimiento</TitleForm>
+            {console.log("image", props.image)}
+            {console.log("description", props.description)}
+            <TitleForm>Cargá el seguimiento de tu mascota</TitleForm>
             <Forms>
               <ContainerCamp>
-                <Camp>
-                  <Label>Descripción</Label>                  
-                  <Field as='textarea' id={'a'} name='description' rows="8" cols="85"/>
-                  <ErrorMessage
-                    name="description"
-                    component={() => <div>{props.errors.description}</div>}
-                  />
-                </Camp>
                 <Camp>
                   <Label>Imagenes de la mascota</Label>
                   <ImageUploader json={json} setJson={setJson} />
                   <ErrorMessage
                     name="image"
                     component={() => <div>{props.errors.image}</div>}
+                  />
+                </Camp>
+                <Camp>
+                  <Label>Descripción</Label>
+                  <Field
+                    as="textarea"
+                    id={"a"}
+                    name="description"
+                    rows="8"
+                    cols="85"
+                  />
+                  <ErrorMessage
+                    name="description"
+                    component={() => <div>{props.errors.description}</div>}
                   />
                 </Camp>
               </ContainerCamp>
