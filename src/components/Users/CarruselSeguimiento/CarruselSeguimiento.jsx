@@ -19,6 +19,7 @@ export default function CarruselSeguimiento() {
 
   return (
       <div>
+        {console.log('seguimiento', seguimiento)}
           <h1>Seguimiento</h1>
           {seguimiento.length ? seguimiento.map((s,i)=>{return(
               <div key={'b'+i}>
