@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 
 export const Dashboard = styled.div`
     display: flex;
@@ -34,4 +37,16 @@ export const TitleCard = styled.h4`
 export const SubTitleCard = styled.p`
     font-size: 12px;
     margin: 0;
+`
+
+export const Icon = styled(AccountCircleOutlinedIcon)`
+    color: ${(props) => props.theme.primary};
+`
+
+export const Icon2 = styled(ListAltOutlinedIcon)`
+    color: ${(props) => props.theme.primary};
+`
+
+export const Icon3 = styled(PetsOutlinedIcon)`
+    color: ${(props) => props.theme.primary};
 `

@@ -21,6 +21,7 @@ export const ContainerDashboard = styled.div`
 `
 
 export const ContainerChart = styled.div`
+    display: flex;
     padding: 5px 20px;
     margin-top: 40px;
     margin-left: 130px;

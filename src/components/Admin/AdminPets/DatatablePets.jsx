@@ -6,9 +6,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { TablePagination } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPets, deletePet } from '../../../redux/actions/index';
+import { getPets, } from '../../../redux/actions/index';
+import axios from 'axios';
 import Paginate from '../../Users/Paginate/Paginate';
 import { ButtonDelete, ButtonEdit, DivButtons } from "./StyledDataTablePets";
 
@@ -18,7 +18,6 @@ export default function DatatablePets({ id }) {
     const pets = useSelector((state) => state.pets)
     const petsAmount = useSelector((state) => state.petsAmount);
     const [page, setPage] = useState(0);
-
 
     useEffect(() => {
         dispatch(getPets(page))
@@ -30,10 +29,10 @@ export default function DatatablePets({ id }) {
         dispatch(getPets(pagee));
     };
 
-    const handleDelete = (e) => {
-        e.preventDefault()
-        dispatch(deletePet(id))
-    }
+    // const handleDelete = () => {
+    //     axios.put(`/pet/${id}`).then((r) => console.log(r.data))
+    //     console.log(id)
+    // }
 
     return (
         <div>
@@ -51,6 +50,7 @@ export default function DatatablePets({ id }) {
                             <TableCell className="tableCell">Pelaje</TableCell>
                             <TableCell className="tableCell">Castrado/a</TableCell>
                             <TableCell className="tableCell">Vacunado/a</TableCell>
+                            <TableCell className="tableCell">Binary</TableCell>
                             <TableCell className="tableCell">Estado</TableCell>
                             <TableCell className="tableCell">Acción</TableCell>
                         </TableRow>
@@ -79,7 +79,7 @@ export default function DatatablePets({ id }) {
                                 <TableCell>
                                     <DivButtons>
                                         <ButtonEdit to={`/admin/profilepets/${p.id}`}>Editar</ButtonEdit>
-                                        <ButtonDelete onClick={() => handleDelete(e)}>
+                                        <ButtonDelete onClick={() => axios.put(`/pet/${p.id}`).then((r) => console.log(r.data))}>
                                             Eliminar
                                         </ButtonDelete>
                                     </DivButtons>

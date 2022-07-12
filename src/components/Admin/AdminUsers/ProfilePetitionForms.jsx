@@ -114,7 +114,7 @@ export function PetitionGetLosts({
   const token = useSelector(state=>state.usuario)
 
   function acepted(){
-    axios.post('/admin/petitionGet/acepted', { petitionId: petId, token})
+    axios.post('/admin/petitionGetLost/acepted', { petitionId: formId, token})
       .then(r=>console.log(r.data))
    }
 
@@ -360,7 +360,7 @@ export function PetitionGets({
   const token = useSelector(state=>state.usuario)
 
   function acepted(){
-    axios.post('/admin/petitionGet/acepted', { petitionId: petId, token})
+    axios.post('/admin/petitionGet/acepted', { petitionId: formId, token})
       .then(r=>console.log(r.data))
    }
 
@@ -555,8 +555,9 @@ export function PetitionLoads({
   const token = useSelector(state=>state.usuario)
 
   function acepted(){
-    axios.post('admin/petitionGet/acepted', { petitionId: info.id, token})
+    axios.post('admin/petitionLoadPet/acepted', { petitionId: formId, token})
       .then(r=>console.log(r.data))
+      
    }
   return (
     <div >
