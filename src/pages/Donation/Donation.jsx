@@ -135,14 +135,14 @@ export default function Donation() {
 
         <ContainerButton>
           {
-            precios.map(value => { return <ButtonDonation onClick={(e) => realizarPagoUnico(e)} value={value}>Doná {value}$ </ButtonDonation> })
+            precios.map(value => { return <ButtonDonation onClick={(e) => realizarPagoUnico(e)} value={value}>Doná ${value} </ButtonDonation> })
           }
         </ContainerButton>
 
         <SubtitleDonation>SUSCRIPCIÓN</SubtitleDonation>
-        <TextDonation>Con nuestro sistema de suscripción de 1500$ ARS y con $50 por día colaboras para poder darle alimentos y proveer de las vacunas básicas a los recién rescatados</TextDonation>
+        <TextDonation>Con nuestro sistema de suscripción de $1500 ARS y con $50 por día colaboras para poder darle alimentos y proveer de las vacunas básicas a los recién rescatados</TextDonation>
         <ContainerButtonSuscription>
-          <ButtonSuscription onClick={(e) => realizarPagoSub(e)} value={200}>Doná {200}$</ButtonSuscription>
+          <ButtonSuscription onClick={(e) => realizarPagoSub(e)} value={200}>Doná ${1500}</ButtonSuscription>
         </ContainerButtonSuscription>
       </BackgroundDonation>
     </>
