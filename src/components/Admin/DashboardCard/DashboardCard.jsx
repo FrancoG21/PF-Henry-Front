@@ -1,18 +1,27 @@
-import React from 'react';
-import { Dashboard, Left, Right, SubTitleCard, TitleCard } from './StyledDashboardCard';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Dashboard, Left, Right, SubTitleCard, TitleCard, Icon3 } from './StyledDashboardCard';
 
 export default function DashboardCard() {
+
+    const [pet, setPet] = useState({});
+
+    useEffect(() => {
+        axios.get('pet/count').then((response) => { setPet(response.data) })
+    }, [])
 
     return (
         <Dashboard>
             <Left>
-                <TitleCard>Animales Totales: 47</TitleCard>
-                <SubTitleCard>Adoptados: 40</SubTitleCard>
-                <SubTitleCard>Extraviados: 3</SubTitleCard>
-                <SubTitleCard>Transito: 5</SubTitleCard>
+                <div key={pet.id}>
+                    <TitleCard>Animales Total: {pet.pets}</TitleCard>
+                    <SubTitleCard>Adoptados: {pet.adopted}</SubTitleCard>
+                    <SubTitleCard>Extraviados: {pet.lost}</SubTitleCard>
+                    <SubTitleCard>Transito: {pet.transit}</SubTitleCard>
+                </div>
             </Left>
             <Right>
-                right
+                <Icon3 />
             </Right>
         </Dashboard>
     )

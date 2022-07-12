@@ -48,8 +48,9 @@ const data = [
 
 export default function Chart() {
   return (
-    <BarChart width={850} height={340} data={data}>
+    <BarChart width={450} height={340} data={data}>
       <Bar dataKey="uv" fill="#8884d8" />
     </BarChart>
   );
 }
+

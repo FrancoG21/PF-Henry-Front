@@ -11,6 +11,7 @@ import {
   REGISTER,
   USERS,
   DELETE_PETS,
+  EDIT_PET,
 } from "./nameAction";
 
 export function getPets(page, filter) {
@@ -73,6 +74,10 @@ export const petitionGetLost = (payload) => {
   };
 };
 
+export const editPet = (payload) => {
+  return {type: EDIT_PET, payload}
+}
+
 export function getById(id) {
   return async (dispatch) => {
     try {
@@ -131,7 +136,6 @@ export const postRegister = (payload) => {
 
 
 export const getUsers = () => {
- 
   return async function (dispatch) {
     try {
       const res = await axios.get('/user');
@@ -142,10 +146,10 @@ export const getUsers = () => {
   };
 };
 
-export const deletePet = (id) => {
+export const deletePet = (id, payload) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/pet/${id}`);
+      const res = await axios.put(`/pet/${id}`, payload);
       dispatch({type: DELETE_PETS, payload: res.data})
     } catch(err) {
       console.log(err)
