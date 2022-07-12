@@ -16,8 +16,8 @@ export default function CardAbout({name, image, linkedIn, github}) {
             </CardBody>
 
             <SocialLinks>
-                <SocialIcons href={`${linkedIn}`} target='blank'><BsGithub/></SocialIcons>
-                <SocialIcons href={`${github}`} target='blank'><BsLinkedin/></SocialIcons>
+                <SocialIcons href={`${linkedIn}`} target='blank'><BsLinkedin/></SocialIcons>
+                <SocialIcons href={`${github}`} target='blank'><BsGithub/></SocialIcons>
             </SocialLinks>
         </Card>
     )
