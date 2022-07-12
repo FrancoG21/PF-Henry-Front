@@ -334,7 +334,7 @@ export function PetitionGets({
 
   useEffect(() => {
     axios.get(`/pet/${petId}`).then((r) => setPet(r.data));
-    console.log("PetitionGets", pet);
+    /* console.log("PetitionGets", pet); */
   }, []);
 
   const from = "PetitionGets";

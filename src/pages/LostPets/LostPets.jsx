@@ -7,6 +7,7 @@ import Paginate from "../../components/Users/Paginate/Paginate";
 import Searchbar from "../../components/Users/Searchbar/Searchbar";
 import PetFilters from "../../components/Users/PetFilters/PetFilters";
 import { getPets } from "../../redux/actions/index";
+
 import {
   BackgroundPets,
   Grid,

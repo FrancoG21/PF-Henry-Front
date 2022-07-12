@@ -58,6 +58,8 @@ export const Button = styled.button`
   }
 `;
 
+
+
 export const Title = styled.h2`
   font-weight: normal;
   color: #2a2a29;
