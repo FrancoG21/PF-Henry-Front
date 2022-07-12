@@ -72,9 +72,6 @@ export function PetitionGetLosts({
 
   const from = "PetitionGetLosts";
 
-  const fotos = () => {
-    return image.map((i) => <img src={i} alt={originalName} />);
-  };
 
   const popUp1 = () => {
     Swal.fire({
@@ -115,7 +112,39 @@ export function PetitionGetLosts({
 
   function acepted(){
     axios.post('/admin/petitionGetLost/acepted', { petitionId: formId, token})
-      .then(r=>console.log(r.data))
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          })) 
+   }
+   function rejected(){
+    axios.post('/admin/petitionGet/rejected', { petitionId: formId, token})
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          })) 
    }
 
   return (
@@ -145,8 +174,10 @@ export function PetitionGetLosts({
       </CardContent>
       <CardActions>
         <Button size="small" variant="outlined" onClick={popUp1}>ver peticion</Button> 
+        {formState === 'pending'&& <div>
         <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
-        <Button size="small" variant="outlined" color="error">denegar</Button>
+        <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
+      </div>}
       </CardActions>
     </Card>
     </div>
@@ -361,9 +392,40 @@ export function PetitionGets({
 
   function acepted(){
     axios.post('/admin/petitionGet/acepted', { petitionId: formId, token})
-      .then(r=>console.log(r.data))
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          })) 
    }
-
+   function rejected(){
+    axios.post('/admin/petitionGet/rejected', { petitionId: formId, token})
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          })) 
+   }
   const from = "PetitionGets";
 
   return (
@@ -403,8 +465,11 @@ export function PetitionGets({
       >
         ver peticion
       </Button>
+      {formState === 'pending'&& <div>
         <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
-        <Button size="small" variant="outlined" color="error">denegar</Button>
+        <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
+      </div>}
+     
       </CardActions>
     </Card>
     </div>
@@ -554,10 +619,45 @@ export function PetitionLoads({
   };
   const token = useSelector(state=>state.usuario)
 
+
+useEffect(()=>{},[refresh])
+
+
   function acepted(){
     axios.post('admin/petitionLoadPet/acepted', { petitionId: formId, token})
-      .then(r=>console.log(r.data))
-      
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          })) 
+   }
+   function rejected(){
+    axios.post('admin/petitionLoadPet/rejected', { petitionId: formId, token})
+      .then(res=>Swal.fire
+        ({
+              position: 'center',
+              icon: 'success',
+              title: res.data.message,
+              showConfirmButton: true,
+              timer: 1500
+            }) ,res=>Swal.fire
+        ({
+                icon: 'error',
+                title: 'Error',
+                text: res.response.data.error,
+                showConfirmButton: false,
+                timer: 1000
+            }))
    }
   return (
     <div >
@@ -594,8 +694,10 @@ export function PetitionLoads({
       >
         ver peticion
       </Button>
+      {formState === 'pending'&& <div>
         <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
-        <Button size="small" variant="outlined" color="error">denegar</Button>
+        <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
+      </div>}
       </CardActions>
     </Card>
     </div>
