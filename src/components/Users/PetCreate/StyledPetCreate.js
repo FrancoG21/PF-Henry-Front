@@ -3,8 +3,8 @@ import { Field, Form } from 'formik';
 
 export const BackgroundForm = styled.div`
     background-color: ${(props) => props.theme.background};
-    margin-top:20px;
-    margin-bottom:20px;
+    padding-top:20px;
+    padding-bottom:20px;
 `
 
 export const TitleForm = styled.h1`
