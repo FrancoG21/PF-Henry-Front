@@ -100,11 +100,9 @@ export default function Seguimiento() {
                 );
               setJson({ images: [] });
               resetForm();
-              /* setTimeout(() => (location.href = `/userprofile`), 1000); */
+               setTimeout(() => (location.href = `/userprofile`), 1000); 
             }
-          });
-
-          /* setTimeout(() => setFlag(false), 3000); */
+          });          
         }}
       >
         {(props) => (
