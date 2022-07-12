@@ -20,6 +20,7 @@ export default function Logout () {
             ,"/usertransitpet/:id"
             ,"/userprofile"
             ,"/useritsmypet/:id"
+            ,'/chatbot'
         ]
         dispatch(getLogOut())
         routesOnlyRedirect.includes(currentPath) && navigate('/')
