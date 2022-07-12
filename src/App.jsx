@@ -38,7 +38,7 @@ import { ThemeProvider } from "styled-components";
 import { themes } from "./styles/themes";
 import { useDarkMode } from "./DarkLightMode/DarkMode";
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { upLogin } from './redux/actions/index';
 import DonationCard from "./pages/UserProfile/DonationCard/DonationCard";
 
@@ -56,13 +56,17 @@ function App() {
   const [theme, setTheme] = useDarkMode();
   const themeMode = theme === "light" ? "light" : "dark";
 
+  
+
   return (
     <div className="App">
       <BrowserRouter>
         <ThemeProvider theme={themes[themeMode]}>
           <NavBar theme={theme} setTheme={setTheme} />{/*userInfo={userInfo} */}
           
-          <Icono />
+          {/* <Icono /> */}
+         
+
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/adopt" element={<Pets />}></Route>
@@ -73,6 +77,7 @@ function App() {
             <Route path="/donation" element={<Donation />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
+            
             <Route path="/useradoptpet/:id" element={<UserAdoptPetForm />}></Route>
             <Route path="/usertransitpet/:id" element={<UserTransitPetForm />}></Route>
             <Route path="/donation/success" element={<Success />}></Route>

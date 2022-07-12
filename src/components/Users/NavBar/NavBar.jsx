@@ -7,6 +7,7 @@ import { IconContext } from 'react-icons/lib';
 import Logout from "../Logout/Logout";
 import axios from 'axios'
 import s from './Nav.module.css'
+import Icono from '../../Chatbot/Icono/Icono'
 
 
 export default function NavBar({ theme, setTheme }) {
@@ -71,6 +72,7 @@ export default function NavBar({ theme, setTheme }) {
                     {
                         userInfo && userInfo ? (
                             <NavMenu onClick={handleClick} click={click}>
+                                <Icono />
                                 <NavItem>
                                     <NavAcces to='/'>Hogar</NavAcces>
                                 </NavItem>

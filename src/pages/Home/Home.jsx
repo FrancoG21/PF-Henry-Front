@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <Background>
             <Hero />
-           {/*  <ContenidoChatb /> */}
+         
             <Carrusel />
         </Background>
     )
