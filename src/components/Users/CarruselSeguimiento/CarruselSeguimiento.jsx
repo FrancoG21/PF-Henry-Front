@@ -32,6 +32,7 @@ export default function CarruselSeguimiento() {
 
   return (
     <ContainerLost>
+      <TitleCarrusel>Animales Adoptados</TitleCarrusel>
       <Splide
         options={{
           rewind: false,
