@@ -13,24 +13,7 @@ function capitalize(str) {
   return str.replace(/^\w/, (c) => c.toUpperCase());
 }
 
-const loadSeguimiento = () => {
-  /* const nuevaFecha = moment(fechaAdoptada, "DD/MM/YYYY")
-    .add(1, "month")
-    .format("DD/MM/YYYY");
-  //console.log(typeof today)
-  console.log("today", today);
-  //console.log(typeof fechaAdoptada)
-  console.log("fechaAdoptada", fechaAdoptada);
-  console.log("nuevaFecha = 30 dias mas que fechaAdoptada -->", nuevaFecha);
 
-  if (nuevaFecha < today) {
-    console.log("nuevaFecha < today -->", nuevaFecha, today);
-  }
-  if (nuevaFecha > today) {
-    const diasRestantes = nuevaFecha;
-    console.log("nuevaFecha > today -->", nuevaFecha, today);
-  } */
-};
 
 export default function PetCard({
   name,
@@ -121,6 +104,23 @@ export default function PetCard({
     });
   };
 
+  const popUp3 = ()=>{
+    Swal.fire({
+      title: "Cargar seguimiento",
+      /* text: "No podra revertir los cambios!", */
+      /* icon: "warning", */
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Cargar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        location.href = `/userseguimiento/${id}`;
+      }
+    });
+  }
+
   return (
     <div className="cardContainer" key={"a" + id}>
       <h4>{capitalize(name)}</h4>
@@ -149,7 +149,7 @@ export default function PetCard({
       </div>
 
       {state === "adopted" ? (
-        <button onClick={loadSeguimiento}>seguimiento</button>
+        <button onClick={popUp3}>seguimiento</button>
       ) : null}
 
       {state === "transit" ? <button onClick={popUp2}>devolver</button> : null}

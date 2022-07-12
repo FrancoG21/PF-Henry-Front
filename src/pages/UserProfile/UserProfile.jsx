@@ -171,7 +171,8 @@ export default function UserProfile() {
               "Tu contraseña ha sido cambiada correctamente",
               "success"
             ),
-            location.reload()
+            setTimeout(() =>  location.reload(), 1000)
+           
           )
           .catch((e) => {
             console.log(e);
