@@ -24,14 +24,8 @@ import {
 import DonationCard from "./DonationCard/DonationCard";
 
 export default function UserProfile() {
-  const donacionHarcodeadaUnique = [
-    { date: "05/07/2022", id: 1, type: "unique", amount: "1000" },
-    { date: "05/07/2022", id: 3, type: "unique", amount: "500" },
-  ];
-
-  const donacionHarcodeadaSuscr = [
-    { date: "05/07/2022", id: 2, type: "suscription", amount: "1500" },
-  ];
+  const [donationsUnique, setDonationsUnique] = useState([]);
+  const [donationsSuscription, setDonationsSuscription] = useState([]);
 
   const [petsAdopted, setPetsAdopted] = useState([]);
   const [petsTransit, setPetsTransit] = useState([]);
@@ -42,13 +36,6 @@ export default function UserProfile() {
   const [getTransit, setGetTransit] = useState([]);
   const [getItsMyPet, setGetItsMyPet] = useState([]);
 
-  /*   const [donationsUnique, setDonationsUnique] = useState([]);
-  const [donationsSuscription, setDonationsSuscription] = useState([]);
-  const chauDuplicados = new Set(donationsUnique)
-  const chauDuplicados2 = new Set(donationsSuscription)
-  const concatenadaUnique = [... chauDuplicados]
-  const concatenadaSuscription = [... chauDuplicados2]
- */
   const [flagPet, setFlagPet] = useState("all");
   const [flagPetitions, setFlagPetitions] = useState("all");
   const [flagDonations, setFlagDonations] = useState("all");
@@ -60,6 +47,16 @@ export default function UserProfile() {
     const resData = res.data;
     console.log("resData", resData);
 
+    if (resData.Donations) {
+      for (let don of resData.Donations) {
+        if(don.type === 'regular_payment'){
+          setDonationsUnique((prevState) => [...prevState, don]);
+        }
+        if(don.type === "suscripcion "){
+          setDonationsSuscription((prevState) => [...prevState, don]);
+        }
+      }
+    }
     if (resData.Pets) {
       for (let pet of resData.Pets) {
         if (pet.state === "adopted") {
@@ -93,16 +90,7 @@ export default function UserProfile() {
         }
       }
     }
-    /* if(donacionHarcodeada.length){
-      for(let donation of donacionHarcodeada){
-        if(donation.type === 'unique'){
-          setDonationsUnique((prevState) => [...prevState, donation]);
-        }
-        if(donation.type === 'suscription'){
-          setDonationsSuscription((prevState) => [...prevState, donation]);
-        }
-      }
-    } */
+
   };
 
   const callbackIn = async () => {
@@ -171,8 +159,7 @@ export default function UserProfile() {
               "Tu contraseña ha sido cambiada correctamente",
               "success"
             ),
-            setTimeout(() =>  location.reload(), 1000)
-           
+            setTimeout(() => location.reload(), 1000)
           )
           .catch((e) => {
             console.log(e);
@@ -210,8 +197,8 @@ export default function UserProfile() {
         {console.log("petsTransit", petsTransit)}
         {console.log(flagPet, flagPetitions, flagDonations)}
         {user ? console.log("user.password", user.password) : null} */}
-        {console.log("donationsUnique", donacionHarcodeadaSuscr)}
-        {console.log("donationsSuscription", donacionHarcodeadaUnique)}
+        {console.log("donationsSuscription", donationsSuscription)}
+        {console.log("donationsUnique", donationsUnique)}
       </div>
       <ContainerProfile>
         <TitleProfile>Mi Perfil</TitleProfile>
@@ -316,9 +303,16 @@ export default function UserProfile() {
             <option value="default" hidden>
               Filtrar donaciones
             </option>
-            <option value="all">todo</option>
-            <option value="suscription">suscripcion</option>
-            <option value="unique">normal</option>
+            <option value="all">todas {"("}
+              {donationsSuscription.length +
+                donationsUnique.length                 }
+              {")"}</option>
+            <option value="suscription">suscripcion {"("}
+              {donationsSuscription.length}
+              {")"}</option>
+            <option value="unique">unica {"("}
+              {donationsUnique.length}
+              {")"}</option>
           </select>
         </div>
         <ContainerDiv>
@@ -726,52 +720,57 @@ export default function UserProfile() {
               <p>No posees ninguna peticion</p>
             )}
           </ContainerPetitions>
-                      
-            {flagDonations === "all" ? (
-              <div>
-                {donacionHarcodeadaUnique.length > 0 ? (
-                  donacionHarcodeadaUnique.map((d) => (
+
+          {flagDonations === "all" ? (
+            <div>
+              {donationsUnique.length > 0
+                ? donationsUnique.map((d,i) => (
                     <DonationCard
+                    key={'o'+i}
                       amount={d.amount}
                       date={d.date}
                       type={d.type}
                     />
                   ))
-                ) : (
-                  null
-                )}
-                {donacionHarcodeadaSuscr.length > 0 ? (
-                  donacionHarcodeadaSuscr.map((d) => (
+                : null}
+              {donationsSuscription.length > 0
+                ? donationsSuscription.map((d,i) => (
                     <DonationCard
+                    key={'p'+i}
                       amount={d.amount}
                       date={d.date}
                       type={d.type}
                     />
                   ))
-                ) : (
-                  null
-                )}
-              </div>
-            ) : flagDonations === "suscription" ? 
-              <div>
-                {donacionHarcodeadaSuscr.length > 0 ? (
-                donacionHarcodeadaSuscr.map((d) => (
-                  <DonationCard amount={d.amount}/*  date={d.date} type={d.type} */ />
+                : <div>No posees ninguna donacion</div>}
+            </div>
+          ) : flagDonations === "suscription" ? (
+            <div>
+              {donationsSuscription.length > 0 ? (
+                donationsSuscription.map((d,i) => (
+                  <DonationCard
+                    amount={d.amount} key={'q'+i}  date={d.date} type={d.type} 
+                  />
                 ))
               ) : (
                 <div>No posees donaciones de este tipo</div>
               )}
-              </div>
-             : flagDonations === "unique" ? <div>{(
-              donacionHarcodeadaUnique.length > 0 ? (
-                donacionHarcodeadaUnique.map((d) => (
-                  <DonationCard amount={d.amount}/*  date={d.date} type={d.type} */ />
+            </div>
+          ) : flagDonations === "unique" ? (
+            <div>
+              {donationsUnique.length > 0 ? (
+                donationsUnique.map((d,i) => (
+                  <DonationCard
+                    amount={d.amount}key={'r'+i}   date={d.date} type={d.type} 
+                  />
                 ))
               ) : (
                 <div>No posees donaciones de este tipo</div>
-              )
-            )}</div> : <div>No posees ninguna donacion</div>}
-          
+              )}
+            </div>
+          ) : (
+            null
+          )}
         </ContainerDiv>
       </ContainerProfile>
     </BackgroundProfile>

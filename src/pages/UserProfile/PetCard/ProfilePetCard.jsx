@@ -151,7 +151,7 @@ export default function PetCard({
       </div>
 
       {state === "adopted" ? (
-        <button onClick={popUp3}>seguimiento</button>
+        <button onClick={popUp3}>cargar seguimiento</button>
       ) : null}
 
       {state === "transit" ? <button onClick={popUp2}>devolver</button> : null}

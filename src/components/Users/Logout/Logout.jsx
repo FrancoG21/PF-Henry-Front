@@ -10,8 +10,7 @@ export default function Logout () {
     const navigate = useNavigate();
     const currentPath = useCurrentPath();
     
-    const handleLogout = () => {
-        console.log(currentPath)
+    const handleLogout = () => {        
         const routesOnlyRedirect = [
             "/admin","/admin/pets","/admin/users","/admin/donation",
             "/admin/formadopt","/admin/formlost","/admin/formtransit",
@@ -21,6 +20,7 @@ export default function Logout () {
             ,"/userprofile"
             ,"/useritsmypet/:id"
             ,'/chatbot'
+            ,'/userseguimiento/:id'            
         ]
         dispatch(getLogOut())
         routesOnlyRedirect.includes(currentPath) && navigate('/')
