@@ -41,6 +41,7 @@ import { useEffect } from 'react';
 import { upLogin } from './redux/actions/index';
 import DonationCard from "./pages/UserProfile/DonationCard/DonationCard";
 import Seguimiento from "./pages/UserProfile/Seguimiento/Seguimiento";
+import CarruselSeguimiento from "./components/Users/CarruselSeguimiento/CarruselSeguimiento";
 
 function App() {
   const dispatch = useDispatch();
@@ -92,7 +93,8 @@ function App() {
             {/* <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route> */}
             {/* <Route path="/lostpets" element={<LostPets />}></Route> */}
             <Route path="/chatbot" element={<ContenidoChatb />}></Route>
-            <Route path="/userseguimiento/:id" element={<Seguimiento />}></Route>                     
+            <Route path="/userseguimiento/:id" element={<Seguimiento />}></Route>
+            <Route path="/seguimiento" element={<CarruselSeguimiento />}></Route>                     
           </Routes>         
           <Footer />
         </ThemeProvider>

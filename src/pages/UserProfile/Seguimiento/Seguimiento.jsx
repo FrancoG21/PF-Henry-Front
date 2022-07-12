@@ -64,16 +64,25 @@ export default function Seguimiento() {
             confirmButtonText: "Cargar",
           }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire(
-                "Felicidades",
-                "Tu seguimiento se cargo correctamente.",
-                "success"
-              );
               console.log("fornulario enviado");
               console.log(values);
+              axios
+                .post(`/tracking`, {
+                  token: values.token,
+                  image: values.image,
+                  description: values.description,
+                  petId: values.petId,
+                })
+                .then(
+                  Swal.fire(
+                    "Felicidades",
+                    "Tu seguimiento se cargo correctamente.",
+                    "success"
+                  )
+                );                           
               setJson({ images: [] });
               resetForm();
-              setTimeout(() =>  location.href = `/userprofile`, 1000)
+              /* setTimeout(() => (location.href = `/userprofile`), 1000); */
             }
           });
 
@@ -99,7 +108,7 @@ export default function Seguimiento() {
                   <Label>Descripción</Label>
                   <Field
                     as="textarea"
-                    id={"a"}
+                    id={"description"}
                     name="description"
                     rows="8"
                     cols="85"
