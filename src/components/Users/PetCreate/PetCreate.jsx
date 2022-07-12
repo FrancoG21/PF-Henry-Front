@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { petitionLoad } from "../../../redux/actions/index";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import uploadcare from "uploadcare-widget";
 import Supliers from "./Supliers";
 import moment from "moment";
 import {

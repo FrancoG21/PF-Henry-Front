@@ -27,13 +27,14 @@ import { BackgroundDonation,
 export default function Donation() {
   const [url, setUrl] = useState("");
   const precios = ["100", "200", "500", "1000", "2500", "5000"]
-  const { urlFront } = useSelector(state => state)
+  const { urlFront, usuario } = useSelector(state => state)
 
   function realizarPagoUnico(e) {
     axios.post('/payment', {
       unit_price: Number(e.target.value),
       failure: `${urlFront}/donation/failure`,
-      success: `${urlFront}/donation/success`
+      success: `${urlFront}/donation/success`,
+      token: usuario
     }).then(r => setUrl(r.data.url))
   }
 
@@ -41,7 +42,8 @@ export default function Donation() {
     axios.post('/payment/subscription', {
       transaction_amount: Number(e.target.value),
       back_url: `${urlFront}/donation/success`,
-      payer_email: 'test_user_20466117@testuser.com'
+      payer_email: 'test_user_20466117@testuser.com',
+      token: usuario
     }).then(r => setUrl(r.data.url))
   }
 
