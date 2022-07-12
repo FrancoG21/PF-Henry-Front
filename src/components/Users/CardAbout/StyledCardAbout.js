@@ -73,6 +73,7 @@ export const SocialLinks = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 30px;
+    margin-bottom: 20px;
 
     &:last-child{
         margin-right: 0;

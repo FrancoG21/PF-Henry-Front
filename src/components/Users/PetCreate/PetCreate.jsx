@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { createPet } from "../../../redux/actions/index";
+import { useDispatch, useSelector } from "react-redux";
+import { petitionLoad } from "../../../redux/actions/index";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import uploadcare from "uploadcare-widget";
 import Supliers from "./Supliers";
 import moment from "moment";
 import {
@@ -85,11 +84,29 @@ export default function PetCreate() {
   const [petType, setPetType] = useState("dog");
   const [urlImage, setUrlImage] = useState([]);
 
+  const [user, setUser] = useState(null)
+
   const [json, setJson] = useState({ images: [] });
+
+  const decodeToken = async () => {
+    try {
+      const res = await axios.get(
+        "/user/" + JSON.parse(localStorage.getItem("userInfo"))
+      );
+      const resData = res.data;
+      setUser(resData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     axios.get(`/breed?pet=${petType}`).then((r) => setBreeds(r.data)); //setBreeds(r.data))
   }, [petType]);
+
+  useEffect(()=>{
+    decodeToken()
+  },[])
 
   let isUrl =
     /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
@@ -137,7 +154,7 @@ export default function PetCreate() {
           actualPlaceCity: "",
           actualPlaceProvince: "Cordoba",
           actualPlacePostalCode: "",
-          userId: "userId",
+          userId: user && user.id
         }}
         validate={(values) => {
           let errors = {};
@@ -204,6 +221,11 @@ export default function PetCreate() {
             }
           }          
 
+          if(user){
+            values.userId = user.id
+            delete errors.userId
+          }
+
           console.log(errors);
           console.log("abajo values");
           console.log(values);
@@ -259,7 +281,7 @@ export default function PetCreate() {
           }
 
           console.log(values);
-          dispatch(createPet(values));
+          dispatch(petitionLoad(values));
           resetForm();
           setJson({ images: [] });
           setFlag(true);

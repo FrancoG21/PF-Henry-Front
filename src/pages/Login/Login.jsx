@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import GoogleButton from 'react-google-button'
-import { loginManual } from '../../redux/actions/index';
+import { getLogOut, loginManual } from '../../redux/actions/index';
 // import {loginManual} from '../../../redux/actions/index'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+// import  GoogleLogin  from 'react-google-login'
 // import s from './login.module.css'
 import Swal from "sweetalert2";
 import axios from 'axios'
@@ -18,6 +19,7 @@ import {
   Button,
   Acces,
 } from './StyledLogin';
+
 
 export function validation(input) {
   let errors = {};
@@ -51,6 +53,8 @@ export function validation(input) {
 
 export default function Login() {
 
+  const user = useSelector((state) => state.usuario)
+  const urlBack = useSelector((state) => state.urlBack)
   const resLogin = useSelector((state) => state.usuario)
   console.log("LOGINUSER", resLogin);
   const navigate = useNavigate()
@@ -63,12 +67,39 @@ export default function Login() {
     password: ''
   })
 
+  async function handleCredentialResponse(response) {
+    const res = await axios.post(`/user/loginGoogle`, {token: response.credential});
+    localStorage.setItem("userInfo", JSON.stringify(response.credential))
+    dispatch(loginManual(response.credential))
+    
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Sesion iniciada!',
+      showConfirmButton: true,
+      timer: 1500
+    }).then(()=>{
+      navigate("/")
+    })
+  }
+
+  useEffect(()=>{
+    /*google google*/
+      google.accounts.id.initialize({
+        client_id: "1028519940337-g0k86eebnu3s23dhvn2d1q32l1rg46sr.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "medium" }  // customization attributes
+      );
+      google.accounts.id.disableAutoSelect();
+      
+    },[user])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if(errors.email || errors.password) return
-
-    if (input.email === '' || input.password === '') {
+    if (input.email === '' && input.password === '') {
       return Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -77,45 +108,37 @@ export default function Login() {
         timer: 1500
       })
     }
-    
-    const res = await axios.post(`/user/login`, input).then(e=> e.data, r=> {return r.response.data});
 
-    if(res.error === 'password'){
+    const res = await axios.post(`/user/login`, input)
+    console.log(res)
+    if(res.data.error){
       return Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Contraseña incorrecta!',
+        text: res.data.error,
         showConfirmButton: false,
-        timer: 1500
-      }) 
-    } 
-    if(res.error === 'mail'){
-      return Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Mail no encontrado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
+        timer: 1000
+    })
     }
 
-    console.log(res)
-    dispatch(loginManual(res))
-    localStorage.setItem("userInfo", JSON.stringify(res))
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Sesion iniciada!',
+      showConfirmButton: true,
+      timer: 1500
+    }).then(()=>{
+      navigate("/")
+    })
+
+    localStorage.setItem("userInfo", JSON.stringify(res.data.token))
 
     setInput({
       email: '',
       password: ''
     })
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Inicio de sesión exitoso!',
-      showConfirmButton: true,
-      timer: 3000
-    }).then(()=>{
-      navigate('/')
-    })
+
+    dispatch(loginManual(res.data.token))
   }
 
   const handleChange = function (e) {
@@ -130,18 +153,41 @@ export default function Login() {
       })
     );
   };
-
-  const google = () => {
-    window.location.replace(url + '/auth/google/callback', '_self');
-  }
-  console.log('google', google)
+// const url = 'http://localhost:3001'
+//   const google = () => {
+//     window.location.replace(url + '/auth/google/callback', '_self');
+//   }
+//   console.log('google', google)
+  
+//   const logout = () => {
+//     window.location.replace(url + '/auth/google/callback', '_self');
+//   }
+  
+// function responseGoogle(response) {
+//   console.log('responseGoogle', response)
+// }
+// function alert(result) {
+//  console.log(result)
+// }
 
   return (
     <BackgroundLogin>
-      <Wrapper>
+      <Wrapper>  
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Input type="text" value={input.email} placeholder="Email" name="email" onChange={handleChange} />
           {errors.email && <Errors>{errors.email}</Errors>}
+          
+
+          {/* <GoogleLogin
+    clientId="6229358800-jmcgp4kol677o5qvhs02hnkaclvk1174.apps.googleusercontent.com"
+    buttonText="Login"
+    onSuccess={responseGoogle}
+    onFailure={alert}
+    cookiePolicy={'single_host_origin'}
+   /> */}
+
+
+
 
           <Input type="password" value={input.password} placeholder="Password" name="password" onChange={handleChange} />
           {errors.password && <Errors>{errors.password}</Errors>}
@@ -151,10 +197,8 @@ export default function Login() {
               Register
             </Acces>
           </Button>
-          {/* <GoogleButton
-            label='Be Cool'
-            onClick={google}
-          /> */}
+          <br/>
+        { !user && <div id='buttonDiv'>holu</div> }
         </Form>
       </Wrapper>
     </BackgroundLogin>

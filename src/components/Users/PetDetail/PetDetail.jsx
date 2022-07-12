@@ -23,10 +23,10 @@ import {
 
 export default function PetDetail() {
   // const detail = useSelector(state => state.pets)
-  const {petDetail, usuario} = useSelector((state) => state);
+  const { petDetail, usuario } = useSelector((state) => state);
   const dispatch = useDispatch();
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getById(id));
@@ -42,6 +42,53 @@ export default function PetDetail() {
         {petDetail ? (
           <DetailContainer>
             <ContainerImage>
+              <ContainerButton>
+                {petDetail.state === "transit" ? (
+                  <ButtonForm
+                    onClick={() =>
+                      usuario
+                        ? navigate(`/useradoptpet/${id}`, "_self")
+                        : navigate(`/login`, "_self")
+                    }
+                  >
+                    Quiero adoptar
+                  </ButtonForm>
+                ) : petDetail.state === "adopt" ? (
+                  <>
+                    <ButtonForm
+                      onClick={() =>
+                        usuario
+                          ? navigate(`/useradoptpet/${id}`, "_self")
+                          : navigate(`/login`, "_self")
+                      }
+                    >
+                      Quiero adoptar
+                    </ButtonForm>
+
+                    <ButtonForm
+                      onClick={() =>
+                        usuario
+                          ? navigate(`/usertransitpet/${id}`)
+                          : navigate(`/login`)
+                      }
+                    >
+                      Hogar Transito
+                    </ButtonForm>
+                  </>
+                ) : petDetail.state === "lost" ? (
+                  // <Link to={`/useritsmypet/${id}`}>
+                  <ButtonForm
+                    onClick={() =>
+                      usuario
+                        ? navigate(`/useritsmypet/${id}`)
+                        : navigate(`/login`)
+                    }
+                  >
+                    Es mi perro
+                  </ButtonForm>
+                ) : null}
+              </ContainerButton>
+
               <DetailTitle>{petDetail.name}</DetailTitle>
               <ImageDetail
                 src={petDetail.image}
@@ -49,19 +96,6 @@ export default function PetDetail() {
                 width="600"
                 height="400"
               />
-              <ContainerButton>
-                {petDetail.state === "adopt" || petDetail.state === "transit" ? (
-                  <>
-                    {/* <Link to={`/useradoptpet/${id}`}> */}
-                      <ButtonForm onClick={() => usuario ? navigate(`/useradoptpet/${id}`, '_self') : navigate(`/login`, '_self')}>Quiero adoptar</ButtonForm>
-                    {/* <Link to={`/usertransitpet/${id}`}> */}
-                      <ButtonForm onClick={() => usuario ? navigate(`/usertransitpet/${id}`) : navigate(`/login`)}>Hogar Transito</ButtonForm>
-                  </>
-                ) : (
-                  // <Link to={`/useritsmypet/${id}`}>
-                    <ButtonForm onClick={() => usuario ? navigate(`/useritsmypet/${id}`) : navigate(`/login`)}>Es mi perro</ButtonForm>
-                )}
-              </ContainerButton>
             </ContainerImage>
             <ContainerContent>
               <SubTitle2>
@@ -92,13 +126,13 @@ export default function PetDetail() {
                 {petDetail.vaccinate}
               </SubTitle3>
               <SubTitle3>
-                <Span>Stado: </Span>
+                <Span>Estado: </Span>
                 {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
               </SubTitle3>
             </ContainerContent>
           </DetailContainer>
         ) : (
-          <h1>siga intentando mijo</h1>
+          <h1>Esta mascota no existe o aún no fue cargada</h1>
         )}
       </div>
     </BackgroundDetail>
