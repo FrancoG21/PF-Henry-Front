@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import moment from "moment";
 // import ImageUploader from "../../../components/Users/PetCreate/imagenes/ImagesUploader";
@@ -30,6 +30,8 @@ export default function PetCard({
   actualPlace,
   fur,
 }) {
+
+  const navigate = useNavigate()
   const popUp1 = () => {
     Swal.fire({
       title: `${capitalize(name)}`,
@@ -116,7 +118,7 @@ export default function PetCard({
       confirmButtonText: "Cargar",
     }).then((result) => {
       if (result.isConfirmed) {
-        location.href = `/userseguimiento/${id}`;
+        navigate(`/userseguimiento/${id}`);
       }
     });
   }
