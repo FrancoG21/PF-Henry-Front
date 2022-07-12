@@ -41,6 +41,11 @@ export default function UserProfile() {
   const [flagDonations, setFlagDonations] = useState("all");
 
   const [user, setUser] = useState(null);
+  const [renderState, setRenderState] = useState('yes')
+
+  const rerender = ()=>{
+    renderState === 'yes' ? setRenderState('no') : setRenderState('yes')
+  }
 
   const callbackIn2 = async () => {
     const res = await axios.get(`/petitionGet/${user ? user.id : null}`);
@@ -179,7 +184,7 @@ export default function UserProfile() {
     /* return () => {
       callbackOut();
     }; */
-  }, []);
+  }, [renderState]);
 
   useEffect(() => {
     callbackIn2();
@@ -199,6 +204,7 @@ export default function UserProfile() {
         {user ? console.log("user.password", user.password) : null} */}
         {console.log("donationsSuscription", donationsSuscription)}
         {console.log("donationsUnique", donationsUnique)}
+        {console.log('renderState',renderState)}
       </div>
       <ContainerProfile>
         <TitleProfile>Mi Perfil</TitleProfile>
@@ -336,6 +342,7 @@ export default function UserProfile() {
                       weight={p.weight}
                       gender={p.gender}
                       fur={p.fur}
+                      rerender={rerender}
                     />
                   ))}
                   {petsTransit.map((p, i) => (
@@ -354,6 +361,7 @@ export default function UserProfile() {
                       weight={p.weight}
                       gender={p.gender}
                       fur={p.fur}
+                      rerender={rerender}
                     />
                   ))}
                 </div>
@@ -375,6 +383,7 @@ export default function UserProfile() {
                       weight={p.weight}
                       gender={p.gender}
                       fur={p.fur}
+                      rerender={rerender}
                     />
                   ))}
                 </div>
@@ -397,6 +406,7 @@ export default function UserProfile() {
                         weight={p.weight}
                         gender={p.gender}
                         fur={p.fur}
+                        rerender={rerender}
                       />
                     ))}
                   </div>
