@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import Swal from "sweetalert2";
 import ImageUploader from "../../../components/Users/PetCreate/imagenes/ImagesUploader";
@@ -20,6 +20,8 @@ import {
 } from "./StyledSeguimiento";
 
 export default function Seguimiento() {
+
+  const navigate = useNavigate();
   const { id } = useParams();
   const [pet, setPet] = useState();
 
@@ -100,7 +102,7 @@ export default function Seguimiento() {
                 );
               setJson({ images: [] });
               resetForm();
-               setTimeout(() => (location.href = `/userprofile`), 1000); 
+               setTimeout(() => (navigate (`/userprofile`)), 1000);                
             }
           });          
         }}
