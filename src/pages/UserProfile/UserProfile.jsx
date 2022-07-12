@@ -42,6 +42,7 @@ export default function UserProfile() {
 
   const [user, setUser] = useState(null);
 
+
   const callbackIn2 = async () => {
     const res = await axios.get(`/petitionGet/${user ? user.id : null}`);
     const resData = res.data;
