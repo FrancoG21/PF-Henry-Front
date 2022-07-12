@@ -34,7 +34,7 @@ export default function Donation() {
       unit_price: Number(e.target.value),
       failure: `${urlFront}/donation/failure`,
       success: `${urlFront}/donation/success`,
-     token: usuario
+      token: usuario
     }).then(r => setUrl(r.data.url))
   }
 
@@ -42,7 +42,8 @@ export default function Donation() {
     axios.post('/payment/subscription', {
       transaction_amount: Number(e.target.value),
       back_url: `${urlFront}/donation/success`,
-      payer_email: 'test_user_20466117@testuser.com'
+      payer_email: 'test_user_20466117@testuser.com',
+      token: usuario
     }).then(r => setUrl(r.data.url))
   }
 
