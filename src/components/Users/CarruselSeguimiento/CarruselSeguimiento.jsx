@@ -22,6 +22,7 @@ export default function CarruselSeguimiento() {
           <h1>Seguimiento</h1>
           {seguimiento.length ? seguimiento.map((s,i)=>{return(
               <div key={'b'+i}>
+                  <h4>Publicacion N°{i+1}</h4>
                   <p>{s.description}</p>
                   {s.image.length ? s.image.map(e => <img key={'a'+e}src={e} alt={e}  height='200px' width='200px'/>) : null}
               </div>
