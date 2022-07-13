@@ -36,7 +36,8 @@ export const ProfileCard = styled.img`
 `
 
 export const CardBody = styled.div`
-    padding: 10px 40px;
+    align-items:center;
+    min-height: 149px    
 `
 
 export const Name = styled.p`
