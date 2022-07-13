@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useReducer, useState} from 'react'
 import './estilos.css'
 import axios from 'axios'
 import Table from '@mui/material/Table';
@@ -10,19 +10,52 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Link} from 'react-router-dom'
 import Button from '@mui/material/Button';
+import { useSelector } from 'react-redux';
+import Swal from "sweetalert2";
 
 const AdminTable = () => {
 
 const [user, setUser] = useState(null)
 
+const token = useSelector(state=>state.usuario)
 
 useEffect(() => {
   axios.get('/user/all').then((r)=>{setUser(r.data)})
 }, [])
 
+const [ignore, forceUpdate] = useReducer(x=>x+1,0)
+
+ function refresh() {
+  forceUpdate()
+  
+ }
+ 
+ useEffect(()=>{
+  axios.get('/user/all').then((r)=>{setUser(r.data)})
+   console.log(ignore)
+ },[ignore])
+
+ function addAdmin(id){
+  axios.put('/admin/addAdmin',{token, id}).then(res=>Swal.fire
+    ({
+          position: 'center',
+          icon: 'success',
+          title: res.data.message,
+          showConfirmButton: true,
+          timer: 1500
+        }).then(()=>{refresh()}) ,res=>Swal.fire
+    ({
+            icon: 'error',
+            title: 'Error',
+            text: res.response.data.error,
+            showConfirmButton: false,
+            timer: 1000
+        }).then(()=>{refresh()})
+      ) 
+ }
 
 
-
+ 
 
                   
       return (
@@ -59,7 +92,7 @@ useEffect(() => {
                     </Button>
                     </TableCell>
                     <TableCell className="tableCell">
-                    <Button size="small" variant="outlined" color="secondary"> Admin </Button>
+                    <Button size="small" variant="outlined" color="secondary" onClick={()=>{addAdmin(e.id)}}> Admin </Button>
                     </TableCell>
                 </TableRow>
               ))}
