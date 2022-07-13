@@ -12,6 +12,7 @@ import {Link} from 'react-router-dom'
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
 import Swal from "sweetalert2";
+import BasicRating from './Rating';
 
 const AdminTable = () => {
 
@@ -36,14 +37,16 @@ const [ignore, forceUpdate] = useReducer(x=>x+1,0)
  },[ignore])
 
  function addAdmin(id){
-  axios.put('/admin/addAdmin',{token, id}).then(res=>Swal.fire
+  axios.put('/admin/addAdmin',{token, id}).then(res=>{
+ 
+    Swal.fire
     ({
           position: 'center',
           icon: 'success',
-          title: res.data.message,
+          title: res.data.message?res.data.message:res.data,
           showConfirmButton: true,
           timer: 1500
-        }).then(()=>{refresh()}) ,res=>Swal.fire
+        }).then(()=>{refresh()})} ,res=>Swal.fire
     ({
             icon: 'error',
             title: 'Error',
@@ -67,6 +70,7 @@ const [ignore, forceUpdate] = useReducer(x=>x+1,0)
                 <TableCell className="tableCell" >User</TableCell>
                 <TableCell className="tableCell">Apellido</TableCell>
                 <TableCell className="tableCell">Pet</TableCell>
+                <TableCell className="tableCell">Rating</TableCell>
                 <TableCell className="tableCell">Email</TableCell>
                 <TableCell className="tableCell">Peticoines</TableCell>
                 <TableCell className="tableCell">Admin</TableCell>
@@ -74,8 +78,9 @@ const [ignore, forceUpdate] = useReducer(x=>x+1,0)
             </TableHead>
             <TableBody>
               {user && user.map((e) => (
+                
                 <TableRow key={e.id}>
-                  
+                  {console.log(e)}
                   <TableCell className="tableCell">{e.id}</TableCell>
                   <TableCell className="tableCell">
                     <div className="cellWarpper">
@@ -85,6 +90,7 @@ const [ignore, forceUpdate] = useReducer(x=>x+1,0)
                   </TableCell>
                   <TableCell className="tableCell">{e.lastname}</TableCell>
                   <TableCell className="tableCell">{e.Pets.map((pet)=>pet.name)}</TableCell>
+                  <TableCell className="tableCell"><BasicRating rating={e.rating} id={e.id} /></TableCell>
                   <TableCell className="tableCell">{e.email}</TableCell>
                   <TableCell className="tableCell">{e.PetitionGets.id}
                     <Button size="small" variant="outlined">
