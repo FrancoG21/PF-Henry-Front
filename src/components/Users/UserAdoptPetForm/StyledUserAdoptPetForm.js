@@ -9,6 +9,11 @@ export const TitleForm = styled.h1`
     font-size: 1.5rem;
 `
 
+export const BackgroundForm = styled.div`
+    background-color: ${(props) => props.theme.background};
+    padding-bottom: 2rem;
+`
+
 export const Forms = styled(Form)`
     background-color: ${(props) => props.theme.primary};
     padding: 2rem;
@@ -21,7 +26,8 @@ export const FormContainer = styled.div`
     background-color: ${(props) => props.theme.primary};
     padding: 2rem;
     border-radius: 3px;
-    margin: 30px 80px;
+    margin-left: 30px;
+    margin-right: 30px;
 
     @media screen and (max-width: 600px) {
         width: 73%;
@@ -114,7 +120,14 @@ export const ButtonSubmit = styled.button`
 `
 
 export const ImagePet = styled.img`
-    width: 15rem;
+    width: 20rem;
+
+    @media screen and (max-width: 600px) {
+        width: 100%;
+        height: 200px;
+        margin: 0;
+        padding: 0;
+    }
 `
 
 export const IconLink = styled(Link)`
@@ -127,4 +140,11 @@ export const BackIcon = styled(VscArrowLeft)`
     margin-left: 20px;
     margin-top: 10px;
     width: 2em;
+    height: 2em;
+`
+
+export const Succes = styled.p`
+    font-size: 1rem;
+    color: #fff;
+    text-align: center;
 `

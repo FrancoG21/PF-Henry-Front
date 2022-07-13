@@ -3,6 +3,11 @@ import { Field, Form } from 'formik';
 import { VscArrowLeft } from 'react-icons/vsc';
 import { Link } from "react-router-dom";
 
+export const BackgroundForm = styled.div`
+    background-color: ${(props) => props.theme.background};
+    padding-bottom: 2rem;
+`
+
 export const TitleForm = styled.h1`
     color: ${(props) => props.theme.secondary};
     text-align: center;
@@ -114,7 +119,14 @@ export const ButtonSubmit = styled.button`
 `
 
 export const ImagePet = styled.img`
-    width: 15rem;
+    width: 20rem;
+
+    @media screen and (max-width: 600px) {
+        width: 100%;
+        height: 200px;
+        margin: 0;
+        padding: 0;
+    }
 `
 
 export const IconLink = styled(Link)`
@@ -127,4 +139,11 @@ export const BackIcon = styled(VscArrowLeft)`
     margin-left: 20px;
     margin-top: 10px;
     width: 2em;
+    height: 2em;
+`
+
+export const Succes = styled.p`
+    font-size: 1rem;
+    color: #fff;
+    text-align: center;
 `
