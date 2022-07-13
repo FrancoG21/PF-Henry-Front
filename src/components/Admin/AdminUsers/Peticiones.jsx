@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Stack from '@mui/material/Stack';
@@ -13,29 +13,14 @@ const Peticiones = () => {
   const [user, setUser] = useState(null);
 
   // codigo de Matifa
-  const [loadPetAdopt, setLoadPetAdopt] = useState([]);
-  const [loadPetLost, setLoadPetLost] = useState([]);
-  const [getAdopt, setGetAdopt] = useState([]);
-  const [getTransit, setGetTransit] = useState([]);
-  const [getItsMyPet, setGetItsMyPet] = useState([]);
+  const [loadPetAdopt, setLoadPetAdopt] = useState(null);
+  const [loadPetLost, setLoadPetLost] = useState(null);
+  const [getAdopt, setGetAdopt] = useState(null);
+  const [getTransit, setGetTransit] = useState(null);
+  const [getItsMyPet, setGetItsMyPet] = useState(null);
 
   const callbackIn = async () => {
-    try {
-      console.log("entree");
-
-      const { data } = await axios.get(
-        "/user/" + JSON.parse(localStorage.getItem("userInfo"))
-      );
-      setUser(data);
-      console.log("termine de entrar");
-    } catch (e) {
-      console.log("error al entrar");
-      console.log(e);
-    }
-  };
-
-  const callbackIn2 = async () => {
-    const res = await axios.get(`/petitionGet/${user ? user.id : null}`);
+    const res = await axios.get(`/petitionGet/${id}`);
     const resData = res.data;
     console.log("resData", resData);
 
@@ -43,23 +28,31 @@ const Peticiones = () => {
       setGetItsMyPet(resData.PetitionGetLosts);
     }
     if (resData.PetitionLoads) {
+      let adopt = []
+      let lost =[]
       for (let petition of resData.PetitionLoads) {
         if (petition.state === "adopt") {
-          setLoadPetAdopt(prevState => [...prevState, petition]);
+          adopt.push(petition)
         }
         if (petition.state === "lost") {
-          setLoadPetLost(prevState => [...prevState, petition]);
+          lost.push(petition)
         }
       }
+      setLoadPetAdopt(() =>adopt)
+      setLoadPetLost(() => lost)
     }
     if (resData.PetitionGets) {
       for (let petition of resData.PetitionGets) {
+        let transito =[]
+        let getAdopt = []
         if (petition.state === "transit") {
-          setGetTransit(prevState => [...prevState, petition]);
+          transito.push(petition)
         }
         if (petition.state === "adopted") {
-          setGetAdopt(prevState => [...prevState, petition]);
+          getAdopt.push(petition)
         }
+        setGetTransit(() =>  transito);
+        setGetAdopt(() => getAdopt);
       }
     }
   };
@@ -68,9 +61,19 @@ const Peticiones = () => {
     callbackIn();
   }, []);
 
-  useEffect(() => {
-    callbackIn2();
-  }, [user]);
+
+
+  const [ignore, forceUpdate] = useReducer(x=>x+1,0)
+
+  function refresh() {
+   forceUpdate()
+   
+  }
+  
+  useEffect(()=>{
+    callbackIn()
+    console.log(ignore)
+  },[ignore])
 
 
   return (
@@ -85,9 +88,10 @@ const Peticiones = () => {
       <div className="container">
         <div>
           <h1>Peticion de Adopcion</h1>
-          {user &&
-            getAdopt.map((p, i) => (
+          {
+            getAdopt&&getAdopt.map((p, i) => (
               <PetitionGets
+                refresh={refresh}
                 formDate={p.formDate}
                 petId={p.petId}
                 state={p.state}
@@ -117,9 +121,10 @@ const Peticiones = () => {
                 userMovingIdea={p.userMovingIdea}
               />
             ))}
-          {user &&
-            getTransit.map((p, i) => (
+          {
+            getTransit&&getTransit.map((p, i) => (
               <PetitionGets
+              refresh={refresh}
                 formDate={p.formDate}
                 petId={p.petId}
                 state={p.state}
@@ -152,9 +157,10 @@ const Peticiones = () => {
         </div>
         <div>
           <h1>Peticion perdidos</h1>
-          {user &&
-            getItsMyPet.map((p, i) => (
+          {
+            getItsMyPet&&getItsMyPet.map((p, i) => (
               <PetitionGetLosts
+              refresh={refresh}
                 ormDate={p.formDate}
                 petId={p.petId}
                 formState={p.formState}
@@ -171,9 +177,10 @@ const Peticiones = () => {
         </div>
         <div>
           <h1>Load</h1>
-          {user &&
+          {loadPetAdopt&&
             loadPetAdopt.map((p, i) => (
               <PetitionLoads
+              refresh={refresh}
                 formDate={p.formDate}
                 petId={p.petId}
                 state={p.state}
@@ -197,9 +204,10 @@ const Peticiones = () => {
                 image={p.image}
               />
             ))}
-          {user &&
+          {loadPetLost&&
             loadPetLost.map((p, i) => (
               <PetitionLoads
+              refresh={refresh}
                 formDate={p.formDate}
                 petId={p.petId}
                 state={p.state}

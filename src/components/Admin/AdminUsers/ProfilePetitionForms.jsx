@@ -52,6 +52,7 @@ const popUpDeletePetition = (formId, from) => {
 };
 
 export function PetitionGetLosts({
+  refresh,
   formDate,
   petId,
   formState,
@@ -119,17 +120,17 @@ export function PetitionGetLosts({
             title: res.data.message,
             showConfirmButton: true,
             timer: 1500
-          }) ,res=>Swal.fire
+          }).then(()=>{refresh()}) ,res=>Swal.fire
       ({
               icon: 'error',
               title: 'Error',
               text: res.response.data.error,
               showConfirmButton: false,
               timer: 1000
-          })) 
+          }).then(()=>{refresh()})) 
    }
    function rejected(){
-    axios.post('/admin/petitionGet/rejected', { petitionId: formId, token})
+    axios.post('/admin/petitionGetLost/rejected', { petitionId: formId, token})
     .then(res=>Swal.fire
       ({
             position: 'center',
@@ -137,14 +138,14 @@ export function PetitionGetLosts({
             title: res.data.message,
             showConfirmButton: true,
             timer: 1500
-          }) ,res=>Swal.fire
+          }).then(()=>{refresh()}) ,res=>Swal.fire
       ({
               icon: 'error',
               title: 'Error',
               text: res.response.data.error,
               showConfirmButton: false,
               timer: 1000
-          })) 
+          }).then(()=>{refresh()})) 
    }
 
   return (
@@ -186,6 +187,7 @@ export function PetitionGetLosts({
 }
 
 export function PetitionGets({
+  refresh,
   formDate,
   petId,
   state,
@@ -399,14 +401,14 @@ export function PetitionGets({
             title: res.data.message,
             showConfirmButton: true,
             timer: 1500
-          }) ,res=>Swal.fire
+          }).then(()=>{refresh()}) ,res=>Swal.fire
       ({
               icon: 'error',
               title: 'Error',
               text: res.response.data.error,
               showConfirmButton: false,
               timer: 1000
-          })) 
+          }).then(()=>{refresh()})) 
    }
    function rejected(){
     axios.post('/admin/petitionGet/rejected', { petitionId: formId, token})
@@ -417,14 +419,14 @@ export function PetitionGets({
             title: res.data.message,
             showConfirmButton: true,
             timer: 1500
-          }) ,res=>Swal.fire
+          }).then(()=>{refresh()}) ,res=>Swal.fire
       ({
               icon: 'error',
               title: 'Error',
               text: res.response.data.error,
               showConfirmButton: false,
               timer: 1000
-          })) 
+          }).then(()=>{refresh()})) 
    }
   const from = "PetitionGets";
 
@@ -477,6 +479,7 @@ export function PetitionGets({
 }
 
 export function PetitionLoads({
+  refresh,
   formDate,
   state,
   petName,
@@ -620,9 +623,6 @@ export function PetitionLoads({
   const token = useSelector(state=>state.usuario)
 
 
-useEffect(()=>{},[refresh])
-
-
   function acepted(){
     axios.post('admin/petitionLoadPet/acepted', { petitionId: formId, token})
     .then(res=>Swal.fire
@@ -632,14 +632,15 @@ useEffect(()=>{},[refresh])
             title: res.data.message,
             showConfirmButton: true,
             timer: 1500
-          }) ,res=>Swal.fire
+          }).then(()=>{refresh()}) ,res=>Swal.fire
       ({
               icon: 'error',
               title: 'Error',
               text: res.response.data.error,
               showConfirmButton: false,
               timer: 1000
-          })) 
+          }).then(()=>{refresh()})
+        ) 
    }
    function rejected(){
     axios.post('admin/petitionLoadPet/rejected', { petitionId: formId, token})
@@ -650,14 +651,14 @@ useEffect(()=>{},[refresh])
               title: res.data.message,
               showConfirmButton: true,
               timer: 1500
-            }) ,res=>Swal.fire
+            }).then(()=>{refresh()}) ,res=>Swal.fire
         ({
                 icon: 'error',
                 title: 'Error',
                 text: res.response.data.error,
                 showConfirmButton: false,
                 timer: 1000
-            }))
+            }).then(()=>{refresh()}))
    }
   return (
     <div >

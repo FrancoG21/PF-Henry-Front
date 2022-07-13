@@ -20,6 +20,10 @@ useEffect(() => {
   axios.get('/user/all').then((r)=>{setUser(r.data)})
 }, [])
 
+
+
+
+
                   
       return (
         <TableContainer component={Paper}  className='table' >

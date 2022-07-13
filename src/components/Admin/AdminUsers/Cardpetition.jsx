@@ -18,6 +18,18 @@ const Cardpetition = ({info}) => {
     .then(r=>console.log(r.data))
  }
 
+ const [ignore, forceUpdate] = useReducer(x=>x+1,0)
+
+ function refresh() {
+  forceUpdate()
+  
+ }
+ 
+ useEffect(()=>{
+   console.log(ignore)
+ },[ignore])
+
+
   return (
     <>
     <div>
