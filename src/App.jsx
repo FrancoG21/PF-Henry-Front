@@ -43,6 +43,7 @@ import { upLogin } from './redux/actions/index';
 import DonationCard from "./pages/UserProfile/DonationCard/DonationCard";
 import Seguimiento from "./pages/UserProfile/Seguimiento/Seguimiento";
 import CarruselSeguimiento from "./components/Users/CarruselSeguimiento/CarruselSeguimiento";
+import Redireccion from "./components/Chatbot/Redirect";
 
 function App() {
   const dispatch = useDispatch();
@@ -72,34 +73,34 @@ function App() {
             <Route path="/adopt" element={<Pets />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/petdetail/:id" element={<PetDetail />}></Route>
-            <Route path="/petcreate" element={token ? <PetCreate /> : <Navigate to='/' replace/>}></Route>
+            <Route path="/petcreate" element={token ? <PetCreate /> : <Redireccion URL='/' />}></Route>
             {/* <Route path="/lostform" element={<LostPets />}></Route> */}
-            <Route path="/donation" element={token ? <Donation /> : <Navigate to='/' replace/>}></Route>
+            <Route path="/donation" element={token ? <Donation /> : <Redireccion URL='/' />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route path="/useradoptpet/:id" element={token ? <UserAdoptPetForm /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/usertransitpet/:id" element={token ? <UserTransitPetForm /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/donation/success" element={token ? <Success /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/donation/failure" element={token ? <Failure /> : <Navigate to='/' replace/>}></Route>
+            <Route path="/useradoptpet/:id" element={token ? <UserAdoptPetForm /> : <Redireccion URL='/' />}></Route>
+            <Route path="/usertransitpet/:id" element={token ? <UserTransitPetForm /> : <Redireccion URL='/' />}></Route>
+            <Route path="/donation/success" element={token ? <Success /> : <Redireccion URL='/' />}></Route>
+            <Route path="/donation/failure" element={token ? <Failure /> : <Redireccion URL='/' />}></Route>
             {/* <Route path="/useradoptpet" element={<UserAdoptPetForm />}></Route>
             <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route> */}
-            <Route path="/userprofile" element={token ? <UserProfile /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/useritsmypet/:id" element={token ? <UserItsMyPetForm /> : <Navigate to='/' replace/>}></Route>     
+            <Route path="/userprofile" element={token ? <UserProfile /> : <Redireccion URL='/' />}></Route>
+            <Route path="/useritsmypet/:id" element={token ? <UserItsMyPetForm /> : <Redireccion URL='/' />}></Route>     
             <Route path="/lostpets" element={<LostPets />}></Route>      
-            <Route path="/admin" element={token ? <AdminHome /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/admin/pets" element={token ? <AdminPets /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/admin/users" element={token ? <AdminUsers /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/admin/donation" element={token ? <AdminDonation /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/admin/formadopt" element={token ? <FormAdopt /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/admin/formlost" element={token ? <FormLostAnimals /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/admin/formtransit" element={token ? <FormTransit /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/admin/profilepets/:id" element={token ? <ProfilePets /> : <Navigate to='/' replace/>}></Route>
-            <Route path="/admin/petitionuser/:id" element={token ? <Peticiones /> : <Navigate to='/' replace/>}></Route>
+            <Route path="/admin" element={token ? <AdminHome /> : <Redireccion URL='/' />}></Route>
+            <Route path="/admin/pets" element={token ? <AdminPets /> : <Redireccion URL='/' />}></Route>
+            <Route path="/admin/users" element={token ? <AdminUsers /> : <Redireccion URL='/' />}></Route>
+            <Route path="/admin/donation" element={token ? <AdminDonation /> : <Redireccion URL='/' />}></Route>
+            <Route path="/admin/formadopt" element={token ? <FormAdopt /> : <Redireccion URL='/' />}></Route>
+            <Route path="/admin/formlost" element={token ? <FormLostAnimals /> : <Redireccion URL='/' />}></Route>
+            <Route path="/admin/formtransit" element={token ? <FormTransit /> : <Redireccion URL='/' />}></Route>
+            <Route path="/admin/profilepets/:id" element={token ? <ProfilePets /> : <Redireccion URL='/' />}></Route>
+            <Route path="/admin/petitionuser/:id" element={token ? <Peticiones /> : <Redireccion URL='/' />}></Route>
             {/* <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route> */}
             {/* <Route path="/lostpets" element={<LostPets />}></Route> */}
-            <Route path="/chatbot" element={<ContenidoChatb />}></Route>
-            <Route path="/userseguimiento/:id" element={<Seguimiento />}></Route>
-            <Route path="/seguimiento" element={<CarruselSeguimiento />}></Route>                     
+            <Route path="/chatbot" element={token ? <ContenidoChatb /> : <Redireccion URL='/' />}></Route>
+            <Route path="/userseguimiento/:id" element={token ? <Seguimiento /> : <Redireccion URL='/' />}></Route>
+            <Route path="/seguimiento" element={token ? <CarruselSeguimiento /> : <Redireccion URL='/' />}></Route>                     
             <Route
                 path="*"
                 element={<Navigate to="/" replace />}

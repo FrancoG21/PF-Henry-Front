@@ -80,7 +80,7 @@ export default function Login() {
       showConfirmButton: true,
       timer: 1500
     }).then(()=>{
-      navigate("/")
+      navigate("/chatbot")
     })
   }
 
@@ -129,7 +129,7 @@ export default function Login() {
       showConfirmButton: true,
       timer: 1500
     }).then(()=>{
-      navigate("/")
+      navigate("/chatbot")
     })
 
     localStorage.setItem("userInfo", JSON.stringify(res.data.token))
