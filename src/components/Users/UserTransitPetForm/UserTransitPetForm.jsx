@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Supliers from "./Supliers";
 import axios from 'axios'
+
+import { validateForm } from "./validate";
+
 import {
   ContainerCamp,
   FormContainer,
@@ -105,7 +108,7 @@ export default function UserTransitPetForm() {
           familyRelation: "",
           petId: id,
           userId: user && user.id,
-          state:'transit'
+          state: 'transit'
           // userMovingIdea no hay
         }}
         validate={(values) => {

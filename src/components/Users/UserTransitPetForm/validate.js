@@ -1,4 +1,4 @@
-export const validate = (input) => {
+export const validateForm = (input) => {
     const errors = {};
     if (!input.pet.name) {
         errors.pet.name = "Nombre de la mascota es requerido";
@@ -46,12 +46,12 @@ export const validate = (input) => {
         errors.telefono = "Debe ser un valor de 0 a 99 y unicamente escribir numeros";
     }
     if (!input.otherPetsInfo) {
-        errors.otherPetsInfo = "Cantidad de personas viven en la casa is required";
+        errors.otherPetsInfo = "Cantidad de personas viven en la casa es requerida";
     } else if (!/^[1-9]$/.test(input.otherPetsInfo)) {
         errors.otherPetsInfo = "item no valido"
     }
     if (!input.otherPetsCastration) {
-        errors.otherPetsCastration = "otherPetsCastration is required";
+        errors.otherPetsCastration = "Campo requerido";
     } else if (!/^[1-5]$/.test(input.otherPetsCastration)) {
         errors.otherPetsCastration = "item no valido"
     }
@@ -68,13 +68,13 @@ if (!input.adoptedPetPlace) {
 }
 if (!input.openSpace) {
     errors.openSpace = "Este campo es requerido";
-} else if (!/^[0-9]{1,2}$/.test(openSpace)) {
-    errors.openSpace = "The openSpace can only contain values from 0 to 99. And only numbers are allowed"
+} else if (!/^[0-99]{1,2}$/.test(openSpace)) {
+    errors.openSpace = "Debe ser un valor de 0 a 999 y unicamente escribir numeros";
 }
 if (!input.rental) {
     errors.rental = "Item requerido";
-} else if (!/^[0-99]{1,2}$/.test(input.provincia)) {
-    errors.provincia = "The provincia can only contain values from 0 to 99. And only numbers are allowed"
+} else if (!/^[0-99]{1,2}$/.test(input.rental)) {
+    errors.rental = "Debe ser un valor de 0 a 999 y unicamente escribir numeros";
 }
 
 // if (!input.img) {
