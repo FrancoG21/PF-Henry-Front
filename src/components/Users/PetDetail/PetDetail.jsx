@@ -19,6 +19,7 @@ import {
   BackIcon,
   ButtonForm,
   ContainerButton,
+  DivHeader,
 } from "./StyledPetDetail";
 
 export default function PetDetail() {
@@ -42,19 +43,12 @@ export default function PetDetail() {
         {petDetail ? (
           <DetailContainer>
             <ContainerImage>
-              <ContainerButton>
-                {petDetail.state === "transit" ? (
-                  <ButtonForm
-                    onClick={() =>
-                      usuario
-                        ? navigate(`/useradoptpet/${id}`, "_self")
-                        : navigate(`/login`, "_self")
-                    }
-                  >
-                    Quiero adoptar
-                  </ButtonForm>
-                ) : petDetail.state === "adopt" ? (
-                  <>
+              <DivHeader>
+                <div>
+                  <DetailTitle>{petDetail.name}</DetailTitle>
+                </div>
+                <ContainerButton>
+                  {petDetail.state === "transit" ? (
                     <ButtonForm
                       onClick={() =>
                         usuario
@@ -64,32 +58,43 @@ export default function PetDetail() {
                     >
                       Quiero adoptar
                     </ButtonForm>
+                  ) : petDetail.state === "adopt" ? (
+                    <>
+                      <ButtonForm
+                        onClick={() =>
+                          usuario
+                            ? navigate(`/useradoptpet/${id}`, "_self")
+                            : navigate(`/login`, "_self")
+                        }
+                      >
+                        Quiero adoptar
+                      </ButtonForm>
 
+                      <ButtonForm
+                        onClick={() =>
+                          usuario
+                            ? navigate(`/usertransitpet/${id}`)
+                            : navigate(`/login`)
+                        }
+                      >
+                        Hogar Transito
+                      </ButtonForm>
+                    </>
+                  ) : petDetail.state === "lost" ? (
+                    // <Link to={`/useritsmypet/${id}`}>
                     <ButtonForm
                       onClick={() =>
                         usuario
-                          ? navigate(`/usertransitpet/${id}`)
+                          ? navigate(`/useritsmypet/${id}`)
                           : navigate(`/login`)
                       }
                     >
-                      Hogar Transito
+                      Es mi perro
                     </ButtonForm>
-                  </>
-                ) : petDetail.state === "lost" ? (
-                  // <Link to={`/useritsmypet/${id}`}>
-                  <ButtonForm
-                    onClick={() =>
-                      usuario
-                        ? navigate(`/useritsmypet/${id}`)
-                        : navigate(`/login`)
-                    }
-                  >
-                    Es mi perro
-                  </ButtonForm>
-                ) : null}
-              </ContainerButton>
+                  ) : null}
+                </ContainerButton>
+              </DivHeader>
 
-              <DetailTitle>{petDetail.name}</DetailTitle>
               <ImageDetail
                 src={petDetail.image}
                 alt="pets"
@@ -135,6 +140,6 @@ export default function PetDetail() {
           <h1>Esta mascota no existe o aún no fue cargada</h1>
         )}
       </div>
-    </BackgroundDetail>
+    </BackgroundDetail >
   );
 }

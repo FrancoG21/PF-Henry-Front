@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 
 export const BackgroundDetail = styled.div`
     background-color: ${(props) => props.theme.background};
+    height: 120vh;
+
+    @media screen and (max-width: 600px) {
+        height: 150vh;
+    }
 `
 
 export const IconLink = styled(Link)`
@@ -22,14 +27,22 @@ export const BackIcon = styled(VscArrowLeft)`
 `
 
 export const DetailContainer = styled.div`
+    background-color: ${(props) => props.theme.card_alt};
     display: grid;
-    display: flex;
-    /* grid-template-columns: repeat(2,1fr); */
+    grid-template-columns: repeat(2,1fr);
     max-width: 118rem;
-    margin: -34px auto;
-    justify-content: space-around;
-    margin-left: -39px;
-    height: 679px;
+    padding: 20px;
+    padding-bottom: 60px;
+    margin: 30px 30px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+
+    @media screen and (max-width: 600px) {
+        grid-template-columns: repeat(1, 1fr);
+        width: 84%;
+        margin-left: 10px; 
+        margin-right: 10px;
+    }
 `
 
 export const ContainerImage = styled.div`
@@ -42,16 +55,14 @@ export const ImageDetail = styled.img`
     grid-row: 1 / 2;
     grid-row: 1 / 2;
     padding: 0.7rem;
-    border-radius: 26px;
+    border-radius: 5px;
     max-width: 35rem;
     margin-left: 99px;
-    -webkit-box-shadow: 5px 5px 15px 5px #000000; 
-    box-shadow: 5px 5px 15px 5px #000000;
-    background-color: deepskyblue;
     margin-left: -13px;
-    &:hover {
-        transition: all 0.3s ease-out;
-        background: ${(props) => props.theme.primary};
+
+    @media screen and (max-width: 600px) {
+        width: 90%;
+        margin: 0;
     }
 `
 
@@ -66,14 +77,14 @@ export const DetailTitle = styled.h1`
 
     @media screen and (max-width: 600px) {
         justify-content: center;
+        margin-bottom: 0;
     }
 `
 
 export const ContainerContent = styled.div`
-margin-top: 140px;
-margin-bottom: 0;
-margin-right: 300px;
-margin-top: 179px;
+    margin-bottom: 0;
+    margin-right: 300px;
+    margin-top: 170px;
 
     @media screen and (max-width: 600px) {
         margin: 0;
@@ -107,21 +118,33 @@ export const SubTitle3 = styled.h4`
 export const ContainerButton = styled.div`
     display: flex;
 
-   
+    @media screen and (max-width: 600px) {
+        justify-content: center;
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
 `
 
 export const ButtonForm = styled.button`
-    background-color: ${(props) => props.theme.primary};
+    background-color: ${(props) => props.theme.secondary};
     font-size: 1rem;
     color: #fff;
     border: none;
     border-radius: 3px;
-    padding: .3rem;
+    padding: .1rem;
     cursor: pointer;
     margin-left: 20px;
+    margin-top: 52px;
+    height: 30px;
+`
 
-    &:hover {
-        transition: all 0.3s ease-out;
-        background: ${(props) => props.theme.primary};
+export const DivHeader = styled.div`
+    display: flex;
+    justify-content: space-around;
+
+    @media screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
     }
 `
