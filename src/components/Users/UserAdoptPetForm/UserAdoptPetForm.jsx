@@ -21,6 +21,7 @@ import {
   BackIcon,
   BackgroundForm,
   Succes,
+  Span,
 } from "./StyledUserAdoptPetForm";
 import moment from "moment";
 
@@ -232,13 +233,13 @@ export default function UserAdoptPetForm() {
                       height="400"
                     />
                     <Label>
-                      Macota elegida: {pet.name}
+                      Macota elegida: <Span> {pet.name} </Span>
                     </Label>
                   </Camp>
                   <Camp>
                     <Label>
-                      Nombre y apellido del adoptante:{" "}
-                      {user && user.name + " " + user.lastname}
+                      Nombre y apellido del adoptante: {" "}
+                      <Span> {user && user.name + " " + user.lastname} </Span>
                     </Label>
                   </Camp>
                   {/* <div>{JSON.stringify(props.errors)}</div> */}

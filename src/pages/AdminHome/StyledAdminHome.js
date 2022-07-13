@@ -38,7 +38,7 @@ export const ContainerBarChart = styled.div`
 export const Subtitle = styled.h1`
     font-size: 1rem;
     margin: 0;
-    color: ${(props) => props.theme.secondary};
+    color: ${(props) => props.theme.font_alt};
     text-align: center;
 `
 
@@ -46,6 +46,6 @@ export const Text = styled.h1`
     font-size: 1rem;
     margin: 0;
     margin-bottom: 80px;
-    color: ${(props) => props.theme.secondary};
+    color: ${(props) => props.theme.font_alt};
     text-align: center;
 `

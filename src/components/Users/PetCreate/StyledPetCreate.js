@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Field, Form } from 'formik';
+import { VscArrowLeft } from 'react-icons/vsc';
 
 export const BackgroundForm = styled.div`
     background-color: ${(props) => props.theme.background};
@@ -10,7 +11,7 @@ export const BackgroundForm = styled.div`
 export const TitleForm = styled.h1`
     color: ${(props) => props.theme.secondary};
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
 `
 
 export const Forms = styled(Form)`
@@ -60,12 +61,16 @@ export const Label = styled.label`
 `
 
 export const Input = styled(Field)`
-    width: 90%;
+    width: 98%;
     padding: .5rem;
     border: none;
     border-radius: .5rem;
     margin-left: 5px;
     outline: none;
+
+    @media screen and (max-width: 600px) {
+        width: 90%;
+    }
 `
 
 export const Select = styled(Field)`
@@ -115,4 +120,12 @@ export const ButtonSubmit = styled.button`
     @media screen and (max-width: 600px) {
         width: 50%;
     }
+`
+
+export const BackIcon = styled(VscArrowLeft)`
+    color: ${(props) => props.theme.secondary};
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 2em;
+    height: 2em;
 `

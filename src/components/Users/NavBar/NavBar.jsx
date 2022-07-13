@@ -2,11 +2,27 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { FaSun, FaRegMoon, FaTimes, FaBars } from 'react-icons/fa';
 import { Link, NavLink } from "react-router-dom";
-import { Nav, NavContainer, NavLogo, NavIcon, DarkMode, MobileIcon, NavMenu, NavItem, NavAcces, ContainerLogo, MinText, NavButton, NavButtonLink, Button } from "./StyledNavBar";
+import { Nav,
+    NavContainer,
+    NavLogo,
+    NavIcon,
+    DarkMode,
+    MobileIcon,
+    NavMenu,
+    NavItem,
+    NavAcces,
+    ContainerLogo,
+    MinText,
+    NavButton,
+    NavButtonLink,
+    Button,
+    List,
+    ListItem,
+    Avatar
+} from "./StyledNavBar";
 import { IconContext } from 'react-icons/lib';
 import Logout from "../Logout/Logout";
 import axios from 'axios'
-import s from './Nav.module.css'
 import Icono from '../../Chatbot/Icono/Icono'
 
 
@@ -38,14 +54,14 @@ export default function NavBar({ theme, setTheme }) {
         axios.get('/user/' + token ).then(r => {
             setUser(r.data) 
         }, error => {
-            console.log(error)
+            // console.log(error)
         })
         axios.put('/admin/', { token }).then(r => {
             r.data.result === 'admin' 
                 ? setIsAdmin(true)
                 : setIsAdmin(false)
         }, error => {
-            console.log(error)
+            // console.log(error)
         })
     }
 
@@ -106,13 +122,12 @@ export default function NavBar({ theme, setTheme }) {
                                 </NavItem>
                                 {user && user ? (
                                     <NavAcces to='/userprofile'>{
-                                        <ul className={s.list}>
-                                            <li className={s.listItem}>
-                                                <img src={user.picture ? user.picture : 'https://p16-va-default.akamaized.net/img/musically-maliva-obj/1665282759496710~c5_720x720.jpeg'} alt='User Profile' className={s.avatar} />
-
-                                            </li>
-                                            <li className={s.listItem}>{user.name}</li>
-                                        </ul>}
+                                        <List>
+                                            <ListItem>
+                                                <Avatar src={user.picture ? user.picture : 'https://p16-va-default.akamaized.net/img/musically-maliva-obj/1665282759496710~c5_720x720.jpeg'} alt='User Profile'/>
+                                            </ListItem>
+                                            <ListItem>{user.name}</ListItem>
+                                        </List>}
                                     </NavAcces>
                                 ) :
                                     <NavItem>
