@@ -104,8 +104,6 @@ export default class ContenidoChatb extends Component {
                                 { value: 'Adoptar', label: "Adoptar una Mascota", trigger:'adop'},
                                 { value: 'verM ', label: "Ver Mascotas adoptadas", trigger:'ver'},
                                 { value: 'No ', label: "Volver a Menu", trigger:'6A'}
-
-
                             ]
                            },
 
@@ -113,7 +111,6 @@ export default class ContenidoChatb extends Component {
                             id: "adop",
                             message: "Te llevare a la pagina donde debes seleccionar la mascota que mas te guste,y postularte para la adopcion en el boton 👉 Quiero Adoptar",
                             trigger: "ir-no",
-                            
                         },
                         {
                             id:"ir-no",
@@ -152,130 +149,98 @@ export default class ContenidoChatb extends Component {
  
                         //Hogar Transito
 
-                        {
-                            id: "seleccionC",
+                       
+                           {  id: "seleccionC",
                             message: "Recuerda que Hogar Transitorio son casas de Personas que cuidan animales por un periodo de tiempo determinado,Hasta que la mascota Encuentre la persona indicada que la adopte Definitivamente,¡CUENTAME QUE QUIERES HACER...!",
-                            trigger: "8",
+                            trigger: "8",},
                             
-                        },
-
-                        {
-                            id:"8",
+                           { id:"8",
                             options: [
                                 { value: 'transitar', label: "Transitar Masotas", trigger:'transitar'},
                                 { value: 'verMascotas ', label: "Ver Mascotas En transito", trigger:'ver'},
                                 { value: 'No ', label: "Volver a Menu", trigger:'6A'}
-                            ]
-                           },
-                           {
-                            id: "transitar",
-                            message: "Te llevare a la pagina donde debes seleccionar la mascota que mas te guste,y postularte en el boton 👉 Hogar Transito",
-                            trigger: "trans",
-                            
-                        },
-                        {
-                            id:"trans",
+                            ]},
+                          
+                           { id: "transitar",
+                            message: "Te llevare a la pagina donde debes seleccionar la mascota que mas te guste,y postularte en el boton 👉 Hogar Transito, SI NO VES EL BOTON PARA TRANSITAR ES PORQUE YA ESTA EN PROCESO CON ALGUIEN MAS",
+                            trigger: "trans",   },
+                          
+                           { id:"trans",
                             options: [
                                 { value: 'Si', label: "Vamos🐾", trigger:'ir'},
                                 { value: 'No ', label: "Volver a Menu", trigger:'6A'}
-
-                            ]
-                           },
-                           {
-                            id:'ir',
+                             ]},
+                           
+                           { id:'ir',
                             component: <Redireccion URL='/adopt' />,
-                            asMessage: true,
-                           },
-
+                            asMessage: true,  },
+                         
                           // mascota Perdidas
 
-                          
-                          {
-                            id: "seleccionD",
+                           { id: "seleccionD",
                             message: "Personas como tu son las Que ayudan a que el Mundo sea un lugar Mejor🙌  !QUIERES....!",
-                            trigger: "9",
-                            
-                        },
-                        {
-                            id:"9",
+                            trigger: "9", },
+                           
+                           { id:"9",
                             options: [
                                 { value: 'buscar', label: "Buscar Mascota", trigger:'buscar'},
                                 { value: 'encontrar ', label: "Encontre un Mascota", trigger:'encont' },
                                 { value: 'No ', label: "Volver a Menu", trigger:'6A'}
-
-
-                            ]
-                           },
-                           { 
-                            id:'buscar',
+                            ]},
+                            
+                           { id:'buscar',
                             message: "Encontraste una mascota y no sabes quien es su dueño!...Te llevare Donde puedes subir su informacion y juntos lo encontraremos 🎀",
-                            trigger:'buscando',
-                           },
-
-                           { 
-                            id:'buscando',
+                            trigger:'buscando', },
+                    
+                           { id:'buscando',
                             options: [
                                 { value:'ir', label:'llevame👌', trigger:'go'},
                                 { value: 'No ', label: "Volver a Menu", trigger:'6A'}
 
-                            ]
-                           },
-                           {
-                            id:'go',
-                            component: <Redireccion URL='/petcreate' />,
-                            asMessage: true,
-                           },
-
+                            ]},
+                           
+                           { id:'go',
+                            component: <Redireccion URL='/lostpets' />,
+                            asMessage: true, },
+                          
                            { id:'encont',
                            message:'Se te perdio tu moscota💔 Te llevare a la seccion de mascotas Perdidas, si la encuentras!! has Click en 👉 !ES MI MASCOTA!',
-                           trigger:'enco',
-                          },
-
-                          { 
-                           id:'enco',
+                           trigger:'enco',},
+                          
+                          {  id:'enco',
                            options: [
                                { value:'ir', label:'Vamos alla✋', trigger:'vamos'},
                                { value: 'No ', label: "Volver a Menu", trigger:'6A'}
+                            ]},
 
-                           ]
-                          },
                           { id:'vamos',
                           component: <Redireccion URL='/' />,
-                          asMessage: true,
-                         },
-
+                          asMessage: true, },
+                       
                      //Donaciones
 
-                     {
-                        id: "6B",
+                      { id: "6B",
                         message: "Gracias a tus aportes juntos logramos un futuro libre de maltrato y abandono animal",
-                        trigger: "next"
-                    },
-                
-                    {
-                        id: "next",
+                        trigger: "next"  },
+                  
+                      { id: "next",
                         message:'podes hacer donaciones Puntuales o Suscribirte a Donaciones Mensuales',
-                        trigger: "next1"
-                    },
-                    {
-                        id:'next1',
+                        trigger: "next1"   },
+                 
+                      { id:'next1',
                         message:'te llevare a donde puedes realizar tu Donacion',
-                        trigger: "next2"
+                        trigger: "next2" },
 
-                    },
-                    {
-                        id:'next2',
+                      { id:'next2',
                         options:[
                             { value: 'si', label:'GO🚀', trigger:'si'},
                             { value: "no", label: "volver a menu", trigger: "5" },
-
-                        ]
-                    },
-                    {
-                      id:'si',
-                      component: <Redireccion URL='/donation' />,
-                      asMessage: true,
-                    }
+                             ]},
+ 
+                      { id:'si',
+                        component: <Redireccion URL='/donation' />,
+                        asMessage: true, }
+                   
 
                    
                     ]}
