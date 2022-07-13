@@ -97,9 +97,9 @@ export default function About() {
 
       <ContainerAbout>
         <Container>
-          <SubtitleAbout>Como surgió el Proyecto AdoptA?</SubtitleAbout>
+          <SubtitleAbout>Como surgió el Proyecto Patitas?</SubtitleAbout>
           <TextAbout>
-            AdoptA surge como proyecto final de cierre para el Henry
+            Patitas surge como proyecto final de cierre para el Henry
             Bootcamp en el que se espera que se integre un grupo de alumnos
             todo lo que han aprendido en los últimos 4 meses y desarrollan un
             proyecto innovador y útil para la sociedad.
@@ -108,7 +108,7 @@ export default function About() {
         <Container>
           <SubtitleAbout>Cuál es nuestra mision?</SubtitleAbout>
           <TextAbout>
-            Nuestra misión es proporcionar una conexión a través de AdoptA entre
+            Nuestra misión es proporcionar una conexión a través de Patitas entre
             personas que quieran adoptar animales que necesitan un hogar, brindar ayuda
             cuando su animal se pierde y dar un animal en adopción cuando usted
             no pueda cuidarlo
