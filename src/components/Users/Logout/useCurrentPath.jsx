@@ -26,6 +26,8 @@ const rutass = [
     ,"/admin/profilepets/:id"
     ,"/admin/petitionuser/:id"
     ,"/chatbot"
+    ,'/userseguimiento/:id' 
+    ,'/seguimiento'
 ]
 
 const routes = rutass.map(path=>{return { path }})

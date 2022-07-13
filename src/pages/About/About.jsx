@@ -34,9 +34,9 @@ export default function About() {
       email: "fgimenez029@gmail.com"
     },
     {
-      name: "Matias Farina Sola",
+      name: "Matias Farina Solá",
       image:
-        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+        "http://res.cloudinary.com/dlol6par5/image/upload/v1657669725/b1btugwql2e3rbcjnlbb.jpg",
       linkedIn: "https://www.linkedin.com/in/matias-farina-sola-09040b147/",
       github: "https://github.com/matifagith",
       email: "matiasfarinasola@gmail.com"

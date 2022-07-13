@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.css";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import moment from "moment";
-// import ImageUploader from "../../../components/Users/PetCreate/imagenes/ImagesUploader";
+import axios from "axios";
 
 const today = moment().format("DD/MM/YYYY");
 
@@ -12,8 +12,6 @@ const fechaAdoptada = moment("22/06/2022", "DD/MM/YYYY").format("DD/MM/YYYY");
 function capitalize(str) {
   return str.replace(/^\w/, (c) => c.toUpperCase());
 }
-
-
 
 export default function PetCard({
   name,
@@ -30,8 +28,7 @@ export default function PetCard({
   actualPlace,
   fur,
 }) {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const popUp1 = () => {
     Swal.fire({
       title: `${capitalize(name)}`,
@@ -88,7 +85,7 @@ export default function PetCard({
   const popUp2 = () => {
     Swal.fire({
       title: "Esta seguro?",
-      text: "Su peticion será enviada",
+      text: "Su peticion sera enviada",
       icon: "warning",
       showCancelButton: true,
       cancelButtonText: "Cancelar",
@@ -101,12 +98,34 @@ export default function PetCard({
           "Peticion enviada",
           "Tu peticion pronto sera revisada",
           "success"
-        );        
+        );
+        axios
+          .put("/pet/return", {
+            petId: id,
+            token: JSON.parse(localStorage.getItem("userInfo")),
+          })
+          .then(
+            Swal.fire(
+              "Excelente",
+              "Tu peticion para devolver la mascota fue aceptada",
+              "success"
+            ),
+
+            setTimeout(() => location.reload(), 1000)
+          )
+          .catch((e) => {
+            console.log(e);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Algo salio mal!",
+            });
+          });
       }
     });
   };
 
-  const popUp3 = ()=>{
+  const popUp3 = () => {
     Swal.fire({
       title: "Cargar seguimiento",
       /* text: "No podra revertir los cambios!", */
@@ -121,7 +140,7 @@ export default function PetCard({
         navigate(`/userseguimiento/${id}`);
       }
     });
-  }
+  };
 
   return (
     <div className="cardContainer" key={"a" + id}>
@@ -147,11 +166,15 @@ export default function PetCard({
             ver mas
           </button>
         }
-        {state === "adopted" ? <button className="dev" onClick={popUp2}>devolver</button> : null}
+        {state === "adopted" ? (
+          <button className="dev" onClick={popUp2}>
+            devolver
+          </button>
+        ) : null}
       </div>
 
       {state === "adopted" ? (
-        <button onClick={popUp3}>seguimiento</button>
+        <button onClick={popUp3}>cargar seguimiento</button>
       ) : null}
 
       {state === "transit" ? <button onClick={popUp2}>devolver</button> : null}

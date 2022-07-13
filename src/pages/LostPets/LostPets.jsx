@@ -45,7 +45,7 @@ export default function LostPets() {
     <BackgroundPets>
       <ContainerTop>
         <div>
-        <h1>Si perdiste tu mascota buscala aqui</h1>
+        <h1>Si perdiste tu mascota buscala aquí</h1>
           <Searchbar stateValue={["lost"]} />
           <PetFilters petsToFilter={petsToFilter} stateValue={["lost"]} />
         </div>
@@ -53,7 +53,7 @@ export default function LostPets() {
           <ImageSpace>
             <Grid>
               {!pets ? (
-                <p>Please choose other option</p>
+                <p>No hay mascotas con esas caracteristicas, por favor elige otra opción</p>
               ) : pets[0] === "the search returned no results" ? (
                 <p>the search returned no results</p>
               ) : (
