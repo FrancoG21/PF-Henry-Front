@@ -31,6 +31,10 @@ import {
   Select,
   DivPets,
   DivCardCarrusel,
+  Carrusel,
+  TitleCardPets,
+  DivCardPetition,
+  Error,
 } from "./StyledUserProfile";
 import {
   PetitionGets,
@@ -340,13 +344,13 @@ export default function UserProfile() {
           </Select>
         </ContainerSelect>
         <ContainerDiv>
-          <h2>Mis Mascotas:</h2>
+          <TitleCardPets>Mis Mascotas:</TitleCardPets>
           <DivPets>
-            <Splide width={100}
+            <Splide
               options={{
                 rewind: false,
-                perPage: 3,
-                perMove: 3,
+                perPage: 4,
+                perMove: 4,
                 gap: 10,
                 padding: "1rem",
                 pagination: false,
@@ -366,7 +370,7 @@ export default function UserProfile() {
                 },
               }}
             >
-              <SplideSlide>
+              <Carrusel>
                 {petsAdopted.length > 0 || petsTransit.length > 0 ? (
                   flagPet === "all" ? (
                     <DivCardCarrusel>
@@ -453,376 +457,436 @@ export default function UserProfile() {
                     )
                   )
                 ) : (
-                  <p>No tienes ninguna mascota</p>
+                  <Error>No tienes ninguna mascota</Error>
                 )}
-              </SplideSlide>
+              </Carrusel>
             </Splide>
           </DivPets>
           <ContainerPetitions>
-            {loadPetAdopt.length +
-              loadPetLost.length +
-              getAdopt.length +
-              getTransit.length +
-              getItsMyPet.length >
-              0 ? (
-              flagPetitions === "all" ? (
-                <div>
-                  {loadPetAdopt.length > 0
-                    ? loadPetAdopt.map((p, i) => (
-                      <PetitionLoads
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        state={p.state}
-                        petName={p.name}
-                        type={p.pet}
-                        formState={p.formState}
-                        petImg={p.image}
-                        formId={p.id}
-                        key={"e" + i}
-                        actualPlace={p.actualPlace}
-                        breed={p.breed}
-                        castration={p.castration}
-                        foundDate={p.foundDate}
-                        foundPlace={p.foundPlace}
-                        fur={p.fur}
-                        gender={p.gender}
-                        pet={p.pet}
-                        size={p.size}
-                        vaccinate={p.vaccinate}
-                        weight={p.weight}
-                        image={p.image}
-                      />
-                    ))
-                    : null}
-                  {loadPetLost.length > 0
-                    ? loadPetLost.map((p, i) => (
-                      <PetitionLoads
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        state={p.state}
-                        petName={p.name}
-                        type={p.pet}
-                        formState={p.formState}
-                        petImg={p.image}
-                        formId={p.id}
-                        key={"f" + i}
-                        actualPlace={p.actualPlace}
-                        breed={p.breed}
-                        castration={p.castration}
-                        foundDate={p.foundDate}
-                        foundPlace={p.foundPlace}
-                        fur={p.fur}
-                        gender={p.gender}
-                        pet={p.pet}
-                        size={p.size}
-                        vaccinate={p.vaccinate}
-                        weight={p.weight}
-                        image={p.image}
-                      />
-                    ))
-                    : null}
-                  {getAdopt.length > 0
-                    ? getAdopt.map((p, i) => (
-                      <PetitionGets
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        state={p.state}
-                        formState={p.formState}
-                        formId={p.id}
-                        key={"g" + i}
-                        actualPlace={p.actualPlace}
-                        adaptationTime={p.adaptationTime}
-                        adoptedPetAloneMoments={p.adoptedPetAloneMoments}
-                        adoptedPetPlace={p.adoptedPetPlace}
-                        adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
-                        adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
-                        familyRelation={p.familyRelation}
-                        familySize={p.familySize}
-                        getPetReason={p.getPetReason}
-                        openSpace={p.openSpace}
-                        otherPets={p.otherPets}
-                        otherPetsCastration={p.otherPetsCastration}
-                        otherPetsInfo={p.otherPetsInfo}
-                        otherPetsVacunation={p.otherPetsVacunation}
-                        rental={p.rental}
-                        tel={p.tel}
-                        transitPetPeriod={p.transitPetPeriod}
-                        userAge={p.userAge}
-                        userAgreement={p.userAgreement}
-                        userMovility={p.userMovility}
-                        userMovingIdea={p.userMovingIdea}
-                      />
-                    ))
-                    : null}
-                  {getTransit.length > 0
-                    ? getTransit.map((p, i) => (
-                      <PetitionGets
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        state={p.state}
-                        formState={p.formState}
-                        formId={p.id}
-                        key={"h" + i}
-                        actualPlace={p.actualPlace}
-                        adaptationTime={p.adaptationTime}
-                        adoptedPetAloneMoments={p.adoptedPetAloneMoments}
-                        adoptedPetPlace={p.adoptedPetPlace}
-                        adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
-                        adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
-                        familyRelation={p.familyRelation}
-                        familySize={p.familySize}
-                        getPetReason={p.getPetReason}
-                        openSpace={p.openSpace}
-                        otherPets={p.otherPets}
-                        otherPetsCastration={p.otherPetsCastration}
-                        otherPetsInfo={p.otherPetsInfo}
-                        otherPetsVacunation={p.otherPetsVacunation}
-                        rental={p.rental}
-                        tel={p.tel}
-                        transitPetPeriod={p.transitPetPeriod}
-                        userAge={p.userAge}
-                        userAgreement={p.userAgreement}
-                        userMovility={p.userMovility}
-                        userMovingIdea={p.userMovingIdea}
-                      />
-                    ))
-                    : null}
-                  {getItsMyPet.length > 0
-                    ? getItsMyPet.map((p, i) => (
-                      <PetitionGetLosts
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        formState={p.formState}
-                        formId={p.id}
-                        key={"i" + i}
-                        userMovility={p.userMovility}
-                        tel={p.tel}
-                        originalName={p.originalName}
-                        lostZone={p.lostZone}
-                        image={p.image}
-                        getReason={p.getReason}
-                      />
-                    ))
-                    : null}
-                </div>
-              ) : flagPetitions === "adopted" ? (
-                <div>
-                  {getAdopt.length > 0 ? (
-                    getAdopt.map((p, i) => (
-                      <PetitionGets
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        state={p.state}
-                        formState={p.formState}
-                        formId={p.id}
-                        key={"j" + i}
-                        actualPlace={p.actualPlace}
-                        adaptationTime={p.adaptationTime}
-                        adoptedPetAloneMoments={p.adoptedPetAloneMoments}
-                        adoptedPetPlace={p.adoptedPetPlace}
-                        adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
-                        adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
-                        familyRelation={p.familyRelation}
-                        familySize={p.familySize}
-                        getPetReason={p.getPetReason}
-                        openSpace={p.openSpace}
-                        otherPets={p.otherPets}
-                        otherPetsCastration={p.otherPetsCastration}
-                        otherPetsInfo={p.otherPetsInfo}
-                        otherPetsVacunation={p.otherPetsVacunation}
-                        rental={p.rental}
-                        tel={p.tel}
-                        transitPetPeriod={p.transitPetPeriod}
-                        userAge={p.userAge}
-                        userAgreement={p.userAgreement}
-                        userMovility={p.userMovility}
-                        userMovingIdea={p.userMovingIdea}
-                      />
-                    ))
-                  ) : (
-                    <div>No posees peticiones de este tipo</div>
-                  )}
-                </div>
-              ) : flagPetitions === "transit" ? (
-                <div>
-                  {getTransit.length > 0 ? (
-                    getTransit.map((p, i) => (
-                      <PetitionGets
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        state={p.state}
-                        formState={p.formState}
-                        formId={p.id}
-                        key={"k" + i}
-                        actualPlace={p.actualPlace}
-                        adaptationTime={p.adaptationTime}
-                        adoptedPetAloneMoments={p.adoptedPetAloneMoments}
-                        adoptedPetPlace={p.adoptedPetPlace}
-                        adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
-                        adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
-                        familyRelation={p.familyRelation}
-                        familySize={p.familySize}
-                        getPetReason={p.getPetReason}
-                        openSpace={p.openSpace}
-                        otherPets={p.otherPets}
-                        otherPetsCastration={p.otherPetsCastration}
-                        otherPetsInfo={p.otherPetsInfo}
-                        otherPetsVacunation={p.otherPetsVacunation}
-                        rental={p.rental}
-                        tel={p.tel}
-                        transitPetPeriod={p.transitPetPeriod}
-                        userAge={p.userAge}
-                        userAgreement={p.userAgreement}
-                        userMovility={p.userMovility}
-                        userMovingIdea={p.userMovingIdea}
-                      />
-                    ))
-                  ) : (
-                    <div>No posees peticiones de este tipo</div>
-                  )}
-                </div>
-              ) : flagPetitions === "loadAdopt" ? (
-                <div>
-                  {loadPetAdopt.length > 0 ? (
-                    loadPetAdopt.map((p, i) => (
-                      <PetitionLoads
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        state={p.state}
-                        petName={p.name}
-                        type={p.pet}
-                        formState={p.formState}
-                        petImg={p.image}
-                        formId={p.id}
-                        key={"l" + i}
-                        actualPlace={p.actualPlace}
-                        breed={p.breed}
-                        castration={p.castration}
-                        foundDate={p.foundDate}
-                        foundPlace={p.foundPlace}
-                        fur={p.fur}
-                        gender={p.gender}
-                        pet={p.pet}
-                        size={p.size}
-                        vaccinate={p.vaccinate}
-                        weight={p.weight}
-                        image={p.image}
-                      />
-                    ))
-                  ) : (
-                    <div>No posees peticiones de este tipo</div>
-                  )}
-                </div>
-              ) : flagPetitions === "loadFound" ? (
-                <div>
-                  {loadPetLost.length > 0 ? (
-                    loadPetLost.map((p, i) => (
-                      <PetitionLoads
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        state={p.state}
-                        petName={p.name}
-                        type={p.pet}
-                        formState={p.formState}
-                        petImg={p.image}
-                        formId={p.id}
-                        key={"m" + i}
-                        actualPlace={p.actualPlace}
-                        breed={p.breed}
-                        castration={p.castration}
-                        foundDate={p.foundDate}
-                        foundPlace={p.foundPlace}
-                        fur={p.fur}
-                        gender={p.gender}
-                        pet={p.pet}
-                        size={p.size}
-                        vaccinate={p.vaccinate}
-                        weight={p.weight}
-                        image={p.image}
-                      />
-                    ))
-                  ) : (
-                    <div>No posees peticiones de este tipo</div>
-                  )}
-                </div>
-              ) : flagPetitions === "found" ? (
-                <div>
-                  {getItsMyPet.length > 0 ? (
-                    getItsMyPet.map((p, i) => (
-                      <PetitionGetLosts
-                        formDate={p.formDate}
-                        petId={p.petId}
-                        formState={p.formState}
-                        formId={p.id}
-                        key={"n" + i}
-                        userMovility={p.userMovility}
-                        tel={p.tel}
-                        originalName={p.originalName}
-                        lostZone={p.lostZone}
-                        image={p.image}
-                        getReason={p.getReason}
-                      />
-                    ))
-                  ) : (
-                    <div>No posees peticiones de este tipo</div>
-                  )}
-                </div>
-              ) : null
-            ) : (
-              <p>No posees ninguna peticion</p>
-            )}
+            <TitleCardPets>Mis Peticiones:</TitleCardPets>
+            <Splide
+              options={{
+                rewind: false,
+                perPage: 3,
+                perMove: 3,
+                gap: 10,
+                padding: "1rem",
+                pagination: false,
+                breakpoints: {
+                  623: {
+                    perPage: 2,
+                    perMove: 2,
+                  },
+                  935: {
+                    perPage: 32,
+                    perMove: 2,
+                  },
+                  1247: {
+                    perPage: 2,
+                    perMove: 2,
+                  },
+                },
+              }}
+            >
+              <Carrusel>
+                {loadPetAdopt.length +
+                  loadPetLost.length +
+                  getAdopt.length +
+                  getTransit.length +
+                  getItsMyPet.length >
+                  0 ? (
+                  flagPetitions === "all" ? (
+                    <DivCardPetition>
+                      {loadPetAdopt.length > 0
+                        ? loadPetAdopt.map((p, i) => (
+                          <PetitionLoads
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            state={p.state}
+                            petName={p.name}
+                            type={p.pet}
+                            formState={p.formState}
+                            petImg={p.image}
+                            formId={p.id}
+                            key={"e" + i}
+                            actualPlace={p.actualPlace}
+                            breed={p.breed}
+                            castration={p.castration}
+                            foundDate={p.foundDate}
+                            foundPlace={p.foundPlace}
+                            fur={p.fur}
+                            gender={p.gender}
+                            pet={p.pet}
+                            size={p.size}
+                            vaccinate={p.vaccinate}
+                            weight={p.weight}
+                            image={p.image}
+                          />
+                        ))
+                        : null}
+                      {loadPetLost.length > 0
+                        ? loadPetLost.map((p, i) => (
+                          <PetitionLoads
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            state={p.state}
+                            petName={p.name}
+                            type={p.pet}
+                            formState={p.formState}
+                            petImg={p.image}
+                            formId={p.id}
+                            key={"f" + i}
+                            actualPlace={p.actualPlace}
+                            breed={p.breed}
+                            castration={p.castration}
+                            foundDate={p.foundDate}
+                            foundPlace={p.foundPlace}
+                            fur={p.fur}
+                            gender={p.gender}
+                            pet={p.pet}
+                            size={p.size}
+                            vaccinate={p.vaccinate}
+                            weight={p.weight}
+                            image={p.image}
+                          />
+                        ))
+                        : null}
+                      {getAdopt.length > 0
+                        ? getAdopt.map((p, i) => (
+                          <PetitionGets
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            state={p.state}
+                            formState={p.formState}
+                            formId={p.id}
+                            key={"g" + i}
+                            actualPlace={p.actualPlace}
+                            adaptationTime={p.adaptationTime}
+                            adoptedPetAloneMoments={p.adoptedPetAloneMoments}
+                            adoptedPetPlace={p.adoptedPetPlace}
+                            adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
+                            adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
+                            familyRelation={p.familyRelation}
+                            familySize={p.familySize}
+                            getPetReason={p.getPetReason}
+                            openSpace={p.openSpace}
+                            otherPets={p.otherPets}
+                            otherPetsCastration={p.otherPetsCastration}
+                            otherPetsInfo={p.otherPetsInfo}
+                            otherPetsVacunation={p.otherPetsVacunation}
+                            rental={p.rental}
+                            tel={p.tel}
+                            transitPetPeriod={p.transitPetPeriod}
+                            userAge={p.userAge}
+                            userAgreement={p.userAgreement}
+                            userMovility={p.userMovility}
+                            userMovingIdea={p.userMovingIdea}
+                          />
+                        ))
+                        : null}
+                      {getTransit.length > 0
+                        ? getTransit.map((p, i) => (
+                          <PetitionGets
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            state={p.state}
+                            formState={p.formState}
+                            formId={p.id}
+                            key={"h" + i}
+                            actualPlace={p.actualPlace}
+                            adaptationTime={p.adaptationTime}
+                            adoptedPetAloneMoments={p.adoptedPetAloneMoments}
+                            adoptedPetPlace={p.adoptedPetPlace}
+                            adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
+                            adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
+                            familyRelation={p.familyRelation}
+                            familySize={p.familySize}
+                            getPetReason={p.getPetReason}
+                            openSpace={p.openSpace}
+                            otherPets={p.otherPets}
+                            otherPetsCastration={p.otherPetsCastration}
+                            otherPetsInfo={p.otherPetsInfo}
+                            otherPetsVacunation={p.otherPetsVacunation}
+                            rental={p.rental}
+                            tel={p.tel}
+                            transitPetPeriod={p.transitPetPeriod}
+                            userAge={p.userAge}
+                            userAgreement={p.userAgreement}
+                            userMovility={p.userMovility}
+                            userMovingIdea={p.userMovingIdea}
+                          />
+                        ))
+                        : null}
+                      {getItsMyPet.length > 0
+                        ? getItsMyPet.map((p, i) => (
+                          <PetitionGetLosts
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            formState={p.formState}
+                            formId={p.id}
+                            key={"i" + i}
+                            userMovility={p.userMovility}
+                            tel={p.tel}
+                            originalName={p.originalName}
+                            lostZone={p.lostZone}
+                            image={p.image}
+                            getReason={p.getReason}
+                          />
+                        ))
+                        : null}
+                    </DivCardPetition>
+                  ) : flagPetitions === "adopted" ? (
+                    <DivCardPetition>
+                      {getAdopt.length > 0 ? (
+                        getAdopt.map((p, i) => (
+                          <PetitionGets
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            state={p.state}
+                            formState={p.formState}
+                            formId={p.id}
+                            key={"j" + i}
+                            actualPlace={p.actualPlace}
+                            adaptationTime={p.adaptationTime}
+                            adoptedPetAloneMoments={p.adoptedPetAloneMoments}
+                            adoptedPetPlace={p.adoptedPetPlace}
+                            adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
+                            adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
+                            familyRelation={p.familyRelation}
+                            familySize={p.familySize}
+                            getPetReason={p.getPetReason}
+                            openSpace={p.openSpace}
+                            otherPets={p.otherPets}
+                            otherPetsCastration={p.otherPetsCastration}
+                            otherPetsInfo={p.otherPetsInfo}
+                            otherPetsVacunation={p.otherPetsVacunation}
+                            rental={p.rental}
+                            tel={p.tel}
+                            transitPetPeriod={p.transitPetPeriod}
+                            userAge={p.userAge}
+                            userAgreement={p.userAgreement}
+                            userMovility={p.userMovility}
+                            userMovingIdea={p.userMovingIdea}
+                          />
+                        ))
+                      ) : (
+                        <Error>No posees peticiones de este tipo</Error>
+                      )}
+                    </DivCardPetition>
+                  ) : flagPetitions === "transit" ? (
+                    <DivCardPetition>
+                      {getTransit.length > 0 ? (
+                        getTransit.map((p, i) => (
+                          <PetitionGets
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            state={p.state}
+                            formState={p.formState}
+                            formId={p.id}
+                            key={"k" + i}
+                            actualPlace={p.actualPlace}
+                            adaptationTime={p.adaptationTime}
+                            adoptedPetAloneMoments={p.adoptedPetAloneMoments}
+                            adoptedPetPlace={p.adoptedPetPlace}
+                            adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
+                            adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
+                            familyRelation={p.familyRelation}
+                            familySize={p.familySize}
+                            getPetReason={p.getPetReason}
+                            openSpace={p.openSpace}
+                            otherPets={p.otherPets}
+                            otherPetsCastration={p.otherPetsCastration}
+                            otherPetsInfo={p.otherPetsInfo}
+                            otherPetsVacunation={p.otherPetsVacunation}
+                            rental={p.rental}
+                            tel={p.tel}
+                            transitPetPeriod={p.transitPetPeriod}
+                            userAge={p.userAge}
+                            userAgreement={p.userAgreement}
+                            userMovility={p.userMovility}
+                            userMovingIdea={p.userMovingIdea}
+                          />
+                        ))
+                      ) : (
+                        <Error>No posees peticiones de este tipo</Error>
+                      )}
+                    </DivCardPetition>
+                  ) : flagPetitions === "loadAdopt" ? (
+                    <DivCardPetition>
+                      {loadPetAdopt.length > 0 ? (
+                        loadPetAdopt.map((p, i) => (
+                          <PetitionLoads
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            state={p.state}
+                            petName={p.name}
+                            type={p.pet}
+                            formState={p.formState}
+                            petImg={p.image}
+                            formId={p.id}
+                            key={"l" + i}
+                            actualPlace={p.actualPlace}
+                            breed={p.breed}
+                            castration={p.castration}
+                            foundDate={p.foundDate}
+                            foundPlace={p.foundPlace}
+                            fur={p.fur}
+                            gender={p.gender}
+                            pet={p.pet}
+                            size={p.size}
+                            vaccinate={p.vaccinate}
+                            weight={p.weight}
+                            image={p.image}
+                          />
+                        ))
+                      ) : (
+                        <Error>No posees peticiones de este tipo</Error>
+                      )}
+                    </DivCardPetition>
+                  ) : flagPetitions === "loadFound" ? (
+                    <DivCardPetition>
+                      {loadPetLost.length > 0 ? (
+                        loadPetLost.map((p, i) => (
+                          <PetitionLoads
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            state={p.state}
+                            petName={p.name}
+                            type={p.pet}
+                            formState={p.formState}
+                            petImg={p.image}
+                            formId={p.id}
+                            key={"m" + i}
+                            actualPlace={p.actualPlace}
+                            breed={p.breed}
+                            castration={p.castration}
+                            foundDate={p.foundDate}
+                            foundPlace={p.foundPlace}
+                            fur={p.fur}
+                            gender={p.gender}
+                            pet={p.pet}
+                            size={p.size}
+                            vaccinate={p.vaccinate}
+                            weight={p.weight}
+                            image={p.image}
+                          />
+                        ))
+                      ) : (
+                        <Error>No posees peticiones de este tipo</Error>
+                      )}
+                    </DivCardPetition>
+                  ) : flagPetitions === "found" ? (
+                    <DivCardPetition>
+                      {getItsMyPet.length > 0 ? (
+                        getItsMyPet.map((p, i) => (
+                          <PetitionGetLosts
+                            formDate={p.formDate}
+                            petId={p.petId}
+                            formState={p.formState}
+                            formId={p.id}
+                            key={"n" + i}
+                            userMovility={p.userMovility}
+                            tel={p.tel}
+                            originalName={p.originalName}
+                            lostZone={p.lostZone}
+                            image={p.image}
+                            getReason={p.getReason}
+                          />
+                        ))
+                      ) : (
+                        <Error>No posees peticiones de este tipo</Error>
+                      )}
+                    </DivCardPetition>
+                  ) : null
+                ) : (
+                  <Error>No posees ninguna peticion</Error>
+                )}
+              </Carrusel>
+            </Splide>
           </ContainerPetitions>
 
-          {flagDonations === "all" ? (
-            <div>
-              {donationsUnique.length > 0
-                ? donationsUnique.map((d, i) => (
-                  <DonationCard
-                    key={'o' + i}
-                    amount={d.amount}
-                    date={d.date}
-                    type={d.type}
-                  />
-                ))
-                : null}
-              {donationsSuscription.length > 0
-                ? donationsSuscription.map((d, i) => (
-                  <DonationCard
-                    key={'p' + i}
-                    amount={d.amount}
-                    date={d.date}
-                    type={d.type}
-                  />
-                ))
-                : <div>No posees ninguna donacion</div>}
-            </div>
-          ) : flagDonations === "suscription" ? (
-            <div>
-              {donationsSuscription.length > 0 ? (
-                donationsSuscription.map((d, i) => (
-                  <DonationCard
-                    amount={d.amount} key={'q' + i} date={d.date} type={d.type}
-                  />
-                ))
-              ) : (
-                <div>No posees donaciones de este tipo</div>
-              )}
-            </div>
-          ) : flagDonations === "unique" ? (
-            <div>
-              {donationsUnique.length > 0 ? (
-                donationsUnique.map((d, i) => (
-                  <DonationCard
-                    amount={d.amount} key={'r' + i} date={d.date} type={d.type}
-                  />
-                ))
-              ) : (
-                <div>No posees donaciones de este tipo</div>
-              )}
-            </div>
-          ) : (
-            null
-          )}
+          <div>
+            <TitleCardPets>Mis Donaciones:</TitleCardPets>
+          </div>
+          <Splide
+            options={{
+              rewind: false,
+              perPage: 3,
+              perMove: 3,
+              gap: 10,
+              padding: "1rem",
+              pagination: false,
+              breakpoints: {
+                623: {
+                  perPage: 2,
+                  perMove: 2,
+                },
+                935: {
+                  perPage: 32,
+                  perMove: 2,
+                },
+                1247: {
+                  perPage: 2,
+                  perMove: 2,
+                },
+              },
+            }}
+          >
+            <Carrusel>
+              <div>
+                {flagDonations === "all" ? (
+                  <DivCardPetition>
+                    {donationsUnique.length > 0
+                      ? donationsUnique.map((d, i) => (
+                        <DonationCard
+                          key={'o' + i}
+                          amount={d.amount}
+                          date={d.date}
+                          type={d.type}
+                        />
+                      ))
+                      : null}
+                    {donationsSuscription.length > 0
+                      ? donationsSuscription.map((d, i) => (
+                        <DonationCard
+                          key={'p' + i}
+                          amount={d.amount}
+                          date={d.date}
+                          type={d.type}
+                        />
+                      ))
+                      : <Error>No posees ninguna donacion</Error>}
+                  </DivCardPetition>
+                ) : flagDonations === "suscription" ? (
+                  <DivCardPetition>
+                    {donationsSuscription.length > 0 ? (
+                      donationsSuscription.map((d, i) => (
+                        <DonationCard
+                          amount={d.amount} key={'q' + i} date={d.date} type={d.type}
+                        />
+                      ))
+                    ) : (
+                      <Error>No posees donaciones de este tipo</Error>
+                    )}
+                  </DivCardPetition>
+                ) : flagDonations === "unique" ? (
+                  <DivCardPetition>
+                    {donationsUnique.length > 0 ? (
+                      donationsUnique.map((d, i) => (
+                        <DonationCard
+                          amount={d.amount} key={'r' + i} date={d.date} type={d.type}
+                        />
+                      ))
+                    ) : (
+                      <Error>No posees donaciones de este tipo</Error>
+                    )}
+                  </DivCardPetition>
+                ) : (
+                  null
+                )}
+              </div>
+            </Carrusel>
+          </Splide>
         </ContainerDiv>
       </ContainerProfile>
     </BackgroundProfile>

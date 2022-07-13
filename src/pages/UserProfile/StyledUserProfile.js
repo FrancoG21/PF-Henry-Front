@@ -177,6 +177,11 @@ export const ContainerSelect = styled.div`
   justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 export const Select = styled.select`
@@ -190,19 +195,34 @@ export const Select = styled.select`
 `
 
 export const DivPets = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+
 `
 
 export const DivCardCarrusel = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+`
+
+export const DivCardPetition = styled.div`
+  display: -webkit-box;
   width: 100%;
   margin: 0;
 `
 
 export const Carrusel = styled(SplideSlide)`
-  width: 100%;
+  width: 1600px;
+`
+
+export const TitleCardPets = styled.h2`
+  font-size: 1.2rem;
+  margin-left: 20px;
+  color: ${(props) => props.theme.secondary};
+`
+
+export const Error = styled.p`
+  text-align: center;
+  color: ${(props) => props.theme.secondary};
+  font-size: 1rem;
 `

@@ -1,19 +1,21 @@
 import styled from 'styled-components';
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 
-export const CardContainer = styled.div`
-    display: grid;
+
+export const ContainerForm = styled.div`
     background-color: ${(props) => props.theme.card};
-    grid-template-columns: repeat(3, 5rem);
-    column-gap: 3rem;
-    line-height: 1;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    /* margin-top: 20px; */
-    margin-bottom: 20px;
+    justify-content:center;
     border-radius: 5px;
-    padding: 20px;
-    margin-left: 25px;
-    margin-right: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;   
+    width: 350px; 
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 `
 
 export const Sub = styled.h4`
@@ -21,15 +23,13 @@ export const Sub = styled.h4`
     color: ${(props) => props.theme.secondary};
 `
 
-export const ImageCard = styled.img`
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-` 
+export const Carrusel = styled(SplideSlide)`
+  width: 1600px;
+`
 
-export const ButtonCard = styled.button`
+export const ButtonPetition = styled.button`
     background-color: ${(props) => props.theme.secondary};
-    font-size: .7rem;
+    font-size: 1rem;
     color: #fff;
     border: none;
     border-radius: 2px;
@@ -42,4 +42,3 @@ export const ButtonCard = styled.button`
         background: ${(props) => props.theme.primary};
     }
 `
-

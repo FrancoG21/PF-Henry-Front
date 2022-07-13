@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-export const CardContainer = styled.div`
+export const ContainerDonation = styled.div`
     display: grid;
-    background-color: ${(props) => props.theme.card};
     grid-template-columns: repeat(3, 5rem);
     column-gap: 3rem;
     line-height: 1;
@@ -10,10 +9,11 @@ export const CardContainer = styled.div`
     justify-content: center;
     /* margin-top: 20px; */
     margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: ${(props) => props.theme.card};
     border-radius: 5px;
     padding: 20px;
-    margin-left: 25px;
-    margin-right: 25px;
 `
 
 export const Sub = styled.h4`
@@ -21,15 +21,9 @@ export const Sub = styled.h4`
     color: ${(props) => props.theme.secondary};
 `
 
-export const ImageCard = styled.img`
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-` 
-
-export const ButtonCard = styled.button`
+export const ButtonPago = styled.button`
     background-color: ${(props) => props.theme.secondary};
-    font-size: .7rem;
+    font-size: 1rem;
     color: #fff;
     border: none;
     border-radius: 2px;
@@ -42,4 +36,3 @@ export const ButtonCard = styled.button`
         background: ${(props) => props.theme.primary};
     }
 `
-
