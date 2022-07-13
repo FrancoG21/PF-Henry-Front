@@ -21,11 +21,18 @@ export default function Registrar() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+//  const user = useSelector((state) => state.usuarios)
+const[user,setUser] = useState(null)
+
+
   useEffect(()=>{
     dispatch(getUsers())
+    axios.get('/user').then((r)=>{
+      setUser(r.data.rows)
+    })
  }, [])
 
-  const user = useSelector((state) => state.usuarios)
+ 
 
    console.log('estoy en user registrar', user)
 
