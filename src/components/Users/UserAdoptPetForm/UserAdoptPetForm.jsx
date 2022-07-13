@@ -134,10 +134,22 @@ export default function UserAdoptPetForm() {
               }
             }
 
+            if(values.userAge < 18){
+              errors.userAge = 'Debes ser mayor de 18 años'
+            }
+            
+            if(values.tel.toString().length < 9){
+              errors.tel = 'Numero de telefono debe contener por lo menos 9 numeros' 
+            }
+  
+            if(values.actualPlacePostalCode.toString().length !== 4){
+              errors.actualPlacePostalCode = 'Codigo Postal debe ser de 4 digitos'          
+            }
+  
             if (user) {
               values.userId = user.id;
               delete errors.userId;
-            }
+            }            
 
             return errors;
           }}
@@ -320,7 +332,7 @@ export default function UserAdoptPetForm() {
                       type="number"
                       id="tel"
                       name="tel"
-                      placeholder="Teléfono del adoptante"
+                      placeholder="Teléfono del adoptante ( sin el cero + codigo de area + ... )"
                     />
                     <ErrorMessage
                       name="tel"
@@ -439,7 +451,7 @@ export default function UserAdoptPetForm() {
                   )}
                   <Camp>
                     <Label>
-                      <p>¿Por que se interesa en este animal en particular?</p>
+                      <p>¿Por que se interesa en este animal en particular? {"("}Si es otra opción, escribila y presiona Create{")"}</p>
                       <p>
                         (Cómo conocemos el carácter de nuestras mascotas, la
                         pregunta nos permite evaluar si es la indicada para lo que
@@ -454,7 +466,7 @@ export default function UserAdoptPetForm() {
                   </Camp>
                   <Camp>
                     <Label>
-                      <p>¿Dónde vivira la mascota adoptada?</p>
+                      <p>¿Dónde vivira la mascota adoptada? {"("}Si es otra opción, escribila y presiona Create{")"}</p>
                     </Label>
                     <Supliers options={options2} name="adoptedPetPlace" />
                     <ErrorMessage
@@ -464,7 +476,7 @@ export default function UserAdoptPetForm() {
                   </Camp>
                   <Camp>
                     <Label>
-                      <p>¿Posee espacio al aire libre?</p>
+                      <p>¿Posee espacio al aire libre? {"("}Si es otra opción, escribila y presiona Create{")"}</p>
                     </Label>
                     <Supliers options={options3} name="openSpace" />
                     <ErrorMessage

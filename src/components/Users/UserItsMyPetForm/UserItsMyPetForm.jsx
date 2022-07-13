@@ -126,6 +126,11 @@ export default function UserItsMyPetForm() {
               }
             }
 
+            if(values.tel.toString().length < 9){
+              errors.tel = 'Numero de telefono debe contener por lo menos 9 numeros' 
+            }
+  
+
             if (user) {
               values.userId = user.id;
               delete errors.userId;
@@ -275,7 +280,7 @@ export default function UserItsMyPetForm() {
                       type="number"
                       id="tel"
                       name="tel"
-                      placeholder="Su telefono"
+                      placeholder="Su telefono ( sin el cero + codigo de area + ... )"
                     />
                     <ErrorMessage
                       name="tel"
