@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardBody, CardHeader, Email, Job, Name, ProfileCard, SocialIcons, SocialLinks } from "./StyledCardAbout";
 import {BsGithub, BsLinkedin} from 'react-icons/bs';
 
-export default function CardAbout({name, image, linkedIn, github}) {
+export default function CardAbout({name, image, linkedIn, github, email}) {
 
     return (
         <Card>
@@ -11,7 +11,7 @@ export default function CardAbout({name, image, linkedIn, github}) {
             </CardHeader>
             <CardBody>
                 <Name>{name}</Name>
-                <Email to='#'>yourname@amail.com</Email>
+                <Email to='#'>{email}</Email>
                 <Job>Full Stack Developer</Job>
             </CardBody>
 

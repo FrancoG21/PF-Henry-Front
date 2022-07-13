@@ -85,7 +85,7 @@ export default function PetCard({
   const popUp2 = () => {
     Swal.fire({
       title: "Esta seguro?",
-      text: "Su peticion será enviada",
+      text: "Su peticion sera enviada",
       icon: "warning",
       showCancelButton: true,
       cancelButtonText: "Cancelar",
