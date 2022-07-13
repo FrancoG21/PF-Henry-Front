@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Pets from "./pages/Pets/Pets";
 import NavBar from "./components/Users/NavBar/NavBar";
+import Icono from './components/Chatbot/Icono/Icono'
 
 import Footer from "./components/Users/Footer/Footer";
 import About from "./pages/About/About";
@@ -37,9 +38,11 @@ import { ThemeProvider } from "styled-components";
 import { themes } from "./styles/themes";
 import { useDarkMode } from "./DarkLightMode/DarkMode";
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { upLogin } from './redux/actions/index';
 import DonationCard from "./pages/UserProfile/DonationCard/DonationCard";
+import Seguimiento from "./pages/UserProfile/Seguimiento/Seguimiento";
+import CarruselSeguimiento from "./components/Users/CarruselSeguimiento/CarruselSeguimiento";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,11 +56,17 @@ function App() {
   const [theme, setTheme] = useDarkMode();
   const themeMode = theme === "light" ? "light" : "dark";
 
+  
+
   return (
     <div className="App">
       <BrowserRouter>
         <ThemeProvider theme={themes[themeMode]}>
           <NavBar theme={theme} setTheme={setTheme} />{/*userInfo={userInfo} */}
+          
+          {/* <Icono /> */}
+         
+
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/adopt" element={<Pets />}></Route>
@@ -89,6 +98,8 @@ function App() {
             {/* <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route> */}
             {/* <Route path="/lostpets" element={<LostPets />}></Route> */}
             <Route path="/chatbot" element={<ContenidoChatb />}></Route>
+            <Route path="/userseguimiento/:id" element={<Seguimiento />}></Route>
+            <Route path="/seguimiento" element={<CarruselSeguimiento />}></Route>                     
             <Route
                 path="*"
                 element={<Navigate to="/" replace />}
