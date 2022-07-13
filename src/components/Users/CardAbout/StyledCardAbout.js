@@ -36,7 +36,8 @@ export const ProfileCard = styled.img`
 `
 
 export const CardBody = styled.div`
-    padding: 10px 40px;
+    align-items:center;
+    min-height: 149px    
 `
 
 export const Name = styled.p`
@@ -55,6 +56,7 @@ export const Name = styled.p`
 export const Email = styled(Link)`
     font-size: 14px;
     color: ${(props) => props.theme.secondary};
+    margin-left: -4px;
 
     &:hover{
         font-size: 16px;

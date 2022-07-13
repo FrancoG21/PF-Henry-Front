@@ -25,7 +25,6 @@ export const Input = styled.input`
   max-width: 100%;
   padding: 11px 13px;
   background: #f9f9fa;
-  color: #f03d4e;
   margin-bottom: 0.9rem;
   border-radius: 4px;
   outline: 0;
@@ -57,6 +56,8 @@ export const Button = styled.button`
     background: ${(props) => props.theme.primary};
   }
 `;
+
+
 
 export const Title = styled.h2`
   font-weight: normal;

@@ -21,7 +21,31 @@ export const ContainerDashboard = styled.div`
 `
 
 export const ContainerChart = styled.div`
+    display: flex;
     padding: 5px 20px;
     margin-top: 40px;
-    margin-left: 130px;
+`
+
+export const ContainerCircleChart = styled.div`
+    height: 300px;
+    margin-bottom: 70px;
+`
+
+export const ContainerBarChart = styled.div`
+    margin-top: 70px;
+`
+
+export const Subtitle = styled.h1`
+    font-size: 1rem;
+    margin: 0;
+    color: ${(props) => props.theme.secondary};
+    text-align: center;
+`
+
+export const Text = styled.h1`
+    font-size: 1rem;
+    margin: 0;
+    margin-bottom: 80px;
+    color: ${(props) => props.theme.secondary};
+    text-align: center;
 `

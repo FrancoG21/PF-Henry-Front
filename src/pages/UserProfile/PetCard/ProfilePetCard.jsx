@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import moment from "moment";
-// import ImageUploader from "../../../components/Users/PetCreate/imagenes/ImagesUploader";
+import axios from "axios";
+import { ButtonCard, CardContainer, ImageCard, Sub } from "./StyledPetCard";
 
 const today = moment().format("DD/MM/YYYY");
 
@@ -12,8 +13,6 @@ const fechaAdoptada = moment("22/06/2022", "DD/MM/YYYY").format("DD/MM/YYYY");
 function capitalize(str) {
   return str.replace(/^\w/, (c) => c.toUpperCase());
 }
-
-
 
 export default function PetCard({
   name,
@@ -30,6 +29,7 @@ export default function PetCard({
   actualPlace,
   fur,
 }) {
+  const navigate = useNavigate();
   const popUp1 = () => {
     Swal.fire({
       title: `${capitalize(name)}`,
@@ -86,7 +86,7 @@ export default function PetCard({
   const popUp2 = () => {
     Swal.fire({
       title: "Esta seguro?",
-      text: "Su peticion será enviada",
+      text: "Su peticion sera enviada",
       icon: "warning",
       showCancelButton: true,
       cancelButtonText: "Cancelar",
@@ -99,12 +99,34 @@ export default function PetCard({
           "Peticion enviada",
           "Tu peticion pronto sera revisada",
           "success"
-        );        
+        );
+        axios
+          .put("/pet/return", {
+            petId: id,
+            token: JSON.parse(localStorage.getItem("userInfo")),
+          })
+          .then(
+            Swal.fire(
+              "Excelente",
+              "Tu peticion para devolver la mascota fue aceptada",
+              "success"
+            ),
+
+            setTimeout(() => location.reload(), 1000)
+          )
+          .catch((e) => {
+            console.log(e);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Algo salio mal!",
+            });
+          });
       }
     });
   };
 
-  const popUp3 = ()=>{
+  const popUp3 = () => {
     Swal.fire({
       title: "Cargar seguimiento",
       /* text: "No podra revertir los cambios!", */
@@ -116,43 +138,47 @@ export default function PetCard({
       confirmButtonText: "Cargar",
     }).then((result) => {
       if (result.isConfirmed) {
-        location.href = `/userseguimiento/${id}`;
+        navigate(`/userseguimiento/${id}`);
       }
     });
-  }
+  };
 
   return (
-    <div className="cardContainer" key={"a" + id}>
-      <h4>{capitalize(name)}</h4>
-      <h4>{pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null}</h4>
-      <h4>
+    <CardContainer key={"a" + id}>
+      <Sub>{capitalize(name)}</Sub>
+      <Sub>{pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null}</Sub>
+      <Sub>
         {state === "transit"
           ? "Mascota en transito"
           : state === "adopted"
           ? "Mascota adoptada"
           : null}
-      </h4>
+      </Sub>
       {/* <h4>Ubicación actual <br/><br/>{actualPlace}</h4> */}
-      <img src={image} alt={name} height="100px" width="100px" />
+      <ImageCard src={image} alt={name}/>
 
       <div>
         {
-          <button
+          <ButtonCard
             onClick={
               state === "adopted" ? popUp1 : state === "transit" ? popUp1 : null
             }
           >
-            ver mas
-          </button>
+            Ver mas
+          </ButtonCard>
         }
-        {state === "adopted" ? <button className="dev" onClick={popUp2}>devolver</button> : null}
+        {state === "adopted" ? (
+          <ButtonCard className="dev" onClick={popUp2}>
+            Devolver
+          </ButtonCard>
+        ) : null}
       </div>
 
       {state === "adopted" ? (
-        <button onClick={popUp3}>seguimiento</button>
+        <ButtonCard onClick={popUp3}>Cargar Seguimiento</ButtonCard>
       ) : null}
 
-      {state === "transit" ? <button onClick={popUp2}>devolver</button> : null}
-    </div>
+      {state === "transit" ? <ButtonCard onClick={popUp2}>Devolver</ButtonCard> : null}
+    </CardContainer>
   );
 }

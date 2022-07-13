@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import Swal from "sweetalert2";
 import ImageUploader from "../../../components/Users/PetCreate/imagenes/ImagesUploader";
@@ -20,9 +20,29 @@ import {
 } from "./StyledSeguimiento";
 
 export default function Seguimiento() {
+
+  const navigate = useNavigate();
   const { id } = useParams();
+  const [pet, setPet] = useState();
 
   const [json, setJson] = useState({ images: [] });
+
+  function capitalize(str) {
+    return str.replace(/^\w/, (c) => c.toUpperCase());
+  }
+
+  const callBackIn = async () => {
+    try {
+      const { data } = await axios.get(`/pet/${id}`);
+      setPet(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    callBackIn();
+  }, []);
 
   return (
     <BackgroundForm>
@@ -37,10 +57,10 @@ export default function Seguimiento() {
           let errors = {};
 
           if (!values.description) {
-            errors.description = "skeree";
+            errors.description = "Debe agregar una descripción.";
           }
           if (!values.image) {
-            errors.image = "skeree";
+            errors.image = "Debe agregar una imagen, maximo tres.";
           }
 
           if (json.images.length > 0) {
@@ -79,25 +99,34 @@ export default function Seguimiento() {
                     "Tu seguimiento se cargo correctamente.",
                     "success"
                   )
-                );                           
+                );
               setJson({ images: [] });
               resetForm();
-              /* setTimeout(() => (location.href = `/userprofile`), 1000); */
+               setTimeout(() => (navigate (`/userprofile`)), 1000);                
             }
-          });
-
-          /* setTimeout(() => setFlag(false), 3000); */
+          });          
         }}
       >
         {(props) => (
           <FormContainer>
             {console.log("image", props.image)}
             {console.log("description", props.description)}
-            <TitleForm>Cargá el seguimiento de tu mascota</TitleForm>
+            {console.log("pet", pet)}
+            <TitleForm>
+              Cargá el seguimiento de{" "}
+              {pet ? capitalize(pet.name) : "tu mascota"}
+            </TitleForm>
+            <h3>
+              El seguimiento nos ayuda a ver como esta{" "}
+              {pet ? capitalize(pet.name) : "tu mascota"} y mostrar que todas
+              las mascotas pueden volver a compartir su cariño con las personas
+              que les den la oportunidad de hacerlo. Publicaremos este
+              seguimiento en la página principal.
+            </h3>
             <Forms>
               <ContainerCamp>
                 <Camp>
-                  <Label>Imagenes de la mascota</Label>
+                  <Label>Imágenes de la mascota</Label>
                   <ImageUploader json={json} setJson={setJson} />
                   <ErrorMessage
                     name="image"

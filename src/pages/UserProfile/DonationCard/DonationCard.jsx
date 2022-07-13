@@ -1,16 +1,38 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./styles.css";
+import moment from 'moment'
+import Swal from "sweetalert2";
+import { ContainerDonation, Sub } from "./StyledDonationCard";
 
-export default function DonationCard(amount, date, type) {
-  
+export default function DonationCard({ amount, date, type }) {
 
-  return (<div className="cardContainer"> 
-    {console.log('amount',amount)}
+  let dateFormat = moment(amount.date).format('DD/MM/YYYY')
+
+  const popUp1 = () => {
+    Swal.fire({
+      title: "Cancelar suscripcion",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('Apretaste para cancelar suscripcion');
+      }
+    });
+  }
+
+  return (
+    <ContainerDonation>
+      {/* {console.log('amount',amount)}
     {console.log('date',date)}
-    {console.log('type',type)} 
-    {amount.type === 'unique' ? <h3>Donación única</h3> : amount.type==='suscription' ? <h3>Donación suscripcion</h3> :null}    
-     {/* <div>{JSON.stringify(amount)}</div>  */}
-    <p>Fecha: {amount.date}</p>
-    <p>Monto: ${amount.amount}</p>    
-  </div>)
+    {console.log('type',type)} */}
+      {type === "regular_payment" ? <Sub>Donación única</Sub> : type === "suscripcion " ? <Sub>Donación Suscripcion</Sub> : null}
+      {/* <div>{JSON.stringify(amount)}</div>  */}
+      <Sub>Fecha: {dateFormat}</Sub>
+      <Sub>Monto: ${amount}</Sub>
+      <p></p>
+      {type === "suscripcion " ? <ButtonPago onClick={popUp1}>Cancelar Suscripcion</ButtonPago> : null}
+    </ContainerDonation>)
 }

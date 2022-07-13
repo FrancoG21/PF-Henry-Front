@@ -10,6 +10,7 @@ import {
   LOGIN_GOOGLE,
   POST_PET,
   USERS,
+  EDIT_PET,
 } from "../actions/nameAction";
 
 const initialState = {
@@ -85,7 +86,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,        
       }
     }
-    
 
     case USERS:{
       return{

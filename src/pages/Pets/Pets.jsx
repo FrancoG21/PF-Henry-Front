@@ -36,7 +36,7 @@ export default function Pets() {
 
   const petsToFilter = (obj) => {
     setFilter(obj)
-    dispatch(getPets(page, obj));
+    dispatch(getPets(0, obj));
     setPage(0)
   }
 
@@ -44,7 +44,7 @@ export default function Pets() {
     <BackgroundPets>
       <ContainerTop>
         <div>
-          <h1>Adopta o Transito tu mascota</h1>
+          <h1>Adoptá o Transitá tu mascota aquí</h1>          
           <Searchbar stateValue={['adopt', 'transit']} />
           <PetFilters petsToFilter={petsToFilter} stateValue={['adopt', 'transit']} />
         </div>

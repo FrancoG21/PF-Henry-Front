@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
-import styles from "./styles.css";
+import "./styles.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { ButtonPetition, ContainerForm, Sub } from "./StyledProfilePetitionForrms";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import { useSelector } from 'react-redux'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
 
 function capitalize(str) {
   return str.replace(/^\w/, (c) => c.toUpperCase());
@@ -27,23 +35,24 @@ const popUpDeletePetition = (formId, from) => {
         "Tu peticion ha sido eliminada correctamente",
         "success"
       );
-      if (from === "PetitionGetLosts") {
-        axios.delete(`/petitionGet/deleteLost/${formId}`);
-        location.reload();
-      }
-      if (from === "PetitionGets") {
-        axios.delete(`/petitionGet/delete/${formId}`);
-        location.reload();
-      }
-      if (from === "PetitionLoads") {
-        axios.delete(`/petitionLoad/${formId}`);
-        location.reload();
-      }
+      // if (from === "PetitionGetLosts") {
+      //   axios.delete(`/petitionGet/deleteLost/${formId}`);
+      //   location.reload();
+      // }
+      // if (from === "PetitionGets") {
+      //   axios.delete(`/petitionGet/delete/${formId}`);
+      //   location.reload();
+      // }
+      // if (from === "PetitionLoads") {
+      //   axios.delete(`/petitionLoad/${formId}`);
+      //   location.reload();
+      // }
     }
   });
 };
 
 export function PetitionGetLosts({
+  refresh,
   formDate,
   petId,
   formState,
@@ -64,9 +73,6 @@ export function PetitionGetLosts({
 
   const from = "PetitionGetLosts";
 
-  const fotos = () => {
-    return image.map((i) => <img src={i} alt={originalName} />);
-  };
 
   const popUp1 = () => {
     Swal.fire({
@@ -103,39 +109,85 @@ export function PetitionGetLosts({
     });
   };
 
+  const token = useSelector(state=>state.usuario)
+
+  function acepted(){
+    axios.post('/admin/petitionGetLost/acepted', { petitionId: formId, token})
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }).then(()=>{refresh()}) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          }).then(()=>{refresh()})) 
+   }
+   function rejected(){
+    axios.post('/admin/petitionGetLost/rejected', { petitionId: formId, token})
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }).then(()=>{refresh()}) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          }).then(()=>{refresh()})) 
+   }
+
   return (
-    <ContainerForm>
-      <Sub>Petición encontre mi mascota</Sub>
-      {formState === "pending" && (
-        <ButtonPetition onClick={() => popUpDeletePetition(formId, from)}>
-          Eliminar Peticion
-        </ButtonPetition>
-      )}
-      <ButtonPetition onClick={popUp1}>ver mas</ButtonPetition>
-      <Sub>Fecha: {formDate}</Sub>
-      <Sub>
-        Mascota: {pet.name && capitalize(pet.name)};{" "}
-        {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
-      </Sub>
-      {/*  <Link to={`/petdetail/${petId}`}>
-        <button>ver mascota</button>
-      </Link> */}
-      <Sub>
-        Estado de la peticion:{" "}
-        {formState === "pending"
-          ? "en revisión"
-          : formState === "acepted"
-          ? "aceptado"
-          : formState === "rejected"
-          ? "rechazado"
-          : null}
-      </Sub>
-      <img src={pet.image} alt={pet.name} width="80px" height="80px" />
-    </ContainerForm>
+  <>
+    <div>
+      <Card sx={{ maxWidth: 345 }}>
+       <img src={pet.image} alt={pet.name} width="345px" height="250px" />
+       <h3>Peticion perdidos</h3>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {pet.name && capitalize(pet.name)};{" "}
+        {pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "gato" : null}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        <h3>fecha: {formDate}</h3>
+        <h3>
+            Estado de la peticion:{" "}
+            {formState === "pending"
+              ? "en revisión"
+              : formState === "acepted"
+              ? "aceptado"
+              : formState === "rejected"
+              ? "rechazado"
+              : null}
+          </h3>
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" variant="outlined" onClick={popUp1}>ver peticion</Button> 
+        {formState === 'pending'&& <div>
+        <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
+        <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
+      </div>}
+      </CardActions>
+    </Card>
+    </div>
+    </>
   );
 }
 
 export function PetitionGets({
+  refresh,
   formDate,
   petId,
   state,
@@ -335,37 +387,67 @@ export function PetitionGets({
 
   useEffect(() => {
     axios.get(`/pet/${petId}`).then((r) => setPet(r.data));
-    /* console.log("PetitionGets", pet); */
+    console.log("PetitionGets", pet);
   }, []);
 
+  const token = useSelector(state=>state.usuario)
+
+  function acepted(){
+    axios.post('/admin/petitionGet/acepted', { petitionId: formId, token})
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }).then(()=>{refresh()}) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          }).then(()=>{refresh()})) 
+   }
+   function rejected(){
+    axios.post('/admin/petitionGet/rejected', { petitionId: formId, token})
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }).then(()=>{refresh()}) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          }).then(()=>{refresh()})) 
+   }
   const from = "PetitionGets";
 
   return (
-    <ContainerForm>
-      {state === "adopted" ? (
-        <Sub>Petición para adoptar</Sub>
+    <div>    
+      <Card sx={{ maxWidth: 345 }}>
+       <img src={pet.image} alt={pet.name} width="345px" height="250px" />
+       {state === "adopted" ? (
+        <h3>Petición para adoptar</h3>
       ) : state === "transit" ? (
-        <Sub>Petición para hogar transito</Sub>
+        <h3>Petición para hogar transito</h3>
       ) : null}
-      {formState === "pending" && (
-        <ButtonPetition onClick={() => popUpDeletePetition(formId, from)}>
-          Eliminar Peticion
-        </ButtonPetition>
-      )}
-      <ButtonPetition
-        onClick={
-          state === "adopted" ? popUp2 : state === "transit" ? popUp3 : null
-        }
-      >
-        Ver mas
-      </ButtonPetition>
-      <Sub>Fecha: {formDate}</Sub>
-      <Sub>
-        Mascota: {pet.name && capitalize(pet.name)};{" "}
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {pet.name && capitalize(pet.name)};{" "}
         {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
-      </Sub>
-      <Sub>
-        Estado de la peticion:{" "}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        <h3>fecha: {formDate}</h3>
+        <h3>
+            Estado de la peticion:{" "}
         {formState === "pending"
           ? "en revisión"
           : formState === "acepted"
@@ -373,13 +455,31 @@ export function PetitionGets({
           : formState === "rejected"
           ? "rechazado"
           : null}
-      </Sub>
-      <img src={pet.image} alt={pet.name} width="80px" height="80px" />
-    </ContainerForm>
+          </h3>
+        </Typography>
+      </CardContent>
+      <CardActions>
+      <Button
+        size="small" variant="outlined"
+        onClick={
+          state === "adopted" ? popUp2 : state === "transit" ? popUp3 : null
+        }
+      >
+        ver peticion
+      </Button>
+      {formState === 'pending'&& <div>
+        <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
+        <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
+      </div>}
+     
+      </CardActions>
+    </Card>
+    </div>
   );
 }
 
 export function PetitionLoads({
+  refresh,
   formDate,
   state,
   petName,
@@ -456,6 +556,9 @@ export function PetitionLoads({
             : null
         }</p>        
       `,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
     });
   };
   const popUp5 = () => {
@@ -517,34 +620,64 @@ export function PetitionLoads({
       `,
     });
   };
+  const token = useSelector(state=>state.usuario)
 
+
+  function acepted(){
+    axios.post('admin/petitionLoadPet/acepted', { petitionId: formId, token})
+    .then(res=>Swal.fire
+      ({
+            position: 'center',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: true,
+            timer: 1500
+          }).then(()=>{refresh()}) ,res=>Swal.fire
+      ({
+              icon: 'error',
+              title: 'Error',
+              text: res.response.data.error,
+              showConfirmButton: false,
+              timer: 1000
+          }).then(()=>{refresh()})
+        ) 
+   }
+   function rejected(){
+    axios.post('admin/petitionLoadPet/rejected', { petitionId: formId, token})
+      .then(res=>Swal.fire
+        ({
+              position: 'center',
+              icon: 'success',
+              title: res.data.message,
+              showConfirmButton: true,
+              timer: 1500
+            }).then(()=>{refresh()}) ,res=>Swal.fire
+        ({
+                icon: 'error',
+                title: 'Error',
+                text: res.response.data.error,
+                showConfirmButton: false,
+                timer: 1000
+            }).then(()=>{refresh()}))
+   }
   return (
-    <ContainerForm>
-      {state === "adopt" ? (
-        <Sub>Petición para cargar mascota y dar en adopcion</Sub>
+    <div >
+
+<Card sx={{ maxWidth: 345 }}>
+{state === "adopt" ? (
+        <h3>Petición para cargar mascota y dar en adopcion</h3>
       ) : state === "lost" ? (
-        <Sub>Petición para cargar mascota encontrada</Sub>
+        <h3>Petición para cargar mascota encontrada</h3>
       ) : null}
-      {formState === "pending" && (
-        <ButtonPetition onClick={() => popUpDeletePetition(formId, from)}>
-          Eliminar Peticion
-        </ButtonPetition>
-      )}
-      <ButtonPetition
-        onClick={state === "adopt" ? popUp4 : state === "lost" ? popUp5 : null}
-      >
-        Ver mas
-      </ButtonPetition>
-      <Sub>Fecha: {formDate}</Sub>
-      <Sub>
-        Mascota: {petName && capitalize(petName)};{" "}
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {petName && capitalize(petName)};{" "}
         {type === "dog" ? "perro" : type === "cat" ? "gato" : null}
-      </Sub>
-      {/* <Link to={`/petdetail/${petId ? petId : "9999999"}`}>
-        <button>ver mascota</button>
-      </Link> */}
-      <Sub>
-        Estado de la peticion:{" "}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        <h3>fecha: {formDate}</h3>
+        <h3>
+            Estado de la peticion:{" "}
         {formState === "pending"
           ? "en revisión"
           : formState === "acepted"
@@ -552,10 +685,22 @@ export function PetitionLoads({
           : formState === "rejected"
           ? "rechazado"
           : null}
-      </Sub>
-       {petImg.map((p, i) => (
-        <img src={p} alt={petName} key={"a" + i} height="60px" />
-      ))} 
-    </ContainerForm>
+          </h3>
+        </Typography>
+      </CardContent>
+      <CardActions>
+      <Button
+        size="small" variant="contained"
+        onClick={state === "adopt" ? popUp4 : state === "lost" ? popUp5 : null}
+      >
+        ver peticion
+      </Button>
+      {formState === 'pending'&& <div>
+        <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
+        <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
+      </div>}
+      </CardActions>
+    </Card>
+    </div>
   );
 }
