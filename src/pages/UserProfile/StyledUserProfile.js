@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {FaCrown} from 'react-icons/fa';
 import {MdVerifiedUser} from 'react-icons/md';
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 export const BackgroundProfile = styled.div`
   background: ${(props) => props.theme.background};
@@ -159,23 +160,49 @@ export const Admin = styled.p`
   color: ${(props) => props.theme.secondary};
 `
 
-export const ContainerDiv = styled.div`
-  display:flex;
-  flex-direction:row;
-  justify-content: space-evenly;
-  margin-top: 20px
-  //background-color:blue
-`;
 
 export const ContainerPetitions = styled.div`
   margin-left: 20px;
   margin-right: 20px;
-`
+  `
 
 // SELECTS //
+
+  export const ContainerDiv = styled.div`
+    width: 100%;
+  `;
 
 export const ContainerSelect = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `
 
+export const Select = styled.select`
+  background-color: ${(props) => props.theme.secondary};
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  margin-left: 10px;
+  margin-top: 10px;
+  padding: 3px;
+`
+
+export const DivPets = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`
+
+export const DivCardCarrusel = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+`
+
+export const Carrusel = styled(SplideSlide)`
+  width: 100%;
+`
