@@ -23,7 +23,7 @@ export default function PetFilters({ petsToFilter, stateValue }) {
     axios
       .get(`/breed?pet=${petType}`)
       .then((r) => setBreeds(["all"].concat(r.data))); //setBreeds(r.data))
-    console.log(breeds);
+    // console.log(breeds);
   }, [petType]);
 
   const handleClickPetTypeBreeds = (type) => {
@@ -35,20 +35,20 @@ export default function PetFilters({ petsToFilter, stateValue }) {
       <Formik
         initialValues={{ state: stateValue}}
         onSubmit={(values, { resetForm }) => {
-          console.log("onSubmit -->", values);
+          // console.log("onSubmit -->", values);
           for (let prop in values) {
             if (values[prop] === "all") {
               delete values[prop];
             }
           }
           
-          console.log(values);
+          // console.log(values);
           petsToFilter(values);
         }}
       >
         {(props) => (
           <Form>
-            {console.log('stateValue', stateValue)}
+            {/* {console.log('stateValue', stateValue)} */}
             <ContainerFilter>
               <Label>Tipo</Label>
               <Label>
