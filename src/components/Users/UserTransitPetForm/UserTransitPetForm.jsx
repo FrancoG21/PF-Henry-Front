@@ -139,6 +139,18 @@ export default function UserTransitPetForm() {
               }
             }
 
+            if(values.userAge < 18){
+              errors.userAge = 'Debes ser mayor de 18 años'
+            }
+            
+            if(values.tel.toString().length < 9){
+              errors.tel = 'Numero de telefono debe contener por lo menos 9 numeros' 
+            }
+            
+            if(values.actualPlacePostalCode.toString().length !== 4){
+              errors.actualPlacePostalCode = 'Codigo Postal ebe ser de 4 digitos'          
+            }
+
             if (user) {
               values.userId = user.id;
               delete errors.userId;
@@ -341,7 +353,7 @@ export default function UserTransitPetForm() {
                       type="number"
                       id="tel"
                       name="tel"
-                      placeholder="Teléfono del postulante"
+                      placeholder="Teléfono del postulante ( sin el cero + codigo de area + ... )"
                     />
                     <ErrorMessage
                       name="tel"
@@ -459,7 +471,7 @@ export default function UserTransitPetForm() {
                   )}
                   <Camp>
                     <Label>
-                      <p>¿Dónde vivira la mascota en transito?</p>
+                      <p>¿Dónde vivira la mascota en transito? {"("}Si es otra opción, escribila y presiona Create{")"}</p>
                     </Label>
                     <Supliers options={options2} name="adoptedPetPlace" />
                     <ErrorMessage
@@ -469,7 +481,7 @@ export default function UserTransitPetForm() {
                   </Camp>
                   <Camp>
                     <Label>
-                      <p>¿Posee espacio al aire libre?</p>
+                      <p>¿Posee espacio al aire libre? {"("}Si es otra opción, escribila y presiona Create{")"}</p>
                     </Label>
                     <Supliers options={options3} name="openSpace" />
                     <ErrorMessage
@@ -615,8 +627,8 @@ export default function UserTransitPetForm() {
                   </Camp>
                 </ContainerCamp>
                 <ContainerButton>
-                  <ButtonSubmit type="submit">Submit</ButtonSubmit>
-                  {flag && <Succes>Succesfully created</Succes>}
+                  <ButtonSubmit type="submit">Enviar</ButtonSubmit>
+                  {flag && <Succes>Envio exitoso</Succes>}
                 </ContainerButton>
               </Forms>
             </FormContainer>

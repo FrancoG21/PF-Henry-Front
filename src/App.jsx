@@ -47,12 +47,16 @@ import Redireccion from "./components/Chatbot/Redirect";
 
 function App() {
   const dispatch = useDispatch();
-
-  const token = useSelector((state) => state.usuario)
+  const usuario = useSelector(state=>state.usuario)
+  const [token, setToken] = useState(window.localStorage.getItem('userInfo'))
 
   useEffect(() => {
     window.localStorage.getItem('userInfo') && dispatch(upLogin(JSON.parse(localStorage.getItem("userInfo"))))
   }, [])
+
+  useEffect(()=>{
+    setToken(usuario)
+  }, [usuario])
 
   const [theme, setTheme] = useDarkMode();
   const themeMode = theme === "light" ? "light" : "dark";

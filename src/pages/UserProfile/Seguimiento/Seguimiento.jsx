@@ -109,8 +109,8 @@ export default function Seguimiento() {
       >
         {(props) => (
           <FormContainer>
-            {console.log("image", props.image)}
-            {console.log("description", props.description)}
+            {console.log("image", props.values.image)}
+            {console.log("description", props.values.description)}
             {console.log("pet", pet)}
             <TitleForm>
               Cargá el seguimiento de{" "}
@@ -134,7 +134,7 @@ export default function Seguimiento() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Descripción</Label>
+                  <Label>Descripción {/* {"("}Caracteres restantes: {100 - props.values.description.length}{")"} */}</Label>
                   <Field
                     as="textarea"
                     id={"description"}
