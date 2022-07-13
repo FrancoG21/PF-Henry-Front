@@ -34,10 +34,6 @@ export const LiList = styled.li`
     width: 30%;
     padding: 5px;
     cursor: pointer;
-
-    &:hover {
-        background-color: #fff;
-    }
 `
 
 export const LinkList = styled(Link)`

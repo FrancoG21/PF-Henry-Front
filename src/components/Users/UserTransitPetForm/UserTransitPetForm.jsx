@@ -23,6 +23,7 @@ import {
   Sub,
   SubText,
   Succes,
+  Span,
 } from "./StyledUserTransitPetForm";
 import moment from "moment";
 import Swal from "sweetalert2";
@@ -213,7 +214,7 @@ export default function UserTransitPetForm() {
         >
           {(props) => (
             <FormContainer>
-              <TitleForm>Formulario Hogar transitorio</TitleForm>
+              <TitleForm>Formulario Hogar Transitorio</TitleForm>
               <Camp>
                 <Sub>¿Qué es un hogar transitorio?</Sub>
               </Camp>
@@ -249,7 +250,8 @@ export default function UserTransitPetForm() {
                       height="400"
                     />
                     <Label>
-                      Macota elegida: {pet.name}
+                      Macota elegida: 
+                      <Span>{pet.name}</Span>
                       {/* {pet?.name[0].toUpperCase() +
                       pet?.name.slice(1).toLowerCase()} */}
                     </Label>
@@ -258,7 +260,7 @@ export default function UserTransitPetForm() {
                     <Label>
                       {" "}
                       Nombre y apellido del adoptante:{" "}
-                      {user && user.name + " " + user.lastname}
+                      <Span>{user && user.name + " " + user.lastname}</Span>
                     </Label>
                   </Camp>
                   {/* <div>{JSON.stringify(props.errors)}</div> */}
