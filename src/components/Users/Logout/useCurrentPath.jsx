@@ -12,7 +12,7 @@ const rutass = [
     ,"/useradoptpet/:id"
     ,"/usertransitpet/:id"
     ,"/donation/success"
-    ,"/donation/failure"
+    ,"/donation/failure/:id"
     ,"/userprofile"
     ,"/useritsmypet/:id"
     ,"/lostpets"

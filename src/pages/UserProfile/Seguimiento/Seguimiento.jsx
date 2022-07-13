@@ -134,7 +134,7 @@ export default function Seguimiento() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Descripción {/* {"("}Caracteres restantes: {100 - props.values.description.length}{")"} */}</Label>
+                  <Label>Descripción  {"("}Caracteres restantes: {100 - props.values.description.length}{")"} </Label>
                   <Field
                     as="textarea"
                     id={"description"}

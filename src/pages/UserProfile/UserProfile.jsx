@@ -187,7 +187,7 @@ export default function UserProfile() {
             Swal.fire({
               icon: "error",
               title: "Oops...",
-              text: "Something went wrong!",
+              text: "Algo salio mal",
             });
           });
       }
@@ -843,6 +843,7 @@ export default function UserProfile() {
                           amount={d.amount}
                           date={d.date}
                           type={d.type}
+                          id={d.id}                          
                         />
                       ))
                       : null}
@@ -853,6 +854,7 @@ export default function UserProfile() {
                           amount={d.amount}
                           date={d.date}
                           type={d.type}
+                          id={d.id}
                         />
                       ))
                       : <Error>No posees ninguna donacion</Error>}
@@ -862,7 +864,7 @@ export default function UserProfile() {
                     {donationsSuscription.length > 0 ? (
                       donationsSuscription.map((d, i) => (
                         <DonationCard
-                          amount={d.amount} key={'q' + i} date={d.date} type={d.type}
+                          amount={d.amount} key={'q' + i} date={d.date} type={d.type} id={d.id}
                         />
                       ))
                     ) : (
@@ -874,7 +876,7 @@ export default function UserProfile() {
                     {donationsUnique.length > 0 ? (
                       donationsUnique.map((d, i) => (
                         <DonationCard
-                          amount={d.amount} key={'r' + i} date={d.date} type={d.type}
+                          amount={d.amount} key={'r' + i} date={d.date} type={d.type} id={d.id}
                         />
                       ))
                     ) : (

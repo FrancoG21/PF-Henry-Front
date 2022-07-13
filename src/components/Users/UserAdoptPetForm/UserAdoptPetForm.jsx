@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Field, ErrorMessage } from "formik";
+import { Formik, Field, ErrorMessage, Form } from "formik";
 import { getById, petitionGet } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,7 @@ import {
   Succes,
 } from "./StyledUserAdoptPetForm";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 export default function UserAdoptPetForm() {
   const [flag, setFlag] = useState(false);
@@ -135,7 +136,7 @@ export default function UserAdoptPetForm() {
             }
 
             if(values.userAge < 18){
-              errors.userAge = 'Debes ser mayor de 18 años'
+              errors.userAge = 'Edad debe ser mayor de 18 años'
             }
             
             if(values.tel.toString().length < 9){
@@ -149,11 +150,28 @@ export default function UserAdoptPetForm() {
             if (user) {
               values.userId = user.id;
               delete errors.userId;
-            }            
+            }                        
 
             return errors;
           }}
-          onSubmit={(values, { resetForm }) => {
+         
+
+          onSubmit={({ resetForm, errors, values, actions }) => {    
+            
+            if(errors){
+              for(let key in errors){
+                let sendErrors=[]
+                sendErrors.push(`${errors[key]}`)
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: `${sendErrors/* .join("\n") */}`,                  
+                })
+              } 
+              actions.setSubmitting(false)             
+            } 
+
+
             for (let prop in values) {
               if (
                 prop === "getPetReason" ||
@@ -215,13 +233,13 @@ export default function UserAdoptPetForm() {
           {(props) => (
             <FormContainer>
               <TitleForm>Formulario de adopción</TitleForm>
-              <Forms>
+              <Forms>                
                 {/* {console.log("abajo values")}
               {console.log(props.values)}
               {console.log("abajo errors")} +/}              
               {/* {console.log('user',user)} */}
                 {/* {console.log("errors", props.errors)} */}
-                {console.log("values", props.values)}
+                {/* {console.log("values", props.values)} */}
                 {/* {console.log("value userId", props.values.userId)} */}
                 <ContainerCamp>
                   <Camp>
@@ -614,22 +632,22 @@ const newLabel = (name) => {
   if (name === "actualPlaceProvince") return "Provincia es requerido";
   if (name === "actualPlacePostalCode") return "Codigo Postal es requerido";
   if (name === "tel") return "Teléfono es requerido";
-  if (name === "familySize") return "Debe completar este campo";
-  if (name === "familyRelation") return "Debe completar este campo";
-  if (name === "otherPets") return "Debe completar este campo";
-  if (name === "otherPetsInfo") return "Debe completar este campo";
-  if (name === "otherPetsCastration") return "Debe completar este campo";
-  if (name === "otherPetsVacunation") return "Debe completar este campo";
-  if (name === "getPetReason") return "Debe completar este campo";
-  if (name === "adoptedPetPlace") return "Debe completar este campo";
-  if (name === "openSpace") return "Debe completar este campo";
-  if (name === "rental") return "Debe completar este campo";
-  if (name === "adoptedPetSleepingSpace") return "Debe completar este campo";
-  if (name === "adoptedPetAloneMoments") return "Debe completar este campo";
-  if (name === "adoptedPetWalkingInfo") return "Debe completar este campo";
-  if (name === "userMovingIdea") return "Debe completar este campo";
-  if (name === "adaptationTime") return "Debe completar este campo";
-  if (name === "userMovility") return "Debe completar este campo";
+  if (name === "familySize") return "Debe completar cuántas personas viven en la casa";
+  if (name === "familyRelation") return "Debe completar composición del núcleo familiar";
+  if (name === "otherPets") return "Debe completar si tiene otros animales";
+  if (name === "otherPetsInfo") return "Debe completar informacion de sus actuales mascotas";
+  if (name === "otherPetsCastration") return "Debe completar si sus actuales mascotas estan castradas";
+  if (name === "otherPetsVacunation") return "Debe completar si sus actuales mascotas estan vacunadas";
+  if (name === "getPetReason") return "Debe completar por que se interesa en este animal en particular";
+  if (name === "adoptedPetPlace") return "Debe completar dónde vivira la mascota adoptada";
+  if (name === "openSpace") return "Debe completar si posee espacio al aire libre";
+  if (name === "rental") return "Debe completar si son propietarios o alquilan";
+  if (name === "adoptedPetSleepingSpace") return "Debe completar dónde dormirá el adoptado";
+  if (name === "adoptedPetAloneMoments") return "Debe completar si la mascota adoptada estará sola y cuánto tiempo";
+  if (name === "adoptedPetWalkingInfo") return "Debe completar quién paseará y cuántas veces al día la mascota adoptada";
+  if (name === "userMovingIdea") return "Debe completar en caso de mudarse si ha pensado que hará con la mascota";
+  if (name === "adaptationTime") return "Debe completar si está de acuerdo en tener un tiempo de adaptación";
+  if (name === "userMovility") return "Debe completar si tiene movilidad para buscar a la mascota";
 };
 
 /* petId: id,

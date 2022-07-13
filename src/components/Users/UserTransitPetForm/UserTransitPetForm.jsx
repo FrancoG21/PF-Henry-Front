@@ -25,6 +25,7 @@ import {
   Succes,
 } from "./StyledUserTransitPetForm";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 export default function UserTransitPetForm() {
   const [flag, setFlag] = useState(false);

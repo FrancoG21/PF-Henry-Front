@@ -85,7 +85,7 @@ function App() {
             <Route path="/useradoptpet/:id" element={token ? <UserAdoptPetForm /> : <Redireccion URL='/' />}></Route>
             <Route path="/usertransitpet/:id" element={token ? <UserTransitPetForm /> : <Redireccion URL='/' />}></Route>
             <Route path="/donation/success" element={token ? <Success /> : <Redireccion URL='/' />}></Route>
-            <Route path="/donation/failure" element={token ? <Failure /> : <Redireccion URL='/' />}></Route>
+            <Route path="/donation/failure/:id" element={token ? <Failure /> : <Redireccion URL='/' />}></Route>
             {/* <Route path="/useradoptpet" element={<UserAdoptPetForm />}></Route>
             <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route> */}
             <Route path="/userprofile" element={token ? <UserProfile /> : <Redireccion URL='/' />}></Route>
