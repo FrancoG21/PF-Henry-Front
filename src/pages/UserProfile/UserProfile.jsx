@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import ProfilePetCard from "./PetCard/ProfilePetCard";
 import Swal from "sweetalert2";
 import {
@@ -15,6 +16,16 @@ import {
   ButtonLink,
   ContainerDiv,
   ContainerPetitions,
+  ContainerImage,
+  ContainerText,
+  Span,
+  DivSpan,
+  ButtonPassword,
+  Admin,
+  DivAdmin,
+  IconAdmin,
+  IconUser,
+  ContainerSelect,
 } from "./StyledUserProfile";
 import {
   PetitionGets,
@@ -201,37 +212,44 @@ export default function UserProfile() {
         {console.log("donationsSuscription", donationsSuscription)}
         {console.log("donationsUnique", donationsUnique)}
       </div>
+      <TitleProfile>Mi Perfil</TitleProfile>
       <ContainerProfile>
-        <TitleProfile>Mi Perfil</TitleProfile>
         <ContainerInfo>
-          <ImageProfile
-            src={
-              user
-                ? user.picture
-                : "https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg"
-            }
-            alt={user ? user.name : "avatar"}
-          />
-          <Name>{user ? user.name + " " + user.lastname : null}</Name>
-          <Email>{user ? user.email : null}</Email>
-          <p>
-            Rol:{" "}
+          <ContainerImage>
+            <ImageProfile
+              src={
+                user
+                  ? user.picture
+                  : "https://thumbs.dreamstime.com/b/dise%C3%B1o-de-la-lengua-de-programaci%C3%B3n-65093358.jpg"
+              }
+              alt={user ? user.name : "avatar"}
+            />
+          </ContainerImage>
+          <ContainerText>
+            <DivSpan>
+              <Name><Span>Nombre y Apellido :</Span>{user ? user.name + " " + user.lastname : null}</Name>
+            </DivSpan>
+            <Email><Span>Email: </Span>{user ? user.email : null}</Email>
+            <ButtonPassword onClick={popUpChangePassword}>Cambiar Contraseña</ButtonPassword>
             {user
-              ? user.rol === "user"
-                ? "usuaio"
-                : user.rol === "admin"
-                ? "administrador"
-                : null
+              ? user.message === "password or mail incorrect" && (
+                  <Name>Password or mail incorrect</Name>
+                )
               : null}
-          </p>
-          <button onClick={popUpChangePassword}>cambiar contraseña</button>
-          {user
-            ? user.message === "password or mail incorrect" && (
-                <Name>Password or mail incorrect</Name>
-              )
-            : null}
+          </ContainerText>
+            <DivAdmin>
+              <Admin>
+                {user
+                  ? user.rol === "user"
+                    ? <div>Usuaio <IconUser/></div>
+                    : user.rol === "admin"
+                    ? <div>Administrador <IconAdmin/></div>
+                    : null
+                  : null}
+              </Admin>
+            </DivAdmin>
         </ContainerInfo>
-        <div>
+        <ContainerSelect>
           <select
             defaultValue={"default"}
             onChange={(e) => setFlagPet(e.target.value)}
@@ -315,7 +333,7 @@ export default function UserProfile() {
               {donationsUnique.length}
               {")"}</option>
           </select>
-        </div>
+        </ContainerSelect>
         <ContainerDiv>
           <div>
             {petsAdopted.length > 0 || petsTransit.length > 0 ? (
