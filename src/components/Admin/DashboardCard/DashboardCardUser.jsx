@@ -5,9 +5,19 @@ import { Dashboard, Left, Right, SubTitleCard, TitleCard, Icon } from './StyledD
 export default function DashboardCardUser() {
 
     const [pet, setPet] = useState({})
+    const [donations, setDonations] = useState(0)
 
     useEffect(() => {
-        axios.get('/user').then((r) => {setPet(r.data)})
+        axios.get('/user').then((r) => {
+            let admin = r.data.rows.filter(u=>u.rol === 'admin')
+            let user = r.data.rows.filter(u=>u.rol === 'user')
+            admin = admin.length
+            user = user.length
+            setPet({count: r.data.count, admin, user})
+        })
+        axios.get('/donation').then(r=>{
+            setDonations(r.data.length)
+        })
     }, [])
 
     return(
@@ -15,6 +25,9 @@ export default function DashboardCardUser() {
             <Left>
                 <div>
                     <TitleCard>Usuarios Totales: {pet.count}</TitleCard>
+                    <SubTitleCard>Administradores: {pet.admin}</SubTitleCard>
+                    <SubTitleCard>Usuarios: {pet.user}</SubTitleCard>
+                    <TitleCard>Donaciones: {donations}</TitleCard>
                 </div>
             </Left>
             <Right>
