@@ -36,7 +36,7 @@ export default function NavBar({ theme, setTheme }) {
 
     function getUser(token){
         axios.get('/user/' + token ).then(r => {
-            setUser(r.data)
+            setUser(r.data) 
         }, error => {
             console.log(error)
         })

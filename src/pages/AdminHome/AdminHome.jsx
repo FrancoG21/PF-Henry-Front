@@ -5,7 +5,14 @@ import DashboardCardPetition from '../../components/Admin/DashboardCard/Dashboad
 import SideBar from '../../components/Admin/SideBar/SideBar';
 import Chart from '../../components/Admin/Chart/Chart';
 import ChartCircle from '../../components/Admin/Chart/ChartCircle';
-import { BackgroundList, ContainerDashboard, ContainerList, ContainerChart } from './StyledAdminHome';
+import { BackgroundList,
+    ContainerDashboard,
+    ContainerList,
+    ContainerChart,
+    ContainerCircleChart,
+    Subtitle,
+    Text,
+} from './StyledAdminHome';
 
 export default function AdminHome() {
 
@@ -22,10 +29,12 @@ export default function AdminHome() {
                     <div>
                         <div>
                             <ContainerChart>
-                                <div>
+                                <ContainerCircleChart>
+                                    <Subtitle>Mascotas:</Subtitle>
                                     <ChartCircle />
-                                </div>
+                                </ContainerCircleChart>
                                 <div>
+                                    <Text>Peticiones:</Text>
                                     <Chart />
                                 </div>
                             </ContainerChart>

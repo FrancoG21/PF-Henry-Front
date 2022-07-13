@@ -23,7 +23,7 @@ export default function About() {
         "https://media-exp2.licdn.com/dms/image/C4E03AQE4ZyZLwaLFkQ/profile-displayphoto-shrink_200_200/0/1637091260005?e=1662595200&v=beta&t=gqkUhMGe67ZFSFeUPfFlRTy89rkuAeju_iL3tFuSV9U",
       linkedIn: "https://www.linkedin.com/in/ignacio-sol%C3%A1-zambrano-8b1532222/",
       github: "https://github.com/ignacioSola",
-      email:"ignaciojsolaz@gmail.com"
+      email: "ignaciojsolaz@gmail.com"
     },
     {
       name: "Franco Gimenez",
@@ -31,7 +31,7 @@ export default function About() {
         "https://media-exp2.licdn.com/dms/image/C4E03AQGgYjGCCNGAag/profile-displayphoto-shrink_200_200/0/1575240142010?e=1662595200&v=beta&t=JyonSP7IfFt4ghQxok0J3-kxJeo48zp4MHafhVnATjU",
       linkedIn: "https://www.linkedin.com/in/franco-ramiro-gimenez-98742b184/",
       github: "https://github.com/FrancoG21",
-      email:"fgimenez029@gmail.com"
+      email: "fgimenez029@gmail.com"
     },
     {
       name: "Matias Farina Solá",
@@ -39,7 +39,7 @@ export default function About() {
         "http://res.cloudinary.com/dlol6par5/image/upload/v1657669725/b1btugwql2e3rbcjnlbb.jpg",
       linkedIn: "https://www.linkedin.com/in/matias-farina-sola-09040b147/",
       github: "https://github.com/matifagith",
-      email:"matiasfarinasola@gmail.com"
+      email: "matiasfarinasola@gmail.com"
     },
     {
       name: "Edwin Montoya",
@@ -47,7 +47,7 @@ export default function About() {
         "https://media-exp2.licdn.com/dms/image/C4E03AQGWzhC-eclkJA/profile-displayphoto-shrink_200_200/0/1649822770739?e=1662595200&v=beta&t=VPR9-BnDP7XneNaxXUR2zGd-pQEYFbpV8uYM5MHw7sY",
       linkedIn: "https://www.linkedin.com/in/edwin-arias-555303235/",
       github: "https://github.com/EFAM2907",
-      email:"efam2907@gmail.com"
+      email: "efam2907@gmail.com"
     },
     {
       name: "Yina Navarro",
@@ -55,7 +55,7 @@ export default function About() {
         "https://media-exp2.licdn.com/dms/image/C5603AQHs66A1nZ6ATw/profile-displayphoto-shrink_200_200/0/1597790077992?e=1662595200&v=beta&t=tej5YBL67VNQJn2DCKghB_19X45kr7IULwL7GvyVq8E",
       linkedIn: "https://www.linkedin.com/in/yina-navarro-a8b062b7/",
       github: "https://github.com/ynavarro44",
-      email:"yourname@amail.com"
+      email: "ynavarro44@gmail.com"
     },
     {
       name: "Carolina Guzman",
@@ -63,7 +63,7 @@ export default function About() {
         "https://media-exp2.licdn.com/dms/image/C4D03AQF24dwWGiV5-Q/profile-displayphoto-shrink_200_200/0/1621537745521?e=1662595200&v=beta&t=o3j_FQpV6y6kb88F7eyLnLPGvtO0YqqpjtUTr-7bmD0",
       linkedIn: "https://www.linkedin.com/in/carolina-guzman-570642212//",
       github: "https://github.com/Caro-Mailen",
-      email:"yourname@amail.com"
+      email: "carolina.mailen21@gmail.com"
     },
     {
       name: "Lucas Giorgi",
@@ -71,14 +71,14 @@ export default function About() {
         "https://media-exp2.licdn.com/dms/image/C4D03AQFmIqacfpYrug/profile-displayphoto-shrink_200_200/0/1655870457475?e=1662595200&v=beta&t=OwX_9Mkh8RkcaIYTCojGuZaSlvoOfOTI3-jZVlzW-3E",
       linkedIn: "https://www.linkedin.com/in/lucas-giorgi-b8985416a/",
       github: "https://github.com/lucasgiorgi95",
-      email:"yourname@amail.com"
+      email: "lucas1995giorgi@gmail.com"
     },
     {
       name: "Agustin Di Giacinto",
       image: "https://media-exp2.licdn.com/dms/image/C4D03AQGr6joJNV4Cyw/profile-displayphoto-shrink_200_200/0/1643246912186?e=1662595200&v=beta&t=NyMuSt1D1Ra9tkW_Qp7SsqHUaiOlC3XWJHR6oxQ7YwE",
     linkedIn: "https://www.linkedin.com/in/agustin-di-giacinto-5a0357218/",
     github: "https://github.com/AgustinDi",
-    email:"agustindigiacinto18@gmail.com"
+    email: "agustindigiacinto18@gmail.com"
     },
   ];
 
@@ -97,9 +97,9 @@ export default function About() {
 
       <ContainerAbout>
         <Container>
-          <SubtitleAbout>Como surgió el Proyecto AdoptA?</SubtitleAbout>
+          <SubtitleAbout>Como surgió el Proyecto Patitas?</SubtitleAbout>
           <TextAbout>
-            AdoptA surge como proyecto final de cierre para el Henry
+            Patitas surge como proyecto final de cierre para el Henry
             Bootcamp en el que se espera que se integre un grupo de alumnos
             todo lo que han aprendido en los últimos 4 meses y desarrollan un
             proyecto innovador y útil para la sociedad.
@@ -108,7 +108,7 @@ export default function About() {
         <Container>
           <SubtitleAbout>Cuál es nuestra mision?</SubtitleAbout>
           <TextAbout>
-            Nuestra misión es proporcionar una conexión a través de AdoptA entre
+            Nuestra misión es proporcionar una conexión a través de Patitas entre
             personas que quieran adoptar animales que necesitan un hogar, brindar ayuda
             cuando su animal se pierde y dar un animal en adopción cuando usted
             no pueda cuidarlo
@@ -119,7 +119,7 @@ export default function About() {
         {data.map((item) => {
           return (
             <div key={item}>
-              <CardAbout email={item.email} image={item.image} name={item.name} github={item.github} linkedIn={item.linkedIn}/>
+              <CardAbout image={item.image} name={item.name} github={item.github} linkedIn={item.linkedIn} email={item.email}/>
             </div>
           );
         })}
