@@ -18,6 +18,16 @@ export const TitleAdopt = styled.h1`
     }
 `
 
+export const TitlePets = styled.h1`
+    font-size: 2rem;
+    padding: 10px;
+    color: ${(props) => props.theme.secondary};
+
+    @media screen and (max-width: 600px) {
+        text-align: center;
+    }
+`
+
 export const ButtonCreate = styled.button`
     border-radius: 4px;
     background: ${(props) => props.theme.secondary};

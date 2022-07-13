@@ -1,6 +1,6 @@
 import React from "react";
 import { BackgroundHero, ShadowBackground, ContainerHero, ContainerText, TitleHero, Info, Title, Subtitle, Subtitles, ButtonHero } from "./StyledHero";
-import { useSelector } from "react-redux";
+
 
 
 export default function Hero() {
@@ -22,9 +22,10 @@ export default function Hero() {
                                     {
                                         // user && user ? <Subtitles>Bienvenido {user.message.name}!!</Subtitles> :  <ButtonHero to='/login'>Sign Up</ButtonHero>
                                     }
-                                    <ButtonHero to='/login'>Sign Up</ButtonHero>
+                                   
                             </TitleHero>
                         </Info>
+                        
                     </ContainerText>
                 </ContainerHero>
             </ShadowBackground>

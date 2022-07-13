@@ -18,6 +18,7 @@ import {
   Input,
   Button,
   Acces,
+ 
 } from './StyledLogin';
 
 
@@ -79,7 +80,7 @@ export default function Login() {
       showConfirmButton: true,
       timer: 1500
     }).then(()=>{
-      navigate("/")
+      navigate("/chatbot")
     })
   }
 
@@ -128,7 +129,7 @@ export default function Login() {
       showConfirmButton: true,
       timer: 1500
     }).then(()=>{
-      navigate("/")
+      navigate("/chatbot")
     })
 
     localStorage.setItem("userInfo", JSON.stringify(res.data.token))
@@ -178,20 +179,10 @@ export default function Login() {
           {errors.email && <Errors>{errors.email}</Errors>}
           
 
-          {/* <GoogleLogin
-    clientId="6229358800-jmcgp4kol677o5qvhs02hnkaclvk1174.apps.googleusercontent.com"
-    buttonText="Login"
-    onSuccess={responseGoogle}
-    onFailure={alert}
-    cookiePolicy={'single_host_origin'}
-   /> */}
-
-
-
-
           <Input type="password" value={input.password} placeholder="Password" name="password" onChange={handleChange} />
           {errors.password && <Errors>{errors.password}</Errors>}
           <Button type="submit">Login</Button>
+       
           <Button>
             <Acces to={'/register'}>
               Register

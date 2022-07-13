@@ -80,3 +80,7 @@ export const ButtonEditPet = styled.button`
 export const FolderIcon = styled(AddPhotoAlternateOutlinedIcon)`
     cursor: pointer;
 `
+
+export const InputRadio = styled.input`
+    margin: 0;
+`

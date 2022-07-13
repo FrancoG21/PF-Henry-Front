@@ -3,6 +3,7 @@ import styles from "./styles.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { ButtonPetition, ContainerForm, Sub } from "./StyledProfilePetitionForrms";
 
 function capitalize(str) {
   return str.replace(/^\w/, (c) => c.toUpperCase());
@@ -103,23 +104,23 @@ export function PetitionGetLosts({
   };
 
   return (
-    <div className="containerForm">
-      <h3>Petición encontre mi mascota</h3>
+    <ContainerForm>
+      <Sub>Petición encontre mi mascota</Sub>
       {formState === "pending" && (
-        <button onClick={() => popUpDeletePetition(formId, from)}>
-          eliminar peticion
-        </button>
+        <ButtonPetition onClick={() => popUpDeletePetition(formId, from)}>
+          Eliminar Peticion
+        </ButtonPetition>
       )}
-      <button onClick={popUp1}>ver mas</button>
-      <h5>fecha: {formDate}</h5>
-      <h5>
-        mascota: {pet.name && capitalize(pet.name)};{" "}
+      <ButtonPetition onClick={popUp1}>ver mas</ButtonPetition>
+      <Sub>Fecha: {formDate}</Sub>
+      <Sub>
+        Mascota: {pet.name && capitalize(pet.name)};{" "}
         {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
-      </h5>
+      </Sub>
       {/*  <Link to={`/petdetail/${petId}`}>
         <button>ver mascota</button>
       </Link> */}
-      <h5>
+      <Sub>
         Estado de la peticion:{" "}
         {formState === "pending"
           ? "en revisión"
@@ -128,9 +129,9 @@ export function PetitionGetLosts({
           : formState === "rejected"
           ? "rechazado"
           : null}
-      </h5>
+      </Sub>
       <img src={pet.image} alt={pet.name} width="80px" height="80px" />
-    </div>
+    </ContainerForm>
   );
 }
 
@@ -334,36 +335,36 @@ export function PetitionGets({
 
   useEffect(() => {
     axios.get(`/pet/${petId}`).then((r) => setPet(r.data));
-    console.log("PetitionGets", pet);
+    /* console.log("PetitionGets", pet); */
   }, []);
 
   const from = "PetitionGets";
 
   return (
-    <div className="containerForm">
+    <ContainerForm>
       {state === "adopted" ? (
-        <h3>Petición para adoptar</h3>
+        <Sub>Petición para adoptar</Sub>
       ) : state === "transit" ? (
-        <h3>Petición para hogar transito</h3>
+        <Sub>Petición para hogar transito</Sub>
       ) : null}
       {formState === "pending" && (
-        <button onClick={() => popUpDeletePetition(formId, from)}>
-          eliminar peticion
-        </button>
+        <ButtonPetition onClick={() => popUpDeletePetition(formId, from)}>
+          Eliminar Peticion
+        </ButtonPetition>
       )}
-      <button
+      <ButtonPetition
         onClick={
           state === "adopted" ? popUp2 : state === "transit" ? popUp3 : null
         }
       >
-        ver mas
-      </button>
-      <h5>fecha: {formDate}</h5>
-      <h5>
-        mascota: {pet.name && capitalize(pet.name)};{" "}
+        Ver mas
+      </ButtonPetition>
+      <Sub>Fecha: {formDate}</Sub>
+      <Sub>
+        Mascota: {pet.name && capitalize(pet.name)};{" "}
         {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
-      </h5>
-      <h5>
+      </Sub>
+      <Sub>
         Estado de la peticion:{" "}
         {formState === "pending"
           ? "en revisión"
@@ -372,9 +373,9 @@ export function PetitionGets({
           : formState === "rejected"
           ? "rechazado"
           : null}
-      </h5>
+      </Sub>
       <img src={pet.image} alt={pet.name} width="80px" height="80px" />
-    </div>
+    </ContainerForm>
   );
 }
 
@@ -518,31 +519,31 @@ export function PetitionLoads({
   };
 
   return (
-    <div className="containerForm">
+    <ContainerForm>
       {state === "adopt" ? (
-        <h3>Petición para cargar mascota y dar en adopcion</h3>
+        <Sub>Petición para cargar mascota y dar en adopcion</Sub>
       ) : state === "lost" ? (
-        <h3>Petición para cargar mascota encontrada</h3>
+        <Sub>Petición para cargar mascota encontrada</Sub>
       ) : null}
       {formState === "pending" && (
-        <button onClick={() => popUpDeletePetition(formId, from)}>
-          eliminar peticion
-        </button>
+        <ButtonPetition onClick={() => popUpDeletePetition(formId, from)}>
+          Eliminar Peticion
+        </ButtonPetition>
       )}
-      <button
+      <ButtonPetition
         onClick={state === "adopt" ? popUp4 : state === "lost" ? popUp5 : null}
       >
-        ver mas
-      </button>
-      <h5>fecha: {formDate}</h5>
-      <h5>
-        mascota: {petName && capitalize(petName)};{" "}
+        Ver mas
+      </ButtonPetition>
+      <Sub>Fecha: {formDate}</Sub>
+      <Sub>
+        Mascota: {petName && capitalize(petName)};{" "}
         {type === "dog" ? "perro" : type === "cat" ? "gato" : null}
-      </h5>
+      </Sub>
       {/* <Link to={`/petdetail/${petId ? petId : "9999999"}`}>
         <button>ver mascota</button>
       </Link> */}
-      <h5>
+      <Sub>
         Estado de la peticion:{" "}
         {formState === "pending"
           ? "en revisión"
@@ -551,10 +552,10 @@ export function PetitionLoads({
           : formState === "rejected"
           ? "rechazado"
           : null}
-      </h5>
-      {/* {petImg.map((p, i) => (
+      </Sub>
+       {petImg.map((p, i) => (
         <img src={p} alt={petName} key={"a" + i} height="60px" />
-      ))} */}
-    </div>
+      ))} 
+    </ContainerForm>
   );
 }

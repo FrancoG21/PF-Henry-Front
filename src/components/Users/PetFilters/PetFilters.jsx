@@ -33,7 +33,7 @@ export default function PetFilters({ petsToFilter, stateValue }) {
   return (
     <AllContainer>
       <Formik
-        initialValues={{ state: stateValue }}
+        initialValues={{ state: stateValue}}
         onSubmit={(values, { resetForm }) => {
           console.log("onSubmit -->", values);
           for (let prop in values) {
@@ -41,7 +41,7 @@ export default function PetFilters({ petsToFilter, stateValue }) {
               delete values[prop];
             }
           }
-
+          
           console.log(values);
           petsToFilter(values);
         }}

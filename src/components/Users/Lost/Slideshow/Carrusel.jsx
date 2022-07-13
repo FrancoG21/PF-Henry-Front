@@ -58,18 +58,18 @@ const Carrusel = () => {
             },
           },
         }}
-        onMounted={() => {
-          console.log("mounted");
-        }}
-        onUpdated={() => {
-          console.log("updated");
-        }}
-        onMoved={() => {
-          console.log("moved");
-        }}
-        onVisible={(splide, slide) => {
-          console.log("visible", slide.index);
-        }}
+        // onMounted={() => {
+        //   console.log("mounted");
+        // }}
+        // onUpdated={() => {
+        //   console.log("updated");
+        // }}
+        // onMoved={() => {
+        //   console.log("moved");
+        // }}
+        // onVisible={(splide, slide) => {
+        //   console.log("visible", slide.index);
+        // }}
       >
         {pets?.map((item) => {
           return (
