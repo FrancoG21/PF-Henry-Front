@@ -352,7 +352,7 @@ export default function PetCreate() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Raza</Label>
+                  <Label>Raza {"("}Si es otra opción, escribila y presiona Create{")"}</Label>
                   <Supliers breeds={breeds} name="breed" />
                   <ErrorMessage
                     name="breed"
@@ -365,7 +365,7 @@ export default function PetCreate() {
                     type="number"
                     id="weight"
                     name="weight"
-                    placeholder="Peso de la mascota"
+                    placeholder="Peso de la mascota en (kg). Ejemplo: 5,3"
                   />
                   <ErrorMessage
                     name="weight"
@@ -424,7 +424,7 @@ export default function PetCreate() {
                 <Camp>
                   <Label>Esta vacunada ?</Label>
                   <Label>
-                    <Field type="radio" name="vaccinate" value="true" /> Yes
+                    <Field type="radio" name="vaccinate" value="true" /> Si
                     <Field type="radio" name="vaccinate" value="false" /> No
                     <Field type="radio" name="vaccinate" value="unknown" />
                     Desconozco
@@ -548,8 +548,8 @@ export default function PetCreate() {
                 )}
               </ContainerCamp>
               <ContainerButton>
-                <ButtonSubmit type="submit">submit</ButtonSubmit>
-                {flag && <p>Succesfully created</p>}
+                <ButtonSubmit type="submit">Enviar</ButtonSubmit>
+                {flag && <p>Envio exitoso</p>}
               </ContainerButton>
             </Forms>
           </FormContainer>

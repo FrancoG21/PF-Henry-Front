@@ -594,8 +594,8 @@ export default function UserAdoptPetForm() {
                   </Camp>
                 </ContainerCamp>
                 <ContainerButton>
-                  <ButtonSubmit type="submit">Submit</ButtonSubmit>
-                  {flag && <Succes>Succesfully Created</Succes>}
+                  <ButtonSubmit type="submit">Enviar</ButtonSubmit>
+                  {flag && <Succes>Envio exitoso</Succes>}
                 </ContainerButton>
               </Forms>
             </FormContainer>

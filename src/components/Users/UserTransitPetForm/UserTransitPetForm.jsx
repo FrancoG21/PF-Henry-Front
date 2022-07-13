@@ -625,8 +625,8 @@ export default function UserTransitPetForm() {
                   </Camp>
                 </ContainerCamp>
                 <ContainerButton>
-                  <ButtonSubmit type="submit">Submit</ButtonSubmit>
-                  {flag && <Succes>Succesfully created</Succes>}
+                  <ButtonSubmit type="submit">Enviar</ButtonSubmit>
+                  {flag && <Succes>Envio exitoso</Succes>}
                 </ContainerButton>
               </Forms>
             </FormContainer>
