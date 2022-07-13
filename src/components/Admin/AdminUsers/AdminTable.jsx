@@ -37,7 +37,7 @@ const [ignore, forceUpdate] = useReducer(x=>x+1,0)
  },[ignore])
 
  function addAdmin(id){
-  axios.put('/admin/addAdmin',{token, id}).then(res=>{
+  axios.put('/admin/addRemove',{token, id}).then(res=>{
  
     Swal.fire
     ({
@@ -67,20 +67,18 @@ const [ignore, forceUpdate] = useReducer(x=>x+1,0)
             <TableHead>
               <TableRow>
                 <TableCell className="tableCell">Id</TableCell>
-                <TableCell className="tableCell" >User</TableCell>
+                <TableCell className="tableCell" >Usuario</TableCell>
                 <TableCell className="tableCell">Apellido</TableCell>
                 <TableCell className="tableCell">Pet</TableCell>
-                <TableCell className="tableCell">Rating</TableCell>
+                <TableCell className="tableCell">Puntuación</TableCell>
                 <TableCell className="tableCell">Email</TableCell>
                 <TableCell className="tableCell">Peticoines</TableCell>
-                <TableCell className="tableCell">Admin</TableCell>
+                <TableCell className="tableCell">Dar admin</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {user && user.map((e) => (
-                
                 <TableRow key={e.id}>
-                  {console.log(e)}
                   <TableCell className="tableCell">{e.id}</TableCell>
                   <TableCell className="tableCell">
                     <div className="cellWarpper">
@@ -89,17 +87,15 @@ const [ignore, forceUpdate] = useReducer(x=>x+1,0)
                     </div>
                   </TableCell>
                   <TableCell className="tableCell">{e.lastname}</TableCell>
-                  <TableCell className="tableCell">{e.Pets.map((pet)=>pet.name)}</TableCell>
+                  <TableCell className="tableCell">{e.Pets.map((pet)=>{return `  ${pet.name}`})}</TableCell>
                   <TableCell className="tableCell"><BasicRating rating={e.rating} id={e.id} /></TableCell>
                   <TableCell className="tableCell">{e.email}</TableCell>
-                  <TableCell className="tableCell">{e.PetitionGets.id}
-                    <Button size="small" variant="outlined">
-                    <Link  to={'/admin/petitionuser/' + e.id}> Ver </Link> 
-                    </Button>
-                    </TableCell>
-                    <TableCell className="tableCell">
-                    <Button size="small" variant="outlined" color="secondary" onClick={()=>{addAdmin(e.id)}}> Admin </Button>
-                    </TableCell>
+                  <TableCell className="tableCell">
+                  <Button  size="small" variant="outlined" onClick={()=>{navigate('/admin/petitionuser/' + e.id)}}>{`Ver ${e.PetitionGets.length + e.PetitionGetLosts.length + e.PetitionLoads.length}`}</Button> 
+                  </TableCell>
+                  <TableCell className="tableCell">
+                  <Button size="small" variant="outlined" color="secondary" onClick={()=>{addAdmin(e.id)}}> {e.rol} </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
