@@ -56,6 +56,7 @@ export const Name = styled.p`
 export const Email = styled(Link)`
     font-size: 14px;
     color: ${(props) => props.theme.secondary};
+    margin-left: -4px;
 
     &:hover{
         font-size: 16px;

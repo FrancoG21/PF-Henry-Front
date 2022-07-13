@@ -23,7 +23,7 @@ const Cardpetition = ({info}) => {
     <div>
         <div>
          {detalles().map(e=><p>{e}</p>)}
-            {console.log(info)}
+         
         </div>
         <button onClick={acepted}>aceptar</button> <button>denegar</button>
     </div>

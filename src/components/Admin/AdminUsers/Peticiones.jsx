@@ -9,7 +9,7 @@ const Peticiones = () => {
   const [user, setUser]=useState(null)
 
   useEffect(() => {
-    console.log(id)
+    
    axios.get(`/petitionGet/${id}`).then((r)=>{setUser(r.data)});
   }, [])
   
