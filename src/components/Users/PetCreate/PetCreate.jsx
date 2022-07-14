@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { petitionLoad } from "../../../redux/actions/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Supliers from "./Supliers";
@@ -78,8 +78,8 @@ const DatePickerField = ({ ...props }) => {
 
 export default function PetCreate() {
   const todayDate = new Date().toISOString(); /* .slice(0, 10) */
-  //minuto 42:40 video usa form, field, etc
-  // 47:28 con que otros tags se puede trabajar ??
+
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
@@ -172,7 +172,7 @@ export default function PetCreate() {
               )
             )
               errors.image = "Image must be a valid URL"; */
-            if (!values.state) errors.complete = 'no hay nada completado'
+            if (!values.state) errors.complete = 'Debes elegir que quieres hacer'
             if (values.state) delete errors.complete
 
             if (values.weight < 0) errors.weight = "Must be number > 0";
@@ -290,10 +290,13 @@ export default function PetCreate() {
             console.log(values);
             dispatch(petitionLoad(values));
             resetForm();
-            setJson({ images: [] });
-            setFlag(true);
-            // console.log("formulario enviado");
-            setTimeout(() => setFlag(false), 3000);
+            setJson({ images: [] });    
+
+            Swal.fire(
+              "Felicidades",
+              "Tu petición ha sido recibida con exito",
+              "success"
+            ).then(() => navigate("/userprofile"));
           }}
         >
           {(props) => (
@@ -372,7 +375,7 @@ export default function PetCreate() {
                       type="number"
                       id="weight"
                       name="weight"
-                      placeholder="Peso de la mascota"
+                      placeholder="Peso de la mascota en (kg)"
                     />
                     <ErrorMessage
                       name="weight"
@@ -555,9 +558,21 @@ export default function PetCreate() {
                   )}
                 </ContainerCamp>
                 <ContainerButton>
-                  <ButtonSubmit type="submit">Submit</ButtonSubmit>
-                  {flag && <p>Succesfully created</p>}
+                  <ButtonSubmit type="submit">Enviar</ButtonSubmit>                  
                 </ContainerButton>
+                {Object.values(props.errors).toString().length > 0 && (
+                  <h3>
+                    Debes corregir lo siguiente si quieres enviar la petición:
+                  </h3>
+                )}
+                {
+                  <div>
+                    {props.errors &&
+                      Object.values(props.errors)
+                        .toString()
+                        .replace(/,/g, " - ")}
+                  </div>
+                }
               </Forms>
             </FormContainer>
           )}
