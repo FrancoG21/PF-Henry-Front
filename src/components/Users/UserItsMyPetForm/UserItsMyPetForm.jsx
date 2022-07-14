@@ -3,7 +3,7 @@ import { Formik, Field, ErrorMessage } from "formik";
 import { getById, petitionGetLost } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 //import Supliers from "./Supliers";
 import Swal from "sweetalert2";
@@ -28,7 +28,7 @@ import moment from "moment";
 import ImageUploader from "../PetCreate/imagenes/ImagesUploader";
 
 export default function UserItsMyPetForm() {
-  const [flag, setFlag] = useState(false);
+  
   const pet = useSelector((state) => state.petDetail);
   const { id } = useParams();
 
@@ -37,6 +37,7 @@ export default function UserItsMyPetForm() {
   const [user, setUser] = useState(null);
 
   const dispatch = useDispatch();
+  const navigate= useNavigate();
   // Pagina de ejemplo --> https://www.vidanimal.org.ar/como-ayudar/ofrece-hogar-de-transito/
 
   const options1 = [
@@ -185,12 +186,16 @@ export default function UserItsMyPetForm() {
               }
             }
 
-            setFlag(true);
+            
             console.log("formulario enviado");
             dispatch(petitionGetLost(values));
             resetForm();
             setJson({ images: [] });
-            setTimeout(() => setFlag(false), 3000);
+            Swal.fire(
+              "Felicidades",
+              "Tu petición ha sido recibida con exito",
+              "success"
+            ).then(() => navigate("/userprofile"));
           }}
         >
           {(props) => (
@@ -328,9 +333,21 @@ export default function UserItsMyPetForm() {
                 </Camp> */}
                 </ContainerCamp>
                 <ContainerButton>
-                  <ButtonSubmit type="submit">Enviar</ButtonSubmit>
-                  {flag && <Succes>Envio exitoso</Succes>}
+                  <ButtonSubmit type="submit">Enviar</ButtonSubmit>                  
                 </ContainerButton>
+                {Object.values(props.errors).toString().length > 0 && (
+                  <h3>
+                    Debes corregir lo siguiente si quieres enviar la petición:
+                  </h3>
+                )}
+                {
+                  <div>
+                    {props.errors &&
+                      Object.values(props.errors)
+                        .toString()
+                        .replace(/,/g, " - ")}
+                  </div>
+                }
               </Forms>
             </FormContainer>
           )}
@@ -343,8 +360,8 @@ export default function UserItsMyPetForm() {
 const newLabel = (name) => {
   if (name === "tel") return "Telefono es requerido";
   if (name === "image") return "Al menos una imagen es requerida";
-  if (name === "getReason") return "Debe completar este campo";
-  if (name === "lostZone") return "Debe completar este campo";
-  if (name === "originalName") return "Debe completar este campo";
-  if (name === "userMovility") return "Debe completar este campo";
+  if (name === "getReason") return "Debe completar porque cree que es su mascota";
+  if (name === "lostZone") return "Debe completar en que zona cree que se le pudo haber perdido";
+  if (name === "originalName") return "Debe completar a que nombre responde la mascota ";
+  if (name === "userMovility") return "Debe completar si tiene movilidad para buscar la mascota";
 };

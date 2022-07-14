@@ -59,9 +59,14 @@ export default function Seguimiento() {
           if (!values.description) {
             errors.description = "Debe agregar una descripción.";
           }
-          if (!values.image) {
-            errors.image = "Debe agregar una imagen, maximo tres.";
+
+          if (values.description.length > 35) {
+            errors.description = "Descripción no debe ser de más de 35 caracteres.";
           }
+
+          if (!values.image) {
+            errors.image = "Debe agregar una imagen maximo tres.";
+          }          
 
           if (json.images.length > 0) {
             values.image = json.images;
@@ -138,11 +143,11 @@ export default function Seguimiento() {
                 <Camp>
                   <Label>
                     Descripción {"("}Caracteres restantes:{" "}
-                    {100 - props.values.description.length}
+                    {35 - props.values.description.length}
                     {")"}{" "}
                   </Label>
                   <Field
-                    as="input"
+                    as="textarea"
                     id={"description"}
                     name="description"
                     rows="8"
@@ -157,6 +162,19 @@ export default function Seguimiento() {
               <ContainerButton>
                 <ButtonSubmit type="submit">Cargar</ButtonSubmit>
               </ContainerButton>
+              {Object.values(props.errors).toString().length > 0 && (
+                  <h3>
+                    Debes corregir lo siguiente si quieres enviar el seguimiento:
+                  </h3>
+                )}
+                {
+                  <div>
+                    {props.errors &&
+                      Object.values(props.errors)
+                        .toString()
+                        .replace(/,/g, " - ")}
+                  </div>
+                }
             </Forms>
           </FormContainer>
         )}
