@@ -18,15 +18,12 @@ export default function SideBar() {
 
             <List>
                 <Title>MENU</Title>
-            <LiList>
-                <IconMenu />
-                <LinkList to='/admin'>
-                    <Text>Dashboard</Text>
-                </LinkList>
-            </LiList>
-
-            <br/>
-                <Title>LISTADO</Title>
+                <LiList>
+                    <IconMenu />
+                    <LinkList to='/admin'>
+                        <Text>Dashboard</Text>
+                    </LinkList>
+                </LiList>
                 <LiList>
                     <Icon />
                     <LinkList to='/admin/users'>

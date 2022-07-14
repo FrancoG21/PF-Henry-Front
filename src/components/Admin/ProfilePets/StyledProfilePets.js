@@ -50,6 +50,7 @@ export const Form = styled.form`
 `
 
 export const ContInput = styled.div`
+    color: ${(props) => props.theme.secondary};
     width: 40%;
 `
 
@@ -62,6 +63,7 @@ export const Input = styled.input`
 `
 
 export const Label = styled.label`
+    color: ${(props) => props.theme.secondary};
     display: flex;
     align-items: center;
     gap: 10px;
@@ -82,5 +84,26 @@ export const FolderIcon = styled(AddPhotoAlternateOutlinedIcon)`
 `
 
 export const InputRadio = styled.input`
+    color: ${(props) => props.theme.secondary};
     margin: 0;
+`
+
+export const TitleProfilePets = styled.h1`
+    font-size: 1.5rem;
+    color: ${(props) => props.theme.secondary};
+`
+
+export const SubtitleProfilePets = styled.h1`
+    font-size: 1.1rem;
+    color: ${(props) => props.theme.secondary};
+`
+
+export const TextEditPets = styled.h1`
+    font-size: 1rem;
+    color: ${(props) => props.theme.secondary};
+`
+
+export const SpanEdit = styled.p`
+    color: ${(props) => props.theme.secondary};
+    font-size: .5rem;
 `
