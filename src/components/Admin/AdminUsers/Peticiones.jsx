@@ -42,9 +42,10 @@ const Peticiones = () => {
       setLoadPetLost(() => lost)
     }
     if (resData.PetitionGets) {
-      for (let petition of resData.PetitionGets) {
-        let transito =[]
+       let transito =[]
         let getAdopt = []
+      for (let petition of resData.PetitionGets) {
+       
         if (petition.state === "transit") {
           transito.push(petition)
         }

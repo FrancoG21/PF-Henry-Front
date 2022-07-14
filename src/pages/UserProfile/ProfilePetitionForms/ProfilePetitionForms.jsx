@@ -10,7 +10,7 @@ function capitalize(str) {
   // return str;
 }
 
-const popUpDeletePetition = (formId, from) => {
+const popUpDeletePetition = (formId, from, refresh) => {
   Swal.fire({
     title: "Esta seguro?",
     text: "No podra revertir los cambios!",
@@ -26,19 +26,21 @@ const popUpDeletePetition = (formId, from) => {
         "Eliminado",
         "Tu peticion ha sido eliminada correctamente",
         "success"
-      );
-      if (from === "PetitionGetLosts") {
-        axios.delete(`/petitionGet/deleteLost/${formId}`);
-        location.reload();
-      }
-      if (from === "PetitionGets") {
-        axios.delete(`/petitionGet/delete/${formId}`);
-        location.reload();
-      }
-      if (from === "PetitionLoads") {
-        axios.delete(`/petitionLoad/${formId}`);
-        location.reload();
-      }
+      )
+      .then(()=>{
+        if (from === "PetitionGetLosts") {
+          axios.delete(`/petitionGet/deleteLost/${formId}`);
+          refresh()
+        }
+        if (from === "PetitionGets") {
+          axios.delete(`/petitionGet/delete/${formId}`);
+          refresh()
+        }
+        if (from === "PetitionLoads") {
+          axios.delete(`/petitionLoad/${formId}`);
+          refresh()
+        }
+      })
     }
   });
 };
@@ -54,6 +56,7 @@ export function PetitionGetLosts({
   lostZone,
   image,
   getReason,
+  refresh
 }) {
   const [pet, setPet] = useState({});
 
@@ -77,7 +80,7 @@ export function PetitionGetLosts({
         <img src=${pet.image} alt=${pet.name} height='200px' width='200px' />
         <p>
         ${pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "Gato" : null} 
-        ${pet.breed === "crossbreed" ? "Caschi" : capitalize(pet.breed)}, 
+        ${capitalize(pet.breed)}, 
         ${
           pet.gender === "male"
             ? "macho"
@@ -107,7 +110,7 @@ export function PetitionGetLosts({
     <ContainerForm>
       <Sub>Petición encontre mi mascota</Sub>
       {formState === "pending" && (
-        <ButtonPetition onClick={() => popUpDeletePetition(formId, from)}>
+        <ButtonPetition onClick={() => popUpDeletePetition(formId, from, refresh)}>
           Eliminar Peticion
         </ButtonPetition>
       )}
@@ -162,6 +165,7 @@ export function PetitionGets({
   userAgreement,
   userMovility,
   userMovingIdea,
+  refresh
 }) {
   const [pet, setPet] = useState({});
 
@@ -174,7 +178,7 @@ export function PetitionGets({
         <img src=${pet.image} alt=${pet.name} height='200px' width='200px' />
         <p>
         ${pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "Gato" : null} 
-        ${pet.breed === "crossbreed" ? "Caschi" : capitalize(pet.breed)}, 
+        ${capitalize(pet.breed)}, 
         ${
           pet.gender === "male"
             ? "macho"
@@ -253,7 +257,7 @@ export function PetitionGets({
         <img src=${pet.image} alt=${pet.name} height='200px' width='200px' />
         <p>
         ${pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "Gato" : null} 
-        ${pet.breed === "crossbreed" ? "Caschi" : capitalize(pet.breed)}, 
+        ${capitalize(pet.breed)}, 
         ${
           pet.gender === "male"
             ? "macho"
@@ -348,7 +352,7 @@ export function PetitionGets({
         <Sub>Petición para hogar transito</Sub>
       ) : null}
       {formState === "pending" && (
-        <ButtonPetition onClick={() => popUpDeletePetition(formId, from)}>
+        <ButtonPetition onClick={() => popUpDeletePetition(formId, from, refresh)}>
           Eliminar Peticion
         </ButtonPetition>
       )}
@@ -399,6 +403,7 @@ export function PetitionLoads({
   vaccinate,
   weight,
   image,
+  refresh
 }) {
   const from = "PetitionLoads";
 
@@ -414,7 +419,7 @@ export function PetitionLoads({
         <img src=${image[0]} alt=${petName} height='200px' width='200px' />
         <p>
         ${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null} 
-        ${breed === "crossbreed" ? "Caschi" : capitalize(breed)}, 
+        ${capitalize(breed)}, 
         ${
           gender === "male"
             ? "macho"
@@ -470,7 +475,7 @@ export function PetitionLoads({
         <img src=${image[0]} alt=${petName} height='200px' width='200px' />
         <p>
         ${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null} 
-        ${breed === "crossbreed" ? "Caschi" : capitalize(breed)}, 
+        ${capitalize(breed)}, 
         ${
           gender === "male"
             ? "macho"
@@ -526,7 +531,7 @@ export function PetitionLoads({
         <Sub>Petición para cargar mascota encontrada</Sub>
       ) : null}
       {formState === "pending" && (
-        <ButtonPetition onClick={() => popUpDeletePetition(formId, from)}>
+        <ButtonPetition onClick={() => popUpDeletePetition(formId, from, refresh)}>
           Eliminar Peticion
         </ButtonPetition>
       )}

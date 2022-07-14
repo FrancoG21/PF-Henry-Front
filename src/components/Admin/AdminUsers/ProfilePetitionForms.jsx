@@ -83,7 +83,7 @@ export function PetitionGetLosts({
         <img src=${pet.image} alt=${pet.name} height='200px' width='200px' />
         <p>
         ${pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "Gato" : null} 
-        ${pet.breed === "crossbreed" ? "Caschi" : capitalize(pet.breed)}, 
+        ${capitalize(pet.breed)}, 
         ${
           pet.gender === "male"
             ? "macho"
@@ -226,7 +226,7 @@ export function PetitionGets({
         <img src=${pet.image} alt=${pet.name} height='200px' width='200px' />
         <p>
         ${pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "Gato" : null} 
-        ${pet.breed === "crossbreed" ? "Caschi" : capitalize(pet.breed)}, 
+        ${capitalize(pet.breed)}, 
         ${
           pet.gender === "male"
             ? "macho"
@@ -305,7 +305,7 @@ export function PetitionGets({
         <img src=${pet.image} alt=${pet.name} height='200px' width='200px' />
         <p>
         ${pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "Gato" : null} 
-        ${pet.breed === "crossbreed" ? "Caschi" : capitalize(pet.breed)}, 
+        ${capitalize(pet.breed)}, 
         ${
           pet.gender === "male"
             ? "macho"
@@ -514,7 +514,7 @@ export function PetitionLoads({
         <img src=${image[0]} alt=${petName} height='200px' width='200px' />
         <p>
         ${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null} 
-        ${breed === "crossbreed" ? "Caschi" : capitalize(breed)}, 
+        ${capitalize(breed)}, 
         ${
           gender === "male"
             ? "macho"
@@ -573,7 +573,7 @@ export function PetitionLoads({
         <img src=${image[0]} alt=${petName} height='200px' width='200px' />
         <p>
         ${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null} 
-        ${breed === "crossbreed" ? "Caschi" : capitalize(breed)}, 
+        ${capitalize(breed)}, 
         ${
           gender === "male"
             ? "macho"

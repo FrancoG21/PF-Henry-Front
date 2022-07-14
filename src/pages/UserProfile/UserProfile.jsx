@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import ProfilePetCard from "./PetCard/ProfilePetCard";
 import Swal from "sweetalert2";
 import {
@@ -62,56 +62,81 @@ export default function UserProfile() {
 
   const [user, setUser] = useState(null);
 
-
   const callbackIn2 = async () => {
     const res = await axios.get(`/petitionGet/${user ? user.id : null}`);
     const resData = res.data;
     console.log("resData", resData);
 
     if (resData.Donations) {
+      let normal = []
+      let suscripcion =[]
       for (let don of resData.Donations) {
-        if (don.type === 'regular_payment') {
-          setDonationsUnique((prevState) => [...prevState, don]);
+        if (don.type === "regular_payment") {
+          normal.push(don)
+          /* setDonationsUnique((prevState) => [...prevState, don]); */
         }
         if (don.type === "suscripcion ") {
-          setDonationsSuscription((prevState) => [...prevState, don]);
+          suscripcion.push(don)
+          /* setDonationsSuscription((prevState) => [...prevState, don]); */
         }
       }
+      setDonationsUnique(() => normal)
+      setDonationsUnique(() => suscripcion)
     }
     if (resData.Pets) {
+      let adoptados = []
+      let transitados =[]
       for (let pet of resData.Pets) {
         if (pet.state === "adopted") {
-          setPetsAdopted((prevState) => [...prevState, pet]);
+          adoptados.push(pet)
+          /* setPetsAdopted((prevState) => [...prevState, pet]); */
         }
         if (pet.state === "transit") {
-          setPetsTransit((prevState) => [...prevState, pet]);
+          transitados.push(pet)
+          /* setPetsTransit((prevState) => [...prevState, pet]); */
         }
       }
+      setPetsAdopted(() => adoptados)
+      setPetsTransit(() => transitados)
     }
+
     if (resData.PetitionGetLosts) {
       setGetItsMyPet(resData.PetitionGetLosts);
     }
+
     if (resData.PetitionLoads) {
+      let adopt = []
+      let lost =[]
       for (let petition of resData.PetitionLoads) {
         if (petition.state === "adopt") {
-          setLoadPetAdopt((prevState) => [...prevState, petition]);
+          adopt.push(petition)
+          /* setLoadPetAdopt((prevState) => [...prevState, petition]); */
         }
         if (petition.state === "lost") {
-          setLoadPetLost((prevState) => [...prevState, petition]);
-        }
+          lost.push(petition)
+          /* setLoadPetLost((prevState) => [...prevState, petition]); */
+        }        
       }
-    }
-    if (resData.PetitionGets) {
-      for (let petition of resData.PetitionGets) {
-        if (petition.state === "transit") {
-          setGetTransit((prevState) => [...prevState, petition]);
-        }
-        if (petition.state === "adopted") {
-          setGetAdopt((prevState) => [...prevState, petition]);
-        }
-      }
+      setLoadPetAdopt(() => adopt)
+      setLoadPetLost(() => lost)
     }
 
+    if (resData.PetitionGets) {
+      let transito =[]
+      let getAdopt = []
+      for (let petition of resData.PetitionGets) {
+        if (petition.state === "transit") {
+          transito.push(petition)
+          /* setGetTransit((prevState) => [...prevState, petition]); */
+        }
+        if (petition.state === "adopted") {
+          getAdopt.push(petition)
+          /* setGetAdopt((prevState) => [...prevState, petition]); */
+        }
+      }
+      setGetTransit(() =>  transito);
+      setGetAdopt(() => getAdopt);
+    }
   };
 
   const callbackIn = async () => {
@@ -179,8 +204,8 @@ export default function UserProfile() {
               "Excelente",
               "Tu contraseña ha sido cambiada correctamente",
               "success"
-            ),
-            setTimeout(() => location.reload(), 1000)
+            )
+            .then(()=>refresh())            
           )
           .catch((e) => {
             console.log(e);
@@ -194,12 +219,18 @@ export default function UserProfile() {
     });
   };
 
-  useEffect(() => {
-    callbackIn();
+  const [ignore, forceUpdate] = useReducer(x=>x+1,0)
+  function refresh() {
+    forceUpdate()    
+   } 
 
-    /* return () => {
-      callbackOut();
-    }; */
+
+   useEffect(()=>{
+    callbackIn();
+   },[ignore])
+
+  useEffect(() => {
+    callbackIn(); 
   }, []);
 
   useEffect(() => {
@@ -236,25 +267,37 @@ export default function UserProfile() {
           </ContainerImage>
           <ContainerText>
             <DivSpan>
-              <Name><Span>Nombre y Apellido :</Span>{user ? user.name + " " + user.lastname : null}</Name>
+              <Name>
+                <Span>Nombre y Apellido :</Span>
+                {user ? user.name + " " + user.lastname : null}
+              </Name>
             </DivSpan>
-            <Email><Span>Email: </Span>{user ? user.email : null}</Email>
-            <ButtonPassword onClick={popUpChangePassword}>Cambiar Contraseña</ButtonPassword>
+            <Email>
+              <Span>Email: </Span>
+              {user ? user.email : null}
+            </Email>
+            <ButtonPassword onClick={popUpChangePassword}>
+              Cambiar Contraseña
+            </ButtonPassword>
             {user
               ? user.message === "password or mail incorrect" && (
-                <Name>Password or mail incorrect</Name>
-              )
+                  <Name>Password or mail incorrect</Name>
+                )
               : null}
           </ContainerText>
           <DivAdmin>
             <Admin>
-              {user
-                ? user.rol === "user"
-                  ? <div>Usuaio <IconUser /></div>
-                  : user.rol === "admin"
-                    ? <div>Administrador <IconAdmin /></div>
-                    : null
-                : null}
+              {user ? (
+                user.rol === "user" ? (
+                  <div>
+                    Usuaio <IconUser />
+                  </div>
+                ) : user.rol === "admin" ? (
+                  <div>
+                    Administrador <IconAdmin />
+                  </div>
+                ) : null
+              ) : null}
             </Admin>
           </DivAdmin>
         </ContainerInfo>
@@ -331,16 +374,21 @@ export default function UserProfile() {
             <option value="default" hidden>
               Filtrar donaciones
             </option>
-            <option value="all">Todas {"("}
-              {donationsSuscription.length +
-                donationsUnique.length}
-              {")"}</option>
-            <option value="suscription">Suscripcion {"("}
+            <option value="all">
+              Todas {"("}
+              {donationsSuscription.length + donationsUnique.length}
+              {")"}
+            </option>
+            <option value="suscription">
+              Suscripcion {"("}
               {donationsSuscription.length}
-              {")"}</option>
-            <option value="unique">Unica {"("}
+              {")"}
+            </option>
+            <option value="unique">
+              Unica {"("}
               {donationsUnique.length}
-              {")"}</option>
+              {")"}
+            </option>
           </Select>
         </ContainerSelect>
         <ContainerDiv>
@@ -390,6 +438,7 @@ export default function UserProfile() {
                           weight={p.weight}
                           gender={p.gender}
                           fur={p.fur}
+                          refresh={refresh}
                         />
                       ))}
                       {petsTransit.map((p, i) => (
@@ -408,6 +457,7 @@ export default function UserProfile() {
                           weight={p.weight}
                           gender={p.gender}
                           fur={p.fur}
+                          refresh={refresh}
                         />
                       ))}
                     </DivCardCarrusel>
@@ -429,6 +479,7 @@ export default function UserProfile() {
                           weight={p.weight}
                           gender={p.gender}
                           fur={p.fur}
+                          refresh={refresh}
                         />
                       ))}
                     </DivCardCarrusel>
@@ -451,6 +502,7 @@ export default function UserProfile() {
                             weight={p.weight}
                             gender={p.gender}
                             fur={p.fur}
+                            refresh={refresh}
                           />
                         ))}
                       </DivCardCarrusel>
@@ -494,145 +546,154 @@ export default function UserProfile() {
                   getAdopt.length +
                   getTransit.length +
                   getItsMyPet.length >
-                  0 ? (
+                0 ? (
                   flagPetitions === "all" ? (
                     <DivCardPetition>
                       {loadPetAdopt.length > 0
                         ? loadPetAdopt.map((p, i) => (
-                          <PetitionLoads
-                            formDate={p.formDate}
-                            petId={p.petId}
-                            state={p.state}
-                            petName={p.name}
-                            type={p.pet}
-                            formState={p.formState}
-                            petImg={p.image}
-                            formId={p.id}
-                            key={"e" + i}
-                            actualPlace={p.actualPlace}
-                            breed={p.breed}
-                            castration={p.castration}
-                            foundDate={p.foundDate}
-                            foundPlace={p.foundPlace}
-                            fur={p.fur}
-                            gender={p.gender}
-                            pet={p.pet}
-                            size={p.size}
-                            vaccinate={p.vaccinate}
-                            weight={p.weight}
-                            image={p.image}
-                          />
-                        ))
+                            <PetitionLoads
+                              formDate={p.formDate}
+                              petId={p.petId}
+                              state={p.state}
+                              petName={p.name}
+                              type={p.pet}
+                              formState={p.formState}
+                              petImg={p.image}
+                              formId={p.id}
+                              key={"e" + i}
+                              actualPlace={p.actualPlace}
+                              breed={p.breed}
+                              castration={p.castration}
+                              foundDate={p.foundDate}
+                              foundPlace={p.foundPlace}
+                              fur={p.fur}
+                              gender={p.gender}
+                              pet={p.pet}
+                              size={p.size}
+                              vaccinate={p.vaccinate}
+                              weight={p.weight}
+                              image={p.image}
+                              refresh={refresh}
+                            />
+                          ))
                         : null}
                       {loadPetLost.length > 0
                         ? loadPetLost.map((p, i) => (
-                          <PetitionLoads
-                            formDate={p.formDate}
-                            petId={p.petId}
-                            state={p.state}
-                            petName={p.name}
-                            type={p.pet}
-                            formState={p.formState}
-                            petImg={p.image}
-                            formId={p.id}
-                            key={"f" + i}
-                            actualPlace={p.actualPlace}
-                            breed={p.breed}
-                            castration={p.castration}
-                            foundDate={p.foundDate}
-                            foundPlace={p.foundPlace}
-                            fur={p.fur}
-                            gender={p.gender}
-                            pet={p.pet}
-                            size={p.size}
-                            vaccinate={p.vaccinate}
-                            weight={p.weight}
-                            image={p.image}
-                          />
-                        ))
+                            <PetitionLoads
+                              formDate={p.formDate}
+                              petId={p.petId}
+                              state={p.state}
+                              petName={p.name}
+                              type={p.pet}
+                              formState={p.formState}
+                              petImg={p.image}
+                              formId={p.id}
+                              key={"f" + i}
+                              actualPlace={p.actualPlace}
+                              breed={p.breed}
+                              castration={p.castration}
+                              foundDate={p.foundDate}
+                              foundPlace={p.foundPlace}
+                              fur={p.fur}
+                              gender={p.gender}
+                              pet={p.pet}
+                              size={p.size}
+                              vaccinate={p.vaccinate}
+                              weight={p.weight}
+                              image={p.image}
+                              refresh={refresh}
+                            />
+                          ))
                         : null}
                       {getAdopt.length > 0
                         ? getAdopt.map((p, i) => (
-                          <PetitionGets
-                            formDate={p.formDate}
-                            petId={p.petId}
-                            state={p.state}
-                            formState={p.formState}
-                            formId={p.id}
-                            key={"g" + i}
-                            actualPlace={p.actualPlace}
-                            adaptationTime={p.adaptationTime}
-                            adoptedPetAloneMoments={p.adoptedPetAloneMoments}
-                            adoptedPetPlace={p.adoptedPetPlace}
-                            adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
-                            adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
-                            familyRelation={p.familyRelation}
-                            familySize={p.familySize}
-                            getPetReason={p.getPetReason}
-                            openSpace={p.openSpace}
-                            otherPets={p.otherPets}
-                            otherPetsCastration={p.otherPetsCastration}
-                            otherPetsInfo={p.otherPetsInfo}
-                            otherPetsVacunation={p.otherPetsVacunation}
-                            rental={p.rental}
-                            tel={p.tel}
-                            transitPetPeriod={p.transitPetPeriod}
-                            userAge={p.userAge}
-                            userAgreement={p.userAgreement}
-                            userMovility={p.userMovility}
-                            userMovingIdea={p.userMovingIdea}
-                          />
-                        ))
+                            <PetitionGets
+                              formDate={p.formDate}
+                              petId={p.petId}
+                              state={p.state}
+                              formState={p.formState}
+                              formId={p.id}
+                              key={"g" + i}
+                              actualPlace={p.actualPlace}
+                              adaptationTime={p.adaptationTime}
+                              adoptedPetAloneMoments={p.adoptedPetAloneMoments}
+                              adoptedPetPlace={p.adoptedPetPlace}
+                              adoptedPetSleepingSpace={
+                                p.adoptedPetSleepingSpace
+                              }
+                              adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
+                              familyRelation={p.familyRelation}
+                              familySize={p.familySize}
+                              getPetReason={p.getPetReason}
+                              openSpace={p.openSpace}
+                              otherPets={p.otherPets}
+                              otherPetsCastration={p.otherPetsCastration}
+                              otherPetsInfo={p.otherPetsInfo}
+                              otherPetsVacunation={p.otherPetsVacunation}
+                              rental={p.rental}
+                              tel={p.tel}
+                              transitPetPeriod={p.transitPetPeriod}
+                              userAge={p.userAge}
+                              userAgreement={p.userAgreement}
+                              userMovility={p.userMovility}
+                              userMovingIdea={p.userMovingIdea}
+                              refresh={refresh}
+                            />
+                          ))
                         : null}
                       {getTransit.length > 0
                         ? getTransit.map((p, i) => (
-                          <PetitionGets
-                            formDate={p.formDate}
-                            petId={p.petId}
-                            state={p.state}
-                            formState={p.formState}
-                            formId={p.id}
-                            key={"h" + i}
-                            actualPlace={p.actualPlace}
-                            adaptationTime={p.adaptationTime}
-                            adoptedPetAloneMoments={p.adoptedPetAloneMoments}
-                            adoptedPetPlace={p.adoptedPetPlace}
-                            adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
-                            adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
-                            familyRelation={p.familyRelation}
-                            familySize={p.familySize}
-                            getPetReason={p.getPetReason}
-                            openSpace={p.openSpace}
-                            otherPets={p.otherPets}
-                            otherPetsCastration={p.otherPetsCastration}
-                            otherPetsInfo={p.otherPetsInfo}
-                            otherPetsVacunation={p.otherPetsVacunation}
-                            rental={p.rental}
-                            tel={p.tel}
-                            transitPetPeriod={p.transitPetPeriod}
-                            userAge={p.userAge}
-                            userAgreement={p.userAgreement}
-                            userMovility={p.userMovility}
-                            userMovingIdea={p.userMovingIdea}
-                          />
-                        ))
+                            <PetitionGets
+                              formDate={p.formDate}
+                              petId={p.petId}
+                              state={p.state}
+                              formState={p.formState}
+                              formId={p.id}
+                              key={"h" + i}
+                              actualPlace={p.actualPlace}
+                              adaptationTime={p.adaptationTime}
+                              adoptedPetAloneMoments={p.adoptedPetAloneMoments}
+                              adoptedPetPlace={p.adoptedPetPlace}
+                              adoptedPetSleepingSpace={
+                                p.adoptedPetSleepingSpace
+                              }
+                              adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
+                              familyRelation={p.familyRelation}
+                              familySize={p.familySize}
+                              getPetReason={p.getPetReason}
+                              openSpace={p.openSpace}
+                              otherPets={p.otherPets}
+                              otherPetsCastration={p.otherPetsCastration}
+                              otherPetsInfo={p.otherPetsInfo}
+                              otherPetsVacunation={p.otherPetsVacunation}
+                              rental={p.rental}
+                              tel={p.tel}
+                              transitPetPeriod={p.transitPetPeriod}
+                              userAge={p.userAge}
+                              userAgreement={p.userAgreement}
+                              userMovility={p.userMovility}
+                              userMovingIdea={p.userMovingIdea}
+                              refresh={refresh}
+                            />
+                          ))
                         : null}
                       {getItsMyPet.length > 0
                         ? getItsMyPet.map((p, i) => (
-                          <PetitionGetLosts
-                            formDate={p.formDate}
-                            petId={p.petId}
-                            formState={p.formState}
-                            formId={p.id}
-                            key={"i" + i}
-                            userMovility={p.userMovility}
-                            tel={p.tel}
-                            originalName={p.originalName}
-                            lostZone={p.lostZone}
-                            image={p.image}
-                            getReason={p.getReason}
-                          />
-                        ))
+                            <PetitionGetLosts
+                              formDate={p.formDate}
+                              petId={p.petId}
+                              formState={p.formState}
+                              formId={p.id}
+                              key={"i" + i}
+                              userMovility={p.userMovility}
+                              tel={p.tel}
+                              originalName={p.originalName}
+                              lostZone={p.lostZone}
+                              image={p.image}
+                              getReason={p.getReason}
+                              refresh={refresh}
+                            />
+                          ))
                         : null}
                     </DivCardPetition>
                   ) : flagPetitions === "adopted" ? (
@@ -667,6 +728,7 @@ export default function UserProfile() {
                             userAgreement={p.userAgreement}
                             userMovility={p.userMovility}
                             userMovingIdea={p.userMovingIdea}
+                            refresh={refresh}
                           />
                         ))
                       ) : (
@@ -705,6 +767,7 @@ export default function UserProfile() {
                             userAgreement={p.userAgreement}
                             userMovility={p.userMovility}
                             userMovingIdea={p.userMovingIdea}
+                            refresh={refresh}
                           />
                         ))
                       ) : (
@@ -737,6 +800,7 @@ export default function UserProfile() {
                             vaccinate={p.vaccinate}
                             weight={p.weight}
                             image={p.image}
+                            refresh={refresh}
                           />
                         ))
                       ) : (
@@ -769,6 +833,7 @@ export default function UserProfile() {
                             vaccinate={p.vaccinate}
                             weight={p.weight}
                             image={p.image}
+                            refresh={refresh}
                           />
                         ))
                       ) : (
@@ -791,6 +856,7 @@ export default function UserProfile() {
                             lostZone={p.lostZone}
                             image={p.image}
                             getReason={p.getReason}
+                            refresh={refresh}
                           />
                         ))
                       ) : (
@@ -838,33 +904,42 @@ export default function UserProfile() {
                   <DivCardPetition>
                     {donationsUnique.length > 0
                       ? donationsUnique.map((d, i) => (
-                        <DonationCard
-                          key={'o' + i}
-                          amount={d.amount}
-                          date={d.date}
-                          type={d.type}
-                          id={d.id}                          
-                        />
-                      ))
+                          <DonationCard
+                            key={"o" + i}
+                            amount={d.amount}
+                            date={d.date}
+                            type={d.type}
+                            id={d.id}
+                            refresh={refresh}
+                          />
+                        ))
                       : null}
-                    {donationsSuscription.length > 0
-                      ? donationsSuscription.map((d, i) => (
+                    {donationsSuscription.length > 0 ? (
+                      donationsSuscription.map((d, i) => (
                         <DonationCard
-                          key={'p' + i}
+                          key={"p" + i}
                           amount={d.amount}
                           date={d.date}
                           type={d.type}
                           id={d.id}
+                          refresh={refresh}
                         />
                       ))
-                      : <Error>No posees ninguna donacion</Error>}
+                    ) : (
+                      <Error>No posees ninguna donacion</Error>
+                    )}
                   </DivCardPetition>
                 ) : flagDonations === "suscription" ? (
                   <DivCardPetition>
                     {donationsSuscription.length > 0 ? (
                       donationsSuscription.map((d, i) => (
                         <DonationCard
-                          amount={d.amount} key={'q' + i} date={d.date} type={d.type} id={d.id}
+                          amount={d.amount}
+                          key={"q" + i}
+                          date={d.date}
+                          type={d.type}
+                          id={d.id}
+                          refresh={refresh}
                         />
                       ))
                     ) : (
@@ -876,16 +951,19 @@ export default function UserProfile() {
                     {donationsUnique.length > 0 ? (
                       donationsUnique.map((d, i) => (
                         <DonationCard
-                          amount={d.amount} key={'r' + i} date={d.date} type={d.type} id={d.id}
+                          amount={d.amount}
+                          key={"r" + i}
+                          date={d.date}
+                          type={d.type}
+                          id={d.id}
+                          refresh={refresh}
                         />
                       ))
                     ) : (
                       <Error>No posees donaciones de este tipo</Error>
                     )}
                   </DivCardPetition>
-                ) : (
-                  null
-                )}
+                ) : null}
               </div>
             </Carrusel>
           </Splide>
