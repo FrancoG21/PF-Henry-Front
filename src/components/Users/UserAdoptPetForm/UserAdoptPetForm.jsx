@@ -3,7 +3,7 @@ import { Formik, Field, ErrorMessage, Form } from "formik";
 import { getById, petitionGet } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Supliers from "./Supliers";
 import {
@@ -27,6 +27,8 @@ import moment from "moment";
 import Swal from "sweetalert2";
 
 export default function UserAdoptPetForm() {
+
+
   const [flag, setFlag] = useState(false);
   const pet = useSelector((state) => state.petDetail);
   const { id } = useParams();
@@ -35,6 +37,7 @@ export default function UserAdoptPetForm() {
   // Pagina de ejemplo --> https://docs.google.com/forms/d/e/1FAIpQLSdh3Te8u3anAH182My7fORBlKlAyBzSuiHfp6YjkqcoQq5F8Q/viewform
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   function capitalize(str) {
     return str.replace(/^\w/, (c) => c.toUpperCase());
@@ -151,27 +154,20 @@ export default function UserAdoptPetForm() {
             if (user) {
               values.userId = user.id;
               delete errors.userId;
-            }                        
+            }  
+            
+            if(errors){
+              for(let key in errors){
+                var sendErrors=[]
+                sendErrors.push(`${errors[key]}`)               
+              }                           
+            }
 
             return errors;
           }}
          
 
-          onSubmit={({ resetForm, errors, values, actions }) => {    
-            
-            if(errors){
-              for(let key in errors){
-                let sendErrors=[]
-                sendErrors.push(`${errors[key]}`)
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: `${sendErrors/* .join("\n") */}`,                  
-                })
-              } 
-              actions.setSubmitting(false)             
-            } 
-
+          onSubmit={(values, { resetForm }) => {                       
 
             for (let prop in values) {
               if (
@@ -222,13 +218,18 @@ export default function UserAdoptPetForm() {
                 }
               }
             }
-
-            setFlag(true);
+            
             console.log("formulario enviado");
             console.log(values);
             dispatch(petitionGet(values));
             resetForm();
-            setTimeout(() => setFlag(false), 3000);
+
+            Swal.fire(
+              "Felicidades",
+              "Tu petición ha sido recibida con exito",
+              "success"
+            )
+            .then(()=>navigate("/userprofile"))            
           }}
         >
           {(props) => (
@@ -251,7 +252,7 @@ export default function UserAdoptPetForm() {
                       height="400"
                     />
                     <Label>
-                      Macota elegida: <Span> {pet.name} </Span>
+                      Macota elegida: <Span> {pet.name ? capitalize(pet.name) : 'mascota'} </Span>
                     </Label>
                   </Camp>
                   <Camp>

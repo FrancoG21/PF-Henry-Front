@@ -28,6 +28,7 @@ export default function PetCard({
   gender,
   actualPlace,
   fur,
+  refresh
 }) {
   const navigate = useNavigate();
   const popUp1 = () => {
@@ -36,7 +37,7 @@ export default function PetCard({
       html: `
         <img src=${image} alt=${name} height='200px' width='200px'/>
         <p>${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null}</p>
-        <p><b>Raza:</b> ${breed === "crossbreed" ? "caschi" : breed}</p>
+        <p><b>Raza:</b> ${breed}</p>
         <p><b>Genero:</b> ${
           gender === "male"
             ? "macho"
@@ -110,9 +111,8 @@ export default function PetCard({
               "Excelente",
               "Tu peticion para devolver la mascota fue aceptada",
               "success"
-            ),
-
-            setTimeout(() => location.reload(), 1000)
+            )
+            .then(()=>refresh())            
           )
           .catch((e) => {
             console.log(e);

@@ -20,7 +20,6 @@ import {
 } from "./StyledSeguimiento";
 
 export default function Seguimiento() {
-
   const navigate = useNavigate();
   const { id } = useParams();
   const [pet, setPet] = useState();
@@ -99,12 +98,14 @@ export default function Seguimiento() {
                     "Tu seguimiento se cargo correctamente.",
                     "success"
                   )
-                );
-              setJson({ images: [] });
-              resetForm();
-               setTimeout(() => (navigate (`/userprofile`)), 1000);                
+                )
+                .then(() => {
+                  setJson({ images: [] });
+                  resetForm();
+                  navigate("/userprofile");
+                });
             }
-          });          
+          });
         }}
       >
         {(props) => (
@@ -134,7 +135,11 @@ export default function Seguimiento() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Descripción  {"("}Caracteres restantes: {100 - props.values.description.length}{")"} </Label>
+                  <Label>
+                    Descripción {"("}Caracteres restantes:{" "}
+                    {100 - props.values.description.length}
+                    {")"}{" "}
+                  </Label>
                   <Field
                     as="textarea"
                     id={"description"}
