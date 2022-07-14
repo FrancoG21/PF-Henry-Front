@@ -43,10 +43,11 @@ export default function Donation() {
   }
 
   function realizarPagoSub(e) {
+    console.log('urlFront',urlFront)
     axios
       .post("/payment/subscription", {
         transaction_amount: Number(e.target.value),
-        back_url: `${urlFront}/donation/success`,
+        succes: `${urlFront}/donation/success`,
         payer_email: "test_user_20466117@testuser.com",
         token: usuario,
       })

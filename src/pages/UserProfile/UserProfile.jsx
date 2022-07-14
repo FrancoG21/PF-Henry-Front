@@ -917,7 +917,7 @@ export default function UserProfile() {
                 {flagDonations === "all" ? (
                   <DivCardPetition>
                     {" "}
-                    {donationsUnique.length + donationsUnique.length > 0 ? (
+                    {donationsUnique.length + donationsSuscription.length > 0 ? (
                       donationsUnique.length > 0 ? (
                         donationsUnique.map((d, i) => (
                           <DonationCard
