@@ -30,7 +30,7 @@ export function getVaccinate (data) {
 export function getState (data) {
     if(data === 'adopt') return 'para adoptar'
     if(data === 'adopted') return 'adoptado'
-    if(data === 'lost') return 'extraviad'
+    if(data === 'lost') return 'extraviado'
     if(data === 'transit') return 'en transito'
 }
 
