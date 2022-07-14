@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 
 export const BackgroundListUsers = styled.div`
     background-color: ${(props) => props.theme.background};
-    height: 150vh;
+    height: auto;
 `
 
 export const BackgroundPetition = styled.div`
