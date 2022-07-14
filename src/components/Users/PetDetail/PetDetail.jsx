@@ -21,6 +21,7 @@ import {
   ContainerButton,
   DivHeader,
 } from "./StyledPetDetail";
+import {getCastration, getFur, getGender, getPet, getSize, getState, getVaccinate} from '../../Admin/AdminPets/toSpanish'
 
 export default function PetDetail() {
   // const detail = useSelector(state => state.pets)
@@ -109,30 +110,30 @@ export default function PetDetail() {
               </SubTitle2>
               <SubTitle2>
                 <Span>Peso: </Span>
-                {petDetail.weight ? petDetail.weight : "unknown"}
+                {petDetail.weight ? petDetail.weight : "no se sabe"}
               </SubTitle2>
               <SubTitle2>
                 <Span>Tamaño: </Span>
-                {petDetail.size}
+                {petDetail.size ? getSize(petDetail.size) : "no se sabe"}
               </SubTitle2>
               <SubTitle3>
                 <Span>Pelaje: </Span>
-                {petDetail.fur}
+                {petDetail.fur ? getFur(petDetail.fur) : "no se sabe"}
               </SubTitle3>
               <SubTitle3>
                 <Span>Genero: </Span>
-                {petDetail.gender}
+                {petDetail.gender ? getGender(petDetail.gender) : "no se sabe"}
               </SubTitle3>
               <SubTitle3>
-                <Span>Castrado: </Span> {petDetail.castration}
+                <Span>Castrado: </Span> {petDetail.castration ? getCastration(petDetail.castration) : "no se sabe"}
               </SubTitle3>
               <SubTitle3>
                 <Span>Vacunado: </Span>
-                {petDetail.vaccinate}
+                {petDetail.vaccinate ? getVaccinate(petDetail.vaccinate): "no se sabe"}
               </SubTitle3>
               <SubTitle3>
                 <Span>Estado: </Span>
-                {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
+                {petDetail.state ? getState(petDetail.state): "no se sabe"}
               </SubTitle3>
             </ContainerContent>
           </DetailContainer>

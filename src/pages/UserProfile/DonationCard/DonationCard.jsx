@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./styles.css";
-import moment from 'moment'
+import moment from "moment";
 import Swal from "sweetalert2";
-import { ContainerDonation, Sub } from "./StyledDonationCard";
+import { ContainerDonation, Sub, ButtonPago } from "./StyledDonationCard";
+import axios from "axios";
 
-export default function DonationCard({ amount, date, type }) {
-
-  let dateFormat = moment(amount.date).format('DD/MM/YYYY')
+export default function DonationCard({ amount, date, type, id, refresh }) {
+  let dateFormat = moment(amount.date).format("DD/MM/YYYY");
 
   const popUp1 = () => {
     Swal.fire({
@@ -18,21 +18,45 @@ export default function DonationCard({ amount, date, type }) {
       confirmButtonText: "Aceptar",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('Apretaste para cancelar suscripcion');
+        axios
+          .put(`donation/${id}`)
+          .then(
+            Swal.fire(
+              "Excelente",
+              "Tu suscripcion fue cancelada con exito",
+              "success"
+            )
+            .then(()=>{refresh()})
+          )
+          .catch((e) => {
+            console.log(e);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Algo salio mal",
+            });
+          });
       }
     });
-  }
+  };
 
   return (
     <ContainerDonation>
       {/* {console.log('amount',amount)}
     {console.log('date',date)}
     {console.log('type',type)} */}
-      {type === "regular_payment" ? <Sub>Donación única</Sub> : type === "suscripcion " ? <Sub>Donación Suscripcion</Sub> : null}
+      {type === "regular_payment" ? (
+        <Sub>Donación única</Sub>
+      ) : type === "suscripcion " ? (
+        <Sub>Donación Suscripcion</Sub>
+      ) : null}
       {/* <div>{JSON.stringify(amount)}</div>  */}
       <Sub>Fecha: {dateFormat}</Sub>
       <Sub>Monto: ${amount}</Sub>
       <p></p>
-      {type === "suscripcion " ? <ButtonPago onClick={popUp1}>Cancelar Suscripcion</ButtonPago> : null}
-    </ContainerDonation>)
+      {type === "suscripcion " ? (
+        <ButtonPago onClick={popUp1}>Cancelar Suscripcion</ButtonPago>
+      ) : null}
+    </ContainerDonation>
+  );
 }

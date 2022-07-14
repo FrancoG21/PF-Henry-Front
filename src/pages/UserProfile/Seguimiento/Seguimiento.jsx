@@ -17,10 +17,10 @@ import {
   Select,
   ButtonSubmit,
   ContainerButton,
+  TextSeg,
 } from "./StyledSeguimiento";
 
 export default function Seguimiento() {
-
   const navigate = useNavigate();
   const { id } = useParams();
   const [pet, setPet] = useState();
@@ -59,9 +59,14 @@ export default function Seguimiento() {
           if (!values.description) {
             errors.description = "Debe agregar una descripción.";
           }
-          if (!values.image) {
-            errors.image = "Debe agregar una imagen, maximo tres.";
+
+          if (values.description.length > 35) {
+            errors.description = "Descripción no debe ser de más de 35 caracteres.";
           }
+
+          if (!values.image) {
+            errors.image = "Debe agregar una imagen maximo tres.";
+          }          
 
           if (json.images.length > 0) {
             values.image = json.images;
@@ -99,12 +104,14 @@ export default function Seguimiento() {
                     "Tu seguimiento se cargo correctamente.",
                     "success"
                   )
-                );
-              setJson({ images: [] });
-              resetForm();
-               setTimeout(() => (navigate (`/userprofile`)), 1000);                
+                )
+                .then(() => {
+                  setJson({ images: [] });
+                  resetForm();
+                  navigate("/userprofile");
+                });
             }
-          });          
+          });
         }}
       >
         {(props) => (
@@ -116,13 +123,13 @@ export default function Seguimiento() {
               Cargá el seguimiento de{" "}
               {pet ? capitalize(pet.name) : "tu mascota"}
             </TitleForm>
-            <h3>
+            <TextSeg>
               El seguimiento nos ayuda a ver como esta{" "}
               {pet ? capitalize(pet.name) : "tu mascota"} y mostrar que todas
               las mascotas pueden volver a compartir su cariño con las personas
               que les den la oportunidad de hacerlo. Publicaremos este
               seguimiento en la página principal.
-            </h3>
+            </TextSeg>
             <Forms>
               <ContainerCamp>
                 <Camp>
@@ -134,7 +141,11 @@ export default function Seguimiento() {
                   />
                 </Camp>
                 <Camp>
-                  <Label>Descripción {/* {"("}Caracteres restantes: {100 - props.values.description.length}{")"} */}</Label>
+                  <Label>
+                    Descripción {"("}Caracteres restantes:{" "}
+                    {35 - props.values.description.length}
+                    {")"}{" "}
+                  </Label>
                   <Field
                     as="textarea"
                     id={"description"}
@@ -151,6 +162,19 @@ export default function Seguimiento() {
               <ContainerButton>
                 <ButtonSubmit type="submit">Cargar</ButtonSubmit>
               </ContainerButton>
+              {Object.values(props.errors).toString().length > 0 && (
+                  <h3>
+                    Debes corregir lo siguiente si quieres enviar el seguimiento:
+                  </h3>
+                )}
+                {
+                  <div>
+                    {props.errors &&
+                      Object.values(props.errors)
+                        .toString()
+                        .replace(/,/g, " - ")}
+                  </div>
+                }
             </Forms>
           </FormContainer>
         )}

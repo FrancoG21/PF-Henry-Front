@@ -34,7 +34,7 @@ const[user,setUser] = useState(null)
 
  
 
-   console.log('estoy en user registrar', user)
+  //  console.log('estoy en user registrar', user)
 
    function validation(input) {
   

@@ -12,6 +12,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { TitleCard, CardPetitions } from "./StyledAdminUsers";
 
 function capitalize(str) {
   return str.replace(/^\w/, (c) => c.toUpperCase());
@@ -83,105 +84,102 @@ export function PetitionGetLosts({
         <img src=${pet.image} alt=${pet.name} height='200px' width='200px' />
         <p>
         ${pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "Gato" : null} 
-        ${pet.breed === "crossbreed" ? "Caschi" : capitalize(pet.breed)}, 
-        ${
-          pet.gender === "male"
-            ? "macho"
-            : pet.gender === "female"
+        ${capitalize(pet.breed)}, 
+        ${pet.gender === "male"
+          ? "macho"
+          : pet.gender === "female"
             ? "hembra"
             : pet.gender === "unknown"
-            ? "no se sabe"
-            : null
+              ? "no se sabe"
+              : null
         }
         </p>
         <p><b>¿Porque cree que es su mascota?</b> </br>${getReason}</p>
         <p><b>¿En que zona se le perdio?</b> </br> ${lostZone}</p>
         <p><b>¿A que nombre responde la mascota?</b> </br> ${originalName}</p>
         <p><b>Imagenes cargadas:</b></p>
-        <img src=${
-          image[0]
+        <img src=${image[0]
         } alt=${originalName}  height='150px' width='150px'/> 
         <p><b>Telefono: </b>${tel}</p>  
-        <p><b>¿Tiene movilidad para buscar la mascota?</b> </br> ${
-          userMovility === "yes" ? "Si" : userMovility === "no" ? "No" : null
+        <p><b>¿Tiene movilidad para buscar la mascota?</b> </br> ${userMovility === "yes" ? "Si" : userMovility === "no" ? "No" : null
         }</p>    
       `,
     });
   };
 
-  const token = useSelector(state=>state.usuario)
+  const token = useSelector(state => state.usuario)
 
-  function acepted(){
-    axios.post('/admin/petitionGetLost/acepted', { petitionId: formId, token})
-    .then(res=>Swal.fire
-      ({
-            position: 'center',
-            icon: 'success',
-            title: res.data.message,
-            showConfirmButton: true,
-            timer: 1500
-          }).then(()=>{refresh()}) ,res=>Swal.fire
-      ({
-              icon: 'error',
-              title: 'Error',
-              text: res.response.data.error,
-              showConfirmButton: false,
-              timer: 1000
-          }).then(()=>{refresh()})) 
-   }
-   function rejected(){
-    axios.post('/admin/petitionGetLost/rejected', { petitionId: formId, token})
-    .then(res=>Swal.fire
-      ({
-            position: 'center',
-            icon: 'success',
-            title: res.data.message,
-            showConfirmButton: true,
-            timer: 1500
-          }).then(()=>{refresh()}) ,res=>Swal.fire
-      ({
-              icon: 'error',
-              title: 'Error',
-              text: res.response.data.error,
-              showConfirmButton: false,
-              timer: 1000
-          }).then(()=>{refresh()})) 
-   }
+  function acepted() {
+    axios.post('/admin/petitionGetLost/acepted', { petitionId: formId, token })
+      .then(res => Swal.fire
+        ({
+          position: 'center',
+          icon: 'success',
+          title: res.data.message,
+          showConfirmButton: true,
+          timer: 1500
+        }).then(() => { refresh() }), res => Swal.fire
+          ({
+            icon: 'error',
+            title: 'Error',
+            text: res.response.data.error,
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => { refresh() }))
+  }
+  function rejected() {
+    axios.post('/admin/petitionGetLost/rejected', { petitionId: formId, token })
+      .then(res => Swal.fire
+        ({
+          position: 'center',
+          icon: 'success',
+          title: res.data.message,
+          showConfirmButton: true,
+          timer: 1500
+        }).then(() => { refresh() }), res => Swal.fire
+          ({
+            icon: 'error',
+            title: 'Error',
+            text: res.response.data.error,
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => { refresh() }))
+  }
 
   return (
-  <>
-    <div>
-      <Card sx={{ maxWidth: 345 }}>
-       <img src={pet.image} alt={pet.name} width="345px" height="250px" />
-       <h3>Peticion perdidos</h3>
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        {pet.name && capitalize(pet.name)};{" "}
-        {pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "gato" : null}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        <h3>fecha: {formDate}</h3>
-        <h3>
-            Estado de la peticion:{" "}
-            {formState === "pending"
-              ? "en revisión"
-              : formState === "acepted"
-              ? "aceptado"
-              : formState === "rejected"
-              ? "rechazado"
-              : null}
-          </h3>
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" variant="outlined" onClick={popUp1}>ver peticion</Button> 
-        {formState === 'pending'&& <div>
-        <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
-        <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
-      </div>}
-      </CardActions>
-    </Card>
-    </div>
+    <>
+      <div>
+        <CardPetitions sx={{ maxWidth: 345 }}>
+          <img src={pet.image} alt={pet.name} width="345px" height="250px" />
+          <TitleCard>Peticion perdidos</TitleCard>
+          <CardContent>
+            <TitleCard gutterBottom variant="h5" component="div">
+              {pet.name && capitalize(pet.name)};{" "}
+              {pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "gato" : null}
+            </TitleCard>
+            <Typography variant="body2" color="text.secondary">
+              <TitleCard>Fecha: {formDate}</TitleCard>
+              <TitleCard>
+                Estado de la peticion:{" "}
+                {formState === "pending"
+                  ? "en revisión"
+                  : formState === "acepted"
+                    ? "aceptado"
+                    : formState === "rejected"
+                      ? "rechazado"
+                      : null}
+              </TitleCard>
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small" variant="outlined" onClick={popUp1}>ver peticion</Button>
+            {formState === 'pending' && <div>
+              <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
+              <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
+            </div>}
+          </CardActions>
+        </CardPetitions>
+      </div>
     </>
   );
 }
@@ -226,15 +224,14 @@ export function PetitionGets({
         <img src=${pet.image} alt=${pet.name} height='200px' width='200px' />
         <p>
         ${pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "Gato" : null} 
-        ${pet.breed === "crossbreed" ? "Caschi" : capitalize(pet.breed)}, 
-        ${
-          pet.gender === "male"
-            ? "macho"
-            : pet.gender === "female"
+        ${capitalize(pet.breed)}, 
+        ${pet.gender === "male"
+          ? "macho"
+          : pet.gender === "female"
             ? "hembra"
             : pet.gender === "unknown"
-            ? "no se sabe"
-            : null
+              ? "no se sabe"
+              : null
         }
         </p>
         <p><b>Edad del adoptante: </b> ${userAge} años</p>
@@ -242,37 +239,32 @@ export function PetitionGets({
         <p><b>Futuro domicilio de la mascota</b> </br> ${actualPlace.toString()}</p>
         <p><b>¿Cuántas personas viven en la casa?</b> </br> ${familySize} personas</p>
         <p><b>Composición del núcleo familiar</b> </br> ${familyRelation}</p>
-        <p><b>¿Tiene otros animales?</b> ${
-          otherPets === "true" ? "Si" : otherPets === "false" ? "No" : null
+        <p><b>¿Tiene otros animales?</b> ${otherPets === "true" ? "Si" : otherPets === "false" ? "No" : null
         }</p>
-        <p><b>¿Nos cuenta un poco sobre ellos?</b> </br> ${
-          otherPetsInfo ? otherPetsInfo : "-"
+        <p><b>¿Nos cuenta un poco sobre ellos?</b> </br> ${otherPetsInfo ? otherPetsInfo : "-"
         }</p>
-        <p><b>¿Estan castrados? </b> ${
-          otherPetsCastration
-            ? otherPetsCastration === "true"
-              ? "Si"
-              : otherPetsCastration === "false"
+        <p><b>¿Estan castrados? </b> ${otherPetsCastration
+          ? otherPetsCastration === "true"
+            ? "Si"
+            : otherPetsCastration === "false"
               ? "No"
               : "-"
-            : "-"
+          : "-"
         }</p>
-        <p><b>¿Estan vacunados? </b> ${
-          otherPetsVacunation
-            ? otherPetsVacunation === "true"
-              ? "Si"
-              : otherPetsVacunation === "false"
+        <p><b>¿Estan vacunados? </b> ${otherPetsVacunation
+          ? otherPetsVacunation === "true"
+            ? "Si"
+            : otherPetsVacunation === "false"
               ? "No"
               : "-"
-            : "-"
+          : "-"
         }</p>
         <p><b>¿Porque eligio este animal en particular?</b> </br> ${getPetReason}</p>
         <p><b>¿Dónde vivira la mascota adoptada?</b> </br> ${adoptedPetPlace}</p>
         <p><b>¿Posee espacio al aire libre?</b> </br> ${openSpace}</p>
-        <p><b>¿Son propietarios o alquilan?</b> ${
-          rental === "tenant"
-            ? "Alquilo"
-            : rental === "owner"
+        <p><b>¿Son propietarios o alquilan?</b> ${rental === "tenant"
+          ? "Alquilo"
+          : rental === "owner"
             ? "Propietario"
             : null
         }</p>
@@ -280,17 +272,15 @@ export function PetitionGets({
         <p><b>¿Estará sola? ¿Cuánto tiempo?</b> <br/> ${adoptedPetAloneMoments}</p>
         <p><b>¿Quién lo paseará? ¿Cuántas veces al día?</b> <br/> ${adoptedPetWalkingInfo}</p>
         <p><b>¿Si se muda que hará con la mascota?</b> <br/> ${userMovingIdea}</p>
-        <p><b>¿Le gustaría tener un tiempo de adaptación?</b> <br/> ${
-          adaptationTime === "yes"
-            ? "Si"
-            : adaptationTime === "no"
+        <p><b>¿Le gustaría tener un tiempo de adaptación?</b> <br/> ${adaptationTime === "yes"
+          ? "Si"
+          : adaptationTime === "no"
             ? "No"
             : adaptationTime === "maybe"
-            ? "Tal vez"
-            : ""
+              ? "Tal vez"
+              : ""
         }</p>
-        <p><b>¿Tiene movilidad para buscar a la mascota?</b> </br> ${
-          userMovility === "yes" ? "Si" : userMovility === "no" ? "No" : "-"
+        <p><b>¿Tiene movilidad para buscar a la mascota?</b> </br> ${userMovility === "yes" ? "Si" : userMovility === "no" ? "No" : "-"
         }</p>
       `,
     });
@@ -305,55 +295,48 @@ export function PetitionGets({
         <img src=${pet.image} alt=${pet.name} height='200px' width='200px' />
         <p>
         ${pet.pet === "dog" ? "Perro" : pet.pet === "cat" ? "Gato" : null} 
-        ${pet.breed === "crossbreed" ? "Caschi" : capitalize(pet.breed)}, 
-        ${
-          pet.gender === "male"
-            ? "macho"
-            : pet.gender === "female"
+        ${capitalize(pet.breed)}, 
+        ${pet.gender === "male"
+          ? "macho"
+          : pet.gender === "female"
             ? "hembra"
             : pet.gender === "unknown"
-            ? "no se sabe"
-            : null
+              ? "no se sabe"
+              : null
         }
         </p>
         <p><b>Edad del postulante: </b> ${userAge} años</p>
         <p><b>Teléfono: </b>${tel}</p>
-        <p><b>Futuro domicilio de la mascota</b> </br> ${
-          actualPlace ? actualPlace.toString() : ""
+        <p><b>Futuro domicilio de la mascota</b> </br> ${actualPlace ? actualPlace.toString() : ""
         }</p>
         <p><b>¿Cuántas personas viven en la casa?</b> </br> ${familySize} personas</p>
         <p><b>Composición del núcleo familiar</b> </br> ${familyRelation}</p>
-        <p><b>¿Tiene otros animales?</b> ${
-          otherPets === "true" ? "Si" : otherPets === "false" ? "No" : null
+        <p><b>¿Tiene otros animales?</b> ${otherPets === "true" ? "Si" : otherPets === "false" ? "No" : null
         }</p>
-        <p><b>¿Nos cuenta un poco sobre ellos?</b> </br> ${
-          otherPetsInfo ? otherPetsInfo : "-"
+        <p><b>¿Nos cuenta un poco sobre ellos?</b> </br> ${otherPetsInfo ? otherPetsInfo : "-"
         }</p>
-        <p><b>¿Estan castrados? </b> ${
-          otherPetsCastration
-            ? otherPetsCastration === "true"
-              ? "Si"
-              : otherPetsCastration === "false"
+        <p><b>¿Estan castrados? </b> ${otherPetsCastration
+          ? otherPetsCastration === "true"
+            ? "Si"
+            : otherPetsCastration === "false"
               ? "No"
               : "-"
-            : "-"
+          : "-"
         }</p>
-        <p><b>¿Estan vacunados? </b> ${
-          otherPetsVacunation
-            ? otherPetsVacunation === "true"
-              ? "Si"
-              : otherPetsVacunation === "false"
+        <p><b>¿Estan vacunados? </b> ${otherPetsVacunation
+          ? otherPetsVacunation === "true"
+            ? "Si"
+            : otherPetsVacunation === "false"
               ? "No"
               : "-"
-            : "-"
+          : "-"
         }</p>
         
         <p><b>¿Dónde vivira la mascota en transito?</b> </br> ${adoptedPetPlace}</p>
         <p><b>¿Posee espacio al aire libre?</b> </br> ${openSpace}</p>
-        <p><b>¿Son propietarios o alquilan?</b> ${
-          rental === "tenant"
-            ? "Alquilo"
-            : rental === "owner"
+        <p><b>¿Son propietarios o alquilan?</b> ${rental === "tenant"
+          ? "Alquilo"
+          : rental === "owner"
             ? "Propietario"
             : null
         }</p>
@@ -362,22 +345,19 @@ export function PetitionGets({
         <p><b>¿Quién lo paseará? ¿Cuántas veces al día?</b> <br/> ${adoptedPetWalkingInfo}</p>
         <p><b>¿Cuánto tiempo puede tener en tránsito la mascota?</b> </br> ${transitPetPeriod}</p>
         <p><b>¿Por qué deseas dar tránsito a un animal?</b> </br> ${getPetReason}</p>        
-        <p><b>¿Le gustaría tener un tiempo de adaptación?</b> <br/> ${
-          adaptationTime === "yes"
-            ? "Si"
-            : adaptationTime === "no"
+        <p><b>¿Le gustaría tener un tiempo de adaptación?</b> <br/> ${adaptationTime === "yes"
+          ? "Si"
+          : adaptationTime === "no"
             ? "No"
             : adaptationTime === "maybe"
-            ? "Tal vez"
-            : ""
+              ? "Tal vez"
+              : ""
         }</p>
-        <p><b>¿Tiene movilidad para buscar a la mascota?</b> </br> ${
-          userMovility === "yes" ? "Si" : userMovility === "no" ? "No" : "-"
+        <p><b>¿Tiene movilidad para buscar a la mascota?</b> </br> ${userMovility === "yes" ? "Si" : userMovility === "no" ? "No" : "-"
         }</p>
-        <p><b>¿Sos consciente que la responsabilidad de ser un hogar transitorio implica hacerse cargo de la alimentación y cuidados veterinarios del animal?</b> </br> ${
-          userAgreement === "true"
-            ? "Si"
-            : userAgreement === "false"
+        <p><b>¿Sos consciente que la responsabilidad de ser un hogar transitorio implica hacerse cargo de la alimentación y cuidados veterinarios del animal?</b> </br> ${userAgreement === "true"
+          ? "Si"
+          : userAgreement === "false"
             ? "No"
             : null
         }</p>
@@ -390,90 +370,90 @@ export function PetitionGets({
     console.log("PetitionGets", pet);
   }, []);
 
-  const token = useSelector(state=>state.usuario)
+  const token = useSelector(state => state.usuario)
 
-  function acepted(){
-    axios.post('/admin/petitionGet/acepted', { petitionId: formId, token})
-    .then(res=>Swal.fire
-      ({
-            position: 'center',
-            icon: 'success',
-            title: res.data.message,
-            showConfirmButton: true,
-            timer: 1500
-          }).then(()=>{refresh()}) ,res=>Swal.fire
-      ({
-              icon: 'error',
-              title: 'Error',
-              text: res.response.data.error,
-              showConfirmButton: false,
-              timer: 1000
-          }).then(()=>{refresh()})) 
-   }
-   function rejected(){
-    axios.post('/admin/petitionGet/rejected', { petitionId: formId, token})
-    .then(res=>Swal.fire
-      ({
-            position: 'center',
-            icon: 'success',
-            title: res.data.message,
-            showConfirmButton: true,
-            timer: 1500
-          }).then(()=>{refresh()}) ,res=>Swal.fire
-      ({
-              icon: 'error',
-              title: 'Error',
-              text: res.response.data.error,
-              showConfirmButton: false,
-              timer: 1000
-          }).then(()=>{refresh()})) 
-   }
+  function acepted() {
+    axios.post('/admin/petitionGet/acepted', { petitionId: formId, token })
+      .then(res => Swal.fire
+        ({
+          position: 'center',
+          icon: 'success',
+          title: res.data.message,
+          showConfirmButton: true,
+          timer: 1500
+        }).then(() => { refresh() }), res => Swal.fire
+          ({
+            icon: 'error',
+            title: 'Error',
+            text: res.response.data.error,
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => { refresh() }))
+  }
+  function rejected() {
+    axios.post('/admin/petitionGet/rejected', { petitionId: formId, token })
+      .then(res => Swal.fire
+        ({
+          position: 'center',
+          icon: 'success',
+          title: res.data.message,
+          showConfirmButton: true,
+          timer: 1500
+        }).then(() => { refresh() }), res => Swal.fire
+          ({
+            icon: 'error',
+            title: 'Error',
+            text: res.response.data.error,
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => { refresh() }))
+  }
   const from = "PetitionGets";
 
   return (
-    <div>    
+    <div>
       <Card sx={{ maxWidth: 345 }}>
-       <img src={pet.image} alt={pet.name} width="345px" height="250px" />
-       {state === "adopted" ? (
-        <h3>Petición para adoptar</h3>
-      ) : state === "transit" ? (
-        <h3>Petición para hogar transito</h3>
-      ) : null}
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        {pet.name && capitalize(pet.name)};{" "}
-        {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        <h3>fecha: {formDate}</h3>
-        <h3>
-            Estado de la peticion:{" "}
-        {formState === "pending"
-          ? "en revisión"
-          : formState === "acepted"
-          ? "aceptado"
-          : formState === "rejected"
-          ? "rechazado"
-          : null}
-          </h3>
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button
-        size="small" variant="outlined"
-        onClick={
-          state === "adopted" ? popUp2 : state === "transit" ? popUp3 : null
-        }
-      >
-        ver peticion
-      </Button>
-      {formState === 'pending'&& <div>
-        <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
-        <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
-      </div>}
-     
-      </CardActions>
-    </Card>
+        <img src={pet.image} alt={pet.name} width="345px" height="250px" />
+        {state === "adopted" ? (
+          <TitleCard>Petición para adoptar</TitleCard>
+        ) : state === "transit" ? (
+          <TitleCard>Petición para hogar transito</TitleCard>
+        ) : null}
+        <CardContent>
+          <TitleCard gutterBottom variant="h5" component="div">
+            {pet.name && capitalize(pet.name)};{" "}
+            {pet.pet === "dog" ? "perro" : pet.pet === "cat" ? "gato" : null}
+          </TitleCard>
+          <Typography variant="body2" color="text.secondary">
+            <TitleCard>fecha: {formDate}</TitleCard>
+            <TitleCard>
+              Estado de la peticion:{" "}
+              {formState === "pending"
+                ? "en revisión"
+                : formState === "acepted"
+                  ? "aceptado"
+                  : formState === "rejected"
+                    ? "rechazado"
+                    : null}
+            </TitleCard>
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button
+            size="small" variant="outlined"
+            onClick={
+              state === "adopted" ? popUp2 : state === "transit" ? popUp3 : null
+            }
+          >
+            ver peticion
+          </Button>
+          {formState === 'pending' && <div>
+            <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
+            <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
+          </div>}
+
+        </CardActions>
+      </Card>
     </div>
   );
 }
@@ -507,53 +487,47 @@ export function PetitionLoads({
       title: `Petición para cargar mascota y dar en adopcion`,
       html: `        
         <p><b>Fecha de la peticion:</b> ${formDate}</p>
-        <p><b>¿Qué quieres hacer?</b> </br> ${
-          state === "adopt" ? "Dar una mascota en adopción" : null
+        <p><b>¿Qué quieres hacer?</b> </br> ${state === "adopt" ? "Dar una mascota en adopción" : null
         }</p>
         <p><b>Nombre de la mascota</b> </br> ${petName}</p>
         <img src=${image[0]} alt=${petName} height='200px' width='200px' />
         <p>
         ${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null} 
-        ${breed === "crossbreed" ? "Caschi" : capitalize(breed)}, 
-        ${
-          gender === "male"
-            ? "macho"
-            : gender === "female"
+        ${capitalize(breed)}, 
+        ${gender === "male"
+          ? "macho"
+          : gender === "female"
             ? "hembra"
             : gender === "unknown"
-            ? "no se sabe"
-            : null
+              ? "no se sabe"
+              : null
         }
         </p>
-        <p><b>Pelaje:</b> ${
-          fur === "short" ? "corto" : fur === "long" ? "largo" : null
+        <p><b>Pelaje:</b> ${fur === "short" ? "corto" : fur === "long" ? "largo" : null
         }</p>
-        <p><b>Tamaño:</b> ${
-          size === "small"
-            ? "pequeño"
-            : size === "medium"
+        <p><b>Tamaño:</b> ${size === "small"
+          ? "pequeño"
+          : size === "medium"
             ? "mediano"
             : size === "big"
-            ? "grande"
-            : null
+              ? "grande"
+              : null
         }</p> 
-        <p><b>Vacunación:</b> ${
-          vaccinate === "true"
-            ? "si"
-            : vaccinate === "false"
+        <p><b>Vacunación:</b> ${vaccinate === "true"
+          ? "si"
+          : vaccinate === "false"
             ? "no"
             : vaccinate === "unknown"
-            ? "no se sabe"
-            : null
+              ? "no se sabe"
+              : null
         }</p>
-        <p><b>Castración:</b> ${
-          castration === "true"
-            ? "si"
-            : castration === "false"
+        <p><b>Castración:</b> ${castration === "true"
+          ? "si"
+          : castration === "false"
             ? "no"
             : castration === "unknown"
-            ? "no se sabe"
-            : null
+              ? "no se sabe"
+              : null
         }</p>        
       `,
       confirmButtonColor: "#3085d6",
@@ -566,53 +540,47 @@ export function PetitionLoads({
       title: `Petición para cargar mascota encontrada`,
       html: `        
         <p><b>Fecha de la peticion:</b> ${formDate}</p>
-        <p><b>¿Qué quieres hacer?</b> </br> ${
-          state === "lost" ? "Cargar una mascota que encontraste" : null
+        <p><b>¿Qué quieres hacer?</b> </br> ${state === "lost" ? "Cargar una mascota que encontraste" : null
         }</p>
         <p><b>Nombre de la mascota</b> </br> ${petName}</p>
         <img src=${image[0]} alt=${petName} height='200px' width='200px' />
         <p>
         ${pet === "dog" ? "Perro" : pet === "cat" ? "Gato" : null} 
-        ${breed === "crossbreed" ? "Caschi" : capitalize(breed)}, 
-        ${
-          gender === "male"
-            ? "macho"
-            : gender === "female"
+        ${capitalize(breed)}, 
+        ${gender === "male"
+          ? "macho"
+          : gender === "female"
             ? "hembra"
             : gender === "unknown"
-            ? "no se sabe"
-            : null
+              ? "no se sabe"
+              : null
         }
         </p>
-        <p><b>Pelaje:</b> ${
-          fur === "short" ? "corto" : fur === "long" ? "largo" : null
+        <p><b>Pelaje:</b> ${fur === "short" ? "corto" : fur === "long" ? "largo" : null
         }</p>
-        <p><b>Tamaño:</b> ${
-          size === "small"
-            ? "pequeño"
-            : size === "medium"
+        <p><b>Tamaño:</b> ${size === "small"
+          ? "pequeño"
+          : size === "medium"
             ? "mediano"
             : size === "big"
-            ? "grande"
-            : null
+              ? "grande"
+              : null
         }</p> 
-        <p><b>Vacunación:</b> ${
-          vaccinate === "true"
-            ? "si"
-            : vaccinate === "false"
+        <p><b>Vacunación:</b> ${vaccinate === "true"
+          ? "si"
+          : vaccinate === "false"
             ? "no"
             : vaccinate === "unknown"
-            ? "no se sabe"
-            : null
+              ? "no se sabe"
+              : null
         }</p>
-        <p><b>Castración:</b> ${
-          castration === "true"
-            ? "si"
-            : castration === "false"
+        <p><b>Castración:</b> ${castration === "true"
+          ? "si"
+          : castration === "false"
             ? "no"
             : castration === "unknown"
-            ? "no se sabe"
-            : null
+              ? "no se sabe"
+              : null
         }</p>
         <p><b>¿Cuándo la encontraste?</b> ${foundDate}</p>
         <p><b>¿Dónde la encontraste?</b> </br> ${foundPlace}</p>        
@@ -620,87 +588,87 @@ export function PetitionLoads({
       `,
     });
   };
-  const token = useSelector(state=>state.usuario)
+  const token = useSelector(state => state.usuario)
 
 
-  function acepted(){
-    axios.post('admin/petitionLoadPet/acepted', { petitionId: formId, token})
-    .then(res=>Swal.fire
-      ({
-            position: 'center',
-            icon: 'success',
-            title: res.data.message,
-            showConfirmButton: true,
-            timer: 1500
-          }).then(()=>{refresh()}) ,res=>Swal.fire
-      ({
-              icon: 'error',
-              title: 'Error',
-              text: res.response.data.error,
-              showConfirmButton: false,
-              timer: 1000
-          }).then(()=>{refresh()})
-        ) 
-   }
-   function rejected(){
-    axios.post('admin/petitionLoadPet/rejected', { petitionId: formId, token})
-      .then(res=>Swal.fire
+  function acepted() {
+    axios.post('admin/petitionLoadPet/acepted', { petitionId: formId, token })
+      .then(res => Swal.fire
         ({
-              position: 'center',
-              icon: 'success',
-              title: res.data.message,
-              showConfirmButton: true,
-              timer: 1500
-            }).then(()=>{refresh()}) ,res=>Swal.fire
+          position: 'center',
+          icon: 'success',
+          title: res.data.message,
+          showConfirmButton: true,
+          timer: 1500
+        }).then(() => { refresh() }), res => Swal.fire
+          ({
+            icon: 'error',
+            title: 'Error',
+            text: res.response.data.error,
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => { refresh() })
+      )
+  }
+  function rejected() {
+    axios.post('admin/petitionLoadPet/rejected', { petitionId: formId, token })
+      .then(res => Swal.fire
         ({
-                icon: 'error',
-                title: 'Error',
-                text: res.response.data.error,
-                showConfirmButton: false,
-                timer: 1000
-            }).then(()=>{refresh()}))
-   }
+          position: 'center',
+          icon: 'success',
+          title: res.data.message,
+          showConfirmButton: true,
+          timer: 1500
+        }).then(() => { refresh() }), res => Swal.fire
+          ({
+            icon: 'error',
+            title: 'Error',
+            text: res.response.data.error,
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => { refresh() }))
+  }
   return (
     <div >
 
-<Card sx={{ maxWidth: 345 }}>
-{state === "adopt" ? (
-        <h3>Petición para cargar mascota y dar en adopcion</h3>
-      ) : state === "lost" ? (
-        <h3>Petición para cargar mascota encontrada</h3>
-      ) : null}
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        {petName && capitalize(petName)};{" "}
-        {type === "dog" ? "perro" : type === "cat" ? "gato" : null}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        <h3>fecha: {formDate}</h3>
-        <h3>
-            Estado de la peticion:{" "}
-        {formState === "pending"
-          ? "en revisión"
-          : formState === "acepted"
-          ? "aceptado"
-          : formState === "rejected"
-          ? "rechazado"
-          : null}
-          </h3>
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button
-        size="small" variant="contained"
-        onClick={state === "adopt" ? popUp4 : state === "lost" ? popUp5 : null}
-      >
-        ver peticion
-      </Button>
-      {formState === 'pending'&& <div>
-        <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
-        <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
-      </div>}
-      </CardActions>
-    </Card>
+      <Card sx={{ maxWidth: 345 }}>
+        {state === "adopt" ? (
+          <TitleCard>Petición para cargar mascota y dar en adopcion</TitleCard>
+        ) : state === "lost" ? (
+          <TitleCard>Petición para cargar mascota encontrada</TitleCard>
+        ) : null}
+        <CardContent>
+          <TitleCard gutterBottom variant="h5" component="div">
+            {petName && capitalize(petName)};{" "}
+            {type === "dog" ? "perro" : type === "cat" ? "gato" : null}
+          </TitleCard>
+          <Typography variant="body2" color="text.secondary">
+            <TitleCard>fecha: {formDate}</TitleCard>
+            <TitleCard>
+              Estado de la peticion:{" "}
+              {formState === "pending"
+                ? "en revisión"
+                : formState === "acepted"
+                  ? "aceptado"
+                  : formState === "rejected"
+                    ? "rechazado"
+                    : null}
+            </TitleCard>
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button
+            size="small" variant="contained"
+            onClick={state === "adopt" ? popUp4 : state === "lost" ? popUp5 : null}
+          >
+            ver peticion
+          </Button>
+          {formState === 'pending' && <div>
+            <Button size="small" variant="outlined" color="success" onClick={acepted}>Aceptar</Button>
+            <Button size="small" variant="outlined" color="error" onClick={rejected}>denegar</Button>
+          </div>}
+        </CardActions>
+      </Card>
     </div>
   );
 }

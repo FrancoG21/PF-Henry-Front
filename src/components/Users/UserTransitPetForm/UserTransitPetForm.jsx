@@ -3,7 +3,7 @@ import { Formik, Field, ErrorMessage } from "formik";
 import { getById, petitionGet } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Supliers from "./Supliers";
 import axios from 'axios'
 import {
@@ -23,8 +23,10 @@ import {
   Sub,
   SubText,
   Succes,
+  Span,
 } from "./StyledUserTransitPetForm";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 export default function UserTransitPetForm() {
   const [flag, setFlag] = useState(false);
@@ -34,6 +36,8 @@ export default function UserTransitPetForm() {
   const [user, setUser] = useState(null);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   // Pagina de ejemplo --> https://www.vidanimal.org.ar/como-ayudar/ofrece-hogar-de-transito/
 
   const options1 = [
@@ -202,17 +206,21 @@ export default function UserTransitPetForm() {
                 }
               }
             }
-
-            setFlag(true);
+          
             console.log("formulario enviado");
             dispatch(petitionGet(values))
             resetForm();
-            setTimeout(() => setFlag(false), 3000);
+
+            Swal.fire(
+              "Felicidades",
+              "Tu petición ha sido recibida con exito",
+              "success"
+            ).then(() => navigate("/userprofile"));
           }}
         >
           {(props) => (
             <FormContainer>
-              <TitleForm>Formulario Hogar transitorio</TitleForm>
+              <TitleForm>Formulario Hogar Transitorio</TitleForm>
               <Camp>
                 <Sub>¿Qué es un hogar transitorio?</Sub>
               </Camp>
@@ -248,7 +256,8 @@ export default function UserTransitPetForm() {
                       height="400"
                     />
                     <Label>
-                      Macota elegida: {pet.name}
+                      Macota elegida: 
+                      <Span>{pet.name}</Span>
                       {/* {pet?.name[0].toUpperCase() +
                       pet?.name.slice(1).toLowerCase()} */}
                     </Label>
@@ -257,7 +266,7 @@ export default function UserTransitPetForm() {
                     <Label>
                       {" "}
                       Nombre y apellido del adoptante:{" "}
-                      {user && user.name + " " + user.lastname}
+                      <Span>{user && user.name + " " + user.lastname}</Span>
                     </Label>
                   </Camp>
                   {/* <div>{JSON.stringify(props.errors)}</div> */}
@@ -628,6 +637,19 @@ export default function UserTransitPetForm() {
                   <ButtonSubmit type="submit">Enviar</ButtonSubmit>
                   {flag && <Succes>Envio exitoso</Succes>}
                 </ContainerButton>
+                {Object.values(props.errors).toString().length > 0 && (
+                  <h3>
+                    Debes corregir lo siguiente si quieres enviar la peticion:
+                  </h3>
+                )}
+                {
+                  <div>
+                    {props.errors &&
+                      Object.values(props.errors)
+                        .toString()
+                        .replace(/,/g, " - ")}
+                  </div>
+                }
               </Forms>
             </FormContainer>
           )}
@@ -645,22 +667,22 @@ const newLabel = (name) => {
   if (name === "actualPlaceProvince") return "Provincia es requerido";
   if (name === "actualPlacePostalCode") return "Codigo Postal es requerido";
   if (name === "tel") return "Teléfono es requerido";
-  if (name === "familySize") return "Debe completar este campo";
-  if (name === "familyRelation") return "Debe completar este campo";
-  if (name === "otherPets") return "Debe completar este campo";
-  if (name === "otherPetsInfo") return "Debe completar este campo";
-  if (name === "otherPetsCastration") return "Debe completar este campo";
-  if (name === "otherPetsVacunation") return "Debe completar este campo";
-  if (name === "getPetReason") return "Debe completar este campo";
-  if (name === "adoptedPetPlace") return "Debe completar este campo";
-  if (name === "openSpace") return "Debe completar este campo";
-  if (name === "rental") return "Debe completar este campo";
-  if (name === "adoptedPetSleepingSpace") return "Debe completar este campo";
-  if (name === "adoptedPetAloneMoments") return "Debe completar este campo";
-  if (name === "adoptedPetWalkingInfo") return "Debe completar este campo";
-  if (name === "userMovingIdea") return "Debe completar este campo";
-  if (name === "adaptationTime") return "Debe completar este campo";
-  if (name === "userMovility") return "Debe completar este campo";
-  if (name === "transitPetPeriod") return "Debe completar este campo";
-  if (name === "userAgreement") return "Debe completar este campo";
+  if (name === "familySize") return "Debe completar cuántas personas viven en la casa";
+  if (name === "familyRelation") return "Debe completar composición del núcleo familiar";
+  if (name === "otherPets") return "Debe completar si tiene otros animales";
+  if (name === "otherPetsInfo") return "Debe completar informacion de sus actuales mascotas";
+  if (name === "otherPetsCastration") return "Debe completar si sus actuales mascotas estan castradas";
+  if (name === "otherPetsVacunation") return "Debe completar si sus actuales mascotas estan vacunadas";
+  if (name === "getPetReason") return "Debe completar por qué deseas dar tránsito a un animal";
+  if (name === "adoptedPetPlace") return "Debe completar dónde vivira la mascota adoptada";
+  if (name === "openSpace") return "Debe completar si posee espacio al aire libre";
+  if (name === "rental") return "Debe completar si son propietarios o alquilan";
+  if (name === "adoptedPetSleepingSpace") return "Debe completar dónde dormirá la mascota transitada";
+  if (name === "adoptedPetAloneMoments") return "Debe completar si la mascota adoptada estará sola y cuánto tiempo";
+  if (name === "adoptedPetWalkingInfo") return "Debe completar quién paseará y cuántas veces al día la mascota en transito";
+  if (name === "userMovingIdea") return "Debe completar en caso de mudarse si ha pensado que hará con la mascota";
+  if (name === "adaptationTime") return "Debe completar si está de acuerdo en tener un tiempo de adaptación";
+  if (name === "userMovility") return "Debe completar si tiene movilidad para buscar a la mascota";
+  if (name === "transitPetPeriod") return "Debe completar cuánto tiempo podés tener en tránsito al animal";
+  if (name === "userAgreement") return "Debe completar si esta de acuerdo con los terminos y condiciones";
 };

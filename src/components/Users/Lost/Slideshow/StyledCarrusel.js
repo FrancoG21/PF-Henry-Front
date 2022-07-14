@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import WarningOutlinedIcon from '@mui/icons-material/WarningOutlined';
 import { Link } from "react-router-dom";
 
 export const Carrousel = styled(SplideSlide)`
@@ -53,18 +54,27 @@ export const ImageCarrusel = styled.img`
 
 export const TitleCarrusel = styled.h3`
     font-size: 1.5rem;
-    color: red;
-    /* color: ${(props) => props.theme.secondary}; */
+    color: ${(props) => props.theme.secondary};
     margin-left: 20px;
-
-    &:hover {
-        -webkit-box-shadow: 6px 5px 12px 1px rgba(0,0,0,0.7); 
-        box-shadow: 6px 5px 12px 1px rgba(0,0,0,0.7);
-    }
 `
 
 export const NameCard = styled.h4`
     font-size: 1.2rem;
+    color: ${(props) => props.theme.secondary};
+`
+
+export const DivTitle = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+
+export const WarningIcon = styled(WarningOutlinedIcon)`
     color: red;
-    /* color: ${(props) => props.theme.secondary}; */
+    margin-top: 30px;
+    margin-left: 10px;
+
+    @media screen and (max-width: 600px){
+        margin-left: 0;
+        margin-right: 90px;
+    }
 `

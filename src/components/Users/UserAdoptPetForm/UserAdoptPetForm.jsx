@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Field, ErrorMessage } from "formik";
+import { Formik, Field, ErrorMessage, Form } from "formik";
 import { getById, petitionGet } from "../../../redux/actions/index";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Supliers from "./Supliers";
 import {
@@ -21,8 +21,10 @@ import {
   BackIcon,
   BackgroundForm,
   Succes,
+  Span,
 } from "./StyledUserAdoptPetForm";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 export default function UserAdoptPetForm() {
   const [flag, setFlag] = useState(false);
@@ -33,6 +35,7 @@ export default function UserAdoptPetForm() {
   // Pagina de ejemplo --> https://docs.google.com/forms/d/e/1FAIpQLSdh3Te8u3anAH182My7fORBlKlAyBzSuiHfp6YjkqcoQq5F8Q/viewform
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function capitalize(str) {
     return str.replace(/^\w/, (c) => c.toUpperCase());
@@ -134,22 +137,31 @@ export default function UserAdoptPetForm() {
               }
             }
 
-            if(values.userAge < 18){
-              errors.userAge = 'Debes ser mayor de 18 años'
+            if (values.userAge < 18) {
+              errors.userAge = "Edad debe ser mayor de 18 años";
             }
-            
-            if(values.tel.toString().length < 9){
-              errors.tel = 'Numero de telefono debe contener por lo menos 9 numeros' 
+
+            if (values.tel.toString().length < 9) {
+              errors.tel =
+                "Numero de telefono debe contener por lo menos 9 numeros";
             }
-  
-            if(values.actualPlacePostalCode.toString().length !== 4){
-              errors.actualPlacePostalCode = 'Codigo Postal debe ser de 4 digitos'          
+
+            if (values.actualPlacePostalCode.toString().length !== 4) {
+              errors.actualPlacePostalCode =
+                "Codigo Postal debe ser de 4 digitos";
             }
-  
+
             if (user) {
               values.userId = user.id;
               delete errors.userId;
-            }            
+            }
+
+            if (errors) {
+              for (let key in errors) {
+                var sendErrors = [];
+                sendErrors.push(`${errors[key]}`);
+              }
+            }
 
             return errors;
           }}
@@ -204,12 +216,16 @@ export default function UserAdoptPetForm() {
               }
             }
 
-            setFlag(true);
             console.log("formulario enviado");
             console.log(values);
             dispatch(petitionGet(values));
             resetForm();
-            setTimeout(() => setFlag(false), 3000);
+
+            Swal.fire(
+              "Felicidades",
+              "Tu petición ha sido recibida con exito",
+              "success"
+            ).then(() => navigate("/userprofile"));
           }}
         >
           {(props) => (
@@ -221,7 +237,7 @@ export default function UserAdoptPetForm() {
               {console.log("abajo errors")} +/}              
               {/* {console.log('user',user)} */}
                 {/* {console.log("errors", props.errors)} */}
-                {console.log("values", props.values)}
+                {/* {console.log("values", props.values)} */}
                 {/* {console.log("value userId", props.values.userId)} */}
                 <ContainerCamp>
                   <Camp>
@@ -232,13 +248,17 @@ export default function UserAdoptPetForm() {
                       height="400"
                     />
                     <Label>
-                      Macota elegida: {pet.name}
+                      Macota elegida:{" "}
+                      <Span>
+                        {" "}
+                        {pet.name ? capitalize(pet.name) : "mascota"}{" "}
+                      </Span>
                     </Label>
                   </Camp>
                   <Camp>
                     <Label>
                       Nombre y apellido del adoptante:{" "}
-                      {user && user.name + " " + user.lastname}
+                      <Span> {user && user.name + " " + user.lastname} </Span>
                     </Label>
                   </Camp>
                   {/* <div>{JSON.stringify(props.errors)}</div> */}
@@ -280,7 +300,9 @@ export default function UserAdoptPetForm() {
                     />
                     <ErrorMessage
                       name="actualPlaceHood"
-                      component={() => <div>{props.errors.actualPlaceHood}</div>}
+                      component={() => (
+                        <div>{props.errors.actualPlaceHood}</div>
+                      )}
                     />
                   </Camp>
                   <Camp>
@@ -293,7 +315,9 @@ export default function UserAdoptPetForm() {
                     />
                     <ErrorMessage
                       name="actualPlaceCity"
-                      component={() => <div>{props.errors.actualPlaceCity}</div>}
+                      component={() => (
+                        <div>{props.errors.actualPlaceCity}</div>
+                      )}
                     />
                   </Camp>
                   <Camp>
@@ -387,7 +411,9 @@ export default function UserAdoptPetForm() {
                     <>
                       {" "}
                       <Camp>
-                        <Label>¿Cuántos ? ¿Nos cuenta un poco sobre ellos?</Label>
+                        <Label>
+                          ¿Cuántos ? ¿Nos cuenta un poco sobre ellos?
+                        </Label>
                         <Input
                           type="text"
                           id="otherPetsInfo"
@@ -451,11 +477,14 @@ export default function UserAdoptPetForm() {
                   )}
                   <Camp>
                     <Label>
-                      <p>¿Por que se interesa en este animal en particular? {"("}Si es otra opción, escribila y presiona Create{")"}</p>
+                      <p>
+                        ¿Por que se interesa en este animal en particular? {"("}
+                        Si es otra opción, escribila y presiona Create{")"}
+                      </p>
                       <p>
                         (Cómo conocemos el carácter de nuestras mascotas, la
-                        pregunta nos permite evaluar si es la indicada para lo que
-                        buscan)
+                        pregunta nos permite evaluar si es la indicada para lo
+                        que buscan)
                       </p>
                     </Label>
                     <Supliers options={options1} name="getPetReason" />
@@ -466,17 +495,25 @@ export default function UserAdoptPetForm() {
                   </Camp>
                   <Camp>
                     <Label>
-                      <p>¿Dónde vivira la mascota adoptada? {"("}Si es otra opción, escribila y presiona Create{")"}</p>
+                      <p>
+                        ¿Dónde vivira la mascota adoptada? {"("}Si es otra
+                        opción, escribila y presiona Create{")"}
+                      </p>
                     </Label>
                     <Supliers options={options2} name="adoptedPetPlace" />
                     <ErrorMessage
                       name="adoptedPetPlace"
-                      component={() => <div>{props.errors.adoptedPetPlace}</div>}
+                      component={() => (
+                        <div>{props.errors.adoptedPetPlace}</div>
+                      )}
                     />
                   </Camp>
                   <Camp>
                     <Label>
-                      <p>¿Posee espacio al aire libre? {"("}Si es otra opción, escribila y presiona Create{")"}</p>
+                      <p>
+                        ¿Posee espacio al aire libre? {"("}Si es otra opción,
+                        escribila y presiona Create{")"}
+                      </p>
                     </Label>
                     <Supliers options={options3} name="openSpace" />
                     <ErrorMessage
@@ -489,7 +526,8 @@ export default function UserAdoptPetForm() {
                     <Label>
                       <Field type="radio" name="rental" value="owner" />{" "}
                       Propietario
-                      <Field type="radio" name="rental" value="tenant" /> Alquilo
+                      <Field type="radio" name="rental" value="tenant" />{" "}
+                      Alquilo
                     </Label>
                     <ErrorMessage
                       name="rental"
@@ -561,7 +599,8 @@ export default function UserAdoptPetForm() {
                       ¿Está de acuerdo en tener un tiempo de adaptación?
                     </Label>
                     <Label>
-                      <Field type="radio" name="adaptationTime" value="yes" /> Si
+                      <Field type="radio" name="adaptationTime" value="yes" />{" "}
+                      Si
                       <Field type="radio" name="adaptationTime" value="no" /> No
                       <Field
                         type="radio"
@@ -595,8 +634,20 @@ export default function UserAdoptPetForm() {
                 </ContainerCamp>
                 <ContainerButton>
                   <ButtonSubmit type="submit">Enviar</ButtonSubmit>
-                  {flag && <Succes>Envio exitoso</Succes>}
                 </ContainerButton>
+                {Object.values(props.errors).toString().length > 0 && (
+                  <h3>
+                    Debes corregir lo siguiente si quieres enviar la peticion:
+                  </h3>
+                )}
+                {
+                  <div>
+                    {props.errors &&
+                      Object.values(props.errors)
+                        .toString()
+                        .replace(/,/g, " - ")}
+                  </div>
+                }
               </Forms>
             </FormContainer>
           )}
@@ -614,36 +665,35 @@ const newLabel = (name) => {
   if (name === "actualPlaceProvince") return "Provincia es requerido";
   if (name === "actualPlacePostalCode") return "Codigo Postal es requerido";
   if (name === "tel") return "Teléfono es requerido";
-  if (name === "familySize") return "Debe completar este campo";
-  if (name === "familyRelation") return "Debe completar este campo";
-  if (name === "otherPets") return "Debe completar este campo";
-  if (name === "otherPetsInfo") return "Debe completar este campo";
-  if (name === "otherPetsCastration") return "Debe completar este campo";
-  if (name === "otherPetsVacunation") return "Debe completar este campo";
-  if (name === "getPetReason") return "Debe completar este campo";
-  if (name === "adoptedPetPlace") return "Debe completar este campo";
-  if (name === "openSpace") return "Debe completar este campo";
-  if (name === "rental") return "Debe completar este campo";
-  if (name === "adoptedPetSleepingSpace") return "Debe completar este campo";
-  if (name === "adoptedPetAloneMoments") return "Debe completar este campo";
-  if (name === "adoptedPetWalkingInfo") return "Debe completar este campo";
-  if (name === "userMovingIdea") return "Debe completar este campo";
-  if (name === "adaptationTime") return "Debe completar este campo";
-  if (name === "userMovility") return "Debe completar este campo";
+  if (name === "familySize")
+    return "Debe completar cuántas personas viven en la casa";
+  if (name === "familyRelation")
+    return "Debe completar composición del núcleo familiar";
+  if (name === "otherPets") return "Debe completar si tiene otros animales";
+  if (name === "otherPetsInfo")
+    return "Debe completar informacion de sus actuales mascotas";
+  if (name === "otherPetsCastration")
+    return "Debe completar si sus actuales mascotas estan castradas";
+  if (name === "otherPetsVacunation")
+    return "Debe completar si sus actuales mascotas estan vacunadas";
+  if (name === "getPetReason")
+    return "Debe completar por que se interesa en este animal en particular";
+  if (name === "adoptedPetPlace")
+    return "Debe completar dónde vivira la mascota adoptada";
+  if (name === "openSpace")
+    return "Debe completar si posee espacio al aire libre";
+  if (name === "rental") return "Debe completar si son propietarios o alquilan";
+  if (name === "adoptedPetSleepingSpace")
+    return "Debe completar dónde dormirá el adoptado";
+  if (name === "adoptedPetAloneMoments")
+    return "Debe completar si la mascota adoptada estará sola y cuánto tiempo";
+  if (name === "adoptedPetWalkingInfo")
+    return "Debe completar quién paseará y cuántas veces al día la mascota adoptada";
+  if (name === "userMovingIdea")
+    return "Debe completar en caso de mudarse si ha pensado que hará con la mascota";
+  if (name === "adaptationTime")
+    return "Debe completar si está de acuerdo en tener un tiempo de adaptación";
+  if (name === "userMovility")
+    return "Debe completar si tiene movilidad para buscar a la mascota";
 };
 
-/* petId: id,
-        
-          otherPetsInfo: "", 
-          otherPetsCastration: "", 
-          otherPetsVacunation: "", 
-          getPetReason: "",
-          adoptedPetPlace: "",
-          openSpace: "",
-          rental: "",
-          adoptedPetSleepingSpace: "",
-          adoptedPetAloneMoments: "",
-          adoptedPetWalkingInfo: "",
-          userMovingIdea: "",
-          adaptationTime: "",          
-          userMovility: "",  */

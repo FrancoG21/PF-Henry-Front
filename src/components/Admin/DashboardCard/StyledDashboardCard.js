@@ -9,7 +9,7 @@ export const Dashboard = styled.div`
     flex: 1;
     padding: 10px;
     background-color: ${(props) => props.theme.card_alt};
-    color: ${(props) => props.theme.secondary};
+    color: ${(props) => props.theme.font_alt};
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     border-radius: 10px;
@@ -31,7 +31,7 @@ export const Right = styled.div`
 export const TitleCard = styled.h4`
     font-weight: 700;
     font-size: 14px;
-    color: ${(props) => props.theme.secondary};
+    color: ${(props) => props.theme.font_alt};
     margin-top: 5px;
     margin-bottom: 5px;
 `
