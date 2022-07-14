@@ -42,6 +42,7 @@ import {
   PetitionLoads,
 } from "./ProfilePetitionForms/ProfilePetitionForms";
 import DonationCard from "./DonationCard/DonationCard";
+import BasicRating from "./Rating";
 
 export default function UserProfile() {
   const [donationsUnique, setDonationsUnique] = useState([]);
@@ -287,17 +288,14 @@ export default function UserProfile() {
           </ContainerText>
           <DivAdmin>
             <Admin>
-              {user ? (
-                user.rol === "user" ? (
-                  <div>
-                    Usuaio <IconUser />
-                  </div>
-                ) : user.rol === "admin" ? (
-                  <div>
-                    Administrador <IconAdmin />
-                  </div>
-                ) : null
-              ) : null}
+              {user
+                ? user.rol === "user"
+                  ? <div>Usuario <IconUser /></div>
+                  : user.rol === "admin"
+                    ? <div>Administrador <IconAdmin /></div>
+                    : null
+                : null}
+              {user && user.rating ? <BasicRating value={user.rating}/> : <BasicRating value={0}/>}
             </Admin>
           </DivAdmin>
         </ContainerInfo>
