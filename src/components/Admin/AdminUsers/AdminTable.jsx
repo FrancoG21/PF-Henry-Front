@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
 import Swal from "sweetalert2";
@@ -17,7 +17,7 @@ import BasicRating from './Rating';
 const AdminTable = () => {
 
 const [user, setUser] = useState(null)
-
+const navigate = useNavigate()
 const token = useSelector(state=>state.usuario)
 
 useEffect(() => {
