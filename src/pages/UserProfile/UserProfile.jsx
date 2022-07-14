@@ -69,36 +69,36 @@ export default function UserProfile() {
     console.log("resData", resData);
 
     if (resData.Donations) {
-      let normal = []
-      let suscripcion =[]
+      let normal = [];
+      let suscripcion = [];
       for (let don of resData.Donations) {
         if (don.type === "regular_payment") {
-          normal.push(don)
+          normal.push(don);
           /* setDonationsUnique((prevState) => [...prevState, don]); */
         }
         if (don.type === "suscripcion ") {
-          suscripcion.push(don)
+          suscripcion.push(don);
           /* setDonationsSuscription((prevState) => [...prevState, don]); */
         }
       }
-      setDonationsUnique(() => normal)
-      setDonationsUnique(() => suscripcion)
+      setDonationsUnique(() => normal);
+      setDonationsSuscription(() => suscripcion);
     }
     if (resData.Pets) {
-      let adoptados = []
-      let transitados =[]
+      let adoptados = [];
+      let transitados = [];
       for (let pet of resData.Pets) {
         if (pet.state === "adopted") {
-          adoptados.push(pet)
+          adoptados.push(pet);
           /* setPetsAdopted((prevState) => [...prevState, pet]); */
         }
         if (pet.state === "transit") {
-          transitados.push(pet)
+          transitados.push(pet);
           /* setPetsTransit((prevState) => [...prevState, pet]); */
         }
       }
-      setPetsAdopted(() => adoptados)
-      setPetsTransit(() => transitados)
+      setPetsAdopted(() => adoptados);
+      setPetsTransit(() => transitados);
     }
 
     if (resData.PetitionGetLosts) {
@@ -106,36 +106,36 @@ export default function UserProfile() {
     }
 
     if (resData.PetitionLoads) {
-      let adopt = []
-      let lost =[]
+      let adopt = [];
+      let lost = [];
       for (let petition of resData.PetitionLoads) {
         if (petition.state === "adopt") {
-          adopt.push(petition)
+          adopt.push(petition);
           /* setLoadPetAdopt((prevState) => [...prevState, petition]); */
         }
         if (petition.state === "lost") {
-          lost.push(petition)
+          lost.push(petition);
           /* setLoadPetLost((prevState) => [...prevState, petition]); */
-        }        
+        }
       }
-      setLoadPetAdopt(() => adopt)
-      setLoadPetLost(() => lost)
+      setLoadPetAdopt(() => adopt);
+      setLoadPetLost(() => lost);
     }
 
     if (resData.PetitionGets) {
-      let transito =[]
-      let getAdopt = []
+      let transito = [];
+      let getAdopt = [];
       for (let petition of resData.PetitionGets) {
         if (petition.state === "transit") {
-          transito.push(petition)
+          transito.push(petition);
           /* setGetTransit((prevState) => [...prevState, petition]); */
         }
         if (petition.state === "adopted") {
-          getAdopt.push(petition)
+          getAdopt.push(petition);
           /* setGetAdopt((prevState) => [...prevState, petition]); */
         }
       }
-      setGetTransit(() =>  transito);
+      setGetTransit(() => transito);
       setGetAdopt(() => getAdopt);
     }
   };
@@ -205,8 +205,7 @@ export default function UserProfile() {
               "Excelente",
               "Tu contraseña ha sido cambiada correctamente",
               "success"
-            )
-            .then(()=>refresh())            
+            ).then(() => refresh())
           )
           .catch((e) => {
             console.log(e);
@@ -220,18 +219,17 @@ export default function UserProfile() {
     });
   };
 
-  const [ignore, forceUpdate] = useReducer(x=>x+1,0)
+  const [ignore, forceUpdate] = useReducer((x) => x + 1, 0);
   function refresh() {
-    forceUpdate()    
-   } 
-
-
-   useEffect(()=>{
-    callbackIn();
-   },[ignore])
+    forceUpdate();
+  }
 
   useEffect(() => {
-    callbackIn(); 
+    callbackIn();
+  }, [ignore]);
+
+  useEffect(() => {
+    callbackIn();
   }, []);
 
   useEffect(() => {
@@ -288,14 +286,22 @@ export default function UserProfile() {
           </ContainerText>
           <DivAdmin>
             <Admin>
-              {user
-                ? user.rol === "user"
-                  ? <div>Usuario <IconUser /></div>
-                  : user.rol === "admin"
-                    ? <div>Administrador <IconAdmin /></div>
-                    : null
-                : null}
-              {user && user.rating ? <BasicRating value={user.rating}/> : <BasicRating value={0}/>}
+              {user ? (
+                user.rol === "user" ? (
+                  <div>
+                    Usuario <IconUser />
+                  </div>
+                ) : user.rol === "admin" ? (
+                  <div>
+                    Administrador <IconAdmin />
+                  </div>
+                ) : null
+              ) : null}
+              {user && user.rating ? (
+                <BasicRating value={user.rating} />
+              ) : (
+                <BasicRating value={0} />
+              )}
             </Admin>
           </DivAdmin>
         </ContainerInfo>
@@ -420,71 +426,53 @@ export default function UserProfile() {
                 {petsAdopted.length > 0 || petsTransit.length > 0 ? (
                   flagPet === "all" ? (
                     <DivCardCarrusel>
-                      {petsAdopted.map((p, i) => (
-                        <ProfilePetCard
-                          name={p.name}
-                          pet={p.pet}
-                          breed={p.breed}
-                          state={p.state}
-                          castration={p.castration}
-                          id={p.id}
-                          image={p.image}
-                          actualPlace={p.actualPlace}
-                          key={"a" + i}
-                          vaccinate={p.vaccinate}
-                          size={p.size}
-                          weight={p.weight}
-                          gender={p.gender}
-                          fur={p.fur}
-                          refresh={refresh}
-                        />
-                      ))}
-                      {petsTransit.map((p, i) => (
-                        <ProfilePetCard
-                          name={p.name}
-                          pet={p.pet}
-                          state={p.state}
-                          id={p.id}
-                          image={p.image}
-                          actualPlace={p.actualPlace}
-                          key={"b" + i}
-                          castration={p.castration}
-                          breed={p.breed}
-                          vaccinate={p.vaccinate}
-                          size={p.size}
-                          weight={p.weight}
-                          gender={p.gender}
-                          fur={p.fur}
-                          refresh={refresh}
-                        />
-                      ))}
+                      {petsAdopted.length > 0
+                        ? petsAdopted.map((p, i) => (
+                            <ProfilePetCard
+                              name={p.name}
+                              pet={p.pet}
+                              breed={p.breed}
+                              state={p.state}
+                              castration={p.castration}
+                              id={p.id}
+                              image={p.image}
+                              actualPlace={p.actualPlace}
+                              key={"a" + i}
+                              vaccinate={p.vaccinate}
+                              size={p.size}
+                              weight={p.weight}
+                              gender={p.gender}
+                              fur={p.fur}
+                              refresh={refresh}
+                            />
+                          ))
+                        : null}
+                      {petsTransit.length > 0
+                        ? petsTransit.map((p, i) => (
+                            <ProfilePetCard
+                              name={p.name}
+                              pet={p.pet}
+                              state={p.state}
+                              id={p.id}
+                              image={p.image}
+                              actualPlace={p.actualPlace}
+                              key={"b" + i}
+                              castration={p.castration}
+                              breed={p.breed}
+                              vaccinate={p.vaccinate}
+                              size={p.size}
+                              weight={p.weight}
+                              gender={p.gender}
+                              fur={p.fur}
+                              refresh={refresh}
+                            />
+                          ))
+                        : null}
                     </DivCardCarrusel>
                   ) : flagPet === "adopted" ? (
                     <DivCardCarrusel>
-                      {petsAdopted.map((p, i) => (
-                        <ProfilePetCard
-                          name={p.name}
-                          pet={p.pet}
-                          state={p.state}
-                          id={p.id}
-                          image={p.image}
-                          actualPlace={p.actualPlace}
-                          key={"c" + i}
-                          castration={p.castration}
-                          breed={p.breed}
-                          vaccinate={p.vaccinate}
-                          size={p.size}
-                          weight={p.weight}
-                          gender={p.gender}
-                          fur={p.fur}
-                          refresh={refresh}
-                        />
-                      ))}
-                    </DivCardCarrusel>
-                  ) : (
-                    flagPet === "transit" && (
-                      <DivCardCarrusel>
-                        {petsTransit.map((p, i) => (
+                      {petsAdopted.length > 0 ? (
+                        petsAdopted.map((p, i) => (
                           <ProfilePetCard
                             name={p.name}
                             pet={p.pet}
@@ -492,7 +480,7 @@ export default function UserProfile() {
                             id={p.id}
                             image={p.image}
                             actualPlace={p.actualPlace}
-                            key={"d" + i}
+                            key={"c" + i}
                             castration={p.castration}
                             breed={p.breed}
                             vaccinate={p.vaccinate}
@@ -502,9 +490,39 @@ export default function UserProfile() {
                             fur={p.fur}
                             refresh={refresh}
                           />
-                        ))}
+                        ))
+                      ) : (
+                        <p>No tienes ningúna mascota de este tipo</p>
+                      )}
+                    </DivCardCarrusel>
+                  ) : (
+                    flagPet === "transit" ? (
+                      <DivCardCarrusel>
+                        {petsTransit.length > 0 ? (
+                          petsTransit.map((p, i) => (
+                            <ProfilePetCard
+                              name={p.name}
+                              pet={p.pet}
+                              state={p.state}
+                              id={p.id}
+                              image={p.image}
+                              actualPlace={p.actualPlace}
+                              key={"d" + i}
+                              castration={p.castration}
+                              breed={p.breed}
+                              vaccinate={p.vaccinate}
+                              size={p.size}
+                              weight={p.weight}
+                              gender={p.gender}
+                              fur={p.fur}
+                              refresh={refresh}
+                            />
+                          ))
+                        ) : (
+                          <p>No tienes ningúna mascota de este tipo</p>
+                        )}
                       </DivCardCarrusel>
-                    )
+                    ) :null
                   )
                 ) : (
                   <Error>No tienes ninguna mascota</Error>
