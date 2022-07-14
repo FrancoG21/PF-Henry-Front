@@ -8,6 +8,7 @@ import {
   PetitionGetLosts,
   PetitionLoads
 } from "./ProfilePetitionForms";
+import { BackgroundCardPetition, BackgroundPetition, CardPetition, TitlePetitions, CardDiv, TitleCard, BackPetitions } from "./StyledAdminUsers";
 const Peticiones = () => {
   const { id } = useParams();
   const [user, setUser] = useState(null);
@@ -29,7 +30,7 @@ const Peticiones = () => {
     }
     if (resData.PetitionLoads) {
       let adopt = []
-      let lost =[]
+      let lost = []
       for (let petition of resData.PetitionLoads) {
         if (petition.state === "adopt") {
           adopt.push(petition)
@@ -38,21 +39,21 @@ const Peticiones = () => {
           lost.push(petition)
         }
       }
-      setLoadPetAdopt(() =>adopt)
+      setLoadPetAdopt(() => adopt)
       setLoadPetLost(() => lost)
     }
     if (resData.PetitionGets) {
-       let transito =[]
-        let getAdopt = []
+      let transito = []
+      let getAdopt = []
       for (let petition of resData.PetitionGets) {
-       
+
         if (petition.state === "transit") {
           transito.push(petition)
         }
         if (petition.state === "adopted") {
           getAdopt.push(petition)
         }
-        setGetTransit(() =>  transito);
+        setGetTransit(() => transito);
         setGetAdopt(() => getAdopt);
       }
     }
@@ -64,177 +65,186 @@ const Peticiones = () => {
 
 
 
-  const [ignore, forceUpdate] = useReducer(x=>x+1,0)
+  const [ignore, forceUpdate] = useReducer(x => x + 1, 0)
 
   function refresh() {
-   forceUpdate()
-   
+    forceUpdate()
+
   }
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     callbackIn()
     console.log(ignore)
-  },[ignore])
+  }, [ignore])
 
 
   return (
-    <>
+    <BackgroundPetition>
       <div>
-      <Button variant="contained" size="medium">
-        <Link to={'/admin/'}> volver </Link>
-      </Button>
-      
+        <Link to="/admin/users">
+          <BackPetitions />
+        </Link>
       </div>
 
-      <div className="container">
+      <BackgroundCardPetition>
+        <CardPetition>
+          <TitlePetitions>Peticion de Adopcion</TitlePetitions>
+          <CardDiv>
+            {
+              getAdopt && getAdopt.map((p, i) => (
+                <PetitionGets
+                  refresh={refresh}
+                  formDate={p.formDate}
+                  petId={p.petId}
+                  state={p.state}
+                  formState={p.formState}
+                  formId={p.id}
+                  key={"j" + i}
+                  actualPlace={p.actualPlace}
+                  adaptationTime={p.adaptationTime}
+                  adoptedPetAloneMoments={p.adoptedPetAloneMoments}
+                  adoptedPetPlace={p.adoptedPetPlace}
+                  adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
+                  adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
+                  familyRelation={p.familyRelation}
+                  familySize={p.familySize}
+                  getPetReason={p.getPetReason}
+                  openSpace={p.openSpace}
+                  otherPets={p.otherPets}
+                  otherPetsCastration={p.otherPetsCastration}
+                  otherPetsInfo={p.otherPetsInfo}
+                  otherPetsVacunation={p.otherPetsVacunation}
+                  rental={p.rental}
+                  tel={p.tel}
+                  transitPetPeriod={p.transitPetPeriod}
+                  userAge={p.userAge}
+                  userAgreement={p.userAgreement}
+                  userMovility={p.userMovility}
+                  userMovingIdea={p.userMovingIdea}
+                />
+              ))}
+          </CardDiv>
+          <CardDiv>
+            {
+              getTransit && getTransit.map((p, i) => (
+                <PetitionGets
+                  refresh={refresh}
+                  formDate={p.formDate}
+                  petId={p.petId}
+                  state={p.state}
+                  formState={p.formState}
+                  formId={p.id}
+                  key={"j" + i}
+                  actualPlace={p.actualPlace}
+                  adaptationTime={p.adaptationTime}
+                  adoptedPetAloneMoments={p.adoptedPetAloneMoments}
+                  adoptedPetPlace={p.adoptedPetPlace}
+                  adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
+                  adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
+                  familyRelation={p.familyRelation}
+                  familySize={p.familySize}
+                  getPetReason={p.getPetReason}
+                  openSpace={p.openSpace}
+                  otherPets={p.otherPets}
+                  otherPetsCastration={p.otherPetsCastration}
+                  otherPetsInfo={p.otherPetsInfo}
+                  otherPetsVacunation={p.otherPetsVacunation}
+                  rental={p.rental}
+                  tel={p.tel}
+                  transitPetPeriod={p.transitPetPeriod}
+                  userAge={p.userAge}
+                  userAgreement={p.userAgreement}
+                  userMovility={p.userMovility}
+                  userMovingIdea={p.userMovingIdea}
+                />
+              ))}
+          </CardDiv>
+        </CardPetition>
         <div>
-          <h1>Peticion de Adopcion</h1>
-          {
-            getAdopt&&getAdopt.map((p, i) => (
-              <PetitionGets
-                refresh={refresh}
-                formDate={p.formDate}
-                petId={p.petId}
-                state={p.state}
-                formState={p.formState}
-                formId={p.id}
-                key={"j" + i}
-                actualPlace={p.actualPlace}
-                adaptationTime={p.adaptationTime}
-                adoptedPetAloneMoments={p.adoptedPetAloneMoments}
-                adoptedPetPlace={p.adoptedPetPlace}
-                adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
-                adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
-                familyRelation={p.familyRelation}
-                familySize={p.familySize}
-                getPetReason={p.getPetReason}
-                openSpace={p.openSpace}
-                otherPets={p.otherPets}
-                otherPetsCastration={p.otherPetsCastration}
-                otherPetsInfo={p.otherPetsInfo}
-                otherPetsVacunation={p.otherPetsVacunation}
-                rental={p.rental}
-                tel={p.tel}
-                transitPetPeriod={p.transitPetPeriod}
-                userAge={p.userAge}
-                userAgreement={p.userAgreement}
-                userMovility={p.userMovility}
-                userMovingIdea={p.userMovingIdea}
-              />
-            ))}
-          {
-            getTransit&&getTransit.map((p, i) => (
-              <PetitionGets
-              refresh={refresh}
-                formDate={p.formDate}
-                petId={p.petId}
-                state={p.state}
-                formState={p.formState}
-                formId={p.id}
-                key={"j" + i}
-                actualPlace={p.actualPlace}
-                adaptationTime={p.adaptationTime}
-                adoptedPetAloneMoments={p.adoptedPetAloneMoments}
-                adoptedPetPlace={p.adoptedPetPlace}
-                adoptedPetSleepingSpace={p.adoptedPetSleepingSpace}
-                adoptedPetWalkingInfo={p.adoptedPetWalkingInfo}
-                familyRelation={p.familyRelation}
-                familySize={p.familySize}
-                getPetReason={p.getPetReason}
-                openSpace={p.openSpace}
-                otherPets={p.otherPets}
-                otherPetsCastration={p.otherPetsCastration}
-                otherPetsInfo={p.otherPetsInfo}
-                otherPetsVacunation={p.otherPetsVacunation}
-                rental={p.rental}
-                tel={p.tel}
-                transitPetPeriod={p.transitPetPeriod}
-                userAge={p.userAge}
-                userAgreement={p.userAgreement}
-                userMovility={p.userMovility}
-                userMovingIdea={p.userMovingIdea}
-              />
-            ))}
+          <TitlePetitions>Peticion perdidos</TitlePetitions>
+          <CardDiv>
+            {
+              getItsMyPet && getItsMyPet.map((p, i) => (
+                <PetitionGetLosts
+                  refresh={refresh}
+                  ormDate={p.formDate}
+                  petId={p.petId}
+                  formState={p.formState}
+                  formId={p.id}
+                  key={"i" + i}
+                  userMovility={p.userMovility}
+                  tel={p.tel}
+                  originalName={p.originalName}
+                  lostZone={p.lostZone}
+                  image={p.image}
+                  getReason={p.getReason}
+                />
+              ))}
+          </CardDiv>
         </div>
         <div>
-          <h1>Peticion perdidos</h1>
-          {
-            getItsMyPet&&getItsMyPet.map((p, i) => (
-              <PetitionGetLosts
-              refresh={refresh}
-                ormDate={p.formDate}
-                petId={p.petId}
-                formState={p.formState}
-                formId={p.id}
-                key={"i" + i}
-                userMovility={p.userMovility}
-                tel={p.tel}
-                originalName={p.originalName}
-                lostZone={p.lostZone}
-                image={p.image}
-                getReason={p.getReason}
-              />
-            ))}
+          <TitlePetitions>Dar en Adopcion</TitlePetitions>
+          <CardDiv>
+            {loadPetAdopt &&
+              loadPetAdopt.map((p, i) => (
+                <PetitionLoads
+                  refresh={refresh}
+                  formDate={p.formDate}
+                  petId={p.petId}
+                  state={p.state}
+                  petName={p.name}
+                  type={p.pet}
+                  formState={p.formState}
+                  petImg={p.image}
+                  formId={p.id}
+                  key={"f" + i}
+                  actualPlace={p.actualPlace}
+                  breed={p.breed}
+                  castration={p.castration}
+                  foundDate={p.foundDate}
+                  foundPlace={p.foundPlace}
+                  fur={p.fur}
+                  gender={p.gender}
+                  pet={p.pet}
+                  size={p.size}
+                  vaccinate={p.vaccinate}
+                  weight={p.weight}
+                  image={p.image}
+                />
+              ))}
+          </CardDiv>
+          <CardDiv>
+            {loadPetLost &&
+              loadPetLost.map((p, i) => (
+                <PetitionLoads
+                  refresh={refresh}
+                  formDate={p.formDate}
+                  petId={p.petId}
+                  state={p.state}
+                  petName={p.name}
+                  type={p.pet}
+                  formState={p.formState}
+                  petImg={p.image}
+                  formId={p.id}
+                  key={"f" + i}
+                  actualPlace={p.actualPlace}
+                  breed={p.breed}
+                  castration={p.castration}
+                  foundDate={p.foundDate}
+                  foundPlace={p.foundPlace}
+                  fur={p.fur}
+                  gender={p.gender}
+                  pet={p.pet}
+                  size={p.size}
+                  vaccinate={p.vaccinate}
+                  weight={p.weight}
+                  image={p.image}
+                />
+              ))}
+          </CardDiv>
         </div>
-        <div>
-          <h1>Load</h1>
-          {loadPetAdopt&&
-            loadPetAdopt.map((p, i) => (
-              <PetitionLoads
-              refresh={refresh}
-                formDate={p.formDate}
-                petId={p.petId}
-                state={p.state}
-                petName={p.name}
-                type={p.pet}
-                formState={p.formState}
-                petImg={p.image}
-                formId={p.id}
-                key={"f" + i}
-                actualPlace={p.actualPlace}
-                breed={p.breed}
-                castration={p.castration}
-                foundDate={p.foundDate}
-                foundPlace={p.foundPlace}
-                fur={p.fur}
-                gender={p.gender}
-                pet={p.pet}
-                size={p.size}
-                vaccinate={p.vaccinate}
-                weight={p.weight}
-                image={p.image}
-              />
-            ))}
-          {loadPetLost&&
-            loadPetLost.map((p, i) => (
-              <PetitionLoads
-              refresh={refresh}
-                formDate={p.formDate}
-                petId={p.petId}
-                state={p.state}
-                petName={p.name}
-                type={p.pet}
-                formState={p.formState}
-                petImg={p.image}
-                formId={p.id}
-                key={"f" + i}
-                actualPlace={p.actualPlace}
-                breed={p.breed}
-                castration={p.castration}
-                foundDate={p.foundDate}
-                foundPlace={p.foundPlace}
-                fur={p.fur}
-                gender={p.gender}
-                pet={p.pet}
-                size={p.size}
-                vaccinate={p.vaccinate}
-                weight={p.weight}
-                image={p.image}
-              />
-            ))}
-        </div>
-      </div>
-    </>
+      </BackgroundCardPetition>
+    </BackgroundPetition>
   );
 };
 
