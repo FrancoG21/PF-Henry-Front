@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const BackgroundListPets = styled.div`
     background-color: ${(props) => props.theme.background};
-    height: 100vh;
+    height: auto;
 `
 
 export const ContainerListPets = styled.div`
