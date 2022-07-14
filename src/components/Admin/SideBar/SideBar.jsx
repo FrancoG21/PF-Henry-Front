@@ -7,7 +7,6 @@ import {
     IconMenu,
     Icon,
     Icon2,
-    Icon3,
     Text,
     LinkList,
 } from './StyledSideBar';

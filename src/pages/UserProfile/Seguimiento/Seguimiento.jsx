@@ -17,6 +17,7 @@ import {
   Select,
   ButtonSubmit,
   ContainerButton,
+  TextSeg,
 } from "./StyledSeguimiento";
 
 export default function Seguimiento() {
@@ -117,13 +118,13 @@ export default function Seguimiento() {
               Cargá el seguimiento de{" "}
               {pet ? capitalize(pet.name) : "tu mascota"}
             </TitleForm>
-            <h3>
+            <TextSeg>
               El seguimiento nos ayuda a ver como esta{" "}
               {pet ? capitalize(pet.name) : "tu mascota"} y mostrar que todas
               las mascotas pueden volver a compartir su cariño con las personas
               que les den la oportunidad de hacerlo. Publicaremos este
               seguimiento en la página principal.
-            </h3>
+            </TextSeg>
             <Forms>
               <ContainerCamp>
                 <Camp>
@@ -141,7 +142,7 @@ export default function Seguimiento() {
                     {")"}{" "}
                   </Label>
                   <Field
-                    as="textarea"
+                    as="input"
                     id={"description"}
                     name="description"
                     rows="8"
