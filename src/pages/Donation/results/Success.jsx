@@ -1,20 +1,25 @@
 import React from "react";
 import "./success.module.css";
 import dogs from "../../img/dogs1.gif";
-
+import { BakgroundFailed, BakgroundSuccess, ButtonBackSuccess, DivContainerSuccess, GifPet, TextError, TitleError } from './StyledFailure';
+import {Link} from 'react-router-dom';
 
 
 export default function Success() {
     return (
-        <>
-            <div className="Success">
+        <BakgroundSuccess>
+            <DivContainerSuccess>
+                <TitleError> TU DONACIÓN ES MUY VALIOSA PARA NOSOTROS!</TitleError>
+                <TextError>Recibirás un correo confirmando tu donación</TextError>
+                <TextError>Adoptar, es la mejor opción!</TextError>
+                <GifPet src={dogs} alt="dog" />
 
-                <h2> TU DONACIÓN ES MUY VALIOSA PARA NOSOTROS!</h2>
-                <span>Recibirás un correo confirmando tu donación</span>
-                <h4>Adoptar, es la mejor opción!</h4>
-                <img src={dogs} alt="dog" />
-
-            </div>
-        </>
+                <div>
+                    <Link to='/'>
+                        <ButtonBackSuccess>Volver</ButtonBackSuccess>
+                    </Link>
+                </div>
+            </DivContainerSuccess>
+        </BakgroundSuccess>
     );
 }

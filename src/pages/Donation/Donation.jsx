@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import "./Donation.module.css";
 import {
   BackgroundDonation,
   ButtonDonation,

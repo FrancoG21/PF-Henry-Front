@@ -22,8 +22,8 @@ export default function Searchbar({stateValue}) {
     e.preventDefault();
 
     if(name.toLowerCase().replace(/ /g, "").length > 0){
-      console.log('searchbar -->',name)
-      console.log('stateValue SearchBar',stateValue)
+      // console.log('searchbar -->',name)
+      // console.log('stateValue SearchBar',stateValue)
       dispatch(searchByName({name: name.toLocaleLowerCase(), state: stateValue}))            
       setPet('')
       

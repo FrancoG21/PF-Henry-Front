@@ -24,7 +24,7 @@ export default function CarruselSeguimiento() {
       const { data } = await axios.get("/tracking/ult5");
       setSeguimiento(data);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 

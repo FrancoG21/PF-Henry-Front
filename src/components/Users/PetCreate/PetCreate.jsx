@@ -99,7 +99,7 @@ export default function PetCreate() {
       const resData = res.data;
       setUser(resData);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -122,15 +122,15 @@ export default function PetCreate() {
   };
 
   const callBackImage = (arrUrls) => {
-    console.log("entre a callBackImage");
+    // console.log("entre a callBackImage");
     setUrlImage(arrUrls);
-    console.log(urlImage);
+    // console.log(urlImage);
   };
 
   const [finalBreed, setFinalBreed] = useState("");
   const callbackBreeds = (value) => {
     setFinalBreed(value);
-    console.log(`callbackBreeds -> ${finalBreed}`);
+    // console.log(`callbackBreeds -> ${finalBreed}`);
   };
 
   return (
@@ -233,9 +233,9 @@ export default function PetCreate() {
               delete errors.userId
             }
 
-            console.log(errors);
-            console.log("abajo values");
-            console.log(values);
+            // console.log(errors);
+            // console.log("abajo values");
+            // console.log(values);
             return errors;
           }}
           onSubmit={(values, { resetForm }) => {
@@ -292,7 +292,7 @@ export default function PetCreate() {
             resetForm();
             setJson({ images: [] });
             setFlag(true);
-            console.log("formulario enviado");
+            // console.log("formulario enviado");
             setTimeout(() => setFlag(false), 3000);
           }}
         >
