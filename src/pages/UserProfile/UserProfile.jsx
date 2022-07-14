@@ -35,6 +35,7 @@ import {
   TitleCardPets,
   DivCardPetition,
   Error,
+  AllDonDiv
 } from "./StyledUserProfile";
 import {
   PetitionGets,
@@ -918,29 +919,36 @@ export default function UserProfile() {
                   <DivCardPetition>
                     {" "}
                     {donationsUnique.length + donationsSuscription.length > 0 ? (
-                      donationsUnique.length > 0 ? (
-                        donationsUnique.map((d, i) => (
-                          <DonationCard
-                            key={"o" + i}
-                            amount={d.amount}
-                            date={d.date}
-                            type={d.type}
-                            id={d.id}
-                            refresh={refresh}
-                          />
-                        ))
-                      ) : donationsSuscription.length > 0 ? (
-                        donationsSuscription.map((d, i) => (
-                          <DonationCard
-                            key={"p" + i}
-                            amount={d.amount}
-                            date={d.date}
-                            type={d.type}
-                            id={d.id}
-                            refresh={refresh}
-                          />
-                        ))
-                      ) : null
+                      <AllDonDiv >
+                        <AllDonDiv>
+                          {donationsUnique.map((d, i) => {
+                            return (
+                              <DonationCard
+                                amount={d.amount}
+                                key={"0" + i}
+                                date={d.date}
+                                type={d.type}
+                                id={d.id}
+                                refresh={refresh}
+                              />
+                            );
+                          })}
+                        </AllDonDiv>
+                        <AllDonDiv>
+                          {donationsSuscription.map((d, i) => {
+                            return (
+                              <DonationCard
+                                amount={d.amount}
+                                key={"0" + i}
+                                date={d.date}
+                                type={d.type}
+                                id={d.id}
+                                refresh={refresh}
+                              />
+                            );
+                          })}
+                        </AllDonDiv>
+                      </AllDonDiv>
                     ) : (
                       <p>No hay donaciones</p>
                     )}

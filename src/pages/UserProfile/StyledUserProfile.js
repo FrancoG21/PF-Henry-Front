@@ -226,3 +226,8 @@ export const Error = styled.p`
   color: ${(props) => props.theme.secondary};
   font-size: 1rem;
 `
+export const AllDonDiv = styled.div`
+ display:flex;
+ flex-direction:row;
+ align-items:center
+`
