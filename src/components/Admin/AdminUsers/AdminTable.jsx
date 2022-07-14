@@ -91,7 +91,7 @@ const [ignore, forceUpdate] = useReducer(x=>x+1,0)
                   <TableCell className="tableCell">{e.lastname}</TableCell>
                   <TableCell className="tableCell">{e.Pets.map((pet)=>pet.name)}</TableCell>
                   <TableCell className="tableCell"><BasicRating rating={e.rating} id={e.id} /></TableCell>
-                  <TableCell className="tableCell">{e.email}</TableCell>
+                  <TableCell className="tableCell">{e.email}</TableCell> 
                   <TableCell className="tableCell">{e.PetitionGets.id}
                     <Button size="small" variant="outlined">
                     <Link  to={'/admin/petitionuser/' + e.id}> Ver </Link> 
