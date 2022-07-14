@@ -495,35 +495,33 @@ export default function UserProfile() {
                         <p>No tienes ningúna mascota de este tipo</p>
                       )}
                     </DivCardCarrusel>
-                  ) : (
-                    flagPet === "transit" ? (
-                      <DivCardCarrusel>
-                        {petsTransit.length > 0 ? (
-                          petsTransit.map((p, i) => (
-                            <ProfilePetCard
-                              name={p.name}
-                              pet={p.pet}
-                              state={p.state}
-                              id={p.id}
-                              image={p.image}
-                              actualPlace={p.actualPlace}
-                              key={"d" + i}
-                              castration={p.castration}
-                              breed={p.breed}
-                              vaccinate={p.vaccinate}
-                              size={p.size}
-                              weight={p.weight}
-                              gender={p.gender}
-                              fur={p.fur}
-                              refresh={refresh}
-                            />
-                          ))
-                        ) : (
-                          <p>No tienes ningúna mascota de este tipo</p>
-                        )}
-                      </DivCardCarrusel>
-                    ) :null
-                  )
+                  ) : flagPet === "transit" ? (
+                    <DivCardCarrusel>
+                      {petsTransit.length > 0 ? (
+                        petsTransit.map((p, i) => (
+                          <ProfilePetCard
+                            name={p.name}
+                            pet={p.pet}
+                            state={p.state}
+                            id={p.id}
+                            image={p.image}
+                            actualPlace={p.actualPlace}
+                            key={"d" + i}
+                            castration={p.castration}
+                            breed={p.breed}
+                            vaccinate={p.vaccinate}
+                            size={p.size}
+                            weight={p.weight}
+                            gender={p.gender}
+                            fur={p.fur}
+                            refresh={refresh}
+                          />
+                        ))
+                      ) : (
+                        <p>No tienes ningúna mascota de este tipo</p>
+                      )}
+                    </DivCardCarrusel>
+                  ) : null
                 ) : (
                   <Error>No tienes ninguna mascota</Error>
                 )}
@@ -918,8 +916,10 @@ export default function UserProfile() {
               <div>
                 {flagDonations === "all" ? (
                   <DivCardPetition>
-                    {donationsUnique.length > 0
-                      ? donationsUnique.map((d, i) => (
+                    {" "}
+                    {donationsUnique.length + donationsUnique.length > 0 ? (
+                      donationsUnique.length > 0 ? (
+                        donationsUnique.map((d, i) => (
                           <DonationCard
                             key={"o" + i}
                             amount={d.amount}
@@ -929,20 +929,20 @@ export default function UserProfile() {
                             refresh={refresh}
                           />
                         ))
-                      : null}
-                    {donationsSuscription.length > 0 ? (
-                      donationsSuscription.map((d, i) => (
-                        <DonationCard
-                          key={"p" + i}
-                          amount={d.amount}
-                          date={d.date}
-                          type={d.type}
-                          id={d.id}
-                          refresh={refresh}
-                        />
-                      ))
+                      ) : donationsSuscription.length > 0 ? (
+                        donationsSuscription.map((d, i) => (
+                          <DonationCard
+                            key={"p" + i}
+                            amount={d.amount}
+                            date={d.date}
+                            type={d.type}
+                            id={d.id}
+                            refresh={refresh}
+                          />
+                        ))
+                      ) : null
                     ) : (
-                      <Error>No posees ninguna donacion</Error>
+                      <p>No hay donaciones</p>
                     )}
                   </DivCardPetition>
                 ) : flagDonations === "suscription" ? (
@@ -979,7 +979,9 @@ export default function UserProfile() {
                       <Error>No posees donaciones de este tipo</Error>
                     )}
                   </DivCardPetition>
-                ) : null}
+                ) : (
+                  <Error>No posees donaciones</Error>
+                )}
               </div>
             </Carrusel>
           </Splide>
