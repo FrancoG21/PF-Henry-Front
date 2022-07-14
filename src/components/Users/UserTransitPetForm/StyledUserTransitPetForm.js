@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export const TitleForm = styled.h1`
     color: ${(props) => props.theme.secondary};
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
 `
 
 export const BackgroundForm = styled.div`
@@ -61,12 +61,16 @@ export const Label = styled.label`
 `
 
 export const Input = styled(Field)`
-    width: 90%;
+    width: 98%;
     padding: .5rem;
     border: none;
     border-radius: .5rem;
     margin-left: 5px;
     outline: none;
+
+    @media screen and (max-width: 600px) {
+        width: 90%;
+    }
 `
 
 export const Select = styled(Field)`
@@ -153,10 +157,21 @@ export const SubText = styled.h2`
     color: ${(props) => props.theme.secondary};
     font-size: 1rem;
     text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
+
+    @media screen and (max-width: 600px) {
+        margin: 0;
+    }
 `
 
 export const Succes = styled.p`
     font-size: 1rem;
     color: #fff;
     text-align: center;
+`
+
+export const Span = styled.span`
+    font-size: 1.2rem;
+    color: ${(props) => props.theme.secondary};
 `

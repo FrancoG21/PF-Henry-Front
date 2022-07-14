@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from 'axios'
 //import Supliers from "./Supliers";
+import Swal from "sweetalert2";
 
 import {
   ContainerCamp,
