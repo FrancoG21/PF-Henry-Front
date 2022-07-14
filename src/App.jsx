@@ -26,7 +26,6 @@ import Failure from "./pages/Donation/results/Failure";
 //ADMIN
 import AdminHome from "./pages/AdminHome/AdminHome";
 import AdminPets from "./components/Admin/AdminPets/AdminPets";
-import AdminDonation from "./components/Admin/AdminDonation/AdminDonation";
 import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
 import ProfilePets from "./components/Admin/ProfilePets/ProfilePets";
 import Peticiones from './components/Admin/AdminUsers/Peticiones'
