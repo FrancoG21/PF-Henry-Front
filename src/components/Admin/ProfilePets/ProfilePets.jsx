@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SideBar from "../SideBar/SideBar";
 import Swal from "sweetalert2";
-import { BackgroundProfilePets,
+import {
+    BackgroundProfilePets,
     ButtonEditPet,
     ContainerProfilePets,
     ContInput,
@@ -14,7 +15,9 @@ import { BackgroundProfilePets,
     InputRadio,
     Label,
     Left,
-    Right
+    Right,
+    TitleProfilePets,
+    SubtitleProfilePets,
 } from "./StyledProfilePets";
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router";
@@ -40,9 +43,9 @@ export default function ProfilePets() {
     }, [dispatch, id])
 
 
-    function handleChange (e) {
+    function handleChange(e) {
         setInput({
-            ...input, [e.target.name] : e.target.value
+            ...input, [e.target.name]: e.target.value
         })
     }
 
@@ -57,7 +60,7 @@ export default function ProfilePets() {
         //     timer: 1500
         //   })
         // }
-    
+
         // if(res.data.error){
         //   return Swal.fire({
         //     icon: 'error',
@@ -68,16 +71,17 @@ export default function ProfilePets() {
         // })
         // }
         console.log(e)
-        axios.put(`/pet/update/${id}`,input).then((r) => {
-        console.log(input)
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Datos Cambiados!',
-            showConfirmButton: true,
-            timer: 3000
-        })
-        .then(()=>{navigate("/admin/pets")})}, err => console.log(err))
+        axios.put(`/pet/update/${id}`, input).then((r) => {
+            console.log(input)
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Datos Cambiados!',
+                showConfirmButton: true,
+                timer: 3000
+            })
+                .then(() => { navigate("/admin/pets") })
+        }, err => console.log(err))
     }
 
     return (
@@ -86,7 +90,7 @@ export default function ProfilePets() {
                 <SideBar />
                 <div>
                     <DivTitleProfile>
-                        <h1>Perfil de Mascota</h1>
+                        <TitleProfilePets>Perfil de Mascota</TitleProfilePets>
                     </DivTitleProfile>
                     <DivTitleProfile>
                         <GridDiv>
@@ -95,12 +99,13 @@ export default function ProfilePets() {
                             </Left>
                             <Right>
                                 <Form onSubmit={handleSubmit}>
-                                    <h3>Edita esta mascota:</h3>
+                                    <SubtitleProfilePets>Edita esta mascota:</SubtitleProfilePets>
                                     <ContInput>
                                         <Label>Tamaño:</Label>
                                         <InputRadio onChange={handleChange} type="radio" name="size" value="small" /> Pequeño
                                         <InputRadio onChange={handleChange} type="radio" name="size" value="medium" /> Mediano
-                                        <InputRadio onChange={handleChange} type="radio" name="size" value="big" /> Grande                                     </ContInput>
+                                        <InputRadio onChange={handleChange} type="radio" name="size" value="big" /> Grande
+                                    </ContInput>
                                     <ContInput>
                                         <Label>Nombre:</Label>
                                         <Input onChange={handleChange} name="name" type='text' placeholder={petsId.name} />
@@ -112,12 +117,14 @@ export default function ProfilePets() {
                                     <ContInput>
                                         <Label>Pelaje:</Label>
                                         <InputRadio onChange={handleChange} type="radio" name="fur" value="true" /> Corto
-                                        <InputRadio onChange={handleChange} type="radio" name="fur" value="false" /> Largo                                  </ContInput>
+                                        <InputRadio onChange={handleChange} type="radio" name="fur" value="false" /> Largo
+                                    </ContInput>
                                     <ContInput>
                                         <Label>Castrado:</Label>
                                         <InputRadio onChange={handleChange} type="radio" name="castration" value="true" /> Si
                                         <InputRadio onChange={handleChange} type="radio" name="castration" value="false" /> No
-                                        <InputRadio onChange={handleChange} type="radio" name="castration" value="unknown" /> Desconocido                                    </ContInput>
+                                        <InputRadio onChange={handleChange} type="radio" name="castration" value="unknown" /> Desconocido
+                                    </ContInput>
                                     <ContInput>
                                         <Label>Vacunado:</Label>
                                         <InputRadio onChange={handleChange} type="radio" name="vaccination" value="true" /> Si
@@ -128,7 +135,8 @@ export default function ProfilePets() {
                                         <Label>Estado:</Label>
                                         <InputRadio type="radio" name="state" value="adopt" /> Adoptado
                                         <InputRadio type="radio" name="state" value="transit" /> Transito
-                                        <InputRadio type="radio" name="state" value="lost" /> Perdido                                     </ContInput>
+                                        <InputRadio type="radio" name="state" value="lost" /> Perdido
+                                    </ContInput>
                                     <ButtonEditPet>Enviar</ButtonEditPet>
                                 </Form>
                             </Right>
