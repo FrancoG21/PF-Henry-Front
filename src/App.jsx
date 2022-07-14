@@ -28,9 +28,6 @@ import AdminHome from "./pages/AdminHome/AdminHome";
 import AdminPets from "./components/Admin/AdminPets/AdminPets";
 import AdminDonation from "./components/Admin/AdminDonation/AdminDonation";
 import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
-import FormLostAnimals from "./components/Admin/FormLostAnimals/FormLostAnimals";
-import FormAdopt from "./components/Admin/FormAdopt/FormAdopt";
-import FormTransit from "./components/Admin/FormTransit/FormTransit";
 import ProfilePets from "./components/Admin/ProfilePets/ProfilePets";
 import Peticiones from './components/Admin/AdminUsers/Peticiones'
 //  MODO OSCURO //
@@ -94,10 +91,6 @@ function App() {
             <Route path="/admin" element={token ? <AdminHome /> : <Redireccion URL='/' />}></Route>
             <Route path="/admin/pets" element={token ? <AdminPets /> : <Redireccion URL='/' />}></Route>
             <Route path="/admin/users" element={token ? <AdminUsers /> : <Redireccion URL='/' />}></Route>
-            <Route path="/admin/donation" element={token ? <AdminDonation /> : <Redireccion URL='/' />}></Route>
-            <Route path="/admin/formadopt" element={token ? <FormAdopt /> : <Redireccion URL='/' />}></Route>
-            <Route path="/admin/formlost" element={token ? <FormLostAnimals /> : <Redireccion URL='/' />}></Route>
-            <Route path="/admin/formtransit" element={token ? <FormTransit /> : <Redireccion URL='/' />}></Route>
             <Route path="/admin/profilepets/:id" element={token ? <ProfilePets /> : <Redireccion URL='/' />}></Route>
             <Route path="/admin/petitionuser/:id" element={token ? <Peticiones /> : <Redireccion URL='/' />}></Route>
             {/* <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route> */}

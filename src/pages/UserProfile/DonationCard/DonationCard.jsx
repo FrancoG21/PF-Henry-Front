@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { ContainerDonation, Sub, ButtonPago } from "./StyledDonationCard";
 import axios from "axios";
 
-export default function DonationCard({ amount, date, type, id }) {
+export default function DonationCard({ amount, date, type, id, refresh }) {
   let dateFormat = moment(amount.date).format("DD/MM/YYYY");
 
   const popUp1 = () => {
@@ -25,8 +25,8 @@ export default function DonationCard({ amount, date, type, id }) {
               "Excelente",
               "Tu suscripcion fue cancelada con exito",
               "success"
-            ),
-            setTimeout(() => location.reload(), 1000)
+            )
+            .then(()=>{refresh()})
           )
           .catch((e) => {
             console.log(e);

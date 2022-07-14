@@ -89,8 +89,8 @@ export default function PetFilters({ petsToFilter, stateValue }) {
               <Label>Genero</Label>
               <Label>
                 <Field type="radio" name="gender" value="all" /> Todos
-                <Field type="radio" name="gender" value="male" /> Masculino
-                <Field type="radio" name="gender" value="female" /> Femenino
+                <Field type="radio" name="gender" value="male" /> Macho
+                <Field type="radio" name="gender" value="female" /> Hembra
               </Label>
             </ContainerFilter>
 
