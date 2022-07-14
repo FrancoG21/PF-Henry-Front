@@ -19,7 +19,7 @@ export function getPets(page, filter) {
     try {
       const res = await axios.put(`/pet?page=${page}`, filter);
       dispatch({ type: GET_PETS, payload: res.data });
-      console.log(res.data)
+      // console.log(res.data)
     } catch (e) {
       dispatch({ type: GET_PETS, payload: e.response.data });
     }
@@ -39,7 +39,7 @@ export function searchByName(payload) {
 }
 
 export const petitionLoad = (payload) => {
-  console.log("petitionLoad -->", payload);
+  // console.log("petitionLoad -->", payload);
   return async function (dispatch) {
     try {
       const res = await axios.post(`/petitionLoad/`, payload);
@@ -51,7 +51,7 @@ export const petitionLoad = (payload) => {
 };
 
 export const petitionGet = (payload) => {
-  console.log("petitionGet -->", payload);
+  // console.log("petitionGet -->", payload);
   return async function (dispatch) {
     try {
       const res = await axios.post(`/petitionGet/`, payload);
@@ -63,7 +63,7 @@ export const petitionGet = (payload) => {
 };
 
 export const petitionGetLost = (payload) => {
-  console.log("petitionGetLost -->", payload);
+  // console.log("petitionGetLost -->", payload);
   return async function (dispatch) {
     try {
       const res = await axios.post(`/petitionGet/lost`, payload);
@@ -96,7 +96,7 @@ export function cleanDetail() {
 }
 
 export function getGoogle(info) {
-  console.log('estoy en',info)
+  // console.log('estoy en',info)
   return async (dispatch) => {
     try {
       const  res  = await axios.post(`/auth/google/callback`, info);
@@ -123,7 +123,7 @@ export const upLogin = (user) => {
 
 
 export const postRegister = (payload) => {
-  console.log("postRegister -->", payload);
+  // console.log("postRegister -->", payload);
   return async function (dispatch) {
     try {
       const res = await axios.post('/user/register', payload);

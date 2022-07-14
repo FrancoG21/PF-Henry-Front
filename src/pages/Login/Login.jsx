@@ -57,7 +57,7 @@ export default function Login() {
   const user = useSelector((state) => state.usuario)
   const urlBack = useSelector((state) => state.urlBack)
   const resLogin = useSelector((state) => state.usuario)
-  console.log("LOGINUSER", resLogin);
+  // console.log("LOGINUSER", resLogin);
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
