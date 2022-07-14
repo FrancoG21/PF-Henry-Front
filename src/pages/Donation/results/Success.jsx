@@ -1,5 +1,4 @@
 import React from "react";
-import "./success.module.css";
 import dogs from "../../img/dogs1.gif";
 import { BakgroundFailed, BakgroundSuccess, ButtonBackSuccess, DivContainerSuccess, GifPet, TextError, TitleError } from './StyledFailure';
 import {Link} from 'react-router-dom';
