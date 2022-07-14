@@ -26,11 +26,7 @@ import Failure from "./pages/Donation/results/Failure";
 //ADMIN
 import AdminHome from "./pages/AdminHome/AdminHome";
 import AdminPets from "./components/Admin/AdminPets/AdminPets";
-import AdminDonation from "./components/Admin/AdminDonation/AdminDonation";
 import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
-import FormLostAnimals from "./components/Admin/FormLostAnimals/FormLostAnimals";
-import FormAdopt from "./components/Admin/FormAdopt/FormAdopt";
-import FormTransit from "./components/Admin/FormTransit/FormTransit";
 import ProfilePets from "./components/Admin/ProfilePets/ProfilePets";
 import Peticiones from './components/Admin/AdminUsers/Peticiones'
 //  MODO OSCURO //
@@ -47,12 +43,16 @@ import Redireccion from "./components/Chatbot/Redirect";
 
 function App() {
   const dispatch = useDispatch();
-
-  const token = useSelector((state) => state.usuario)
+  const usuario = useSelector(state=>state.usuario)
+  const [token, setToken] = useState(window.localStorage.getItem('userInfo'))
 
   useEffect(() => {
     window.localStorage.getItem('userInfo') && dispatch(upLogin(JSON.parse(localStorage.getItem("userInfo"))))
   }, [])
+
+  useEffect(()=>{
+    setToken(usuario)
+  }, [usuario])
 
   const [theme, setTheme] = useDarkMode();
   const themeMode = theme === "light" ? "light" : "dark";
@@ -81,7 +81,7 @@ function App() {
             <Route path="/useradoptpet/:id" element={token ? <UserAdoptPetForm /> : <Redireccion URL='/' />}></Route>
             <Route path="/usertransitpet/:id" element={token ? <UserTransitPetForm /> : <Redireccion URL='/' />}></Route>
             <Route path="/donation/success" element={token ? <Success /> : <Redireccion URL='/' />}></Route>
-            <Route path="/donation/failure" element={token ? <Failure /> : <Redireccion URL='/' />}></Route>
+            <Route path="/donation/failure/:id" element={token ? <Failure /> : <Redireccion URL='/' />}></Route>
             {/* <Route path="/useradoptpet" element={<UserAdoptPetForm />}></Route>
             <Route path="/usertransitpet" element={<UserTransitPetForm />}></Route> */}
             <Route path="/userprofile" element={token ? <UserProfile /> : <Redireccion URL='/' />}></Route>
@@ -90,10 +90,6 @@ function App() {
             <Route path="/admin" element={token ? <AdminHome /> : <Redireccion URL='/' />}></Route>
             <Route path="/admin/pets" element={token ? <AdminPets /> : <Redireccion URL='/' />}></Route>
             <Route path="/admin/users" element={token ? <AdminUsers /> : <Redireccion URL='/' />}></Route>
-            <Route path="/admin/donation" element={token ? <AdminDonation /> : <Redireccion URL='/' />}></Route>
-            <Route path="/admin/formadopt" element={token ? <FormAdopt /> : <Redireccion URL='/' />}></Route>
-            <Route path="/admin/formlost" element={token ? <FormLostAnimals /> : <Redireccion URL='/' />}></Route>
-            <Route path="/admin/formtransit" element={token ? <FormTransit /> : <Redireccion URL='/' />}></Route>
             <Route path="/admin/profilepets/:id" element={token ? <ProfilePets /> : <Redireccion URL='/' />}></Route>
             <Route path="/admin/petitionuser/:id" element={token ? <Peticiones /> : <Redireccion URL='/' />}></Route>
             {/* <Route path="/useritsmypet/:id" element={<UserItsMyPetForm />}></Route> */}

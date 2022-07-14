@@ -19,7 +19,9 @@ import {
   BackIcon,
   ButtonForm,
   ContainerButton,
+  DivHeader,
 } from "./StyledPetDetail";
+import {getCastration, getFur, getGender, getPet, getSize, getState, getVaccinate} from '../../Admin/AdminPets/toSpanish'
 
 export default function PetDetail() {
   // const detail = useSelector(state => state.pets)
@@ -42,19 +44,12 @@ export default function PetDetail() {
         {petDetail ? (
           <DetailContainer>
             <ContainerImage>
-              <ContainerButton>
-                {petDetail.state === "transit" ? (
-                  <ButtonForm
-                    onClick={() =>
-                      usuario
-                        ? navigate(`/useradoptpet/${id}`, "_self")
-                        : navigate(`/login`, "_self")
-                    }
-                  >
-                    Quiero adoptar
-                  </ButtonForm>
-                ) : petDetail.state === "adopt" ? (
-                  <>
+              <DivHeader>
+                <div>
+                  <DetailTitle>{petDetail.name}</DetailTitle>
+                </div>
+                <ContainerButton>
+                  {petDetail.state === "transit" ? (
                     <ButtonForm
                       onClick={() =>
                         usuario
@@ -64,32 +59,43 @@ export default function PetDetail() {
                     >
                       Quiero adoptar
                     </ButtonForm>
+                  ) : petDetail.state === "adopt" ? (
+                    <>
+                      <ButtonForm
+                        onClick={() =>
+                          usuario
+                            ? navigate(`/useradoptpet/${id}`, "_self")
+                            : navigate(`/login`, "_self")
+                        }
+                      >
+                        Quiero adoptar
+                      </ButtonForm>
 
+                      <ButtonForm
+                        onClick={() =>
+                          usuario
+                            ? navigate(`/usertransitpet/${id}`)
+                            : navigate(`/login`)
+                        }
+                      >
+                        Hogar Transito
+                      </ButtonForm>
+                    </>
+                  ) : petDetail.state === "lost" ? (
+                    // <Link to={`/useritsmypet/${id}`}>
                     <ButtonForm
                       onClick={() =>
                         usuario
-                          ? navigate(`/usertransitpet/${id}`)
+                          ? navigate(`/useritsmypet/${id}`)
                           : navigate(`/login`)
                       }
                     >
-                      Hogar Transito
+                      Es mi perro
                     </ButtonForm>
-                  </>
-                ) : petDetail.state === "lost" ? (
-                  // <Link to={`/useritsmypet/${id}`}>
-                  <ButtonForm
-                    onClick={() =>
-                      usuario
-                        ? navigate(`/useritsmypet/${id}`)
-                        : navigate(`/login`)
-                    }
-                  >
-                    Es mi perro
-                  </ButtonForm>
-                ) : null}
-              </ContainerButton>
+                  ) : null}
+                </ContainerButton>
+              </DivHeader>
 
-              <DetailTitle>{petDetail.name}</DetailTitle>
               <ImageDetail
                 src={petDetail.image}
                 alt="pets"
@@ -104,30 +110,30 @@ export default function PetDetail() {
               </SubTitle2>
               <SubTitle2>
                 <Span>Peso: </Span>
-                {petDetail.weight ? petDetail.weight : "unknown"}
+                {petDetail.weight ? petDetail.weight : "no se sabe"}
               </SubTitle2>
               <SubTitle2>
                 <Span>Tamaño: </Span>
-                {petDetail.size}
+                {petDetail.size ? getSize(petDetail.size) : "no se sabe"}
               </SubTitle2>
               <SubTitle3>
                 <Span>Pelaje: </Span>
-                {petDetail.fur}
+                {petDetail.fur ? getFur(petDetail.fur) : "no se sabe"}
               </SubTitle3>
               <SubTitle3>
                 <Span>Genero: </Span>
-                {petDetail.gender}
+                {petDetail.gender ? getGender(petDetail.gender) : "no se sabe"}
               </SubTitle3>
               <SubTitle3>
-                <Span>Castrado: </Span> {petDetail.castration}
+                <Span>Castrado: </Span> {petDetail.castration ? getCastration(petDetail.castration) : "no se sabe"}
               </SubTitle3>
               <SubTitle3>
                 <Span>Vacunado: </Span>
-                {petDetail.vaccinate}
+                {petDetail.vaccinate ? getVaccinate(petDetail.vaccinate): "no se sabe"}
               </SubTitle3>
               <SubTitle3>
                 <Span>Estado: </Span>
-                {petDetail.state === "adopt" ? "for adopt" : petDetail.state}
+                {petDetail.state ? getState(petDetail.state): "no se sabe"}
               </SubTitle3>
             </ContainerContent>
           </DetailContainer>
@@ -135,6 +141,6 @@ export default function PetDetail() {
           <h1>Esta mascota no existe o aún no fue cargada</h1>
         )}
       </div>
-    </BackgroundDetail>
+    </BackgroundDetail >
   );
 }

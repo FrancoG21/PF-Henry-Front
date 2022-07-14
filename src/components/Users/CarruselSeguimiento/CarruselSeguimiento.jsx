@@ -12,6 +12,8 @@ import {
   LostLink,
   ContainerLink,
   CardLink,
+  DivTitle,
+  CheckIcon,
 } from "./StyledCarrusel";
 
 export default function CarruselSeguimiento() {
@@ -22,7 +24,7 @@ export default function CarruselSeguimiento() {
       const { data } = await axios.get("/tracking/ult5");
       setSeguimiento(data);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -31,8 +33,13 @@ export default function CarruselSeguimiento() {
   }, []);
 
   return (
-    <ContainerLost>
-      <TitleCarrusel>Animales Adoptados</TitleCarrusel>
+    <div>
+      <ContainerLost>
+        <DivTitle>
+          <TitleCarrusel>Animales Adoptados</TitleCarrusel>
+          <CheckIcon />
+        </DivTitle>
+      </ContainerLost>
       <Splide
         options={{
           rewind: false,
@@ -86,14 +93,14 @@ export default function CarruselSeguimiento() {
         )}
       </Splide>
       {/*  {console.log('seguimiento', seguimiento)}
-          <h1>Seguimiento</h1>
-          {seguimiento.length ? seguimiento.map((s,i)=>{return(
-              <div key={'b'+i}>
-                  <h4>Publicacion N°{i+1}</h4>
-                  <p>{s.description}</p>
-                  {s.image.length ? s.image.map(e => <img key={'a'+e}src={e} alt={e}  height='200px' width='200px'/>) : null}
-              </div>
-          )}) : <h1>No hay seguimientos cargados todavia</h1>} */}
-    </ContainerLost>
+            <h1>Seguimiento</h1>
+            {seguimiento.length ? seguimiento.map((s,i)=>{return(
+                <div key={'b'+i}>
+                    <h4>Publicacion N°{i+1}</h4>
+                    <p>{s.description}</p>
+                    {s.image.length ? s.image.map(e => <img key={'a'+e}src={e} alt={e}  height='200px' width='200px'/>) : null}
+                </div>
+            )}) : <h1>No hay seguimientos cargados todavia</h1>} */}
+    </div>
   );
 }

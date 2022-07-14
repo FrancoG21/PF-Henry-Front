@@ -11,7 +11,6 @@ export default function Home() {
     return (
         <Background>
             <Hero />
-         
             <Carrusel />
             <CarruselSeguimiento />
         </Background>

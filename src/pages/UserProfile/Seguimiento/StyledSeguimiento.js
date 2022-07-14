@@ -116,3 +116,8 @@ export const ButtonSubmit = styled.button`
         width: 50%;
     }
 `
+
+export const TextSeg = styled.h2`
+    color: ${(props) => props.theme.secondary};
+    font-size: 1rem;
+`

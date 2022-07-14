@@ -11,6 +11,8 @@ import {
   LostLink,
   ContainerLink,
   CardLink,
+  DivTitle,
+  WarningIcon,
 } from "./StyledCarrusel";
 import { Link } from "react-router-dom";
 import { getPets } from "../../../../redux/actions/index";
@@ -28,7 +30,10 @@ const Carrusel = () => {
   return (
     <div>
       <ContainerLost>
-        <TitleCarrusel>Animales Perdidos</TitleCarrusel>
+        <DivTitle>
+          <TitleCarrusel>Animales Perdidos</TitleCarrusel>
+          <WarningIcon />
+        </DivTitle>
         <ContainerLink>
           <LostLink to="/lostpets">
             <ButtonLost>Ver Animales Perdidos</ButtonLost>

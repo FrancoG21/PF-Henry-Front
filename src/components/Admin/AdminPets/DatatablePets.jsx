@@ -11,6 +11,7 @@ import { getPets, } from '../../../redux/actions/index';
 import axios from 'axios';
 import Paginate from '../../Users/Paginate/Paginate';
 import { ButtonDelete, ButtonEdit, DivButtons } from "./StyledDataTablePets";
+import {getFur,getGender,getPet,getSize,getCastration,getVaccinate,getState} from "./toSpanish.js";
 
 export default function DatatablePets({ id }) {
 
@@ -65,17 +66,15 @@ export default function DatatablePets({ id }) {
                                         {p.name}
                                     </div>
                                 </TableCell>
-                                <TableCell className="tableCell">{p.pet}</TableCell>
+                                <TableCell className="tableCell">{getPet(p.pet)}</TableCell>
                                 <TableCell className="tableCell">{p.breed}</TableCell>
-                                <TableCell className="tableCell">{p.gender}</TableCell>
-                                <TableCell className="tableCell">{p.size}</TableCell>
-                                <TableCell className="tableCell">{p.weight ? p.weight : "Desconocido"}</TableCell>
-                                <TableCell className="tableCell">{p.fur}</TableCell>
-                                <TableCell className="tableCell">{p.castration}</TableCell>
-                                <TableCell className="tableCell">{p.vaccinate}</TableCell>
-                                <TableCell className="tableCell">
-                                    <span>{p.state}</span>
-                                </TableCell>
+                                <TableCell className="tableCell">{getGender(p.gender)}</TableCell>
+                                <TableCell className="tableCell">{getSize(p.size)}</TableCell>
+                                <TableCell className="tableCell">{p.weight ? p.weight : "desconocido"}</TableCell>
+                                <TableCell className="tableCell">{getFur(p.fur)}</TableCell>
+                                <TableCell className="tableCell">{getCastration(p.castration)}</TableCell>
+                                <TableCell className="tableCell">{getVaccinate(p.vaccinate)}</TableCell>
+                                <TableCell className="tableCell">{getState(p.state)}</TableCell>
                                 <TableCell>
                                     <DivButtons>
                                         <ButtonEdit to={`/admin/profilepets/${p.id}`}>Editar</ButtonEdit>

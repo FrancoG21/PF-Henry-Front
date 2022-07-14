@@ -15,6 +15,7 @@ import {
   ImageSpace,
   ContainerTop,
   ContainerFilters,
+  TitlePets,
 } from "./StyledToAdopt";
 
 export default function Pets() {
@@ -44,7 +45,7 @@ export default function Pets() {
     <BackgroundPets>
       <ContainerTop>
         <div>
-          <h1>Adoptá o Transitá tu mascota aquí</h1>          
+          <TitlePets>Adoptá o Transitá tu mascota aquí</TitlePets>          
           <Searchbar stateValue={['adopt', 'transit']} />
           <PetFilters petsToFilter={petsToFilter} stateValue={['adopt', 'transit']} />
         </div>

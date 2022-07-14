@@ -6,7 +6,12 @@ import { Link } from "react-router-dom";
 export const TitleForm = styled.h1`
     color: ${(props) => props.theme.secondary};
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
+`
+
+export const BackgroundForm = styled.div`
+    background-color: ${(props) => props.theme.background};
+    padding-bottom: 2rem;
 `
 
 export const Forms = styled(Form)`
@@ -21,7 +26,8 @@ export const FormContainer = styled.div`
     background-color: ${(props) => props.theme.primary};
     padding: 2rem;
     border-radius: 3px;
-    margin: 30px 80px;
+    margin-left: 30px;
+    margin-right: 30px;
 
     @media screen and (max-width: 600px) {
         width: 73%;
@@ -56,12 +62,16 @@ export const Label = styled.label`
 `
 
 export const Input = styled(Field)`
-    width: 90%;
+    width: 98%;
     padding: .5rem;
     border: none;
     border-radius: .5rem;
     margin-left: 5px;
     outline: none;
+
+    @media screen and (max-width: 600px) {
+        width: 90%;
+    }
 `
 
 export const Select = styled(Field)`
@@ -114,7 +124,14 @@ export const ButtonSubmit = styled.button`
 `
 
 export const ImagePet = styled.img`
-    width: 15rem;
+    width: 20rem;
+
+    @media screen and (max-width: 600px) {
+        width: 100%;
+        height: 200px;
+        margin: 0;
+        padding: 0;
+    }
 `
 
 export const IconLink = styled(Link)`
@@ -127,4 +144,16 @@ export const BackIcon = styled(VscArrowLeft)`
     margin-left: 20px;
     margin-top: 10px;
     width: 2em;
+    height: 2em;
+`
+
+export const Succes = styled.p`
+    font-size: 1rem;
+    color: #fff;
+    text-align: center;
+`
+
+export const Span = styled.span`
+    font-size: 1.2rem;
+    color: ${(props) => props.theme.secondary};
 `

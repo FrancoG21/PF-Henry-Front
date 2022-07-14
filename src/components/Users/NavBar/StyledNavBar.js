@@ -171,3 +171,27 @@ export const Button = styled.button`
         margin-top: 0;
     }
 `
+
+export const List = styled.ul`
+    display: flex;
+    align-items: center;
+    list-style: none;
+
+    @media screen and (max-width: 600px){
+        /* justify-content: center; */
+        margin-left: 80px;
+    }
+`
+
+export const ListItem = styled.li`
+    margin-right: 20px;
+    font-weight: 500;
+    cursor: pointer;
+`
+
+export const Avatar = styled.img`
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+`
