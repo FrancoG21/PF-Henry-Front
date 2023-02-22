@@ -37,7 +37,7 @@ export default function About() {
       name: "Matias Farina Solá",
       image:
         "http://res.cloudinary.com/dlol6par5/image/upload/v1657669725/b1btugwql2e3rbcjnlbb.jpg",
-      linkedIn: "https://www.linkedin.com/in/matias-farina-sola-09040b147/",
+      linkedIn: "https://www.linkedin.com/in/matias-farina/",
       github: "https://github.com/matifagith",
       email: "matiasfarinasola@gmail.com"
     },
@@ -76,7 +76,7 @@ export default function About() {
     {
       name: "Agustin Di Giacinto",
       image: "https://media-exp2.licdn.com/dms/image/C4D03AQGr6joJNV4Cyw/profile-displayphoto-shrink_200_200/0/1643246912186?e=1662595200&v=beta&t=NyMuSt1D1Ra9tkW_Qp7SsqHUaiOlC3XWJHR6oxQ7YwE",
-    linkedIn: "https://www.linkedin.com/in/agustin-di-giacinto-5a0357218/",
+    linkedIn: "https://www.linkedin.com/in/agustin-digiacinto/",
     github: "https://github.com/AgustinDi",
     email: "agustindigiacinto18@gmail.com"
     },
