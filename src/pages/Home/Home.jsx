@@ -4,7 +4,7 @@ import { Background } from './StyledHome';
 import Carrusel from '../../components/Users/Lost/Slideshow/Carrusel';
 import CarruselSeguimiento from "../../components/Users/CarruselSeguimiento/CarruselSeguimiento";
 //import ContenidoChatb from "../../components/Chatbot/ContenidoChatb/ContenidoChatb";
-//redeploy
+//deploy
 
 export default function Home() {
 
